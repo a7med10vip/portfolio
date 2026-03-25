@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 const FROM_EMAIL = "Ahmed Ali <hello@ahmedali.online>";
-const TO_EMAIL = "hello@ahmedali.online";
+const TO_EMAIL = "ahmedali.stack@gmail.com";
 
 function notificationEmail({
   name,
