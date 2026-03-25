@@ -72,7 +72,7 @@ const projects = [
     tags: ["UX Research", "Analytics", "Optimization", "Market Research"],
     accent: "#4FFFB0",
     link: null,
-    image: "/projects/qnb.jpg",
+    image: "/projects/qnb.webp",
   },
   {
     category: "UX Optimization",
@@ -87,7 +87,7 @@ const projects = [
     tags: ["UX Research", "E-commerce", "Optimization", "Analytics", "GA4"],
     accent: "#4FFFB0",
     link: "https://store.chelseafc.com/en/",
-    image: "/projects/chealse.png",
+    image: "/projects/chealse.webp",
   },
   {
     category: "Real Estate SEO",
@@ -101,7 +101,7 @@ const projects = [
     tags: ["SEO Strategy", "GA4", "Content", "Analytics"],
     accent: "#4FFFB0",
     link: "https://www.binghatti.com/en/",
-    image: "/projects/binghatti.png",
+    image: "/projects/binghatti.webp",
   },
   {
     category: "Event Strategy",
@@ -115,7 +115,7 @@ const projects = [
     tags: ["Events", "Google Ads", "Strategy"],
     accent: "#4FFFB0",
     link: "https://mobiledevelopersweek.com/",
-    image: "/projects/mdw.png",
+    image: "/projects/mdw.webp",
   },
   {
     category: "AI Platform",
@@ -129,7 +129,7 @@ const projects = [
     tags: ["React", "Next.js", "Firebase", "AI", "Analytics", "Optimization"],
     accent: "#4FFFB0",
     link: "https://arab-marketing-net-web-app.web.app/",
-    image: "/projects/omnis.png",
+    image: "/projects/omnis.webp",
   },
   {
     category: "Mobile App",
@@ -143,7 +143,7 @@ const projects = [
     tags: ["Flutter", "AI", "Payment", "Firebase", "Analytics"],
     accent: "#4FFFB0",
     link: null,
-    image: "/projects/maasob.png",
+    image: "/projects/maasob.webp",
     appStore: "https://apps.apple.com/ca/app/%D9%85%D8%B9%D8%B5%D9%88%D8%A8-%D8%A7%D9%84%D8%B3%D9%84%D8%B7%D8%A7%D9%86/id6757263587",
     playStore: "https://play.google.com/store/apps/details?id=com.masoubalsultan.app",
   },
@@ -159,7 +159,7 @@ const projects = [
     tags: ["WordPress", "SEO", "GA4", "Analytics", "Optimization", "SEO Strategy"],
     accent: "#4FFFB0",
     link: "https://financebusinessuae.com",
-    image: "/projects/fnb.png",
+    image: "/projects/fnb.webp",
   },
   {
     category: "Healthcare",
@@ -173,7 +173,7 @@ const projects = [
     tags: ["WordPress", "Booking", "Payment", "Optimization", "Analytics", "GA4", "SEO"],
     accent: "#4FFFB0",
     link: "https://rmclinic.sa",
-    image: "/projects/rmclinic.png",
+    image: "/projects/rmclinic.webp",
   },
   {
     category: "Hospitality & Strategy",

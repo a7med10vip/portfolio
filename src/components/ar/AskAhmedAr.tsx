@@ -420,6 +420,7 @@ export default function AskAhmedAr() {
 
           <button
             onClick={closeChat}
+            aria-label="إغلاق المحادثة"
             className="cursor-pointer"
             style={{
               width: "32px",
@@ -627,6 +628,7 @@ export default function AskAhmedAr() {
             />
             <button
               onClick={() => sendMessage()}
+              aria-label="إرسال"
               disabled={isTyping || !input.trim()}
               className="cursor-pointer"
               style={{

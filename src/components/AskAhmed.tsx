@@ -300,6 +300,7 @@ export default function AskAhmed() {
 
           <button
             onClick={openChat}
+            aria-label="Open chat with Ahmed"
             className="group relative cursor-pointer"
             style={{
               width: "60px",
@@ -415,6 +416,7 @@ export default function AskAhmed() {
 
           <button
             onClick={closeChat}
+            aria-label="Close chat"
             className="cursor-pointer"
             style={{
               width: "32px",
@@ -617,6 +619,7 @@ export default function AskAhmed() {
             <button
               onClick={() => sendMessage()}
               disabled={isTyping || !input.trim()}
+              aria-label="Send message"
               className="cursor-pointer"
               style={{
                 width: "38px",
