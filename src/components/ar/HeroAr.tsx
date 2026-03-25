@@ -40,15 +40,18 @@ export default function HeroAr() {
 
   return (
     <section ref={ref} className="min-h-screen flex items-center relative overflow-hidden" style={{ background: "#0A0A0A" }}>
-      {/* Aurora */}
-      <div className="absolute inset-0 z-0 opacity-40">
+      {/* Aurora - desktop only */}
+      <div className="absolute inset-0 z-0 opacity-40 hidden md:block">
         <Aurora colorStops={["#5227FF", "#4FFFB0", "#5227FF"]} amplitude={1.0} blend={0.5} speed={1.0} />
       </div>
 
-      {/* Antigravity */}
-      <div className="absolute inset-0 z-[2] opacity-25" style={{ pointerEvents: "auto" }}>
-        <Antigravity count={300} magnetRadius={6} ringRadius={7} waveSpeed={0.4} waveAmplitude={1} particleSize={1.2} lerpSpeed={0.05} color="#4FFFB0" autoAnimate particleVariance={1} rotationSpeed={0} depthFactor={1} pulseSpeed={3} particleShape="capsule" fieldStrength={10} />
+      {/* Antigravity - desktop only, reduced count */}
+      <div className="absolute inset-0 z-[2] opacity-25 hidden md:block" style={{ pointerEvents: "auto" }}>
+        <Antigravity count={150} magnetRadius={6} ringRadius={7} waveSpeed={0.4} waveAmplitude={1} particleSize={1.2} lerpSpeed={0.05} color="#4FFFB0" autoAnimate particleVariance={1} rotationSpeed={0} depthFactor={1} pulseSpeed={3} particleShape="capsule" fieldStrength={10} />
       </div>
+
+      {/* Mobile: simple gradient background */}
+      <div className="absolute inset-0 z-0 md:hidden" style={{ background: "radial-gradient(ellipse at 50% 30%, rgba(79,255,176,0.12) 0%, transparent 60%)" }} />
 
       <div className="relative z-10 w-full px-6 md:px-12 lg:px-20 pointer-events-none">
         <div className="max-w-6xl mx-auto text-center pt-32 pb-0">
