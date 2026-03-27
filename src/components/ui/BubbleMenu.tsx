@@ -68,10 +68,10 @@ export default function BubbleMenu() {
 
   return (
     <>
-      <div className="fixed top-4 left-0 right-0 z-[100] flex justify-center pointer-events-none">
+      <div className="fixed top-4 left-0 right-0 z-[100] flex justify-center pointer-events-none px-4 md:px-0">
       <nav
         ref={navRef}
-        className="transition-all duration-500 opacity-0 pointer-events-auto"
+        className="transition-all duration-500 opacity-0 pointer-events-auto w-full md:w-auto"
         style={{
           background: scrolled ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.08)",
           backdropFilter: "blur(20px)",
@@ -82,7 +82,7 @@ export default function BubbleMenu() {
           padding: "6px 6px 6px 20px",
         }}
       >
-        <div className="flex items-center gap-1">
+        <div className="flex items-center justify-between md:justify-start gap-1 w-full md:w-auto">
           {/* Logo */}
           <a href="#" className="heading text-lg mr-4" style={{ color: scrolled ? "#0A0A0A" : "#fff" }}>
             Ahmed<span style={{ color: "#4FFFB0" }}>.</span>
@@ -180,7 +180,7 @@ export default function BubbleMenu() {
                   key={link.label}
                   href={link.href}
                   onClick={closeMobile}
-                  className="mob-link text-2xl font-bold py-3 transition-colors duration-200 hover:text-[#4FFFB0]"
+                  className="mob-link heading text-2xl py-3 transition-colors duration-200 hover:text-[#4FFFB0]"
                   style={{ color: "#fff", opacity: 0, borderBottom: "1px solid rgba(255,255,255,0.06)" }}
                 >
                   {link.label}

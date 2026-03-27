@@ -55,9 +55,9 @@ export default function BubbleMenuAr() {
 
   return (
     <>
-      <div className="fixed top-4 left-0 right-0 z-[100] flex justify-center pointer-events-none">
-        <nav ref={navRef} className="transition-all duration-500 opacity-0 pointer-events-auto" style={{ background: scrolled ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.08)", backdropFilter: "blur(20px)", WebkitBackdropFilter: "blur(20px)", borderRadius: "9999px", border: scrolled ? "1px solid rgba(0,0,0,0.06)" : "1px solid rgba(255,255,255,0.1)", boxShadow: scrolled ? "0 4px 30px rgba(0,0,0,0.08)" : "none", padding: "6px 20px 6px 6px" }}>
-          <div className="flex items-center gap-1" dir="rtl">
+      <div className="fixed top-4 left-0 right-0 z-[100] flex justify-center pointer-events-none px-4 md:px-0">
+        <nav ref={navRef} className="transition-all duration-500 opacity-0 pointer-events-auto w-full md:w-auto" style={{ background: scrolled ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.08)", backdropFilter: "blur(20px)", WebkitBackdropFilter: "blur(20px)", borderRadius: "9999px", border: scrolled ? "1px solid rgba(0,0,0,0.06)" : "1px solid rgba(255,255,255,0.1)", boxShadow: scrolled ? "0 4px 30px rgba(0,0,0,0.08)" : "none", padding: "6px 20px 6px 6px" }}>
+          <div className="flex items-center justify-between md:justify-start gap-1 w-full md:w-auto" dir="rtl">
             {/* Logo - English TAN font, right side in RTL */}
             <a href="#" className="heading text-lg ml-4" style={{ color: scrolled ? "#0A0A0A" : "#fff", fontFamily: "'TAN Headline'" }}>
               Ahmed<span style={{ color: "#4FFFB0" }}>.</span>

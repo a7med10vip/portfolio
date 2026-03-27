@@ -268,7 +268,7 @@ export default function AskAhmed() {
     <>
       {/* Trigger */}
       {!isOpen && (
-        <div className="fixed bottom-7 right-7 z-[999] flex flex-col items-end gap-3">
+        <div className="fixed bottom-7 right-7 z-[97] flex flex-col items-end gap-3">
           {/* Greeting or nudge preview */}
           {(showGreeting || previewMsg) && (
             <div
@@ -361,7 +361,7 @@ export default function AskAhmed() {
 
       {/* Chat Window */}
       <div
-        className="fixed bottom-7 right-7 z-[999] flex flex-col askahmed-window"
+        className="fixed bottom-7 right-7 z-[97] flex flex-col askahmed-window"
         style={{
           width: "400px",
           height: "600px",
