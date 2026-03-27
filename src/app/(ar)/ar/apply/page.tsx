@@ -58,8 +58,8 @@ export default function ApplyPage() {
     >
       <div style={{ width: "100%", maxWidth: "480px" }}>
         {/* Logo */}
-        <div style={{ textAlign: "center", marginBottom: "40px" }}>
-          <a href="/ar" style={{ textDecoration: "none" }}>
+        <div style={{ textAlign: "center", marginBottom: "40px", direction: "ltr" }}>
+          <a href="/" style={{ textDecoration: "none" }}>
             <span className="heading" style={{ fontSize: "28px", color: "#fff" }}>
               Ahmed Ali
             </span>
@@ -217,7 +217,7 @@ export default function ApplyPage() {
                       display: "block",
                       fontSize: "12px",
                       fontWeight: 600,
-                      color: "rgba(255,255,255,0.5)",
+                      color: "#fff",
                       marginBottom: "8px",
                     }}
                   >
@@ -255,7 +255,7 @@ export default function ApplyPage() {
                       display: "block",
                       fontSize: "12px",
                       fontWeight: 600,
-                      color: "rgba(255,255,255,0.5)",
+                      color: "#fff",
                       marginBottom: "8px",
                     }}
                   >
@@ -294,7 +294,7 @@ export default function ApplyPage() {
                       display: "block",
                       fontSize: "12px",
                       fontWeight: 600,
-                      color: "rgba(255,255,255,0.5)",
+                      color: "#fff",
                       marginBottom: "8px",
                     }}
                   >
@@ -332,7 +332,7 @@ export default function ApplyPage() {
                       display: "block",
                       fontSize: "12px",
                       fontWeight: 600,
-                      color: "rgba(255,255,255,0.5)",
+                      color: "#fff",
                       marginBottom: "8px",
                     }}
                   >
@@ -408,7 +408,7 @@ export default function ApplyPage() {
                           marginBottom: "2px",
                         }}
                       >
-                        محتاج المشروع يتسلّم خلال 5 أيام
+                        هل أنت موافق على تسليم المشروع خلال 5 أيام؟
                       </span>
                       <span
                         className="ar-body"
@@ -417,7 +417,7 @@ export default function ApplyPage() {
                           color: "rgba(255,255,255,0.35)",
                         }}
                       >
-                        فعّل لو عندك deadline قريب
+                        فعّل في حالة الموافقة على المدة
                       </span>
                     </div>
                   </div>
