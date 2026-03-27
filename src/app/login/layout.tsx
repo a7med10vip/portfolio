@@ -1,7 +1,10 @@
 export default function LoginLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body style={{ margin: 0, background: "#0A0A0A" }}>{children}</body>
+      <head>
+        <link rel="icon" href="/favicon.png" type="image/png" />
+      </head>
+      <body style={{ margin: 0, background: "#F8FAFB" }}>{children}</body>
     </html>
   );
 }

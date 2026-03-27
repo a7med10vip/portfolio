@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Mail, FileText, Check, Circle } from "lucide-react";
+import { Mail, FileText, Check, Circle, Clock, Search } from "lucide-react";
 
 type Submission = {
   type: string;
@@ -16,6 +16,7 @@ type Submission = {
 function timeAgo(dateStr: string) {
   const diff = Date.now() - new Date(dateStr).getTime();
   const mins = Math.floor(diff / 60000);
+  if (mins < 1) return "Just now";
   if (mins < 60) return `${mins}m ago`;
   const hours = Math.floor(mins / 60);
   if (hours < 24) return `${hours}h ago`;
@@ -46,29 +47,41 @@ export default function SubmissionsPage() {
   };
 
   const tabs = [
-    { key: "all", label: "All" },
-    { key: "contact", label: "Contact" },
-    { key: "apply", label: "Apply" },
+    { key: "all", label: "All", count: data.length },
+    { key: "contact", label: "Contact", count: data.filter((d) => d.type === "contact").length },
+    { key: "apply", label: "Applications", count: data.filter((d) => d.type === "apply").length },
   ];
+
+  const unread = data.filter((d) => !d.is_read).length;
 
   return (
     <div>
-      <h1 style={{ fontSize: "28px", fontWeight: 700, marginBottom: "24px" }}>Submissions</h1>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start", marginBottom: "28px" }}>
+        <div>
+          <h1 style={{ fontSize: "28px", fontWeight: 700, color: "#0F1729", marginBottom: "4px", letterSpacing: "-0.5px" }}>Submissions</h1>
+          <p style={{ color: "#9CA3AF", fontSize: "14px", margin: 0 }}>
+            {data.length} total{unread > 0 && <span style={{ color: "#16A34A", fontWeight: 600 }}> ({unread} unread)</span>}
+          </p>
+        </div>
+      </div>
 
-      <div style={{ display: "flex", gap: "8px", marginBottom: "24px" }}>
+      {/* Tabs */}
+      <div style={{ display: "flex", gap: "4px", marginBottom: "20px", background: "#F3F4F6", padding: "4px", borderRadius: "12px", width: "fit-content" }}>
         {tabs.map((tab) => (
           <button
             key={tab.key}
             onClick={() => setFilter(tab.key)}
             style={{
-              padding: "8px 20px",
-              borderRadius: "999px",
+              padding: "8px 18px",
+              borderRadius: "9px",
               fontSize: "13px",
               fontWeight: 600,
               border: "none",
               cursor: "pointer",
-              background: filter === tab.key ? "#4FFFB0" : "rgba(255,255,255,0.06)",
-              color: filter === tab.key ? "#0A0A0A" : "rgba(255,255,255,0.5)",
+              background: filter === tab.key ? "#fff" : "transparent",
+              color: filter === tab.key ? "#0F1729" : "#6B7280",
+              boxShadow: filter === tab.key ? "0 1px 3px rgba(0,0,0,0.08)" : "none",
+              transition: "all 0.15s",
             }}
           >
             {tab.label}
@@ -76,47 +89,76 @@ export default function SubmissionsPage() {
         ))}
       </div>
 
+      {/* Table */}
       {loading ? (
-        <p style={{ color: "rgba(255,255,255,0.4)" }}>Loading...</p>
+        <p style={{ color: "#9CA3AF", padding: "40px", textAlign: "center" }}>Loading...</p>
       ) : data.length === 0 ? (
-        <p style={{ color: "rgba(255,255,255,0.4)" }}>No submissions yet.</p>
+        <div style={{ background: "#fff", borderRadius: "16px", border: "1px solid #E5E7EB", padding: "60px", textAlign: "center" }}>
+          <Search size={32} color="#D1D5DB" style={{ marginBottom: "12px" }} />
+          <p style={{ color: "#9CA3AF", fontSize: "14px", margin: 0 }}>No submissions yet.</p>
+        </div>
       ) : (
-        <div style={{ background: "#111", borderRadius: "20px", border: "1px solid rgba(79,255,176,0.06)", overflow: "hidden" }}>
-          {data.map((item, i) => (
+        <div style={{ background: "#fff", borderRadius: "16px", border: "1px solid #E5E7EB", overflow: "hidden", boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
+          {/* Header */}
+          <div style={{ display: "grid", gridTemplateColumns: "40px 1fr 120px 100px 80px", gap: "16px", padding: "12px 24px", borderBottom: "1px solid #F3F4F6", background: "#F9FAFB" }}>
+            <span style={{ fontSize: "11px", fontWeight: 600, color: "#9CA3AF", textTransform: "uppercase" }}></span>
+            <span style={{ fontSize: "11px", fontWeight: 600, color: "#9CA3AF", textTransform: "uppercase" }}>Sender</span>
+            <span style={{ fontSize: "11px", fontWeight: 600, color: "#9CA3AF", textTransform: "uppercase" }}>Type</span>
+            <span style={{ fontSize: "11px", fontWeight: 600, color: "#9CA3AF", textTransform: "uppercase" }}>Time</span>
+            <span style={{ fontSize: "11px", fontWeight: 600, color: "#9CA3AF", textTransform: "uppercase" }}>Action</span>
+          </div>
+
+          {data.map((item) => (
             <div
               key={item.id}
               style={{
-                display: "flex",
-                alignItems: "center",
+                display: "grid",
+                gridTemplateColumns: "40px 1fr 120px 100px 80px",
                 gap: "16px",
-                padding: "16px 24px",
-                borderBottom: i < data.length - 1 ? "1px solid rgba(255,255,255,0.04)" : "none",
-                background: item.is_read ? "transparent" : "rgba(79,255,176,0.02)",
+                padding: "14px 24px",
+                alignItems: "center",
+                borderBottom: "1px solid #F9FAFB",
+                background: item.is_read ? "#fff" : "#FAFFFE",
+                transition: "background 0.15s",
               }}
             >
-              <div style={{ width: "36px", height: "36px", borderRadius: "10px", background: item.type === "contact" ? "rgba(79,255,176,0.1)" : "rgba(82,39,255,0.1)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                {item.type === "contact" ? <Mail size={16} color="#4FFFB0" /> : <FileText size={16} color="#5227FF" />}
+              {/* Avatar */}
+              <div style={{ width: "36px", height: "36px", borderRadius: "50%", background: item.type === "contact" ? "#F0FDF4" : "#F5F3FF", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "13px", fontWeight: 700, color: item.type === "contact" ? "#16A34A" : "#7C3AED" }}>
+                {item.name.charAt(0).toUpperCase()}
               </div>
 
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "2px" }}>
-                  {!item.is_read && <Circle size={8} fill="#4FFFB0" color="#4FFFB0" />}
-                  <span style={{ fontSize: "14px", fontWeight: 600, color: "#fff" }}>{item.name}</span>
-                  <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.3)", textTransform: "capitalize", background: "rgba(255,255,255,0.05)", padding: "2px 8px", borderRadius: "999px" }}>{item.type}</span>
-                  {item.urgent && <span style={{ fontSize: "10px", fontWeight: 700, color: "#ff6b6b", background: "rgba(255,75,75,0.1)", padding: "2px 8px", borderRadius: "999px" }}>Urgent</span>}
+              {/* Sender info */}
+              <div>
+                <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                  {!item.is_read && <Circle size={6} fill="#16A34A" color="#16A34A" />}
+                  <span style={{ fontSize: "14px", fontWeight: 600, color: "#0F1729" }}>{item.name}</span>
+                  {item.urgent && <span style={{ fontSize: "10px", fontWeight: 700, color: "#EF4444", background: "#FEF2F2", padding: "2px 8px", borderRadius: "999px" }}>Urgent</span>}
                 </div>
-                <span style={{ fontSize: "12px", color: "rgba(255,255,255,0.4)" }}>{item.detail}</span>
+                <span style={{ fontSize: "12px", color: "#9CA3AF" }}>{item.detail}</span>
               </div>
 
-              <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.3)", flexShrink: 0 }}>{timeAgo(item.created_at)}</span>
+              {/* Type */}
+              <span style={{ display: "inline-flex", alignItems: "center", gap: "6px", fontSize: "12px", fontWeight: 500, color: item.type === "contact" ? "#16A34A" : "#7C3AED" }}>
+                {item.type === "contact" ? <Mail size={13} /> : <FileText size={13} />}
+                {item.type === "contact" ? "Contact" : "Application"}
+              </span>
 
-              {!item.is_read && (
+              {/* Time */}
+              <span style={{ fontSize: "12px", color: "#9CA3AF", display: "flex", alignItems: "center", gap: "4px" }}>
+                <Clock size={11} />
+                {timeAgo(item.created_at)}
+              </span>
+
+              {/* Action */}
+              {!item.is_read ? (
                 <button
                   onClick={() => markRead(item.id, item.type)}
-                  style={{ background: "rgba(79,255,176,0.1)", border: "none", borderRadius: "8px", padding: "6px 12px", cursor: "pointer", display: "flex", alignItems: "center", gap: "4px", fontSize: "11px", fontWeight: 600, color: "#4FFFB0", flexShrink: 0 }}
+                  style={{ background: "#F0FDF4", border: "1px solid #BBF7D0", borderRadius: "8px", padding: "5px 12px", cursor: "pointer", display: "flex", alignItems: "center", gap: "4px", fontSize: "11px", fontWeight: 600, color: "#16A34A" }}
                 >
                   <Check size={12} /> Read
                 </button>
+              ) : (
+                <span style={{ fontSize: "11px", color: "#D1D5DB" }}>Read</span>
               )}
             </div>
           ))}

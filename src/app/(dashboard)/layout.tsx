@@ -5,7 +5,10 @@ const inter = Inter({ subsets: ["latin"], display: "swap" });
 export default function DashboardRootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={inter.className}>
-      <body style={{ margin: 0, background: "#0A0A0A", color: "#fff" }}>{children}</body>
+      <head>
+        <link rel="icon" href="/favicon.png" type="image/png" />
+      </head>
+      <body style={{ margin: 0, background: "#F8FAFB", color: "#0F1729" }}>{children}</body>
     </html>
   );
 }
