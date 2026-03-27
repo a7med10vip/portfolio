@@ -60,10 +60,10 @@ export default function ApplyPage() {
         {/* Logo */}
         <div style={{ textAlign: "center", marginBottom: "40px", direction: "ltr" }}>
           <a href="/" style={{ textDecoration: "none" }}>
-            <span className="heading" style={{ fontSize: "28px", color: "#fff" }}>
+            <span style={{ fontSize: "28px", color: "#fff", fontFamily: "'TAN Headline', sans-serif" }}>
               Ahmed Ali
             </span>
-            <span className="heading" style={{ fontSize: "28px", color: "#4FFFB0" }}>.</span>
+            <span style={{ fontSize: "28px", color: "#4FFFB0", fontFamily: "'TAN Headline', sans-serif" }}>.</span>
           </a>
         </div>
 
