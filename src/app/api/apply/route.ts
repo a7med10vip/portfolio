@@ -11,11 +11,13 @@ function applicationEmail({
   whatsapp,
   portfolio,
   notes,
+  urgent,
 }: {
   name: string;
   whatsapp: string;
   portfolio: string;
   notes: string;
+  urgent: boolean;
 }) {
   return `
 <!DOCTYPE html>
@@ -77,6 +79,12 @@ function applicationEmail({
           }
         </table>
 
+        ${urgent ? `
+        <!-- Urgent badge -->
+        <div style="margin-top:20px;padding:12px 16px;background:rgba(255,75,75,0.08);border:1px solid rgba(255,75,75,0.15);border-radius:12px;">
+          <span style="color:#ff6b6b;font-size:13px;font-weight:700;">⚡ مستعجل — يحتاج تسليم خلال 5 أيام</span>
+        </div>` : ""}
+
         <!-- WhatsApp CTA -->
         <div style="text-align:center;margin-top:24px;">
           <a href="https://wa.me/${whatsapp.replace(/[^0-9]/g, "")}" style="display:inline-block;background:#4FFFB0;color:#0A0A0A;font-size:14px;font-weight:700;padding:14px 32px;border-radius:999px;text-decoration:none;border:2px solid #0A0A0A;">
@@ -98,7 +106,7 @@ function applicationEmail({
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { name, whatsapp, portfolio, notes } = body;
+    const { name, whatsapp, portfolio, notes, urgent } = body;
 
     if (!name || !whatsapp) {
       return NextResponse.json(
@@ -110,8 +118,8 @@ export async function POST(req: NextRequest) {
     await resend.emails.send({
       from: FROM_EMAIL,
       to: TO_EMAIL,
-      subject: `طلب تقديم جديد من ${name}`,
-      html: applicationEmail({ name, whatsapp, portfolio: portfolio || "", notes: notes || "" }),
+      subject: `${urgent ? "⚡ مستعجل — " : ""}طلب تقديم جديد من ${name}`,
+      html: applicationEmail({ name, whatsapp, portfolio: portfolio || "", notes: notes || "", urgent: !!urgent }),
     });
 
     return NextResponse.json({ success: true });
