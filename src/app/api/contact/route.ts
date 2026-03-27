@@ -1,5 +1,6 @@
 import { Resend } from "resend";
 import { NextRequest, NextResponse } from "next/server";
+import { createServiceClient } from "@/lib/supabase/server";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -167,6 +168,10 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       );
     }
+
+    // Store in Supabase
+    const supabase = createServiceClient();
+    await supabase.from("contact_submissions").insert({ name, email, subject: subject || "", message });
 
     // Send both emails and log errors separately
     const [notifResult, thankResult] = await Promise.allSettled([

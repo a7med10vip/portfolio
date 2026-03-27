@@ -1,5 +1,6 @@
 import { Resend } from "resend";
 import { NextRequest, NextResponse } from "next/server";
+import { createServiceClient } from "@/lib/supabase/server";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -114,6 +115,10 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       );
     }
+
+    // Store in Supabase
+    const supabase = createServiceClient();
+    await supabase.from("apply_submissions").insert({ name, whatsapp, portfolio: portfolio || "", notes: notes || "", urgent: !!urgent });
 
     await resend.emails.send({
       from: FROM_EMAIL,
