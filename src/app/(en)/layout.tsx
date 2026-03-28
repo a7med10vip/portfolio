@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Bricolage_Grotesque, Instrument_Serif } from "next/font/google";
 import SmoothScroll from "@/components/SmoothScroll";
 import JsonLd from "@/components/JsonLd";
-import { GoogleTagManager, GoogleTagManagerNoScript, GoogleAnalytics } from "@/components/GoogleTracking";
+import { GoogleTagManager, GoogleTagManagerNoScript, GoogleAnalytics, TikTokPixel } from "@/components/GoogleTracking";
 
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"], display: "swap" });
 
@@ -128,6 +128,7 @@ export default function EnLayout({ children }: { children: React.ReactNode }) {
         <JsonLd />
         <GoogleTagManager />
         <GoogleAnalytics />
+        <TikTokPixel />
       </head>
       <body className="antialiased">
         <GoogleTagManagerNoScript />

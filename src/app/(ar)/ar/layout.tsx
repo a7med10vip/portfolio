@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import SmoothScroll from "@/components/SmoothScroll";
 import ArabicTailProcessor from "@/components/ArabicTailProcessor";
 import JsonLd from "@/components/JsonLd";
-import { GoogleTagManager, GoogleTagManagerNoScript, GoogleAnalytics } from "@/components/GoogleTracking";
+import { GoogleTagManager, GoogleTagManagerNoScript, GoogleAnalytics, TikTokPixel } from "@/components/GoogleTracking";
 
 export const viewport: Viewport = {
   themeColor: "#4FFFB0",
@@ -103,6 +103,7 @@ export default function ArLayout({ children }: { children: React.ReactNode }) {
         <JsonLd />
         <GoogleTagManager />
         <GoogleAnalytics />
+        <TikTokPixel />
       </head>
       <body className="ar-rtl" style={{ fontFamily: "'Ahmed Sans', sans-serif", direction: "rtl" }}>
         <GoogleTagManagerNoScript />
