@@ -1,6 +1,7 @@
 import { Resend } from "resend";
 import { NextRequest, NextResponse } from "next/server";
 import { createServiceClient } from "@/lib/supabase/server";
+import { sendTikTokEvent } from "@/lib/tiktok";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -172,6 +173,12 @@ export async function POST(req: NextRequest) {
     // Store in Supabase
     const supabase = createServiceClient();
     await supabase.from("contact_submissions").insert({ name, email, subject: subject || "", message });
+
+    // TikTok Conversion
+    sendTikTokEvent({
+      event: "SubmitForm",
+      context: { user_agent: req.headers.get("user-agent") || "", ip: req.headers.get("x-forwarded-for") || "" },
+    });
 
     // Send both emails and log errors separately
     const [notifResult, thankResult] = await Promise.allSettled([

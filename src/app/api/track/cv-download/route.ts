@@ -1,5 +1,6 @@
 import { createServiceClient } from "@/lib/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
+import { sendTikTokEvent } from "@/lib/tiktok";
 
 export async function POST(req: NextRequest) {
   try {
@@ -9,6 +10,13 @@ export async function POST(req: NextRequest) {
     await supabase.from("cv_downloads").insert({
       referrer, user_agent: userAgent, country, device, lang, session_id: sessionId,
     });
+    // TikTok Conversion
+    sendTikTokEvent({
+      event: "Download",
+      context: { user_agent: req.headers.get("user-agent") || "", ip: req.headers.get("x-forwarded-for") || "" },
+      properties: { content_name: "CV", content_type: "resume" },
+    });
+
     return NextResponse.json({ ok: true });
   } catch {
     return NextResponse.json({ ok: false }, { status: 500 });
