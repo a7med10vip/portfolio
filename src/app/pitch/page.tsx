@@ -11,373 +11,504 @@ import {
   ArrowRight, ArrowDown, Layers, Target, Lightbulb,
   Search, Megaphone, BookOpen, MapPin, Settings,
   UserCheck, Activity, Workflow, Star, ExternalLink,
-  ChevronDown, Presentation, MonitorSmartphone
+  ChevronDown, ChevronRight, Presentation, MonitorSmartphone,
+  TrendingUp, Eye, MousePointer, Mail, Lock, Gauge,
+  GitBranch, Smartphone, Server, Cloud, Cpu, Palette,
+  type LucideIcon
 } from "lucide-react";
+import {
+  AreaChart, Area, BarChart, Bar, PieChart, Pie, Cell,
+  ResponsiveContainer, Tooltip, XAxis, YAxis, CartesianGrid
+} from "recharts";
 
 gsap.registerPlugin(ScrollTrigger);
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* ─────────── DESIGN TOKENS ─────────── */
+const GREEN = "#4FFFB0";
+const DARK = "#0A0A0A";
+const PURPLE = "#5227FF";
+const BLUE = "#3B82F6";
+const AMBER = "#F59E0B";
+const RED = "#EF4444";
 
+/* ─────────── CHART DATA ─────────── */
+const funnelData = [
+  { stage: "Visitors", value: 10000 },
+  { stage: "Engaged", value: 6500 },
+  { stage: "AI Tool Users", value: 3200 },
+  { stage: "Leads", value: 1800 },
+  { stage: "Clients", value: 720 },
+];
+
+const roiProjection = [
+  { month: "M1", organic: 400, paid: 800, ai: 0 },
+  { month: "M2", organic: 900, paid: 1200, ai: 200 },
+  { month: "M3", organic: 1800, paid: 1600, ai: 800 },
+  { month: "M4", organic: 3200, paid: 2000, ai: 1800 },
+  { month: "M5", organic: 5000, paid: 2200, ai: 3500 },
+  { month: "M6", organic: 7500, paid: 2400, ai: 6000 },
+];
+
+const channelSplit = [
+  { name: "Organic SEO", value: 35, color: GREEN },
+  { name: "Paid Ads", value: 25, color: PURPLE },
+  { name: "AI Tool", value: 20, color: BLUE },
+  { name: "Referral", value: 12, color: AMBER },
+  { name: "Direct", value: 8, color: "#E5E7EB" },
+];
+
+const competitorData = [
+  { feature: "AI Strategy Tool", omena: 95, competitor: 10 },
+  { feature: "Client Portal", omena: 90, competitor: 30 },
+  { feature: "Real-time ROI", omena: 85, competitor: 15 },
+  { feature: "Auto Workflows", omena: 80, competitor: 20 },
+  { feature: "Team Transparency", omena: 90, competitor: 25 },
+];
+
+/* ─────────── HELPER COMPONENTS ─────────── */
+function Badge({ children, color = GREEN }: { children: React.ReactNode; color?: string }) {
+  return (
+    <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold" style={{ background: "#fff", color: DARK, border: "1px solid #E5E7EB", boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
+      <span className="w-2 h-2 rounded-full" style={{ background: color, boxShadow: `0 0 8px ${color}` }} />
+      {children}
+    </span>
+  );
+}
+
+function RetroBtn({ children, href, bg = GREEN, ...props }: { children: React.ReactNode; href?: string; bg?: string; [k: string]: unknown }) {
+  const style = { background: bg, color: DARK, border: `2px solid ${DARK}`, boxShadow: `4px 4px 0px 0px ${DARK}`, borderRadius: "100px", padding: "14px 32px", fontSize: "14px", fontWeight: 700, display: "inline-flex", alignItems: "center", gap: "8px", textDecoration: "none", transition: "all 0.2s" };
+  if (href) return <a href={href} target="_blank" rel="noopener" style={style} {...props}>{children}</a>;
+  return <span style={style} {...props}>{children}</span>;
+}
+
+function SectionHeader({ badge, badgeColor, title, subtitle, titleAccent }: { badge: string; badgeColor?: string; title: string; subtitle: string; titleAccent?: string }) {
+  return (
+    <div className="text-center mb-20">
+      <div className="mb-5"><Badge color={badgeColor}>{badge}</Badge></div>
+      <h2 className="heading text-4xl md:text-5xl lg:text-6xl mb-5" style={{ color: DARK }}>
+        {title} {titleAccent && <span style={{ color: GREEN }}>{titleAccent}</span>}
+      </h2>
+      <p className="text-base md:text-lg max-w-2xl mx-auto leading-relaxed" style={{ color: "rgba(0,0,0,0.45)" }}>{subtitle}</p>
+    </div>
+  );
+}
+
+function DataTable({ headers, rows }: { headers: string[]; rows: string[][] }) {
+  return (
+    <div className="overflow-x-auto rounded-[20px] border" style={{ borderColor: "#E5E7EB" }}>
+      <table style={{ width: "100%", borderCollapse: "collapse" }}>
+        <thead>
+          <tr style={{ background: DARK }}>
+            {headers.map((h) => <th key={h} style={{ padding: "14px 20px", textAlign: "left", fontSize: "11px", fontWeight: 700, color: GREEN, letterSpacing: "1px", textTransform: "uppercase" }}>{h}</th>)}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row, i) => (
+            <tr key={i} style={{ background: i % 2 === 0 ? "#fff" : "#FAFAFA", borderBottom: "1px solid #F3F4F6" }}>
+              {row.map((cell, j) => <td key={j} style={{ padding: "13px 20px", fontSize: "13px", color: j === 0 ? DARK : "rgba(0,0,0,0.55)", fontWeight: j === 0 ? 600 : 400 }}>{cell}</td>)}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+function FeatureCard({ icon: Icon, title, desc, metric, metricLabel, color = GREEN }: { icon: LucideIcon; title: string; desc: string; metric?: string; metricLabel?: string; color?: string }) {
+  return (
+    <div className="ph-item rounded-[24px] p-7 bg-white border transition-all duration-300 hover:-translate-y-1 hover:shadow-lg" style={{ borderColor: "#E5E7EB" }}>
+      <div className="flex items-start justify-between mb-4">
+        <div className="w-12 h-12 rounded-2xl flex items-center justify-center" style={{ background: `${color}15` }}>
+          <Icon size={22} color={color} />
+        </div>
+        {metric && (
+          <div className="text-right">
+            <div className="heading text-2xl" style={{ color }}>{metric}</div>
+            <div className="text-[10px] font-medium" style={{ color: "rgba(0,0,0,0.35)" }}>{metricLabel}</div>
+          </div>
+        )}
+      </div>
+      <h4 className="text-[16px] font-bold mb-2" style={{ color: DARK }}>{title}</h4>
+      <p className="text-[13px] leading-relaxed" style={{ color: "rgba(0,0,0,0.45)" }}>{desc}</p>
+    </div>
+  );
+}
+
+function FlowNode({ icon: Icon, label, color = GREEN, active = false, onClick }: { icon: LucideIcon; label: string; color?: string; active?: boolean; onClick?: () => void }) {
+  return (
+    <button onClick={onClick} className="ph-tree-node flex flex-col items-center gap-2 cursor-pointer transition-all duration-300 hover:-translate-y-1" style={{ background: "none", border: "none" }}>
+      <div className="w-16 h-16 rounded-2xl flex items-center justify-center transition-all duration-300" style={{
+        background: active ? color : "#fff",
+        border: `2px solid ${active ? DARK : "#E5E7EB"}`,
+        boxShadow: active ? `4px 4px 0px 0px ${DARK}` : "0 2px 8px rgba(0,0,0,0.04)",
+      }}>
+        <Icon size={26} color={active ? DARK : color} />
+      </div>
+      <span className="text-[12px] font-bold" style={{ color: active ? DARK : "rgba(0,0,0,0.5)" }}>{label}</span>
+    </button>
+  );
+}
+
+/* ─────────── MAIN COMPONENT ─────────── */
 export default function OmenaPitch() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [expandedNode, setExpandedNode] = useState<string | null>(null);
+  const ref = useRef<HTMLDivElement>(null);
+  const [activeNode, setActiveNode] = useState<string>("public");
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Hero entrance
-      gsap.fromTo(".ph-hero", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 1, stagger: 0.15, ease: "power4.out", delay: 0.3 });
+      // Hero
+      gsap.fromTo(".ph-hero", { y: 50, opacity: 0 }, { y: 0, opacity: 1, duration: 1.2, stagger: 0.12, ease: "power4.out", delay: 0.3 });
 
-      // Each full-screen section
-      gsap.utils.toArray<HTMLElement>(".ph-slide").forEach((el) => {
+      // Slides
+      gsap.utils.toArray<HTMLElement>(".ph-slide").forEach((el, i) => {
+        ScrollTrigger.create({
+          trigger: el, start: "top 60%", end: "bottom 40%",
+          onEnter: () => setCurrentSlide(i),
+          onEnterBack: () => setCurrentSlide(i),
+        });
         gsap.fromTo(el, { y: 80, opacity: 0 }, {
           y: 0, opacity: 1, duration: 1, ease: "power3.out",
-          scrollTrigger: { trigger: el, start: "top 80%", once: true },
+          scrollTrigger: { trigger: el, start: "top 85%", once: true },
         });
       });
 
-      // Stagger children
+      // Stagger groups
       gsap.utils.toArray<HTMLElement>(".ph-stagger").forEach((el) => {
-        const items = el.querySelectorAll(".ph-item");
-        gsap.fromTo(items, { y: 50, opacity: 0, scale: 0.95 }, {
+        gsap.fromTo(el.querySelectorAll(".ph-item"), { y: 40, opacity: 0, scale: 0.96 }, {
           y: 0, opacity: 1, scale: 1, duration: 0.7, stagger: 0.08, ease: "power3.out",
           scrollTrigger: { trigger: el, start: "top 82%", once: true },
         });
       });
 
       // Counters
-      gsap.utils.toArray<HTMLElement>(".ph-counter").forEach((el) => {
-        const target = parseInt(el.dataset.val || "0");
+      gsap.utils.toArray<HTMLElement>(".ph-num").forEach((el) => {
+        const val = parseInt(el.dataset.val || "0");
         ScrollTrigger.create({
-          trigger: el, start: "top 88%", once: true,
-          onEnter: () => {
-            gsap.to({ v: 0 }, {
-              v: target, duration: 2.5, ease: "power2.out",
-              onUpdate() { el.textContent = Math.round(this.targets()[0].v).toString(); },
-            });
-          },
+          trigger: el, start: "top 90%", once: true,
+          onEnter: () => gsap.to({ v: 0 }, { v: val, duration: 2.5, ease: "power2.out", onUpdate() { el.textContent = Math.round(this.targets()[0].v).toLocaleString(); } }),
         });
       });
 
-      // Timeline line grow
-      gsap.fromTo(".ph-timeline-line", { scaleY: 0 }, {
-        scaleY: 1, ease: "none",
-        scrollTrigger: { trigger: ".ph-timeline", start: "top 70%", end: "bottom 50%", scrub: 0.5 },
-      });
+      // Timeline line
+      gsap.fromTo(".ph-tl-line", { scaleY: 0 }, { scaleY: 1, ease: "none", scrollTrigger: { trigger: ".ph-tl", start: "top 65%", end: "bottom 40%", scrub: 0.5 } });
 
-      // Sitemap tree lines
-      gsap.fromTo(".ph-tree-line", { scaleX: 0 }, {
-        scaleX: 1, duration: 0.8, stagger: 0.1, ease: "power2.out",
-        scrollTrigger: { trigger: ".ph-tree", start: "top 75%", once: true },
-      });
+      // Flow connector lines
+      gsap.fromTo(".ph-connector", { scaleX: 0 }, { scaleX: 1, duration: 1, stagger: 0.15, ease: "power2.out", scrollTrigger: { trigger: ".ph-flow", start: "top 75%", once: true } });
 
-      // Sitemap nodes
-      gsap.fromTo(".ph-tree-node", { scale: 0, opacity: 0 }, {
-        scale: 1, opacity: 1, duration: 0.5, stagger: 0.06, ease: "back.out(1.7)",
-        scrollTrigger: { trigger: ".ph-tree", start: "top 75%", once: true, },
-      });
-
-    }, containerRef);
+    }, ref);
     return () => ctx.revert();
   }, []);
 
+  const slideLabels = ["Start", "Problem", "Vision", "Sitemap", "Website", "AI Engine", "Client Portal", "Agency Hub", "Data", "Tech", "Roadmap", "About"];
+
+  const sitemapData: Record<string, { icon: LucideIcon; color: string; pages: { page: string; purpose: string; kpi: string; priority: string }[] }> = {
+    public: {
+      icon: Globe, color: GREEN,
+      pages: [
+        { page: "Homepage", purpose: "First impression — hero, social proof, services preview, CTA", kpi: "Bounce rate < 35%", priority: "Critical" },
+        { page: "About Us", purpose: "Brand story, team profiles, vision, milestones", kpi: "Avg. time > 2min", priority: "High" },
+        { page: "Services Hub", purpose: "SEO, Ads, Branding, Web Dev, AI — each with deep-dive", kpi: "CTA click rate > 8%", priority: "Critical" },
+        { page: "Case Studies", purpose: "Detailed project breakdowns with metrics & ROI", kpi: "Lead form fills", priority: "High" },
+        { page: "Blog & Resources", purpose: "SEO content hub — articles, guides, whitepapers", kpi: "Organic traffic growth", priority: "High" },
+        { page: "Landing Pages", purpose: "Campaign-specific pages with A/B testing", kpi: "Conversion rate > 5%", priority: "Medium" },
+        { page: "Branches", purpose: "Office locations, maps, local SEO", kpi: "Local search rankings", priority: "Medium" },
+        { page: "Contact", purpose: "Multi-step form with service selection & routing", kpi: "Form completion rate", priority: "Critical" },
+      ],
+    },
+    ai: {
+      icon: BrainCircuit, color: PURPLE,
+      pages: [
+        { page: "AI Landing Page", purpose: "The pitch — why use the AI strategist tool", kpi: "Sign-up rate > 12%", priority: "Critical" },
+        { page: "Questionnaire", purpose: "Smart multi-step form — business, goals, challenges", kpi: "Completion rate > 70%", priority: "Critical" },
+        { page: "AI Strategy Generator", purpose: "Real-time AI analysis with progress indicator", kpi: "Generation time < 30s", priority: "Critical" },
+        { page: "Strategy Report", purpose: "Beautiful PDF with actionable recommendations", kpi: "Share rate > 15%", priority: "High" },
+        { page: "Pricing Plans", purpose: "Free, Pro ($49/mo), Enterprise (custom)", kpi: "Upgrade rate > 8%", priority: "High" },
+        { page: "User Dashboard", purpose: "Saved strategies, history, account settings", kpi: "Retention rate", priority: "Medium" },
+      ],
+    },
+    client: {
+      icon: LayoutDashboard, color: BLUE,
+      pages: [
+        { page: "KPI Dashboard", purpose: "Live spend, leads, conversions, ROI — beautiful charts", kpi: "Daily active users", priority: "Critical" },
+        { page: "My Team", purpose: "See who's working on your project — name, role, status", kpi: "Client satisfaction", priority: "High" },
+        { page: "Project Tracker", purpose: "Kanban board — every task, deadline, deliverable", kpi: "Task visibility rate", priority: "Critical" },
+        { page: "Content Approvals", purpose: "Review & approve designs/copy with 1-click", kpi: "Approval speed < 24h", priority: "High" },
+        { page: "ROI Reports", purpose: "Custom dashboards, exportable for stakeholders", kpi: "Report views/week", priority: "High" },
+        { page: "Billing & Invoices", purpose: "Payment history, subscriptions, upcoming charges", kpi: "Self-serve rate > 90%", priority: "Medium" },
+        { page: "Presentation Mode", purpose: "Full-screen ROI display for board meetings", kpi: "Usage in meetings", priority: "Medium" },
+      ],
+    },
+    internal: {
+      icon: ShieldCheck, color: AMBER,
+      pages: [
+        { page: "Admin Dashboard", purpose: "Bird's-eye view of all clients, projects, team", kpi: "Decision speed", priority: "Critical" },
+        { page: "Staff Roles", purpose: "Granular permissions — manager, designer, intern", kpi: "Security compliance", priority: "High" },
+        { page: "Task Board", purpose: "Internal Kanban synced with client dashboard", kpi: "Task completion rate", priority: "Critical" },
+        { page: "Client Accounts", purpose: "Add clients, assign teams, set budgets, contracts", kpi: "Onboarding time", priority: "High" },
+        { page: "Team Analytics", purpose: "Productivity, completion rates, response times", kpi: "Team efficiency", priority: "Medium" },
+        { page: "Automations", purpose: "Trigger workflows: signup → assign → email → meeting", kpi: "Manual tasks reduced", priority: "High" },
+      ],
+    },
+  };
+
+  const activeMap = sitemapData[activeNode];
+
   return (
-    <div ref={containerRef} style={{ background: "#0A0A0A", color: "#fff" }}>
+    <div ref={ref} style={{ background: "#FAFAFA", color: DARK, fontFamily: "Inter, -apple-system, sans-serif" }}>
 
-      {/* ===========================
-          SLIDE 1: HERO
-      =========================== */}
-      <section className="min-h-screen flex items-center justify-center relative overflow-hidden" style={{ padding: "80px 24px" }}>
-        {/* BG glow */}
-        <div className="absolute top-[-20%] left-1/2 -translate-x-1/2 w-[800px] h-[800px] rounded-full opacity-[0.08] pointer-events-none" style={{ background: "radial-gradient(circle, #4FFFB0, transparent 70%)" }} />
-        <div className="absolute bottom-[-15%] right-[-10%] w-[500px] h-[500px] rounded-full opacity-[0.05] pointer-events-none" style={{ background: "radial-gradient(circle, #5227FF, transparent 70%)" }} />
+      {/* ── FLOATING NAV ── */}
+      <nav className="fixed top-5 left-1/2 -translate-x-1/2 z-50 hidden lg:flex items-center gap-0.5 px-1.5 py-1.5 rounded-full" style={{ background: "rgba(255,255,255,0.92)", backdropFilter: "blur(20px)", border: "1px solid #E5E7EB", boxShadow: "0 4px 24px rgba(0,0,0,0.06)" }}>
+        {slideLabels.map((label, i) => (
+          <a key={label} href={`#s${i}`} className="px-3 py-1.5 rounded-full text-[10px] font-bold transition-all duration-200 uppercase tracking-wider" style={{
+            color: currentSlide === i ? DARK : "rgba(0,0,0,0.3)",
+            background: currentSlide === i ? GREEN : "transparent",
+          }}>
+            {label}
+          </a>
+        ))}
+      </nav>
 
-        <div className="max-w-5xl mx-auto text-center relative z-10">
-          <div className="ph-hero opacity-0 mb-6">
-            <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold" style={{ background: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.6)", border: "1px solid rgba(255,255,255,0.1)" }}>
-              <span className="w-2 h-2 rounded-full" style={{ background: "#4FFFB0", boxShadow: "0 0 8px #4FFFB0" }} />
-              Strategic Digital Vision
-            </span>
-          </div>
+      {/* ══════════════════════════════
+         SLIDE 0: HERO
+      ══════════════════════════════ */}
+      <section id="s0" className="min-h-screen flex items-center justify-center relative overflow-hidden" style={{ background: "#fff" }}>
+        <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at 50% 20%, rgba(79,255,176,0.08) 0%, transparent 60%)" }} />
+        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] pointer-events-none opacity-[0.04]" style={{ background: `radial-gradient(circle, ${PURPLE}, transparent 70%)` }} />
 
-          <h1 className="ph-hero opacity-0 heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl mb-6" style={{ color: "#fff" }}>
-            OMENA<span style={{ color: "#4FFFB0" }}>.</span>
+        <div className="max-w-5xl mx-auto text-center relative z-10 px-6">
+          <div className="ph-hero opacity-0 mb-6"><Badge>Strategic Digital Vision</Badge></div>
+          <h1 className="ph-hero opacity-0 heading text-6xl sm:text-7xl md:text-8xl lg:text-9xl mb-4" style={{ color: DARK, letterSpacing: "-3px" }}>
+            OMENA<span style={{ color: GREEN }}>.</span>
           </h1>
-
-          <p className="ph-hero opacity-0 heading text-2xl md:text-3xl mb-8" style={{ color: "rgba(255,255,255,0.4)" }}>
-            Digital Platform Vision
+          <p className="ph-hero opacity-0 script text-2xl md:text-3xl mb-8" style={{ color: "rgba(0,0,0,0.3)" }}>Digital Platform Architecture</p>
+          <p className="ph-hero opacity-0 text-base md:text-lg max-w-2xl mx-auto leading-relaxed mb-6" style={{ color: "rgba(0,0,0,0.45)" }}>
+            The complete roadmap to transform OMENA from a marketing agency into an AI-powered, fully synchronized digital ecosystem — attracting leads, converting clients, and scaling operations under one roof.
+          </p>
+          <p className="ph-hero opacity-0 text-sm mb-16" style={{ color: "rgba(0,0,0,0.25)" }}>
+            Prepared by <a href="https://ahmedali.online" target="_blank" rel="noopener" style={{ color: GREEN, fontWeight: 700, textDecoration: "none" }}>Ahmed Ali</a> — Full-Stack Digital Strategist
           </p>
 
-          <p className="ph-hero opacity-0 text-base md:text-lg max-w-2xl mx-auto leading-relaxed mb-4" style={{ color: "rgba(255,255,255,0.5)" }}>
-            The complete architectural roadmap to transform OMENA into an AI-powered, fully synchronized digital ecosystem.
-          </p>
-
-          <p className="ph-hero opacity-0 text-sm mb-14" style={{ color: "rgba(255,255,255,0.3)" }}>
-            Prepared by{" "}
-            <a href="https://ahmedali.online" target="_blank" rel="noopener" style={{ color: "#4FFFB0", fontWeight: 600, textDecoration: "none" }}>Ahmed Ali</a>
-            {" "}— Full-Stack Digital Strategist
-          </p>
-
-          {/* Stats row */}
-          <div className="ph-hero opacity-0 flex flex-wrap justify-center gap-8 mb-16">
+          {/* Stat pills */}
+          <div className="ph-hero opacity-0 flex flex-wrap justify-center gap-4 mb-20">
             {[
-              { num: 4, label: "Core Pillars" },
-              { num: 30, label: "Pages & Features", suffix: "+" },
-              { num: 3, label: "Dev Phases" },
+              { n: "4", l: "Core Pillars" },
+              { n: "27", l: "Pages Mapped" },
+              { n: "3", l: "Dev Phases" },
+              { n: "14-20", l: "Weeks to Launch" },
             ].map((s) => (
-              <div key={s.label} className="text-center">
-                <div className="heading text-4xl md:text-5xl" style={{ color: "#4FFFB0" }}>
-                  <span className="ph-counter" data-val={s.num}>0</span>{s.suffix || ""}
-                </div>
-                <div className="text-xs font-medium mt-1" style={{ color: "rgba(255,255,255,0.35)" }}>{s.label}</div>
+              <div key={s.l} className="px-6 py-3 rounded-full" style={{ background: GREEN, border: `2px solid ${DARK}`, boxShadow: `3px 3px 0px 0px ${DARK}` }}>
+                <span className="heading text-lg mr-1">{s.n}</span>
+                <span className="text-[11px] font-semibold" style={{ color: "rgba(0,0,0,0.5)" }}>{s.l}</span>
               </div>
             ))}
           </div>
 
           <div className="ph-hero opacity-0" style={{ animation: "float 3s ease-in-out infinite" }}>
-            <ArrowDown size={28} color="rgba(255,255,255,0.25)" />
+            <ArrowDown size={28} color="rgba(0,0,0,0.15)" />
           </div>
-          <style>{`@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(10px); } }`}</style>
+          <style>{`@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(10px)}}`}</style>
         </div>
       </section>
 
-      {/* ===========================
-          SLIDE 2: THE PROBLEM
-      =========================== */}
-      <section className="ph-slide opacity-0" style={{ padding: "120px 24px", background: "#0A0A0A" }}>
+      {/* ══════════════════════════════
+         SLIDE 1: THE PROBLEM
+      ══════════════════════════════ */}
+      <section id="s1" className="ph-slide opacity-0" style={{ padding: "120px 24px", background: DARK }}>
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
-            <p className="script text-xl md:text-2xl mb-3" style={{ color: "#4FFFB0" }}>The Challenge</p>
-            <h2 className="heading text-3xl md:text-5xl mb-5" style={{ color: "#fff" }}>Where OMENA Stands Today</h2>
-            <p className="text-sm md:text-base max-w-xl mx-auto" style={{ color: "rgba(255,255,255,0.45)" }}>
-              Scattered tools, no unified platform, and zero client visibility. The opportunity? Building a system that puts you years ahead.
-            </p>
+            <div className="mb-5"><span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold" style={{ background: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.6)", border: "1px solid rgba(255,255,255,0.1)" }}><span className="w-2 h-2 rounded-full" style={{ background: RED }} />The Challenge</span></div>
+            <h2 className="heading text-4xl md:text-5xl mb-5" style={{ color: "#fff" }}>Where Most Agencies <span style={{ color: RED }}>Fail</span></h2>
+            <p className="text-base max-w-xl mx-auto" style={{ color: "rgba(255,255,255,0.4)" }}>80% of marketing agencies use 5+ disconnected tools. This creates chaos for teams and distrust from clients.</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 ph-stagger">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 ph-stagger mb-12">
             {[
-              { icon: AlertTriangle, title: "Scattered Systems", desc: "WhatsApp for comms, Trello for tasks, spreadsheets for reports. No single source of truth.", color: "#ff6b6b" },
-              { icon: Puzzle, title: "No AI Differentiation", desc: "Every agency offers the same services. Without an AI product, there's no moat — no reason clients stay.", color: "#F59E0B" },
-              { icon: BarChart3, title: "Zero Client Visibility", desc: "Clients can't see ROI in real-time. They wait for monthly reports and wonder what's happening.", color: "#5227FF" },
+              { icon: AlertTriangle, title: "Fragmented Tools", desc: "WhatsApp for communication, Trello for tasks, Google Sheets for reports, Canva for assets. Every tool is a silo. Data lives in 5 different places.", stat: "5+", statLabel: "avg. tools per agency", color: RED },
+              { icon: Puzzle, title: "No AI Moat", desc: "Every agency offers the same services with the same pitch. Without a proprietary AI product, there's nothing stopping clients from switching to the next cheaper option.", stat: "0%", statLabel: "differentiation", color: AMBER },
+              { icon: Eye, title: "Blind Clients", desc: "Clients pay thousands monthly but can't see real-time ROI. They wait for monthly reports and wonder what the team is doing. This breeds distrust and churn.", stat: "67%", statLabel: "churn from lack of visibility", color: PURPLE },
             ].map((item) => (
-              <div key={item.title} className="ph-item rounded-[24px] p-7 relative overflow-hidden group transition-all duration-300 hover:-translate-y-1" style={{ background: "#111", border: "1px solid rgba(255,255,255,0.06)" }}>
-                <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-5" style={{ background: `${item.color}15` }}>
-                  <item.icon size={22} color={item.color} />
+              <div key={item.title} className="ph-item rounded-[24px] p-7 relative overflow-hidden" style={{ background: "#111", border: "1px solid rgba(255,255,255,0.06)" }}>
+                <div className="flex items-start justify-between mb-5">
+                  <div className="w-12 h-12 rounded-2xl flex items-center justify-center" style={{ background: `${item.color}15` }}>
+                    <item.icon size={22} color={item.color} />
+                  </div>
+                  <div className="text-right">
+                    <div className="heading text-3xl" style={{ color: item.color }}>{item.stat}</div>
+                    <div className="text-[9px] font-medium" style={{ color: "rgba(255,255,255,0.25)" }}>{item.statLabel}</div>
+                  </div>
                 </div>
                 <h3 className="heading text-xl mb-3" style={{ color: "#fff" }}>{item.title}</h3>
-                <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.45)" }}>{item.desc}</p>
+                <p className="text-[13px] leading-relaxed" style={{ color: "rgba(255,255,255,0.4)" }}>{item.desc}</p>
               </div>
             ))}
           </div>
 
-          <div className="mt-12 rounded-[24px] p-8 text-center" style={{ background: "linear-gradient(135deg, rgba(79,255,176,0.06), rgba(82,39,255,0.06))", border: "1px solid rgba(79,255,176,0.1)" }}>
-            <p className="heading text-xl md:text-2xl mb-2" style={{ color: "#fff" }}>
-              The agencies winning in 2026 aren&apos;t just running ads.
-            </p>
-            <p className="text-base" style={{ color: "rgba(255,255,255,0.5)" }}>
-              They&apos;re building <strong style={{ color: "#4FFFB0" }}>platforms</strong> — and that&apos;s exactly what we&apos;re going to do.
-            </p>
+          <div className="rounded-[24px] p-8 text-center" style={{ background: "linear-gradient(135deg, rgba(79,255,176,0.08), rgba(82,39,255,0.08))", border: "1px solid rgba(79,255,176,0.1)" }}>
+            <p className="heading text-xl md:text-2xl mb-2" style={{ color: "#fff" }}>The agencies winning in 2026 aren&apos;t just running ads.</p>
+            <p className="text-base" style={{ color: "rgba(255,255,255,0.5)" }}>They&apos;re building <strong style={{ color: GREEN }}>platforms</strong> — and that&apos;s exactly what we&apos;re going to build for OMENA.</p>
           </div>
         </div>
       </section>
 
-      {/* ===========================
-          SLIDE 3: THE VISION - 4 PILLARS
-      =========================== */}
-      <section className="ph-slide opacity-0" style={{ padding: "120px 24px" }}>
+      {/* ══════════════════════════════
+         SLIDE 2: THE VISION + VENN
+      ══════════════════════════════ */}
+      <section id="s2" className="ph-slide opacity-0" style={{ padding: "120px 24px", background: "#fff" }}>
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-16">
-            <p className="script text-xl md:text-2xl mb-3" style={{ color: "#4FFFB0" }}>The Vision</p>
-            <h2 className="heading text-3xl md:text-5xl mb-5" style={{ color: "#fff" }}>
-              One Platform. <span style={{ color: "#4FFFB0" }}>Infinite Growth.</span>
-            </h2>
-          </div>
+          <SectionHeader badge="The Vision" title="One Platform." titleAccent="Infinite Growth." subtitle="Four interconnected pillars forming a self-reinforcing ecosystem. Each pillar feeds the next — creating a growth loop that compounds over time." />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 ph-stagger">
-            {[
-              { num: "01", icon: Globe, title: "Public Website", desc: "The marketing engine — attract, educate, convert.", bg: "#fff", color: "#0A0A0A" },
-              { num: "02", icon: BrainCircuit, title: "AI SaaS Engine", desc: "The differentiator — AI strategies in seconds.", bg: "#4FFFB0", color: "#0A0A0A" },
-              { num: "03", icon: LayoutDashboard, title: "Client Dashboard", desc: "The retention tool — real-time ROI, full transparency.", bg: "#fff", color: "#0A0A0A" },
-              { num: "04", icon: ShieldCheck, title: "Internal Agency Hub", desc: "The backbone — unified team operations.", bg: "#4FFFB0", color: "#0A0A0A" },
-            ].map((p) => (
-              <div key={p.num} className="ph-item rounded-[24px] p-8 relative overflow-hidden group transition-all duration-300 hover:-translate-y-1" style={{ background: p.bg, border: p.bg === "#fff" ? "none" : "none" }}>
-                <span className="heading absolute -top-2 -right-1 text-[100px] leading-none pointer-events-none select-none" style={{ color: p.bg === "#fff" ? "rgba(79,255,176,0.1)" : "rgba(0,0,0,0.08)" }}>{p.num}</span>
-                <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-4" style={{ background: p.bg === "#fff" ? "rgba(79,255,176,0.12)" : "rgba(0,0,0,0.08)" }}>
-                  <p.icon size={22} color={p.color} />
-                </div>
-                <h3 className="heading text-2xl mb-2" style={{ color: p.color }}>{p.title}</h3>
-                <p className="text-sm" style={{ color: p.bg === "#fff" ? "rgba(0,0,0,0.5)" : "rgba(0,0,0,0.5)" }}>{p.desc}</p>
-              </div>
-            ))}
-          </div>
-
-          {/* Flow */}
-          <div className="mt-10 flex items-center justify-center gap-3 flex-wrap">
-            {["Attract", "Convert", "Serve", "Optimize"].map((s, i) => (
-              <div key={s} className="flex items-center gap-3">
-                <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold" style={{ background: "#4FFFB0", color: "#0A0A0A", border: "2px solid #0A0A0A", boxShadow: "3px 3px 0px 0px #0A0A0A" }}>
-                  {s}
-                </span>
-                {i < 3 && <ArrowRight size={18} color="rgba(255,255,255,0.2)" />}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ===========================
-          SLIDE 4: INTERACTIVE SITEMAP TREE
-      =========================== */}
-      <section className="ph-slide opacity-0" style={{ padding: "120px 24px" }}>
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <p className="script text-xl md:text-2xl mb-3" style={{ color: "#4FFFB0" }}>Architecture</p>
-            <h2 className="heading text-3xl md:text-5xl mb-5" style={{ color: "#fff" }}>Platform Sitemap</h2>
-            <p className="text-sm" style={{ color: "rgba(255,255,255,0.4)" }}>Click on any section to explore its pages</p>
-          </div>
-
-          {/* INTERACTIVE TREE */}
-          <div className="ph-tree relative">
-            {/* Root node */}
-            <div className="flex justify-center mb-8">
-              <div className="ph-tree-node px-8 py-4 rounded-full heading text-xl" style={{ background: "#4FFFB0", color: "#0A0A0A", border: "2px solid #0A0A0A", boxShadow: "4px 4px 0px 0px #0A0A0A" }}>
-                OMENA Platform
-              </div>
-            </div>
-
-            {/* Connection lines from root */}
-            <div className="flex justify-center mb-6">
-              <div className="w-[2px] h-10 ph-tree-line origin-top" style={{ background: "#4FFFB0" }} />
-            </div>
-
-            {/* Horizontal connector */}
-            <div className="hidden md:flex justify-center mb-6">
-              <div className="ph-tree-line origin-left" style={{ width: "70%", height: "2px", background: "linear-gradient(90deg, rgba(79,255,176,0.2), #4FFFB0, rgba(79,255,176,0.2))" }} />
-            </div>
-
-            {/* 4 Branch nodes */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-5 ph-stagger">
+          {/* 4 Pillars with connection flow */}
+          <div className="ph-flow relative">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-5 mb-8 ph-stagger">
               {[
-                {
-                  id: "public", icon: Globe, title: "Public Website", color: "#fff",
-                  pages: [
-                    { icon: Layers, label: "Homepage", desc: "Hero, social proof, services, CTA" },
-                    { icon: Users, label: "About Us", desc: "Vision, team, culture, milestones" },
-                    { icon: Megaphone, label: "Services Hub", desc: "SEO, Ads, Branding, Web Dev, AI" },
-                    { icon: Star, label: "Case Studies", desc: "Metrics, before/after, testimonials" },
-                    { icon: BookOpen, label: "Blog & Resources", desc: "SEO content, guides, insights" },
-                    { icon: Target, label: "Landing Pages", desc: "Campaign-specific, A/B tested" },
-                    { icon: MapPin, label: "Branches", desc: "Locations, maps, local SEO" },
-                    { icon: MessageSquare, label: "Contact", desc: "Multi-step form, routing" },
-                  ]
-                },
-                {
-                  id: "ai", icon: BrainCircuit, title: "AI Engine", color: "#4FFFB0",
-                  pages: [
-                    { icon: Lightbulb, label: "AI Landing Page", desc: "The pitch for the AI tool" },
-                    { icon: Search, label: "Questionnaire", desc: "Smart multi-step form" },
-                    { icon: BrainCircuit, label: "Strategy Generator", desc: "AI analysis & report" },
-                    { icon: CreditCard, label: "Pricing Plans", desc: "Free, Pro, Enterprise" },
-                    { icon: FileCheck, label: "Strategy Report", desc: "Shareable PDF output" },
-                    { icon: Rocket, label: "Upsell Flow", desc: "CTA to book call / upgrade" },
-                  ]
-                },
-                {
-                  id: "client", icon: LayoutDashboard, title: "Client Portal", color: "#fff",
-                  pages: [
-                    { icon: BarChart3, label: "KPI Dashboard", desc: "Live spend, leads, ROI" },
-                    { icon: Users, label: "My Team", desc: "See who's working now" },
-                    { icon: Activity, label: "Project Tracker", desc: "Kanban with deadlines" },
-                    { icon: FileCheck, label: "Content Approvals", desc: "1-click approve/reject" },
-                    { icon: LineChart, label: "ROI Reports", desc: "Custom, exportable" },
-                    { icon: CreditCard, label: "Billing", desc: "Invoices & subscriptions" },
-                    { icon: Presentation, label: "Presentation Mode", desc: "Full-screen for meetings" },
-                  ]
-                },
-                {
-                  id: "internal", icon: ShieldCheck, title: "Agency Hub", color: "#4FFFB0",
-                  pages: [
-                    { icon: ShieldCheck, label: "Admin Dashboard", desc: "Bird's-eye view of all" },
-                    { icon: UserCheck, label: "Staff Roles", desc: "Granular permissions" },
-                    { icon: Activity, label: "Task Board", desc: "Kanban synced with clients" },
-                    { icon: Settings, label: "Client Accounts", desc: "Assign teams, budgets" },
-                    { icon: BarChart3, label: "Team Analytics", desc: "Productivity tracking" },
-                    { icon: Workflow, label: "Automations", desc: "Trigger-based workflows" },
-                  ]
-                },
-              ].map((branch) => (
-                <div key={branch.id} className="flex flex-col items-center">
-                  {/* Vertical line */}
-                  <div className="w-[2px] h-6 ph-tree-line origin-top hidden md:block" style={{ background: "#4FFFB0" }} />
-
-                  {/* Branch node */}
-                  <button
-                    onClick={() => setExpandedNode(expandedNode === branch.id ? null : branch.id)}
-                    className="ph-tree-node w-full rounded-[20px] p-5 text-center cursor-pointer transition-all duration-300 hover:-translate-y-1 mb-4"
-                    style={{
-                      background: branch.color,
-                      color: "#0A0A0A",
-                      border: "2px solid #0A0A0A",
-                      boxShadow: expandedNode === branch.id ? "6px 6px 0px 0px #0A0A0A" : "4px 4px 0px 0px #0A0A0A",
-                    }}
-                  >
-                    <branch.icon size={28} className="mx-auto mb-2" color="#0A0A0A" />
-                    <div className="heading text-lg">{branch.title}</div>
-                    <div className="flex items-center justify-center gap-1 mt-2">
-                      <span className="text-[11px] font-semibold" style={{ color: "rgba(0,0,0,0.5)" }}>{branch.pages.length} pages</span>
-                      <ChevronDown size={14} style={{ color: "rgba(0,0,0,0.4)", transform: expandedNode === branch.id ? "rotate(180deg)" : "none", transition: "0.3s" }} />
-                    </div>
-                  </button>
-
-                  {/* Expanded pages */}
-                  <div className="w-full flex flex-col gap-2 overflow-hidden transition-all duration-500" style={{ maxHeight: expandedNode === branch.id ? "1000px" : "0", opacity: expandedNode === branch.id ? 1 : 0 }}>
-                    {branch.pages.map((page) => (
-                      <div key={page.label} className="flex items-start gap-3 p-3 rounded-[14px] transition-all duration-200" style={{ background: "#111", border: "1px solid rgba(255,255,255,0.06)" }}>
-                        <div className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5" style={{ background: "rgba(79,255,176,0.1)" }}>
-                          <page.icon size={13} color="#4FFFB0" />
-                        </div>
-                        <div>
-                          <span className="text-[12px] font-semibold block" style={{ color: "#fff" }}>{page.label}</span>
-                          <span className="text-[10px]" style={{ color: "rgba(255,255,255,0.35)" }}>{page.desc}</span>
-                        </div>
-                      </div>
-                    ))}
+                { icon: Globe, title: "Public Website", desc: "Attract & convert visitors", color: GREEN, metric: "10K+", metricLabel: "monthly visitors" },
+                { icon: BrainCircuit, title: "AI Engine", desc: "Generate strategies instantly", color: PURPLE, metric: "3.2K", metricLabel: "AI tool users" },
+                { icon: LayoutDashboard, title: "Client Portal", desc: "Real-time ROI transparency", color: BLUE, metric: "95%", metricLabel: "client retention" },
+                { icon: ShieldCheck, title: "Agency Hub", desc: "Unified operations", color: AMBER, metric: "3x", metricLabel: "team efficiency" },
+              ].map((p) => (
+                <div key={p.title} className="ph-item text-center p-6 rounded-[24px] border" style={{ borderColor: "#E5E7EB", background: "#fff" }}>
+                  <div className="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4" style={{ background: `${p.color}12` }}>
+                    <p.icon size={26} color={p.color} />
                   </div>
+                  <h4 className="heading text-lg mb-1">{p.title}</h4>
+                  <p className="text-[11px] mb-3" style={{ color: "rgba(0,0,0,0.4)" }}>{p.desc}</p>
+                  <div className="heading text-2xl" style={{ color: p.color }}>{p.metric}</div>
+                  <div className="text-[9px] font-medium" style={{ color: "rgba(0,0,0,0.25)" }}>{p.metricLabel}</div>
+                </div>
+              ))}
+            </div>
+
+            {/* Flow arrows */}
+            <div className="hidden md:flex items-center justify-center gap-2 mb-12">
+              {["Attract", "Convert", "Retain", "Optimize", "Scale"].map((s, i) => (
+                <div key={s} className="flex items-center gap-2">
+                  <span className="px-4 py-2 rounded-full text-[11px] font-bold" style={{ background: i === 4 ? GREEN : "#fff", color: DARK, border: `1.5px solid ${i === 4 ? DARK : "#E5E7EB"}`, boxShadow: i === 4 ? `3px 3px 0px 0px ${DARK}` : "none" }}>{s}</span>
+                  {i < 4 && <ArrowRight size={16} color="#D1D5DB" />}
                 </div>
               ))}
             </div>
           </div>
+
+          {/* Competitor comparison chart */}
+          <div className="rounded-[24px] p-8 border" style={{ borderColor: "#E5E7EB", background: "#fff" }}>
+            <h3 className="heading text-2xl mb-2 text-center">OMENA vs. Traditional Agency</h3>
+            <p className="text-[12px] text-center mb-8" style={{ color: "rgba(0,0,0,0.35)" }}>Competitive advantage score by feature</p>
+            <ResponsiveContainer width="100%" height={280}>
+              <BarChart data={competitorData} layout="vertical" barGap={4}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#F3F4F6" horizontal={false} />
+                <XAxis type="number" domain={[0, 100]} tick={{ fill: "#9CA3AF", fontSize: 11 }} axisLine={false} tickLine={false} />
+                <YAxis dataKey="feature" type="category" width={130} tick={{ fill: "#374151", fontSize: 11, fontWeight: 500 }} axisLine={false} tickLine={false} />
+                <Tooltip contentStyle={{ background: "#fff", border: "1px solid #E5E7EB", borderRadius: "12px", boxShadow: "0 4px 12px rgba(0,0,0,0.08)" }} />
+                <Bar dataKey="omena" name="OMENA" fill={GREEN} radius={[0, 6, 6, 0]} barSize={14} />
+                <Bar dataKey="competitor" name="Avg. Agency" fill="#E5E7EB" radius={[0, 6, 6, 0]} barSize={14} />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
         </div>
       </section>
 
-      {/* ===========================
-          SLIDE 5: AI ENGINE DEEP DIVE
-      =========================== */}
-      <section className="ph-slide opacity-0" style={{ padding: "120px 24px" }}>
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-16">
-            <p className="script text-xl md:text-2xl mb-3" style={{ color: "#4FFFB0" }}>Pillar 02</p>
-            <h2 className="heading text-3xl md:text-5xl mb-5" style={{ color: "#fff" }}>AI SaaS Engine</h2>
-            <p className="text-sm md:text-base max-w-xl mx-auto" style={{ color: "rgba(255,255,255,0.45)" }}>
-              The biggest lead magnet. Users get custom marketing strategies instantly — before speaking to a human.
-            </p>
+      {/* ══════════════════════════════
+         SLIDE 3: INTERACTIVE SITEMAP
+      ══════════════════════════════ */}
+      <section id="s3" className="ph-slide opacity-0" style={{ padding: "120px 24px", background: "#FAFAFA" }}>
+        <div className="max-w-6xl mx-auto">
+          <SectionHeader badge="Architecture" title="Interactive" titleAccent="Sitemap" subtitle="Click on any pillar to explore every page, its purpose, KPIs, and priority level." />
+
+          {/* Node selector */}
+          <div className="flex justify-center gap-6 md:gap-10 mb-12">
+            {(Object.entries(sitemapData) as [string, typeof sitemapData[string]][]).map(([key, data]) => (
+              <FlowNode key={key} icon={data.icon} label={key === "public" ? "Website" : key === "ai" ? "AI Engine" : key === "client" ? "Client Portal" : "Agency Hub"} color={data.color} active={activeNode === key} onClick={() => setActiveNode(key)} />
+            ))}
           </div>
 
-          {/* Flow steps */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-5 mb-16 ph-stagger">
+          {/* Connection lines */}
+          <div className="hidden md:flex justify-center mb-10">
+            <div className="flex items-center gap-0" style={{ width: "60%" }}>
+              {[GREEN, PURPLE, BLUE].map((c, i) => (
+                <div key={i} className="ph-connector origin-left flex-1 h-[2px]" style={{ background: `linear-gradient(90deg, ${c}, ${[PURPLE, BLUE, AMBER][i]})` }} />
+              ))}
+            </div>
+          </div>
+
+          {/* Page table */}
+          <div className="transition-all duration-500">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: `${activeMap.color}15` }}>
+                <activeMap.icon size={20} color={activeMap.color} />
+              </div>
+              <div>
+                <h3 className="heading text-2xl">{activeNode === "public" ? "Public Website" : activeNode === "ai" ? "AI SaaS Engine" : activeNode === "client" ? "Client Dashboard" : "Internal Agency Hub"}</h3>
+                <span className="text-[12px]" style={{ color: "rgba(0,0,0,0.35)" }}>{activeMap.pages.length} pages</span>
+              </div>
+            </div>
+
+            <DataTable
+              headers={["Page", "Purpose", "Target KPI", "Priority"]}
+              rows={activeMap.pages.map((p) => [p.page, p.purpose, p.kpi, p.priority])}
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════
+         SLIDE 4-7: PILLAR DEEP DIVES
+      ══════════════════════════════ */}
+      {/* PUBLIC WEBSITE */}
+      <section id="s4" className="ph-slide opacity-0" style={{ padding: "120px 24px", background: "#fff" }}>
+        <div className="max-w-5xl mx-auto">
+          <SectionHeader badge="Pillar 01" badgeColor={GREEN} title="Public" titleAccent="Website" subtitle="The high-converting marketing engine. Every page designed with a specific goal and measurable KPI." />
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 ph-stagger mb-12">
+            <FeatureCard icon={Layers} title="Homepage — The First Impression" desc="Hero with value proposition, animated statistics, client logos (social proof), services grid, featured case studies, conversion CTA, and live chat. Optimized for < 3s load time." metric="< 35%" metricLabel="bounce rate target" />
+            <FeatureCard icon={Search} title="SEO Infrastructure" desc="Technical SEO from day one: schema markup (JSON-LD), dynamic sitemaps, robots.txt, Open Graph, canonical URLs, Core Web Vitals optimization, and structured data for rich snippets." metric="Top 10" metricLabel="within 8 months" />
+            <FeatureCard icon={Megaphone} title="Services Deep-Dives" desc="Each service (SEO, Ads, Branding, Web Dev, AI) gets its own page with: process breakdown, deliverables table, pricing hints, case study links, and a service-specific CTA." metric="8%" metricLabel="CTA click rate" />
+            <FeatureCard icon={Target} title="Conversion System" desc="Multi-step inquiry form with: service selection, budget range, timeline picker, file upload, and intelligent routing. Integrated with CRM and WhatsApp notification." metric="> 5%" metricLabel="conversion rate" />
+          </div>
+
+          {/* Conversion Funnel Chart */}
+          <div className="rounded-[24px] p-8 border" style={{ borderColor: "#E5E7EB" }}>
+            <h3 className="heading text-xl mb-2 text-center">Projected Conversion Funnel</h3>
+            <p className="text-[11px] text-center mb-6" style={{ color: "rgba(0,0,0,0.3)" }}>Monthly visitor to client conversion path</p>
+            <ResponsiveContainer width="100%" height={260}>
+              <BarChart data={funnelData}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#F3F4F6" vertical={false} />
+                <XAxis dataKey="stage" tick={{ fill: "#6B7280", fontSize: 11 }} axisLine={false} tickLine={false} />
+                <YAxis tick={{ fill: "#9CA3AF", fontSize: 11 }} axisLine={false} tickLine={false} />
+                <Tooltip contentStyle={{ background: "#fff", border: "1px solid #E5E7EB", borderRadius: "12px" }} />
+                <Bar dataKey="value" radius={[8, 8, 0, 0]} barSize={50}>
+                  {funnelData.map((_, i) => <Cell key={i} fill={[GREEN, "#66FFD1", PURPLE, BLUE, DARK][i]} />)}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+      </section>
+
+      {/* AI ENGINE */}
+      <section id="s5" className="ph-slide opacity-0" style={{ padding: "120px 24px", background: DARK }}>
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-16">
+            <div className="mb-5"><span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold" style={{ background: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.6)", border: "1px solid rgba(255,255,255,0.1)" }}><span className="w-2 h-2 rounded-full" style={{ background: PURPLE }} />Pillar 02</span></div>
+            <h2 className="heading text-4xl md:text-5xl mb-5" style={{ color: "#fff" }}>AI SaaS <span style={{ color: PURPLE }}>Engine</span></h2>
+            <p className="text-base max-w-xl mx-auto" style={{ color: "rgba(255,255,255,0.4)" }}>OMENA&apos;s biggest competitive advantage. A proprietary AI tool that generates custom marketing strategies in under 30 seconds.</p>
+          </div>
+
+          {/* User journey flow */}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-5 mb-12 ph-stagger">
             {[
-              { icon: Search, title: "Questionnaire", desc: "Smart questions about business, goals, challenges" },
-              { icon: BrainCircuit, title: "AI Analysis", desc: "Processes inputs and generates strategy in seconds" },
-              { icon: FileCheck, title: "Strategy Report", desc: "Beautiful PDF with actionable recommendations" },
-              { icon: Rocket, title: "Convert", desc: "CTA to book call or upgrade to premium plan" },
-            ].map((step, i) => (
-              <div key={step.title} className="ph-item text-center">
-                <div className="text-[10px] font-bold tracking-[2px] uppercase mb-3" style={{ color: "#4FFFB0" }}>Step {i + 1}</div>
-                <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4" style={{ background: "#111", border: "1px solid rgba(79,255,176,0.15)" }}>
-                  <step.icon size={26} color="#4FFFB0" />
+              { icon: Search, step: "01", title: "Discover", desc: "User lands on AI tool page via ad, blog, or referral. Sees the value proposition and starts free." },
+              { icon: Bot, step: "02", title: "Engage", desc: "Answers 8-12 smart questions about their business, budget, industry, goals, and competition." },
+              { icon: BrainCircuit, step: "03", title: "Generate", desc: "AI analyzes inputs against industry benchmarks and generates a personalized strategy report." },
+              { icon: Rocket, step: "04", title: "Convert", desc: "User downloads report, shares with team. CTA to book a strategy call or upgrade to Pro." },
+            ].map((s) => (
+              <div key={s.step} className="ph-item text-center p-6 rounded-[24px]" style={{ background: "#111", border: "1px solid rgba(255,255,255,0.06)" }}>
+                <div className="heading text-sm mb-3" style={{ color: PURPLE }}>Step {s.step}</div>
+                <div className="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4" style={{ background: `${PURPLE}15` }}>
+                  <s.icon size={24} color={PURPLE} />
                 </div>
-                <h4 className="heading text-lg mb-2" style={{ color: "#fff" }}>{step.title}</h4>
-                <p className="text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>{step.desc}</p>
-                {i < 3 && <ArrowDown size={16} color="rgba(255,255,255,0.15)" className="mx-auto mt-4 hidden md:hidden" />}
+                <h4 className="heading text-lg mb-2" style={{ color: "#fff" }}>{s.title}</h4>
+                <p className="text-[12px] leading-relaxed" style={{ color: "rgba(255,255,255,0.4)" }}>{s.desc}</p>
               </div>
             ))}
           </div>
@@ -385,20 +516,18 @@ export default function OmenaPitch() {
           {/* Pricing */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5 ph-stagger">
             {[
-              { plan: "Free", price: "0", features: ["1 AI strategy", "Basic recommendations", "Email delivery"], highlight: false },
-              { plan: "Pro", price: "49", features: ["Unlimited strategies", "Advanced AI insights", "Priority support", "Competitor analysis", "Monthly reports"], highlight: true },
-              { plan: "Enterprise", price: "Custom", features: ["White-label access", "API integration", "Dedicated AI training", "Custom workflows", "SLA guarantee"], highlight: false },
-            ].map((tier) => (
-              <div key={tier.plan} className="ph-item rounded-[24px] p-7 relative overflow-hidden" style={{ background: tier.highlight ? "#4FFFB0" : "#111", border: tier.highlight ? "2px solid #0A0A0A" : "1px solid rgba(255,255,255,0.06)", boxShadow: tier.highlight ? "6px 6px 0px 0px #0A0A0A" : "none" }}>
-                <span className="text-[10px] font-bold uppercase tracking-[2px] mb-3 block" style={{ color: tier.highlight ? "#0A0A0A" : "#4FFFB0" }}>{tier.plan}</span>
-                <div className="heading text-4xl mb-5" style={{ color: tier.highlight ? "#0A0A0A" : "#fff" }}>
-                  {tier.price !== "Custom" && "$"}{tier.price}
-                  {tier.price !== "Custom" && <span className="text-sm" style={{ color: tier.highlight ? "rgba(0,0,0,0.4)" : "rgba(255,255,255,0.3)" }}>/mo</span>}
-                </div>
-                {tier.features.map((f) => (
-                  <div key={f} className="flex items-center gap-2.5 mb-2.5">
-                    <CheckCircle2 size={14} color={tier.highlight ? "#0A0A0A" : "#4FFFB0"} />
-                    <span className="text-[12px] font-medium" style={{ color: tier.highlight ? "rgba(0,0,0,0.6)" : "rgba(255,255,255,0.5)" }}>{f}</span>
+              { plan: "Free", price: "$0", desc: "Perfect for trying the tool", features: ["1 AI-generated strategy", "Basic channel recommendations", "Email delivery of report", "General benchmarks"], hl: false },
+              { plan: "Pro", price: "$49/mo", desc: "For growing businesses", features: ["Unlimited strategies", "Competitor deep analysis", "Custom KPI targets", "Priority AI model", "Monthly trend reports", "WhatsApp support"], hl: true },
+              { plan: "Enterprise", price: "Custom", desc: "For agencies & teams", features: ["White-label reports", "API access", "Custom AI training", "Dedicated account manager", "SLA guarantee", "Bulk pricing"], hl: false },
+            ].map((t) => (
+              <div key={t.plan} className="ph-item rounded-[24px] p-7" style={{ background: t.hl ? GREEN : "#111", border: t.hl ? `2px solid ${DARK}` : "1px solid rgba(255,255,255,0.06)", boxShadow: t.hl ? `6px 6px 0px 0px ${DARK}` : "none" }}>
+                <div className="text-[10px] font-bold tracking-[2px] uppercase mb-1" style={{ color: t.hl ? DARK : PURPLE }}>{t.plan}</div>
+                <div className="heading text-3xl mb-1" style={{ color: t.hl ? DARK : "#fff" }}>{t.price}</div>
+                <p className="text-[11px] mb-5" style={{ color: t.hl ? "rgba(0,0,0,0.45)" : "rgba(255,255,255,0.3)" }}>{t.desc}</p>
+                {t.features.map((f) => (
+                  <div key={f} className="flex items-center gap-2.5 mb-2">
+                    <CheckCircle2 size={14} color={t.hl ? DARK : GREEN} />
+                    <span className="text-[12px]" style={{ color: t.hl ? "rgba(0,0,0,0.6)" : "rgba(255,255,255,0.5)" }}>{f}</span>
                   </div>
                 ))}
               </div>
@@ -407,126 +536,164 @@ export default function OmenaPitch() {
         </div>
       </section>
 
-      {/* ===========================
-          SLIDE 6: CLIENT DASHBOARD
-      =========================== */}
-      <section className="ph-slide opacity-0" style={{ padding: "120px 24px" }}>
+      {/* CLIENT PORTAL */}
+      <section id="s6" className="ph-slide opacity-0" style={{ padding: "120px 24px", background: "#fff" }}>
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-16">
-            <p className="script text-xl md:text-2xl mb-3" style={{ color: "#4FFFB0" }}>Pillar 03</p>
-            <h2 className="heading text-3xl md:text-5xl mb-5" style={{ color: "#fff" }}>Client Dashboard</h2>
-            <p className="text-sm md:text-base max-w-xl mx-auto" style={{ color: "rgba(255,255,255,0.45)" }}>
-              Full transparency. Clients see their ROI, approve work, and track progress — all in one premium portal.
-            </p>
-          </div>
+          <SectionHeader badge="Pillar 03" badgeColor={BLUE} title="Client" titleAccent="Dashboard" subtitle="The premium retention tool. Full transparency into every dollar spent, every task completed, and every result achieved — in real-time." />
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 ph-stagger">
-            {[
-              { icon: BarChart3, title: "Live KPI Dashboard", desc: "Real-time spend, leads, conversions, ROI with beautiful charts.", span: "md:col-span-2" },
-              { icon: Users, title: "My Team", desc: "See who's working on your project right now. Name, role, status." },
-              { icon: Activity, title: "Project Tracker", desc: "Kanban board with every task, deadline, and deliverable." },
-              { icon: FileCheck, title: "Content Approvals", desc: "Review and approve designs with 1-click. No more WhatsApp chaos." },
-              { icon: LineChart, title: "ROI Reports", desc: "Custom dashboards exportable for board meetings and stakeholders.", span: "md:col-span-2" },
-              { icon: CreditCard, title: "Billing & Invoices", desc: "Transparent billing, downloadable invoices, subscription management.", span: "md:col-span-2" },
-              { icon: Presentation, title: "Presentation Mode", desc: "Full-screen interface optimized for board meetings." },
-            ].map((f: any) => (
-              <div key={f.title} className={`ph-item rounded-[24px] p-7 ${f.span || ""}`} style={{ background: "#111", border: "1px solid rgba(255,255,255,0.06)" }}>
-                <div className="w-11 h-11 rounded-2xl flex items-center justify-center mb-4" style={{ background: "rgba(79,255,176,0.08)" }}>
-                  <f.icon size={20} color="#4FFFB0" />
-                </div>
-                <h4 className="heading text-lg mb-2" style={{ color: "#fff" }}>{f.title}</h4>
-                <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.4)" }}>{f.desc}</p>
-              </div>
-            ))}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 ph-stagger mb-12">
+            <FeatureCard icon={BarChart3} title="Live KPI Dashboard" desc="Real-time metrics: ad spend, leads, conversions, cost-per-lead, and ROI. Auto-refreshing charts. Compare current vs. previous period." metric="Real-time" metricLabel="data updates" color={BLUE} />
+            <FeatureCard icon={Users} title="Team Workspace" desc="Client sees their dedicated team: name, photo, role, online status. Direct messaging to their account manager. Full transparency." metric="95%" metricLabel="satisfaction target" color={GREEN} />
+            <FeatureCard icon={Activity} title="Project Tracker" desc="Kanban board with every deliverable. Status badges: In Progress, Under Review, Approved, Live. Due dates and assignees visible." metric="100%" metricLabel="task visibility" color={PURPLE} />
+            <FeatureCard icon={FileCheck} title="1-Click Approvals" desc="Creative assets, ad copy, blog posts — all reviewed in one place. Approve, request changes, or reject with one click. Version history." metric="< 24h" metricLabel="avg approval time" color={AMBER} />
+            <FeatureCard icon={LineChart} title="ROI Reports" desc="Custom report builder: select metrics, date range, channels. Export as PDF, share link, or present in full-screen mode for board meetings." metric="Weekly" metricLabel="auto-generated" color={BLUE} />
+            <FeatureCard icon={CreditCard} title="Billing Center" desc="Invoice history, current plan, upcoming charges, payment methods. Auto-receipts via email. Upgrade/downgrade self-serve." metric="> 90%" metricLabel="self-serve rate" color={GREEN} />
           </div>
         </div>
       </section>
 
-      {/* ===========================
-          SLIDE 7: TECH STACK
-      =========================== */}
-      <section className="ph-slide opacity-0" style={{ padding: "120px 24px" }}>
+      {/* AGENCY HUB */}
+      <section id="s7" className="ph-slide opacity-0" style={{ padding: "120px 24px", background: "#FAFAFA" }}>
+        <div className="max-w-5xl mx-auto">
+          <SectionHeader badge="Pillar 04" badgeColor={AMBER} title="Internal" titleAccent="Agency Hub" subtitle="The operational backbone. Replaces Trello, Asana, and spreadsheets with one unified system that syncs with the client dashboard." />
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 ph-stagger">
+            <FeatureCard icon={ShieldCheck} title="Super Admin Dashboard" desc="Bird's-eye view: total clients, active projects, revenue, team utilization. Filter by status, priority, client, or team member. Real-time alerts for overdue tasks." metric="360°" metricLabel="visibility" color={AMBER} />
+            <FeatureCard icon={UserCheck} title="Role-Based Access" desc="Granular permissions: Owner, Manager, Specialist, Intern. Each role sees only what they need. Audit log for compliance." metric="4" metricLabel="permission levels" color={GREEN} />
+            <FeatureCard icon={Activity} title="Synced Task Board" desc="Internal Kanban that auto-syncs with client portal. When team moves a task, client sees the update. Two-way status sync." metric="Auto" metricLabel="sync with clients" color={BLUE} />
+            <FeatureCard icon={Workflow} title="Automated Workflows" desc="Trigger chains: new client → assign team → send welcome email → create project → schedule kickoff. Reduces manual work by 70%." metric="-70%" metricLabel="manual tasks" color={PURPLE} />
+            <FeatureCard icon={BarChart3} title="Team Analytics" desc="Per-member metrics: tasks completed, avg. response time, client satisfaction score. Identify top performers and bottlenecks." metric="Per team" metricLabel="performance tracking" color={AMBER} />
+            <FeatureCard icon={Settings} title="Client Account Manager" desc="Onboard new clients in minutes: create account, assign plan, set budget cap, upload contract, invite to portal. Full lifecycle management." metric="< 10min" metricLabel="client onboarding" color={GREEN} />
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════
+         SLIDE 8: DATA & PROJECTIONS
+      ══════════════════════════════ */}
+      <section id="s8" className="ph-slide opacity-0" style={{ padding: "120px 24px", background: "#fff" }}>
+        <div className="max-w-5xl mx-auto">
+          <SectionHeader badge="Projections" title="Growth" titleAccent="Data" subtitle="Estimated traffic and revenue projections for the first 6 months after platform launch." />
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Lead Growth Chart */}
+            <div className="rounded-[24px] p-8 border" style={{ borderColor: "#E5E7EB" }}>
+              <h3 className="heading text-lg mb-1">Lead Growth Projection</h3>
+              <p className="text-[11px] mb-6" style={{ color: "rgba(0,0,0,0.3)" }}>By channel, first 6 months</p>
+              <ResponsiveContainer width="100%" height={260}>
+                <AreaChart data={roiProjection}>
+                  <defs>
+                    <linearGradient id="gOrg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor={GREEN} stopOpacity={0.2} /><stop offset="100%" stopColor={GREEN} stopOpacity={0} /></linearGradient>
+                    <linearGradient id="gPaid" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor={PURPLE} stopOpacity={0.2} /><stop offset="100%" stopColor={PURPLE} stopOpacity={0} /></linearGradient>
+                    <linearGradient id="gAI" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor={BLUE} stopOpacity={0.2} /><stop offset="100%" stopColor={BLUE} stopOpacity={0} /></linearGradient>
+                  </defs>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#F3F4F6" />
+                  <XAxis dataKey="month" tick={{ fill: "#9CA3AF", fontSize: 11 }} axisLine={false} tickLine={false} />
+                  <YAxis tick={{ fill: "#9CA3AF", fontSize: 11 }} axisLine={false} tickLine={false} />
+                  <Tooltip contentStyle={{ background: "#fff", border: "1px solid #E5E7EB", borderRadius: "12px" }} />
+                  <Area type="monotone" dataKey="organic" name="Organic" stroke={GREEN} strokeWidth={2} fill="url(#gOrg)" />
+                  <Area type="monotone" dataKey="paid" name="Paid" stroke={PURPLE} strokeWidth={2} fill="url(#gPaid)" />
+                  <Area type="monotone" dataKey="ai" name="AI Tool" stroke={BLUE} strokeWidth={2} fill="url(#gAI)" />
+                </AreaChart>
+              </ResponsiveContainer>
+            </div>
+
+            {/* Channel Split Pie */}
+            <div className="rounded-[24px] p-8 border" style={{ borderColor: "#E5E7EB" }}>
+              <h3 className="heading text-lg mb-1">Traffic Channel Mix</h3>
+              <p className="text-[11px] mb-6" style={{ color: "rgba(0,0,0,0.3)" }}>Projected at month 6</p>
+              <ResponsiveContainer width="100%" height={220}>
+                <PieChart>
+                  <Pie data={channelSplit} cx="50%" cy="50%" innerRadius={55} outerRadius={90} paddingAngle={3} dataKey="value">
+                    {channelSplit.map((entry, i) => <Cell key={i} fill={entry.color} stroke="none" />)}
+                  </Pie>
+                  <Tooltip contentStyle={{ background: "#fff", border: "1px solid #E5E7EB", borderRadius: "12px" }} />
+                </PieChart>
+              </ResponsiveContainer>
+              <div className="flex flex-wrap justify-center gap-3 mt-2">
+                {channelSplit.map((c) => (
+                  <div key={c.name} className="flex items-center gap-1.5">
+                    <span className="w-2.5 h-2.5 rounded-full" style={{ background: c.color }} />
+                    <span className="text-[11px] font-medium" style={{ color: "rgba(0,0,0,0.5)" }}>{c.name} ({c.value}%)</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════
+         SLIDE 9: TECH STACK
+      ══════════════════════════════ */}
+      <section id="s9" className="ph-slide opacity-0" style={{ padding: "120px 24px", background: DARK }}>
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
-            <p className="script text-xl md:text-2xl mb-3" style={{ color: "#4FFFB0" }}>Architecture</p>
-            <h2 className="heading text-3xl md:text-5xl mb-5" style={{ color: "#fff" }}>Tech Stack</h2>
+            <div className="mb-5"><span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold" style={{ background: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.6)", border: "1px solid rgba(255,255,255,0.1)" }}><span className="w-2 h-2 rounded-full" style={{ background: GREEN }} />Technology</span></div>
+            <h2 className="heading text-4xl md:text-5xl mb-5" style={{ color: "#fff" }}>Tech Stack & <span style={{ color: GREEN }}>Architecture</span></h2>
           </div>
 
           <div className="flex flex-wrap justify-center gap-3 mb-16 ph-stagger">
             {[
-              { name: "Next.js", icon: "https://cdn.simpleicons.org/nextdotjs/ffffff" },
-              { name: "React", icon: "https://cdn.simpleicons.org/react/61DAFB" },
-              { name: "TypeScript", icon: "https://cdn.simpleicons.org/typescript/3178C6" },
-              { name: "Tailwind", icon: "https://cdn.simpleicons.org/tailwindcss/06B6D4" },
-              { name: "Supabase", icon: "https://cdn.simpleicons.org/supabase/3FCF8E" },
-              { name: "Firebase", icon: "https://cdn.simpleicons.org/firebase/FFCA28" },
-              { name: "OpenAI", icon: "https://cdn.simpleicons.org/openai/ffffff" },
-              { name: "Vercel", icon: "https://cdn.simpleicons.org/vercel/ffffff" },
-              { name: "Stripe", icon: "https://cdn.simpleicons.org/stripe/635BFF" },
-              { name: "Flutter", icon: "https://cdn.simpleicons.org/flutter/02569B" },
+              "Next.js", "React", "TypeScript", "Tailwind CSS", "Supabase", "Firebase",
+              "OpenAI / Gemini", "Vercel", "Stripe", "Flutter", "GSAP", "Resend",
             ].map((t) => (
-              <div key={t.name} className="ph-item flex items-center gap-2.5 px-5 py-3 rounded-full" style={{ background: "#111", border: "1px solid rgba(255,255,255,0.08)" }}>
-                <img src={t.icon} alt="" width={16} height={16} />
-                <span className="text-[12px] font-semibold" style={{ color: "#fff" }}>{t.name}</span>
+              <div key={t} className="ph-item flex items-center gap-2 px-5 py-3 rounded-full" style={{ background: "#111", border: "1px solid rgba(255,255,255,0.08)" }}>
+                <Code2 size={14} color={GREEN} />
+                <span className="text-[12px] font-semibold" style={{ color: "#fff" }}>{t}</span>
               </div>
             ))}
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 ph-stagger">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 ph-stagger">
             {[
-              { icon: Zap, title: "Performance", desc: "Sub-second loads with edge caching, image optimization, code splitting. 90+ Lighthouse." },
-              { icon: Shield, title: "Security", desc: "Row-level security, encryption, OWASP compliance, regular audits." },
-              { icon: MonitorSmartphone, title: "Responsive", desc: "Pixel-perfect on desktop, tablet, and mobile. One codebase." },
+              { icon: Gauge, title: "Performance", desc: "90+ Lighthouse, edge caching, code splitting", color: GREEN },
+              { icon: Shield, title: "Security", desc: "RLS, encryption, OWASP, audit logs", color: BLUE },
+              { icon: Cloud, title: "Scalability", desc: "Serverless, auto-scaling, global CDN", color: PURPLE },
+              { icon: Smartphone, title: "Mobile-First", desc: "Responsive design, PWA, native app ready", color: AMBER },
             ].map((f) => (
-              <div key={f.title} className="ph-item rounded-[24px] p-7" style={{ background: "#111", border: "1px solid rgba(255,255,255,0.06)" }}>
-                <div className="w-11 h-11 rounded-2xl flex items-center justify-center mb-4" style={{ background: "rgba(79,255,176,0.08)" }}>
-                  <f.icon size={20} color="#4FFFB0" />
+              <div key={f.title} className="ph-item text-center p-6 rounded-[20px]" style={{ background: "#111", border: "1px solid rgba(255,255,255,0.06)" }}>
+                <div className="w-11 h-11 rounded-2xl flex items-center justify-center mx-auto mb-3" style={{ background: `${f.color}15` }}>
+                  <f.icon size={20} color={f.color} />
                 </div>
-                <h4 className="heading text-lg mb-2" style={{ color: "#fff" }}>{f.title}</h4>
-                <p className="text-sm" style={{ color: "rgba(255,255,255,0.4)" }}>{f.desc}</p>
+                <h4 className="text-[14px] font-bold mb-1" style={{ color: "#fff" }}>{f.title}</h4>
+                <p className="text-[11px]" style={{ color: "rgba(255,255,255,0.35)" }}>{f.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ===========================
-          SLIDE 8: ROADMAP TIMELINE
-      =========================== */}
-      <section className="ph-slide opacity-0 ph-timeline" style={{ padding: "120px 24px" }}>
+      {/* ══════════════════════════════
+         SLIDE 10: ROADMAP TIMELINE
+      ══════════════════════════════ */}
+      <section id="s10" className="ph-slide opacity-0 ph-tl" style={{ padding: "120px 24px", background: "#fff" }}>
         <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-20">
-            <p className="script text-xl md:text-2xl mb-3" style={{ color: "#4FFFB0" }}>Execution</p>
-            <h2 className="heading text-3xl md:text-5xl mb-5" style={{ color: "#fff" }}>Roadmap & Timeline</h2>
-          </div>
+          <SectionHeader badge="Execution" title="Development" titleAccent="Roadmap" subtitle="A phased approach that delivers value early and builds momentum. Each phase is independently deployable." />
 
           <div className="relative">
-            {/* Vertical line */}
-            <div className="absolute left-[28px] md:left-1/2 top-0 bottom-0 w-[2px] md:-translate-x-1/2" style={{ background: "rgba(79,255,176,0.08)" }} />
-            <div className="ph-timeline-line absolute left-[28px] md:left-1/2 top-0 bottom-0 w-[2px] origin-top md:-translate-x-1/2" style={{ background: "linear-gradient(to bottom, #4FFFB0, rgba(79,255,176,0.2))" }} />
+            <div className="absolute left-[24px] md:left-1/2 top-0 bottom-0 w-[2px] md:-translate-x-1/2" style={{ background: "#E5E7EB" }} />
+            <div className="ph-tl-line absolute left-[24px] md:left-1/2 top-0 bottom-0 w-[2px] origin-top md:-translate-x-1/2" style={{ background: `linear-gradient(to bottom, ${GREEN}, ${PURPLE}, ${AMBER})` }} />
 
             {[
-              { phase: "Phase 1", title: "Foundation & Public Site", duration: "4–6 Weeks", color: "#4FFFB0", items: ["Brand system & design tokens", "Full public website (8+ pages)", "SEO infrastructure & schema", "Analytics & tracking", "Lead capture forms", "Blog CMS"] },
-              { phase: "Phase 2", title: "AI Engine & Client Portal", duration: "6–8 Weeks", color: "#5227FF", items: ["AI questionnaire & strategy generator", "User auth & onboarding", "Client dashboard with live KPIs", "Content approval workflow", "Billing & subscriptions", "API integrations"] },
-              { phase: "Phase 3", title: "Internal Hub & Scale", duration: "4–6 Weeks", color: "#F59E0B", items: ["Admin dashboard & controls", "Staff task management", "Automated workflows", "Team performance analytics", "Presentation mode", "Mobile app (optional)"] },
-            ].map((phase, i) => (
-              <div key={phase.phase} className={`relative flex flex-col md:flex-row items-start mb-20 ${i % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"}`}>
-                {/* Dot */}
-                <div className="absolute left-[20px] md:left-1/2 w-4 h-4 rounded-full md:-translate-x-1/2 z-10" style={{ background: phase.color, boxShadow: `0 0 16px ${phase.color}50`, top: "8px" }} />
-
-                {/* Content */}
-                <div className={`ml-14 md:ml-0 ${i % 2 === 0 ? "md:w-1/2 md:pr-16" : "md:w-1/2 md:pl-16"} ${i % 2 === 0 ? "md:text-right" : ""}`}>
-                  <div className="rounded-[24px] p-7" style={{ background: "#111", border: "1px solid rgba(255,255,255,0.06)" }}>
+              { phase: "Phase 1", title: "Foundation & Public Site", duration: "4–6 Weeks", color: GREEN, items: ["Brand design system & component library", "8+ page public website with SEO", "Blog CMS with rich editor", "Contact forms with intelligent routing", "Google Analytics 4, GTM, TikTok Pixel", "Performance optimization (90+ Lighthouse)"] },
+              { phase: "Phase 2", title: "AI Engine & Client Portal", duration: "6–8 Weeks", color: PURPLE, items: ["AI questionnaire (8-12 smart questions)", "Strategy generation engine (OpenAI/Gemini)", "Beautiful PDF report generator", "Pricing & subscription system (Stripe)", "Client dashboard with live KPIs", "Content approval workflow"] },
+              { phase: "Phase 3", title: "Agency Hub & Automation", duration: "4–6 Weeks", color: AMBER, items: ["Admin dashboard with full controls", "Role-based access (4 permission levels)", "Internal task board synced with client view", "Automated workflow engine", "Team performance analytics", "Flutter mobile app (optional add-on)"] },
+            ].map((p, i) => (
+              <div key={p.phase} className={`relative flex flex-col md:flex-row items-start mb-16 ${i % 2 === 1 ? "md:flex-row-reverse" : ""}`}>
+                <div className="absolute left-[16px] md:left-1/2 w-4 h-4 rounded-full md:-translate-x-1/2 z-10" style={{ background: p.color, boxShadow: `0 0 12px ${p.color}50`, top: "10px" }} />
+                <div className={`ml-12 md:ml-0 ${i % 2 === 0 ? "md:w-1/2 md:pr-14" : "md:w-1/2 md:pl-14"} ${i % 2 === 0 ? "md:text-right" : ""}`}>
+                  <div className="rounded-[24px] p-7 border bg-white" style={{ borderColor: "#E5E7EB" }}>
                     <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
-                      <span className="text-[10px] font-bold tracking-[2px] uppercase px-3 py-1 rounded-full" style={{ background: `${phase.color}15`, color: phase.color }}>{phase.phase}</span>
-                      <span className="text-[11px] font-medium flex items-center gap-1" style={{ color: "rgba(255,255,255,0.35)" }}><Clock size={12} />{phase.duration}</span>
+                      <span className="px-4 py-1.5 rounded-full text-[10px] font-bold tracking-[1.5px] uppercase" style={{ background: `${p.color}12`, color: p.color }}>{p.phase}</span>
+                      <span className="text-[11px] font-medium flex items-center gap-1" style={{ color: "rgba(0,0,0,0.3)" }}><Clock size={12} />{p.duration}</span>
                     </div>
-                    <h3 className="heading text-xl mb-4" style={{ color: "#fff" }}>{phase.title}</h3>
+                    <h3 className="heading text-xl mb-4">{p.title}</h3>
                     <div className="flex flex-col gap-2.5">
-                      {phase.items.map((item) => (
-                        <div key={item} className="flex items-center gap-2.5">
-                          <CheckCircle2 size={14} color={phase.color} />
-                          <span className="text-[12px] font-medium" style={{ color: "rgba(255,255,255,0.5)" }}>{item}</span>
+                      {p.items.map((item) => (
+                        <div key={item} className={`flex items-center gap-2.5 ${i % 2 === 0 ? "md:flex-row-reverse" : ""}`}>
+                          <CheckCircle2 size={14} color={p.color} className="flex-shrink-0" />
+                          <span className="text-[12px] font-medium" style={{ color: "rgba(0,0,0,0.5)" }}>{item}</span>
                         </div>
                       ))}
                     </div>
@@ -537,79 +704,67 @@ export default function OmenaPitch() {
           </div>
 
           <div className="text-center mt-4">
-            <p className="text-sm" style={{ color: "rgba(255,255,255,0.3)" }}>
-              Total: <strong style={{ color: "#fff" }}>14–20 weeks</strong> from kickoff to full launch
-            </p>
+            <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full" style={{ background: GREEN, border: `2px solid ${DARK}`, boxShadow: `4px 4px 0px 0px ${DARK}` }}>
+              <Clock size={16} color={DARK} />
+              <span className="heading text-sm">Total: 14–20 weeks from kickoff to full launch</span>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ===========================
-          SLIDE 9: WHY AHMED ALI
-      =========================== */}
-      <section className="ph-slide opacity-0" style={{ padding: "120px 24px 80px" }}>
+      {/* ══════════════════════════════
+         SLIDE 11: WHY AHMED ALI
+      ══════════════════════════════ */}
+      <section id="s11" className="ph-slide opacity-0" style={{ padding: "120px 24px 80px", background: "#FAFAFA" }}>
         <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
-            <p className="script text-xl md:text-2xl mb-3" style={{ color: "#4FFFB0" }}>About Me</p>
-            <h2 className="heading text-3xl md:text-5xl" style={{ color: "#fff" }}>
-              Why <span style={{ color: "#4FFFB0" }}>Ahmed Ali</span>?
-            </h2>
-          </div>
+          <SectionHeader badge="About Me" title="Why" titleAccent="Ahmed Ali?" subtitle="" />
 
-          <div className="rounded-[24px] p-8 md:p-12" style={{ background: "#111", border: "1px solid rgba(255,255,255,0.06)" }}>
+          <div className="rounded-[24px] p-8 md:p-12 bg-white border" style={{ borderColor: "#E5E7EB" }}>
             <div className="flex flex-col md:flex-row gap-8 items-center mb-10">
-              <img src="/ahmed.jpeg" alt="Ahmed Ali" className="w-28 h-28 rounded-full object-cover" style={{ border: "3px solid #4FFFB0" }} />
+              <img src="/ahmed.jpeg" alt="Ahmed Ali" className="w-28 h-28 rounded-full object-cover" style={{ border: `3px solid ${GREEN}` }} />
               <div>
-                <h3 className="heading text-3xl mb-1" style={{ color: "#fff" }}>Ahmed Ali<span style={{ color: "#4FFFB0" }}>.</span></h3>
-                <p className="text-sm font-semibold mb-3" style={{ color: "#4FFFB0" }}>Full-Stack Digital Strategist</p>
-                <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
-                  5+ years across Egypt, Qatar, Saudi Arabia & UAE. I don&apos;t just plan — I build and ship. From Ooredoo and QNB to Amazon Egypt and Saudi Airlines.
+                <h3 className="heading text-3xl mb-1">Ahmed Ali<span style={{ color: GREEN }}>.</span></h3>
+                <p className="text-sm font-semibold mb-3" style={{ color: GREEN }}>Full-Stack Digital Strategist</p>
+                <p className="text-sm leading-relaxed" style={{ color: "rgba(0,0,0,0.45)" }}>
+                  5+ years building digital products across Egypt, Qatar, Saudi Arabia & UAE. I don&apos;t just create strategies — I build and ship the platforms behind them. Clients include Ooredoo, QNB, Amazon Egypt, Saudi Airlines, and Mohammed BinGhatti.
                 </p>
               </div>
             </div>
 
-            {/* Stats */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10 ph-stagger">
               {[
-                { num: 5, label: "Years", suffix: "+" },
-                { num: 50, label: "Projects", suffix: "+" },
-                { num: 4, label: "Countries" },
-                { num: 10, label: "Enterprise", suffix: "+" },
+                { num: 5, label: "Years Experience", suffix: "+" },
+                { num: 50, label: "Projects Shipped", suffix: "+" },
+                { num: 4, label: "Countries Served" },
+                { num: 10, label: "Enterprise Clients", suffix: "+" },
               ].map((s) => (
-                <div key={s.label} className="ph-item text-center p-5 rounded-[16px]" style={{ background: "rgba(79,255,176,0.04)", border: "1px solid rgba(79,255,176,0.08)" }}>
-                  <div className="heading text-3xl" style={{ color: "#4FFFB0" }}>
-                    <span className="ph-counter" data-val={s.num}>0</span>{s.suffix || ""}
-                  </div>
-                  <div className="text-[11px] font-medium mt-1" style={{ color: "rgba(255,255,255,0.35)" }}>{s.label}</div>
+                <div key={s.label} className="ph-item text-center p-5 rounded-[16px] border" style={{ borderColor: "#E5E7EB" }}>
+                  <div className="heading text-3xl" style={{ color: GREEN }}><span className="ph-num" data-val={s.num}>0</span>{s.suffix || ""}</div>
+                  <div className="text-[11px] font-medium mt-1" style={{ color: "rgba(0,0,0,0.35)" }}>{s.label}</div>
                 </div>
               ))}
             </div>
 
-            {/* Skills */}
             <div className="flex flex-wrap justify-center gap-2 mb-10">
-              {["Performance Marketing", "SEO", "Web & App Dev", "AI Integration", "Data Analytics", "Full-Stack Development"].map((s) => (
-                <span key={s} className="px-4 py-2 rounded-full text-[11px] font-bold" style={{ background: "rgba(79,255,176,0.08)", color: "#4FFFB0", border: "1px solid rgba(79,255,176,0.15)" }}>{s}</span>
+              {["Performance Marketing", "SEO & Growth", "Web & App Dev", "AI Integration", "Data Analytics", "Full-Stack Development"].map((s) => (
+                <span key={s} className="px-4 py-2 rounded-full text-[11px] font-bold" style={{ background: `${GREEN}12`, color: GREEN, border: `1px solid ${GREEN}25` }}>{s}</span>
               ))}
             </div>
 
-            {/* CTAs */}
             <div className="flex flex-wrap justify-center gap-4">
-              <a href="https://ahmedali.online" target="_blank" rel="noopener" className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-sm font-bold transition-all duration-200 hover:-translate-y-0.5" style={{ background: "#4FFFB0", color: "#0A0A0A", border: "2px solid #0A0A0A", boxShadow: "4px 4px 0px 0px #0A0A0A" }}>
-                View Portfolio <ExternalLink size={16} />
-              </a>
-              <a href="https://wa.me/201011648156" target="_blank" rel="noopener" className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-sm font-bold transition-all duration-200 hover:-translate-y-0.5" style={{ background: "#fff", color: "#0A0A0A", border: "2px solid #0A0A0A", boxShadow: "4px 4px 0px 0px #0A0A0A" }}>
-                WhatsApp <ArrowRight size={16} />
-              </a>
+              <RetroBtn href="https://ahmedali.online">View Portfolio <ExternalLink size={16} /></RetroBtn>
+              <RetroBtn href="https://wa.me/201011648156" bg="#fff">WhatsApp <ArrowRight size={16} /></RetroBtn>
+              <RetroBtn href="mailto:hello@ahmedali.online" bg="#fff">Email <Mail size={16} /></RetroBtn>
             </div>
           </div>
 
           <div className="mt-16 text-center">
-            <p className="text-xs" style={{ color: "rgba(255,255,255,0.15)" }}>
-              &copy; {new Date().getFullYear()} Ahmed Ali. Prepared exclusively for OMENA.
-            </p>
+            <p className="script text-2xl mb-4" style={{ color: "rgba(0,0,0,0.15)" }}>Let&apos;s build something extraordinary.</p>
+            <p className="text-[11px]" style={{ color: "rgba(0,0,0,0.15)" }}>&copy; {new Date().getFullYear()} Ahmed Ali. Prepared exclusively for OMENA.</p>
           </div>
         </div>
       </section>
+
     </div>
   );
 }
