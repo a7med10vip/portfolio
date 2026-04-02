@@ -76,7 +76,7 @@ function ProcessFlow({ steps, color = G }: { steps: { icon: LucideIcon; title: s
               </span>
             </div>
             <h4 className="heading text-lg mb-1" style={{ color: D }}>{s.title}</h4>
-            <p className="text-[11px] leading-relaxed" style={{ color: "rgba(0,0,0,0.4)" }}>{s.desc}</p>
+            <p className="text-[11px] leading-relaxed" style={{ color: "rgba(0,0,0,0.7)" }}>{s.desc}</p>
           </div>
         ))}
       </div>
@@ -128,7 +128,7 @@ function TreeDiagram({ root, branches }: {
                 {b.children.map((c) => (
                   <div key={c} className="flex items-center gap-2 pl-2" style={{ borderLeft: `2px solid ${b.color}30` }}>
                     <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: b.color }} />
-                    <span className="text-[11px]" style={{ color: "rgba(0,0,0,0.5)" }}>{c}</span>
+                    <span className="text-[11px]" style={{ color: "rgba(0,0,0,0.75)" }}>{c}</span>
                   </div>
                 ))}
               </div>
@@ -143,7 +143,7 @@ function TreeDiagram({ root, branches }: {
 
 function InfoCard({ icon: Icon, title, desc, metric, metricLabel, color = G }: { icon: LucideIcon; title: string; desc: string; metric?: string; metricLabel?: string; color?: string }) {
   return (
-    <div className="ph-item rounded-[20px] p-6 bg-white border transition-all duration-300 hover:-translate-y-1 hover:shadow-lg" style={{ borderColor: "#E5E7EB" }}>
+    <div className="ph-item rounded-[20px] p-6 bg-white transition-all duration-300 hover:-translate-y-1" style={{ border: `2px solid ${D}`, boxShadow: `3px 3px 0px 0px ${color}` }}>
       <div className="flex items-start justify-between mb-4">
         <div className="w-11 h-11 rounded-2xl flex items-center justify-center" style={{ background: `${color}12` }}>
           <Icon size={20} color={color} />
@@ -151,12 +151,12 @@ function InfoCard({ icon: Icon, title, desc, metric, metricLabel, color = G }: {
         {metric && (
           <div className="text-right">
             <div className="heading text-xl" style={{ color }}>{metric}</div>
-            <div className="text-[9px] font-medium" style={{ color: "rgba(0,0,0,0.25)" }}>{metricLabel}</div>
+            <div className="text-[9px] font-medium" style={{ color: "rgba(0,0,0,0.8)" }}>{metricLabel}</div>
           </div>
         )}
       </div>
       <h4 className="text-[15px] font-bold mb-1.5" style={{ color: D }}>{title}</h4>
-      <p className="text-[12px] leading-relaxed" style={{ color: "rgba(0,0,0,0.4)" }}>{desc}</p>
+      <p className="text-[12px] leading-relaxed" style={{ color: "rgba(0,0,0,0.7)" }}>{desc}</p>
     </div>
   );
 }
@@ -165,17 +165,17 @@ function DataTable({ rows, color = G }: { headers: string[]; rows: string[][]; c
   return (
     <div className="flex flex-col gap-3 ph-stagger">
       {rows.map((row, i) => (
-        <div key={i} className="ph-item rounded-[16px] p-5 flex flex-col md:flex-row md:items-center gap-3 md:gap-6 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md" style={{ background: "#fff", border: "1px solid #EBEBEB" }}>
-          <div className="md:w-[140px] flex-shrink-0 flex items-center gap-3">
-            <span className="w-7 h-7 rounded-lg flex items-center justify-center text-[10px] font-bold flex-shrink-0" style={{ background: `${color}15`, color }}>{String(i + 1).padStart(2, "0")}</span>
-            <span className="heading text-sm">{row[0]}</span>
+        <div key={i} className="ph-item rounded-[16px] p-5 flex flex-col md:flex-row md:items-center gap-3 md:gap-6 transition-all duration-200 hover:-translate-y-0.5" style={{ background: "#fff", border: `2px solid ${D}`, boxShadow: `3px 3px 0px 0px ${color}` }}>
+          <div className="md:w-[200px] flex-shrink-0 flex items-center gap-3">
+            <span className="w-7 h-7 rounded-lg flex items-center justify-center text-[10px] font-bold flex-shrink-0" style={{ background: D, color: "#fff" }}>{String(i + 1).padStart(2, "0")}</span>
+            <span className="heading text-sm whitespace-nowrap">{row[0]}</span>
           </div>
           <div className="flex-1">
-            <p className="text-[11px] leading-relaxed" style={{ color: "rgba(0,0,0,0.45)" }}>{row[1]}</p>
+            <p className="text-[11px] leading-relaxed" style={{ color: "rgba(0,0,0,0.7)" }}>{row[1]}</p>
           </div>
           <div className="flex items-center gap-3 flex-shrink-0">
-            <span className="inline-block px-3 py-1 rounded-full text-[10px] font-bold" style={{ background: `${color}12`, color }}>{row[2]}</span>
-            <span className="text-[10px] font-bold tracking-wider uppercase" style={{ color: row[3] === "Critical" ? R : row[3] === "High" ? A : "rgba(0,0,0,0.3)" }}>{row[3]}</span>
+            <span className="inline-block px-3 py-1.5 rounded-full text-[10px] font-bold" style={{ background: D, color: "#fff" }}>{row[2]}</span>
+            <span className="px-2 py-1 rounded-md text-[10px] font-bold tracking-wider uppercase" style={{ background: row[3] === "Critical" ? `${R}15` : row[3] === "High" ? `${A}15` : "#F3F4F6", color: row[3] === "Critical" ? R : row[3] === "High" ? A : D }}>{row[3]}</span>
           </div>
         </div>
       ))}
@@ -272,10 +272,10 @@ export default function OmenaPitch() {
   ];
 
   return (
-    <div ref={ref} style={{ background: "#FAFAFA", color: D }}>
+    <div ref={ref} style={{ background: "#fff", color: D }}>
 
       {/* ═══ HERO ═══ */}
-      <section className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden" style={{ background: "#FAFAFA" }}>
+      <section className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden" style={{ background: "#fff" }}>
         {/* Subtle dot grid */}
         <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "radial-gradient(circle, rgba(0,0,0,0.06) 1px, transparent 1px)", backgroundSize: "28px 28px" }} />
         {/* Green glow top */}
@@ -292,14 +292,14 @@ export default function OmenaPitch() {
 
           {/* Subtitle */}
           <div className="ph-hero opacity-0 text-center mb-10">
-            <p className="font-semibold tracking-wide" style={{ fontSize: 15, color: "rgba(0,0,0,0.2)", letterSpacing: "0.05em" }}>
+            <p className="font-semibold tracking-wide" style={{ fontSize: 15, color: "rgba(0,0,0,0.8)", letterSpacing: "0.05em" }}>
               Digital Platform Architecture & Growth Strategy
             </p>
           </div>
 
           {/* Stats — horizontal divider style */}
           <div className="ph-hero opacity-0 mb-10 w-full max-w-2xl">
-            <div className="flex items-stretch justify-center" style={{ background: "#fff", border: "1px solid #E8E8E8", borderRadius: 16, overflow: "hidden", boxShadow: "0 2px 16px rgba(0,0,0,0.04)" }}>
+            <div className="flex items-stretch justify-center" style={{ background: "#fff", border: `2px solid ${D}`, borderRadius: 16, overflow: "hidden", boxShadow: `4px 4px 0px 0px ${G}` }}>
               {[
                 { n: "4", l: "Core Pillars" },
                 { n: "38+", l: "Pages Mapped" },
@@ -307,7 +307,7 @@ export default function OmenaPitch() {
               ].map((s, i) => (
                 <div key={s.l} className="flex-1 flex flex-col items-center justify-center py-6 px-2 relative" style={{ borderLeft: i > 0 ? "1px solid #F0F0F0" : "none" }}>
                   <span className="heading" style={{ fontSize: "clamp(22px,4vw,38px)", lineHeight: 1, color: D }}>{s.n}</span>
-                  <span className="text-[9px] font-bold tracking-[1.5px] uppercase mt-1.5" style={{ color: "rgba(0,0,0,0.28)" }}>{s.l}</span>
+                  <span className="text-[9px] font-bold tracking-[1.5px] uppercase mt-1.5" style={{ color: "rgba(0,0,0,0.8)" }}>{s.l}</span>
                   <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[3px] w-8 rounded-t-full" style={{ background: G }} />
                 </div>
               ))}
@@ -316,14 +316,14 @@ export default function OmenaPitch() {
 
           {/* Description */}
           <div className="ph-hero opacity-0 text-center mb-8 max-w-xl">
-            <p style={{ fontSize: 15, lineHeight: 1.75, color: "rgba(0,0,0,0.38)" }}>
+            <p style={{ fontSize: 15, lineHeight: 1.75, color: "rgba(0,0,0,0.7)" }}>
               A roadmap to transform OMENA into an AI-powered digital ecosystem, unifying client acquisition, service delivery, and operations under one intelligent platform.
             </p>
           </div>
 
           {/* Prepared by */}
           <div className="ph-hero opacity-0 mb-14">
-            <p style={{ fontSize: 13, color: "rgba(0,0,0,0.55)", letterSpacing: "0.02em", fontWeight: 500 }}>
+            <p style={{ fontSize: 13, color: "rgba(0,0,0,0.8)", letterSpacing: "0.02em", fontWeight: 500 }}>
               Prepared by{" "}
               <a href="https://ahmedali.online" target="_blank" rel="noopener" style={{ color: G, fontWeight: 700, textDecoration: "none" }}>Ahmed Ali</a>
               {" "}· Full-Stack Digital Strategist
@@ -335,7 +335,7 @@ export default function OmenaPitch() {
             <div style={{ width: 24, height: 38, border: "1.5px solid rgba(0,0,0,0.14)", borderRadius: 12, display: "flex", justifyContent: "center", paddingTop: 5 }}>
               <div style={{ width: 3, height: 6, borderRadius: 2, background: G, animation: "mouseScroll 1.6s ease-in-out infinite" }} />
             </div>
-            <span style={{ fontSize: 9, letterSpacing: "3px", textTransform: "uppercase", color: "rgba(0,0,0,0.18)" }}>scroll</span>
+            <span style={{ fontSize: 9, letterSpacing: "3px", textTransform: "uppercase", color: "rgba(0,0,0,0.75)" }}>scroll</span>
           </div>
         </div>
 
@@ -387,7 +387,7 @@ export default function OmenaPitch() {
               { icon: Puzzle, title: "Zero Differentiation", desc: "Every agency pitches the same services with the same decks. Without a proprietary AI product, there's nothing stopping clients from switching to a cheaper alternative. Service commoditization is killing margins.", points: ["Same pitch as competitors", "No proprietary technology", "Price-based competition"], color: A, bg: G, dark: false },
               { icon: Eye, title: "Client Trust Gap", desc: "Clients pay thousands monthly but can't see real-time ROI. They wait for monthly reports and wonder what the team is doing. 67% of agency churn comes from perceived lack of transparency and communication.", points: ["No real-time visibility", "Monthly reports feel outdated", "67% churn from opacity"], color: P, bg: "#fff", dark: false },
             ].map((item) => (
-              <div key={item.title} className="ph-item rounded-[20px] p-7" style={{ background: item.bg, border: item.bg === G ? `2px solid ${D}` : "1px solid #E8E8E8" }}>
+              <div key={item.title} className="ph-item rounded-[20px] p-7" style={{ background: item.bg, border: `2px solid ${D}`, boxShadow: item.bg === G ? `4px 4px 0px 0px ${D}` : `3px 3px 0px 0px ${item.color}` }}>
                 <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-4" style={{ background: item.bg === G ? "rgba(0,0,0,0.08)" : `${item.color}10` }}>
                   <item.icon size={22} color={item.bg === G ? D : item.color} />
                 </div>
@@ -417,7 +417,7 @@ export default function OmenaPitch() {
           <div className="text-center mb-16">
             <p className="script text-xl md:text-2xl mb-3" style={{ color: G }}>The Solution</p>
             <h2 className="heading text-4xl md:text-5xl mb-5">One Platform. <span style={{ color: G }}>Infinite Growth.</span></h2>
-            <p className="text-sm max-w-lg mx-auto" style={{ color: "rgba(0,0,0,0.4)" }}>Four interconnected pillars forming a self-reinforcing growth loop.</p>
+            <p className="text-sm max-w-lg mx-auto" style={{ color: "rgba(0,0,0,0.7)" }}>Four interconnected pillars forming a self-reinforcing growth loop.</p>
           </div>
 
           <TreeDiagram
@@ -433,7 +433,7 @@ export default function OmenaPitch() {
           {/* Growth Flywheel */}
           <div className="mt-16 ph-stagger">
             <h3 className="heading text-xl text-center mb-10">Growth Flywheel</h3>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
               {[
                 { step: "Attract", desc: "SEO, ads, AI tool drive traffic", icon: Target, color: G },
                 { step: "Engage", desc: "Content & tools build trust", icon: Eye, color: P },
@@ -442,14 +442,17 @@ export default function OmenaPitch() {
                 { step: "Retain", desc: "Transparency builds loyalty", icon: HeartPulse, color: PIK },
                 { step: "Scale", desc: "Referrals, upsells, growth", icon: Rocket, color: G },
               ].map((s, i) => (
-                <div key={s.step} className="ph-item relative rounded-[20px] p-5 text-center group transition-all duration-300 hover:-translate-y-1 hover:shadow-lg" style={{ background: i === 5 ? G : "#fff", border: `2px solid ${i === 5 ? D : "#EBEBEB"}`, boxShadow: i === 5 ? `3px 3px 0px 0px ${D}` : "none" }}>
-                  <div className="text-[9px] font-bold tracking-[3px] mb-3" style={{ color: i === 5 ? D : "rgba(0,0,0,0.15)" }}>{String(i + 1).padStart(2, "0")}</div>
-                  <div className="w-10 h-10 rounded-xl flex items-center justify-center mx-auto mb-3" style={{ background: i === 5 ? "rgba(0,0,0,0.08)" : `${s.color}10` }}>
-                    <s.icon size={20} color={i === 5 ? D : s.color} />
+                <div key={s.step} className="ph-item relative rounded-[20px] p-6 text-center overflow-hidden transition-all duration-300 hover:-translate-y-1" style={{ background: i === 5 ? G : "#fff", border: `2px solid ${D}`, boxShadow: `3px 3px 0px 0px ${i === 5 ? D : s.color}` }}>
+                  {/* Large watermark number */}
+                  <div className="absolute -right-1 -top-3 heading select-none pointer-events-none" style={{ fontSize: 80, lineHeight: 1, color: i === 5 ? "rgba(0,0,0,0.06)" : `${s.color}12` }}>{String(i + 1).padStart(2, "0")}</div>
+                  <div className="relative z-10">
+                    <div className="w-11 h-11 rounded-xl flex items-center justify-center mx-auto mb-3" style={{ background: i === 5 ? "rgba(0,0,0,0.08)" : `${s.color}12` }}>
+                      <s.icon size={20} color={i === 5 ? D : s.color} />
+                    </div>
+                    <div className="heading text-base mb-1.5">{s.step}</div>
+                    <p className="text-[11px] leading-relaxed" style={{ color: i === 5 ? D : "rgba(0,0,0,0.7)" }}>{s.desc}</p>
                   </div>
-                  <div className="heading text-sm mb-1">{s.step}</div>
-                  <p className="text-[10px] leading-relaxed" style={{ color: i === 5 ? "rgba(0,0,0,0.5)" : "rgba(0,0,0,0.35)" }}>{s.desc}</p>
-                  {i < 5 && <div className="hidden lg:block absolute -right-2 top-1/2 -translate-y-1/2 z-10"><ArrowRight size={12} color="#D1D5DB" /></div>}
+                  {i < 5 && <div className="hidden lg:block absolute -right-2 top-1/2 -translate-y-1/2 z-20"><ArrowRight size={14} color={D} /></div>}
                 </div>
               ))}
             </div>
@@ -458,12 +461,12 @@ export default function OmenaPitch() {
       </section>
 
       {/* ═══ INTERACTIVE SITEMAP ═══ */}
-      <section className="ph-slide opacity-0" style={{ padding: "120px 24px", background: "#FAFAFA" }}>
+      <section className="ph-slide opacity-0" style={{ padding: "120px 24px", background: "#fff" }}>
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <p className="script text-xl md:text-2xl mb-3" style={{ color: G }}>Deep Dive</p>
             <h2 className="heading text-4xl md:text-5xl mb-5">Complete <span style={{ color: G }}>Sitemap</span></h2>
-            <p className="text-sm max-w-lg mx-auto" style={{ color: "rgba(0,0,0,0.4)" }}>Every page mapped with purpose, target KPI, and priority.</p>
+            <p className="text-sm max-w-lg mx-auto" style={{ color: "rgba(0,0,0,0.7)" }}>Every page mapped with purpose, target KPI, and priority.</p>
           </div>
 
           {/* Tab selector */}
@@ -471,8 +474,8 @@ export default function OmenaPitch() {
             {sitemapTabs.map((tab, i) => (
               <button key={tab.label} onClick={() => setActiveTab(i)} className="flex items-center gap-2 px-5 py-3 rounded-full text-[12px] font-bold cursor-pointer transition-all duration-200" style={{
                 background: activeTab === i ? tab.color : "#fff",
-                color: activeTab === i ? D : "rgba(0,0,0,0.4)",
-                border: `2px solid ${activeTab === i ? D : "#E5E7EB"}`,
+                color: activeTab === i ? D : "rgba(0,0,0,0.6)",
+                border: `2px solid ${D}`,
                 boxShadow: activeTab === i ? `3px 3px 0px 0px ${D}` : "none",
               }}>
                 <tab.icon size={16} />
@@ -499,7 +502,7 @@ export default function OmenaPitch() {
           <div className="text-center mb-16">
             <p className="script text-xl md:text-2xl mb-3" style={{ color: P }}>Pillar 02</p>
             <h2 className="heading text-4xl md:text-5xl mb-5">AI SaaS <span style={{ color: P }}>Engine</span></h2>
-            <p className="text-sm max-w-lg mx-auto" style={{ color: "rgba(0,0,0,0.4)" }}>OMENA&apos;s biggest competitive advantage — a proprietary AI tool that generates complete marketing strategies in under 30 seconds.</p>
+            <p className="text-sm max-w-lg mx-auto" style={{ color: "rgba(0,0,0,0.7)" }}>OMENA&apos;s biggest competitive advantage — a proprietary AI tool that generates complete marketing strategies in under 30 seconds.</p>
           </div>
 
           {/* User Journey Process Diagram */}
@@ -554,7 +557,7 @@ export default function OmenaPitch() {
           <div className="text-center mb-16">
             <p className="script text-xl md:text-2xl mb-3" style={{ color: B }}>Pillar 03</p>
             <h2 className="heading text-4xl md:text-5xl mb-5" style={{ color: "#fff" }}>Client <span style={{ color: B }}>Dashboard</span></h2>
-            <p className="text-sm max-w-lg mx-auto" style={{ color: "rgba(255,255,255,0.35)" }}>The premium retention tool. Full transparency into every dollar spent, every task completed, and every result — in real-time.</p>
+            <p className="text-sm max-w-lg mx-auto" style={{ color: "rgba(255,255,255,0.7)" }}>The premium retention tool. Full transparency into every dollar spent, every task completed, and every result — in real-time.</p>
           </div>
 
           {/* Client Journey Process */}
@@ -574,7 +577,7 @@ export default function OmenaPitch() {
                     <s.icon size={20} color={B} />
                   </div>
                   <h4 className="text-[13px] font-bold mb-1" style={{ color: "#fff" }}>{s.title}</h4>
-                  <p className="text-[10px]" style={{ color: "rgba(255,255,255,0.35)" }}>{s.desc}</p>
+                  <p className="text-[10px]" style={{ color: "rgba(255,255,255,0.7)" }}>{s.desc}</p>
                 </div>
               ))}
             </div>
@@ -593,7 +596,7 @@ export default function OmenaPitch() {
               { icon: CalendarCheck, title: "Meeting Scheduler", desc: "Book meetings from portal. Syncs with team calendar. Auto-reminders. No back-and-forth email.", metric: "Direct", color: P },
               { icon: MessagesSquare, title: "In-Portal Chat", desc: "Messaging per project. Client ↔ team communication with file sharing, history, and notifications.", metric: "Per project", color: B },
             ].map((f) => (
-              <div key={f.title} className="ph-item rounded-[20px] p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg" style={{ background: "#fff", border: "1px solid #EBEBEB" }}>
+              <div key={f.title} className="ph-item rounded-[20px] p-6 transition-all duration-300 hover:-translate-y-1" style={{ background: "#fff", border: `2px solid ${D}`, boxShadow: `3px 3px 0px 0px ${f.color}` }}>
                 <div className="flex items-start justify-between mb-3">
                   <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: `${f.color}12` }}>
                     <f.icon size={18} color={f.color} />
@@ -601,7 +604,7 @@ export default function OmenaPitch() {
                   <span className="heading text-sm" style={{ color: f.color }}>{f.metric}</span>
                 </div>
                 <h4 className="text-[14px] font-bold mb-1" style={{ color: D }}>{f.title}</h4>
-                <p className="text-[11px] leading-relaxed" style={{ color: "rgba(0,0,0,0.4)" }}>{f.desc}</p>
+                <p className="text-[11px] leading-relaxed" style={{ color: "rgba(0,0,0,0.7)" }}>{f.desc}</p>
               </div>
             ))}
           </div>
@@ -614,7 +617,7 @@ export default function OmenaPitch() {
           <div className="text-center mb-16">
             <p className="script text-xl md:text-2xl mb-3" style={{ color: A }}>Pillar 04</p>
             <h2 className="heading text-4xl md:text-5xl mb-5">Internal <span style={{ color: A }}>Agency Hub</span></h2>
-            <p className="text-sm max-w-lg mx-auto" style={{ color: "rgba(0,0,0,0.4)" }}>The operational backbone. Replaces Trello, Asana, and spreadsheets with one system synced to the client portal.</p>
+            <p className="text-sm max-w-lg mx-auto" style={{ color: "rgba(0,0,0,0.7)" }}>The operational backbone. Replaces Trello, Asana, and spreadsheets with one system synced to the client portal.</p>
           </div>
 
           {/* Workflow diagram */}
@@ -640,12 +643,12 @@ export default function OmenaPitch() {
       </section>
 
       {/* ═══ DATA & PROJECTIONS ═══ */}
-      <section className="ph-slide opacity-0" style={{ padding: "120px 24px", background: "#FAFAFA" }}>
+      <section className="ph-slide opacity-0" style={{ padding: "120px 24px", background: "#fff" }}>
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
             <p className="script text-xl md:text-2xl mb-3" style={{ color: G }}>Projections</p>
             <h2 className="heading text-4xl md:text-5xl mb-5">Growth <span style={{ color: G }}>Data</span></h2>
-            <p className="text-sm max-w-xl mx-auto" style={{ color: "rgba(0,0,0,0.4)" }}>Based on industry benchmarks for marketing agencies launching integrated digital platforms. These projections assume consistent content output, ad spend of $2-5K/month, and active AI tool promotion.</p>
+            <p className="text-sm max-w-xl mx-auto" style={{ color: "rgba(0,0,0,0.7)" }}>Based on industry benchmarks for marketing agencies launching integrated digital platforms. These projections assume consistent content output, ad spend of $2-5K/month, and active AI tool promotion.</p>
           </div>
 
           {/* Key metrics */}
@@ -656,18 +659,18 @@ export default function OmenaPitch() {
               { n: "8.5%", l: "Conversion Rate", sub: "industry avg: 2.3%" },
               { n: "3.2x", l: "ROI", sub: "on ad spend" },
             ].map((m) => (
-              <div key={m.l} className="ph-item rounded-[16px] p-5 text-center bg-white border" style={{ borderColor: "#EBEBEB" }}>
+              <div key={m.l} className="ph-item rounded-[16px] p-5 text-center bg-white" style={{ border: `2px solid ${D}`, boxShadow: `3px 3px 0px 0px ${G}` }}>
                 <div className="heading text-2xl mb-1" style={{ color: G }}>{m.n}</div>
                 <div className="text-[11px] font-bold" style={{ color: D }}>{m.l}</div>
-                <div className="text-[10px] mt-0.5" style={{ color: "rgba(0,0,0,0.3)" }}>{m.sub}</div>
+                <div className="text-[10px] mt-0.5" style={{ color: "rgba(0,0,0,0.8)" }}>{m.sub}</div>
               </div>
             ))}
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-            <div className="rounded-[20px] p-8 bg-white border" style={{ borderColor: "#E5E7EB" }}>
+            <div className="rounded-[20px] p-8 bg-white" style={{ border: `2px solid ${D}`, boxShadow: `3px 3px 0px 0px ${G}` }}>
               <h3 className="heading text-lg mb-1">Lead Growth Projection</h3>
-              <p className="text-[11px] mb-6" style={{ color: "rgba(0,0,0,0.3)" }}>By channel, first 6 months post-launch</p>
+              <p className="text-[11px] mb-6" style={{ color: "rgba(0,0,0,0.8)" }}>By channel, first 6 months post-launch</p>
               <ResponsiveContainer width="100%" height={260}>
                 <AreaChart data={roiData}>
                   <defs>
@@ -685,9 +688,9 @@ export default function OmenaPitch() {
                 </AreaChart>
               </ResponsiveContainer>
             </div>
-            <div className="rounded-[20px] p-8 bg-white border" style={{ borderColor: "#E5E7EB" }}>
+            <div className="rounded-[20px] p-8 bg-white" style={{ border: `2px solid ${D}`, boxShadow: `3px 3px 0px 0px ${G}` }}>
               <h3 className="heading text-lg mb-1">Traffic Channel Mix</h3>
-              <p className="text-[11px] mb-6" style={{ color: "rgba(0,0,0,0.3)" }}>Projected at month 6</p>
+              <p className="text-[11px] mb-6" style={{ color: "rgba(0,0,0,0.8)" }}>Projected at month 6</p>
               <ResponsiveContainer width="100%" height={200}>
                 <PieChart>
                   <Pie data={channelPie} cx="50%" cy="50%" innerRadius={50} outerRadius={85} paddingAngle={3} dataKey="value">
@@ -700,7 +703,7 @@ export default function OmenaPitch() {
                 {channelPie.map((c) => (
                   <div key={c.name} className="flex items-center gap-1.5">
                     <span className="w-2.5 h-2.5 rounded-full" style={{ background: c.color }} />
-                    <span className="text-[10px] font-medium" style={{ color: "rgba(0,0,0,0.5)" }}>{c.name} ({c.value}%)</span>
+                    <span className="text-[10px] font-medium" style={{ color: "rgba(0,0,0,0.75)" }}>{c.name} ({c.value}%)</span>
                   </div>
                 ))}
               </div>
@@ -708,9 +711,9 @@ export default function OmenaPitch() {
           </div>
 
           {/* Competitor chart */}
-          <div className="rounded-[20px] p-8 bg-white border" style={{ borderColor: "#E5E7EB" }}>
+          <div className="rounded-[20px] p-8 bg-white" style={{ border: `2px solid ${D}`, boxShadow: `3px 3px 0px 0px ${G}` }}>
             <h3 className="heading text-lg mb-1 text-center">OMENA vs. Traditional Agency</h3>
-            <p className="text-[11px] text-center mb-6" style={{ color: "rgba(0,0,0,0.3)" }}>Competitive advantage score (0-100)</p>
+            <p className="text-[11px] text-center mb-6" style={{ color: "rgba(0,0,0,0.8)" }}>Competitive advantage score (0-100)</p>
             <ResponsiveContainer width="100%" height={250}>
               <BarChart data={compData} layout="vertical" barGap={4}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#F3F4F6" horizontal={false} />
@@ -738,7 +741,7 @@ export default function OmenaPitch() {
           <div className="text-center mb-14">
             <p className="script text-xl mb-3" style={{ color: G }}>Technology</p>
             <h2 className="heading text-4xl md:text-5xl mb-5" style={{ color: "#fff" }}>Tech <span style={{ color: G }}>Stack</span></h2>
-            <p className="text-sm max-w-lg mx-auto" style={{ color: "rgba(255,255,255,0.35)" }}>Battle-tested technologies chosen for performance, scalability, and developer velocity.</p>
+            <p className="text-sm max-w-lg mx-auto" style={{ color: "rgba(255,255,255,0.7)" }}>Battle-tested technologies chosen for performance, scalability, and developer velocity.</p>
           </div>
 
           {/* Tech grid with logos */}
@@ -780,7 +783,7 @@ export default function OmenaPitch() {
                   <f.icon size={18} color={f.color} />
                 </div>
                 <div className="text-[13px] font-bold mb-0.5" style={{ color: D }}>{f.label}</div>
-                <div className="text-[10px]" style={{ color: "rgba(0,0,0,0.35)" }}>{f.sub}</div>
+                <div className="text-[10px]" style={{ color: "rgba(0,0,0,0.65)" }}>{f.sub}</div>
               </div>
             ))}
           </div>
@@ -799,7 +802,7 @@ export default function OmenaPitch() {
           <div className="text-center mb-16">
             <p className="script text-xl md:text-2xl mb-3" style={{ color: G }}>Execution</p>
             <h2 className="heading text-4xl md:text-5xl mb-5">Development <span style={{ color: G }}>Roadmap</span></h2>
-            <p className="text-sm max-w-lg mx-auto" style={{ color: "rgba(0,0,0,0.4)" }}>Three focused phases, each building on the last. Every phase ships a working product.</p>
+            <p className="text-sm max-w-lg mx-auto" style={{ color: "rgba(0,0,0,0.7)" }}>Three focused phases, each building on the last. Every phase ships a working product.</p>
           </div>
 
           <div className="flex flex-col gap-6 ph-stagger">
@@ -808,11 +811,11 @@ export default function OmenaPitch() {
               { label: "Intelligence", color: P, duration: "6–8 Weeks", items: ["AI questionnaire (8-12 smart questions)", "Strategy engine (SWOT, Persona, Competitors)", "PDF report generator with branding", "Pricing & subscription system (Stripe)", "Client dashboard with live KPI charts", "Content approval workflow & client drive"] },
               { label: "Operations", color: A, duration: "4–6 Weeks", items: ["Admin dashboard with full controls", "Role-based access (4 permission levels)", "Internal task board synced with client view", "Automated workflow engine (6+ triggers)", "Team analytics & health scoring", "In-portal team & client messaging"] },
             ].map((p, i) => (
-              <div key={p.label} className="ph-item rounded-[24px] overflow-hidden" style={{ border: `2px solid ${p.color}25`, boxShadow: "0 2px 20px rgba(0,0,0,0.04)" }}>
+              <div key={p.label} className="ph-item rounded-[24px] overflow-hidden" style={{ border: `2px solid ${D}`, boxShadow: `4px 4px 0px 0px ${p.color}` }}>
                 <div className="flex flex-col md:flex-row">
                   {/* Phase sidebar */}
                   <div className="md:w-[200px] flex-shrink-0 p-8 flex flex-col items-center justify-center text-center" style={{ background: p.color }}>
-                    <div className="text-[9px] font-bold tracking-[3px] uppercase mb-1" style={{ color: "rgba(0,0,0,0.4)" }}>Phase</div>
+                    <div className="text-[9px] font-bold tracking-[3px] uppercase mb-1" style={{ color: "rgba(0,0,0,0.7)" }}>Phase</div>
                     <div className="heading text-5xl mb-2" style={{ color: D }}>{i + 1}</div>
                     <div className="heading text-lg mb-2" style={{ color: D }}>{p.label}</div>
                     <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full" style={{ background: "rgba(0,0,0,0.08)" }}>
@@ -826,7 +829,7 @@ export default function OmenaPitch() {
                       {p.items.map((item) => (
                         <div key={item} className="flex items-start gap-3 p-3 rounded-xl transition-colors duration-200 hover:bg-gray-50">
                           <CheckCircle2 size={16} color={p.color} className="flex-shrink-0 mt-0.5" />
-                          <span className="text-[12px] leading-relaxed" style={{ color: "rgba(0,0,0,0.55)" }}>{item}</span>
+                          <span className="text-[12px] leading-relaxed" style={{ color: "rgba(0,0,0,0.8)" }}>{item}</span>
                         </div>
                       ))}
                     </div>
@@ -845,20 +848,20 @@ export default function OmenaPitch() {
       </section>
 
       {/* ═══ WHY AHMED ═══ */}
-      <section className="ph-slide opacity-0" style={{ padding: "120px 24px 80px", background: "#FAFAFA" }}>
+      <section className="ph-slide opacity-0" style={{ padding: "120px 24px 80px", background: "#fff" }}>
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <p className="script text-xl md:text-2xl mb-3" style={{ color: G }}>About Me</p>
             <h2 className="heading text-4xl md:text-5xl">Why <span style={{ color: G }}>Ahmed Ali</span>?</h2>
           </div>
 
-          <div className="rounded-[24px] p-8 md:p-12 bg-white border" style={{ borderColor: "#E5E7EB" }}>
+          <div className="rounded-[24px] p-8 md:p-12 bg-white" style={{ border: `2px solid ${D}`, boxShadow: `4px 4px 0px 0px ${G}` }}>
             <div className="flex flex-col md:flex-row gap-8 items-center mb-10">
               <img src="/ahmed.jpeg" alt="Ahmed Ali" className="w-28 h-28 rounded-full object-cover" style={{ border: `3px solid ${G}` }} />
               <div>
                 <h3 className="heading text-3xl mb-1">Ahmed Ali<span style={{ color: G }}>.</span></h3>
                 <p className="text-sm font-semibold mb-3" style={{ color: G }}>Full-Stack Digital Strategist</p>
-                <p className="text-sm leading-relaxed" style={{ color: "rgba(0,0,0,0.45)" }}>
+                <p className="text-sm leading-relaxed" style={{ color: "rgba(0,0,0,0.75)" }}>
                   5+ years building digital products across Egypt, Qatar, Saudi Arabia & UAE. I don&apos;t just plan — I design, build, and ship complete platforms. From Ooredoo and QNB to Amazon Egypt and Saudi Airlines, I&apos;ve delivered results for enterprise clients across the MENA region.
                 </p>
               </div>
@@ -866,9 +869,9 @@ export default function OmenaPitch() {
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10 ph-stagger">
               {[{ n: 5, l: "Years", s: "+" }, { n: 50, l: "Projects", s: "+" }, { n: 4, l: "Countries" }, { n: 10, l: "Enterprise", s: "+" }].map((s) => (
-                <div key={s.l} className="ph-item text-center p-5 rounded-[16px] border" style={{ borderColor: "#E5E7EB" }}>
+                <div key={s.l} className="ph-item text-center p-5 rounded-[16px]" style={{ border: `2px solid ${D}`, boxShadow: `3px 3px 0px 0px ${G}` }}>
                   <div className="heading text-3xl" style={{ color: G }}><span className="ph-num" data-val={s.n}>0</span>{s.s || ""}</div>
-                  <div className="text-[11px] font-medium mt-1" style={{ color: "rgba(0,0,0,0.35)" }}>{s.l}</div>
+                  <div className="text-[11px] font-medium mt-1" style={{ color: "rgba(0,0,0,0.65)" }}>{s.l}</div>
                 </div>
               ))}
             </div>
@@ -891,7 +894,7 @@ export default function OmenaPitch() {
 
           <div className="mt-16 text-center">
             <p className="script text-2xl mb-4" style={{ color: "rgba(0,0,0,0.1)" }}>Let&apos;s build something extraordinary.</p>
-            <p className="text-[11px]" style={{ color: "rgba(0,0,0,0.15)" }}>&copy; {new Date().getFullYear()} Ahmed Ali. Prepared exclusively for OMENA.</p>
+            <p className="text-[11px]" style={{ color: "rgba(0,0,0,0.7)" }}>&copy; {new Date().getFullYear()} Ahmed Ali. Prepared exclusively for OMENA.</p>
           </div>
         </div>
       </section>
