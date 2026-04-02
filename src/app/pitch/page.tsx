@@ -71,7 +71,7 @@ function ProcessFlow({ steps, color = G }: { steps: { icon: LucideIcon; title: s
               <div className="w-20 h-20 rounded-full flex items-center justify-center" style={{ background: "#fff", border: `3px solid ${color}`, boxShadow: `0 4px 20px ${color}25` }}>
                 <s.icon size={28} color={color} />
               </div>
-              <span className="absolute -top-1 -right-1 w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold" style={{ background: color, color: D }}>
+              <span className="absolute -top-1 -right-1 w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold" style={{ background: color, color: "#fff" }}>
                 {String(i + 1).padStart(2, "0")}
               </span>
             </div>
@@ -125,7 +125,7 @@ function TreeDiagram({ root, branches }: {
 
               {/* Leaf nodes */}
               <div className="flex flex-col gap-1.5">
-                {b.children.map((c, i) => (
+                {b.children.map((c) => (
                   <div key={c} className="flex items-center gap-2 pl-2" style={{ borderLeft: `2px solid ${b.color}30` }}>
                     <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: b.color }} />
                     <span className="text-[11px]" style={{ color: "rgba(0,0,0,0.5)" }}>{c}</span>
@@ -140,47 +140,6 @@ function TreeDiagram({ root, branches }: {
   );
 }
 
-function VisualTimeline({ phases }: { phases: { label: string; color: string; duration: string; items: string[] }[] }) {
-  return (
-    <div className="relative ph-tl">
-      {/* Horizontal timeline bar */}
-      <div className="hidden md:block absolute top-[42px] left-0 right-0 h-[4px] rounded-full" style={{ background: "#E5E7EB" }} />
-      <div className="hidden md:block ph-tl-line absolute top-[42px] left-0 right-0 h-[4px] rounded-full origin-left" style={{ background: `linear-gradient(90deg, ${G}, ${P}, ${A})` }} />
-
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {phases.map((p, i) => (
-          <div key={p.label} className="ph-item flex flex-col items-center">
-            {/* Circle on timeline */}
-            <div className="w-[84px] h-[84px] rounded-full flex items-center justify-center mb-6 relative z-10" style={{ background: "#fff", border: `4px solid ${p.color}`, boxShadow: `0 4px 20px ${p.color}30` }}>
-              <div className="text-center">
-                <div className="heading text-sm" style={{ color: p.color }}>Phase</div>
-                <div className="heading text-2xl" style={{ color: D }}>{i + 1}</div>
-              </div>
-            </div>
-
-            {/* Phase card */}
-            <div className="w-full rounded-[20px] p-6" style={{ background: "#fff", border: `1px solid #E5E7EB` }}>
-              <div className="flex items-center justify-between mb-4">
-                <span className="px-3 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase" style={{ background: `${p.color}12`, color: p.color }}>{p.label}</span>
-                <span className="flex items-center gap-1 text-[11px]" style={{ color: "rgba(0,0,0,0.35)" }}>
-                  <Clock size={11} />{p.duration}
-                </span>
-              </div>
-              <div className="flex flex-col gap-2.5">
-                {p.items.map((item) => (
-                  <div key={item} className="flex items-start gap-2">
-                    <CheckCircle2 size={13} color={p.color} className="flex-shrink-0 mt-0.5" />
-                    <span className="text-[12px]" style={{ color: "rgba(0,0,0,0.5)" }}>{item}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
 
 function InfoCard({ icon: Icon, title, desc, metric, metricLabel, color = G }: { icon: LucideIcon; title: string; desc: string; metric?: string; metricLabel?: string; color?: string }) {
   return (
@@ -202,23 +161,24 @@ function InfoCard({ icon: Icon, title, desc, metric, metricLabel, color = G }: {
   );
 }
 
-function DataTable({ headers, rows }: { headers: string[]; rows: string[][] }) {
+function DataTable({ rows, color = G }: { headers: string[]; rows: string[][]; color?: string }) {
   return (
-    <div className="overflow-x-auto rounded-[16px] border" style={{ borderColor: "#E5E7EB" }}>
-      <table style={{ width: "100%", borderCollapse: "collapse" }}>
-        <thead>
-          <tr style={{ background: D }}>
-            {headers.map((h) => <th key={h} style={{ padding: "12px 18px", textAlign: "left", fontSize: "10px", fontWeight: 700, color: G, letterSpacing: "1.5px", textTransform: "uppercase" }}>{h}</th>)}
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((row, i) => (
-            <tr key={i} style={{ background: i % 2 === 0 ? "#fff" : "#FAFAFA", borderBottom: "1px solid #F3F4F6" }}>
-              {row.map((cell, j) => <td key={j} style={{ padding: "11px 18px", fontSize: "12px", color: j === 0 ? D : "rgba(0,0,0,0.5)", fontWeight: j === 0 ? 600 : 400 }}>{cell}</td>)}
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div className="flex flex-col gap-3 ph-stagger">
+      {rows.map((row, i) => (
+        <div key={i} className="ph-item rounded-[16px] p-5 flex flex-col md:flex-row md:items-center gap-3 md:gap-6 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md" style={{ background: "#fff", border: "1px solid #EBEBEB" }}>
+          <div className="md:w-[140px] flex-shrink-0 flex items-center gap-3">
+            <span className="w-7 h-7 rounded-lg flex items-center justify-center text-[10px] font-bold flex-shrink-0" style={{ background: `${color}15`, color }}>{String(i + 1).padStart(2, "0")}</span>
+            <span className="heading text-sm">{row[0]}</span>
+          </div>
+          <div className="flex-1">
+            <p className="text-[11px] leading-relaxed" style={{ color: "rgba(0,0,0,0.45)" }}>{row[1]}</p>
+          </div>
+          <div className="flex items-center gap-3 flex-shrink-0">
+            <span className="inline-block px-3 py-1 rounded-full text-[10px] font-bold" style={{ background: `${color}12`, color }}>{row[2]}</span>
+            <span className="text-[10px] font-bold tracking-wider uppercase" style={{ color: row[3] === "Critical" ? R : row[3] === "High" ? A : "rgba(0,0,0,0.3)" }}>{row[3]}</span>
+          </div>
+        </div>
+      ))}
     </div>
   );
 }
@@ -470,14 +430,29 @@ export default function OmenaPitch() {
             ]}
           />
 
-          {/* Growth loop */}
-          <div className="mt-12 flex items-center justify-center gap-2 flex-wrap">
-            {["Attract", "Engage", "Convert", "Serve", "Retain", "Scale"].map((s, i) => (
-              <div key={s} className="flex items-center gap-2">
-                <span className="px-5 py-2.5 rounded-full text-[12px] font-bold" style={{ background: i === 5 ? G : "#fff", color: D, border: `2px solid ${i === 5 ? D : "#E5E7EB"}`, boxShadow: i === 5 ? `3px 3px 0px 0px ${D}` : "none" }}>{s}</span>
-                {i < 5 && <ArrowRight size={14} color="#D1D5DB" />}
-              </div>
-            ))}
+          {/* Growth Flywheel */}
+          <div className="mt-16 ph-stagger">
+            <h3 className="heading text-xl text-center mb-10">Growth Flywheel</h3>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+              {[
+                { step: "Attract", desc: "SEO, ads, AI tool drive traffic", icon: Target, color: G },
+                { step: "Engage", desc: "Content & tools build trust", icon: Eye, color: P },
+                { step: "Convert", desc: "Forms, calls, AI reports", icon: UserCheck, color: B },
+                { step: "Serve", desc: "Portal, dashboard, delivery", icon: LayoutDashboard, color: A },
+                { step: "Retain", desc: "Transparency builds loyalty", icon: HeartPulse, color: PIK },
+                { step: "Scale", desc: "Referrals, upsells, growth", icon: Rocket, color: G },
+              ].map((s, i) => (
+                <div key={s.step} className="ph-item relative rounded-[20px] p-5 text-center group transition-all duration-300 hover:-translate-y-1 hover:shadow-lg" style={{ background: i === 5 ? G : "#fff", border: `2px solid ${i === 5 ? D : "#EBEBEB"}`, boxShadow: i === 5 ? `3px 3px 0px 0px ${D}` : "none" }}>
+                  <div className="text-[9px] font-bold tracking-[3px] mb-3" style={{ color: i === 5 ? D : "rgba(0,0,0,0.15)" }}>{String(i + 1).padStart(2, "0")}</div>
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center mx-auto mb-3" style={{ background: i === 5 ? "rgba(0,0,0,0.08)" : `${s.color}10` }}>
+                    <s.icon size={20} color={i === 5 ? D : s.color} />
+                  </div>
+                  <div className="heading text-sm mb-1">{s.step}</div>
+                  <p className="text-[10px] leading-relaxed" style={{ color: i === 5 ? "rgba(0,0,0,0.5)" : "rgba(0,0,0,0.35)" }}>{s.desc}</p>
+                  {i < 5 && <div className="hidden lg:block absolute -right-2 top-1/2 -translate-y-1/2 z-10"><ArrowRight size={12} color="#D1D5DB" /></div>}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -513,6 +488,7 @@ export default function OmenaPitch() {
           <DataTable
             headers={["Page", "Purpose & Features", "Target KPI", "Priority"]}
             rows={sitemapTabs[activeTab].pages}
+            color={sitemapTabs[activeTab].color}
           />
         </div>
       </section>
@@ -617,15 +593,15 @@ export default function OmenaPitch() {
               { icon: CalendarCheck, title: "Meeting Scheduler", desc: "Book meetings from portal. Syncs with team calendar. Auto-reminders. No back-and-forth email.", metric: "Direct", color: P },
               { icon: MessagesSquare, title: "In-Portal Chat", desc: "Messaging per project. Client ↔ team communication with file sharing, history, and notifications.", metric: "Per project", color: B },
             ].map((f) => (
-              <div key={f.title} className="ph-item rounded-[20px] p-6" style={{ background: "#111", border: "1px solid rgba(255,255,255,0.06)" }}>
+              <div key={f.title} className="ph-item rounded-[20px] p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg" style={{ background: "#fff", border: "1px solid #EBEBEB" }}>
                 <div className="flex items-start justify-between mb-3">
                   <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: `${f.color}12` }}>
                     <f.icon size={18} color={f.color} />
                   </div>
                   <span className="heading text-sm" style={{ color: f.color }}>{f.metric}</span>
                 </div>
-                <h4 className="text-[14px] font-bold mb-1" style={{ color: "#fff" }}>{f.title}</h4>
-                <p className="text-[11px] leading-relaxed" style={{ color: "rgba(255,255,255,0.4)" }}>{f.desc}</p>
+                <h4 className="text-[14px] font-bold mb-1" style={{ color: D }}>{f.title}</h4>
+                <p className="text-[11px] leading-relaxed" style={{ color: "rgba(0,0,0,0.4)" }}>{f.desc}</p>
               </div>
             ))}
           </div>
@@ -669,6 +645,23 @@ export default function OmenaPitch() {
           <div className="text-center mb-16">
             <p className="script text-xl md:text-2xl mb-3" style={{ color: G }}>Projections</p>
             <h2 className="heading text-4xl md:text-5xl mb-5">Growth <span style={{ color: G }}>Data</span></h2>
+            <p className="text-sm max-w-xl mx-auto" style={{ color: "rgba(0,0,0,0.4)" }}>Based on industry benchmarks for marketing agencies launching integrated digital platforms. These projections assume consistent content output, ad spend of $2-5K/month, and active AI tool promotion.</p>
+          </div>
+
+          {/* Key metrics */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12 ph-stagger">
+            {[
+              { n: "15K", l: "Monthly Visitors", sub: "by month 6" },
+              { n: "350+", l: "Qualified Leads", sub: "per month" },
+              { n: "8.5%", l: "Conversion Rate", sub: "industry avg: 2.3%" },
+              { n: "3.2x", l: "ROI", sub: "on ad spend" },
+            ].map((m) => (
+              <div key={m.l} className="ph-item rounded-[16px] p-5 text-center bg-white border" style={{ borderColor: "#EBEBEB" }}>
+                <div className="heading text-2xl mb-1" style={{ color: G }}>{m.n}</div>
+                <div className="text-[11px] font-bold" style={{ color: D }}>{m.l}</div>
+                <div className="text-[10px] mt-0.5" style={{ color: "rgba(0,0,0,0.3)" }}>{m.sub}</div>
+              </div>
+            ))}
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
@@ -729,38 +722,72 @@ export default function OmenaPitch() {
               </BarChart>
             </ResponsiveContainer>
           </div>
+
+          {/* Key insight */}
+          <div className="mt-8 rounded-[16px] p-6 text-center" style={{ background: `${G}08`, border: `1px solid ${G}20` }}>
+            <p className="text-[13px] font-medium" style={{ color: D }}>
+              <strong style={{ color: G }}>Key Insight:</strong> The AI Strategy Tool alone is projected to generate 20% of total leads by month 6, while reducing cost-per-lead by 40% compared to traditional outbound. Combined with SEO and paid channels, OMENA builds a self-sustaining acquisition engine that competitors cannot replicate.
+            </p>
+          </div>
         </div>
       </section>
 
       {/* ═══ TECH STACK ═══ */}
       <section className="ph-slide opacity-0" style={{ padding: "100px 24px", background: D }}>
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
+          <div className="text-center mb-14">
             <p className="script text-xl mb-3" style={{ color: G }}>Technology</p>
             <h2 className="heading text-4xl md:text-5xl mb-5" style={{ color: "#fff" }}>Tech <span style={{ color: G }}>Stack</span></h2>
+            <p className="text-sm max-w-lg mx-auto" style={{ color: "rgba(255,255,255,0.35)" }}>Battle-tested technologies chosen for performance, scalability, and developer velocity.</p>
           </div>
-          <div className="flex flex-wrap justify-center gap-3 mb-12 ph-stagger">
-            {["Next.js", "React", "TypeScript", "Tailwind CSS", "Supabase", "Firebase", "OpenAI / Gemini", "Vercel", "Stripe", "Resend", "GSAP"].map((t) => (
-              <span key={t} className="ph-item px-5 py-3 rounded-full text-[12px] font-semibold" style={{ background: "#111", border: "1px solid rgba(255,255,255,0.08)", color: "#fff" }}>{t}</span>
-            ))}
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 ph-stagger">
+
+          {/* Tech grid with logos */}
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-12 ph-stagger">
             {[
-              { icon: Gauge, label: "90+ Lighthouse", sub: "Performance" },
-              { icon: Shield, label: "RLS + Encryption", sub: "Security" },
-              { icon: Cloud, label: "Auto-scaling CDN", sub: "Scalability" },
-              { icon: Smartphone, label: "PWA + Native Ready", sub: "Mobile" },
-            ].map((f) => (
-              <div key={f.label} className="ph-item text-center p-5 rounded-[16px]" style={{ background: "#111", border: "1px solid rgba(255,255,255,0.06)" }}>
-                <f.icon size={20} color={G} className="mx-auto mb-2" />
-                <div className="text-[13px] font-bold mb-0.5" style={{ color: "#fff" }}>{f.label}</div>
-                <div className="text-[10px]" style={{ color: "rgba(255,255,255,0.3)" }}>{f.sub}</div>
+              { name: "Next.js", icon: "nextdotjs/white", desc: "Full-stack framework" },
+              { name: "React", icon: "react", desc: "UI components" },
+              { name: "TypeScript", icon: "typescript", desc: "Type safety" },
+              { name: "Tailwind CSS", icon: "tailwindcss", desc: "Utility-first CSS" },
+              { name: "Supabase", icon: "supabase", desc: "Database & auth" },
+              { name: "Firebase", icon: "firebase", desc: "Real-time services" },
+              { name: "OpenAI", icon: "openai/white", desc: "AI engine" },
+              { name: "Google Gemini", icon: "googlegemini", desc: "AI models" },
+              { name: "Vercel", icon: "vercel/white", desc: "Deployment & CDN" },
+              { name: "Stripe", icon: "stripe", desc: "Payments" },
+              { name: "Resend", icon: "resend/white", desc: "Transactional email" },
+              { name: "Flutter", icon: "flutter", desc: "Mobile apps" },
+            ].map((t) => (
+              <div key={t.name} className="ph-item flex items-center gap-4 p-4 rounded-[16px] transition-all duration-300 hover:-translate-y-0.5" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
+                <img src={`https://cdn.simpleicons.org/${t.icon}`} alt={t.name} width={28} height={28} style={{ width: 28, height: 28 }} />
+                <div>
+                  <div className="text-[13px] font-bold" style={{ color: "#fff" }}>{t.name}</div>
+                  <div className="text-[10px]" style={{ color: "rgba(255,255,255,0.3)" }}>{t.desc}</div>
+                </div>
               </div>
             ))}
           </div>
-          <div className="mt-10 rounded-[16px] p-5 text-center" style={{ background: "#111", border: "1px solid rgba(255,255,255,0.06)" }}>
-            <p className="text-[12px]" style={{ color: "rgba(255,255,255,0.4)" }}>
-              <strong style={{ color: G }}>Future Development:</strong> Flutter mobile app for clients and team — iOS & Android — for on-the-go access to dashboards, approvals, and notifications.
+
+          {/* Capabilities */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10 ph-stagger">
+            {[
+              { icon: Gauge, label: "90+ Lighthouse", sub: "Performance", color: G },
+              { icon: Shield, label: "RLS + Encryption", sub: "Security", color: B },
+              { icon: Cloud, label: "Auto-scaling CDN", sub: "Scalability", color: P },
+              { icon: Smartphone, label: "PWA + Native Ready", sub: "Mobile", color: A },
+            ].map((f) => (
+              <div key={f.label} className="ph-item rounded-[16px] p-5 text-center" style={{ background: "#fff" }}>
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center mx-auto mb-3" style={{ background: `${f.color}12` }}>
+                  <f.icon size={18} color={f.color} />
+                </div>
+                <div className="text-[13px] font-bold mb-0.5" style={{ color: D }}>{f.label}</div>
+                <div className="text-[10px]" style={{ color: "rgba(0,0,0,0.35)" }}>{f.sub}</div>
+              </div>
+            ))}
+          </div>
+
+          <div className="rounded-[16px] p-6" style={{ background: G, border: `2px solid ${D}` }}>
+            <p className="text-[13px] text-center font-medium" style={{ color: D }}>
+              <strong>Phase 4 — Mobile:</strong> Flutter app for clients and team — iOS & Android — for on-the-go access to dashboards, approvals, and notifications.
             </p>
           </div>
         </div>
@@ -772,13 +799,42 @@ export default function OmenaPitch() {
           <div className="text-center mb-16">
             <p className="script text-xl md:text-2xl mb-3" style={{ color: G }}>Execution</p>
             <h2 className="heading text-4xl md:text-5xl mb-5">Development <span style={{ color: G }}>Roadmap</span></h2>
+            <p className="text-sm max-w-lg mx-auto" style={{ color: "rgba(0,0,0,0.4)" }}>Three focused phases, each building on the last. Every phase ships a working product.</p>
           </div>
 
-          <VisualTimeline phases={[
-            { label: "Foundation", color: G, duration: "4–6 Weeks", items: ["Brand design system & component library", "8+ page public website with SEO", "Blog CMS with rich text editor", "Contact forms with intelligent routing", "GA4, GTM, TikTok Pixel integration", "Core Web Vitals optimization (90+)"] },
-            { label: "Intelligence", color: P, duration: "6–8 Weeks", items: ["AI questionnaire (8-12 smart questions)", "Strategy engine (SWOT, Persona, Competitors)", "PDF report generator with branding", "Pricing & subscription system (Stripe)", "Client dashboard with live KPI charts", "Content approval workflow & client drive"] },
-            { label: "Operations", color: A, duration: "4–6 Weeks", items: ["Admin dashboard with full controls", "Role-based access (4 permission levels)", "Internal task board synced with client view", "Automated workflow engine (6+ triggers)", "Team analytics & health scoring", "In-portal team & client messaging"] },
-          ]} />
+          <div className="flex flex-col gap-6 ph-stagger">
+            {[
+              { label: "Foundation", color: G, duration: "4–6 Weeks", items: ["Brand design system & component library", "8+ page public website with SEO", "Blog CMS with rich text editor", "Contact forms with intelligent routing", "GA4, GTM, TikTok Pixel integration", "Core Web Vitals optimization (90+)"] },
+              { label: "Intelligence", color: P, duration: "6–8 Weeks", items: ["AI questionnaire (8-12 smart questions)", "Strategy engine (SWOT, Persona, Competitors)", "PDF report generator with branding", "Pricing & subscription system (Stripe)", "Client dashboard with live KPI charts", "Content approval workflow & client drive"] },
+              { label: "Operations", color: A, duration: "4–6 Weeks", items: ["Admin dashboard with full controls", "Role-based access (4 permission levels)", "Internal task board synced with client view", "Automated workflow engine (6+ triggers)", "Team analytics & health scoring", "In-portal team & client messaging"] },
+            ].map((p, i) => (
+              <div key={p.label} className="ph-item rounded-[24px] overflow-hidden" style={{ border: `2px solid ${p.color}25`, boxShadow: "0 2px 20px rgba(0,0,0,0.04)" }}>
+                <div className="flex flex-col md:flex-row">
+                  {/* Phase sidebar */}
+                  <div className="md:w-[200px] flex-shrink-0 p-8 flex flex-col items-center justify-center text-center" style={{ background: p.color }}>
+                    <div className="text-[9px] font-bold tracking-[3px] uppercase mb-1" style={{ color: "rgba(0,0,0,0.4)" }}>Phase</div>
+                    <div className="heading text-5xl mb-2" style={{ color: D }}>{i + 1}</div>
+                    <div className="heading text-lg mb-2" style={{ color: D }}>{p.label}</div>
+                    <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full" style={{ background: "rgba(0,0,0,0.08)" }}>
+                      <Clock size={11} color={D} />
+                      <span className="text-[11px] font-bold" style={{ color: D }}>{p.duration}</span>
+                    </div>
+                  </div>
+                  {/* Deliverables */}
+                  <div className="flex-1 p-8 bg-white">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      {p.items.map((item) => (
+                        <div key={item} className="flex items-start gap-3 p-3 rounded-xl transition-colors duration-200 hover:bg-gray-50">
+                          <CheckCircle2 size={16} color={p.color} className="flex-shrink-0 mt-0.5" />
+                          <span className="text-[12px] leading-relaxed" style={{ color: "rgba(0,0,0,0.55)" }}>{item}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
 
           <div className="mt-12 text-center">
             <span className="inline-flex items-center gap-2 px-8 py-4 rounded-full heading text-sm" style={{ background: G, color: D, border: `2px solid ${D}`, boxShadow: `4px 4px 0px 0px ${D}` }}>
