@@ -9,7 +9,7 @@ import {
   LineChart, Shield, Rocket, Clock, CheckCircle2,
   ArrowRight, Target,
   Search, BookOpen,
-  UserCheck, Activity, Workflow, ExternalLink,
+  UserCheck, Activity, Workflow,
   Eye, Mail, Gauge, Smartphone, Cloud,
   FolderOpen, Bell, CalendarCheck, ThumbsUp, Timer,
   GitBranch, MessagesSquare, HeartPulse,
@@ -115,7 +115,7 @@ function TreeDiagram({ root, branches }: {
             <div className="hidden md:block w-[3px] h-6 mb-2" style={{ background: b.color }} />
 
             {/* Branch node */}
-            <div className="w-full rounded-[20px] p-5 mb-3" style={{ background: "#fff", border: `2px solid ${b.color}`, boxShadow: `3px 3px 0px 0px ${D}` }}>
+            <div className="w-full rounded-[20px] p-5 mb-3" style={{ background: "#fff", border: `1.5px solid ${b.color}`, boxShadow: `3px 3px 0px 0px ${b.color}40` }}>
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: `${b.color}15` }}>
                   <b.icon size={20} color={b.color} />
@@ -143,7 +143,7 @@ function TreeDiagram({ root, branches }: {
 
 function InfoCard({ icon: Icon, title, desc, metric, metricLabel, color = G }: { icon: LucideIcon; title: string; desc: string; metric?: string; metricLabel?: string; color?: string }) {
   return (
-    <div className="ph-item rounded-[20px] p-6 bg-white transition-all duration-300 hover:-translate-y-1" style={{ border: `2px solid ${D}`, boxShadow: `3px 3px 0px 0px ${color}` }}>
+    <div className="ph-item rounded-[20px] p-6 bg-white transition-all duration-300 hover:-translate-y-1" style={{ border: `1.5px solid #D4D4D4`, boxShadow: `3px 3px 0px 0px ${color}` }}>
       <div className="flex items-start justify-between mb-4">
         <div className="w-11 h-11 rounded-2xl flex items-center justify-center" style={{ background: `${color}12` }}>
           <Icon size={20} color={color} />
@@ -165,7 +165,7 @@ function DataTable({ rows, color = G }: { headers: string[]; rows: string[][]; c
   return (
     <div className="flex flex-col gap-3 ph-stagger">
       {rows.map((row, i) => (
-        <div key={i} className="ph-item rounded-[16px] p-5 flex flex-col md:flex-row md:items-center gap-3 md:gap-6 transition-all duration-200 hover:-translate-y-0.5" style={{ background: "#fff", border: `2px solid ${D}`, boxShadow: `3px 3px 0px 0px ${color}` }}>
+        <div key={i} className="ph-item rounded-[16px] p-5 flex flex-col md:flex-row md:items-center gap-3 md:gap-6 transition-all duration-200 hover:-translate-y-0.5" style={{ background: "#fff", border: `1.5px solid #D4D4D4`, boxShadow: `3px 3px 0px 0px ${color}` }}>
           <div className="md:w-[200px] flex-shrink-0 flex items-center gap-3">
             <span className="w-7 h-7 rounded-lg flex items-center justify-center text-[10px] font-bold flex-shrink-0" style={{ background: D, color: "#fff" }}>{String(i + 1).padStart(2, "0")}</span>
             <span className="heading text-sm whitespace-nowrap">{row[0]}</span>
@@ -299,7 +299,7 @@ export default function OmenaPitch() {
 
           {/* Stats — horizontal divider style */}
           <div className="ph-hero opacity-0 mb-10 w-full max-w-2xl">
-            <div className="flex items-stretch justify-center" style={{ background: "#fff", border: `2px solid ${D}`, borderRadius: 16, overflow: "hidden", boxShadow: `4px 4px 0px 0px ${G}` }}>
+            <div className="flex items-stretch justify-center" style={{ background: "#fff", border: `1.5px solid #D4D4D4`, borderRadius: 16, overflow: "hidden", boxShadow: `4px 4px 0px 0px ${G}` }}>
               {[
                 { n: "4", l: "Core Pillars" },
                 { n: "38+", l: "Pages Mapped" },
@@ -387,7 +387,7 @@ export default function OmenaPitch() {
               { icon: Puzzle, title: "Zero Differentiation", desc: "Every agency pitches the same services with the same decks. Without a proprietary AI product, there's nothing stopping clients from switching to a cheaper alternative. Service commoditization is killing margins.", points: ["Same pitch as competitors", "No proprietary technology", "Price-based competition"], color: A, bg: G, dark: false },
               { icon: Eye, title: "Client Trust Gap", desc: "Clients pay thousands monthly but can't see real-time ROI. They wait for monthly reports and wonder what the team is doing. 67% of agency churn comes from perceived lack of transparency and communication.", points: ["No real-time visibility", "Monthly reports feel outdated", "67% churn from opacity"], color: P, bg: "#fff", dark: false },
             ].map((item) => (
-              <div key={item.title} className="ph-item rounded-[20px] p-7" style={{ background: item.bg, border: `2px solid ${D}`, boxShadow: item.bg === G ? `4px 4px 0px 0px ${D}` : `3px 3px 0px 0px ${item.color}` }}>
+              <div key={item.title} className="ph-item rounded-[20px] p-7" style={{ background: item.bg, border: `1.5px solid #D4D4D4`, boxShadow: item.bg === G ? `4px 4px 0px 0px ${D}` : `3px 3px 0px 0px ${item.color}` }}>
                 <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-4" style={{ background: item.bg === G ? "rgba(0,0,0,0.08)" : `${item.color}10` }}>
                   <item.icon size={22} color={item.bg === G ? D : item.color} />
                 </div>
@@ -442,7 +442,7 @@ export default function OmenaPitch() {
                 { step: "Retain", desc: "Transparency builds loyalty", icon: HeartPulse, color: PIK },
                 { step: "Scale", desc: "Referrals, upsells, growth", icon: Rocket, color: G },
               ].map((s, i) => (
-                <div key={s.step} className="ph-item relative rounded-[20px] p-6 text-center overflow-hidden transition-all duration-300 hover:-translate-y-1" style={{ background: i === 5 ? G : "#fff", border: `2px solid ${D}`, boxShadow: `3px 3px 0px 0px ${i === 5 ? D : s.color}` }}>
+                <div key={s.step} className="ph-item relative rounded-[20px] p-6 text-center overflow-hidden transition-all duration-300 hover:-translate-y-1" style={{ background: i === 5 ? G : "#fff", border: `1.5px solid #D4D4D4`, boxShadow: `3px 3px 0px 0px ${i === 5 ? D : s.color}` }}>
                   {/* Large watermark number */}
                   <div className="absolute -right-1 -top-3 heading select-none pointer-events-none" style={{ fontSize: 80, lineHeight: 1, color: i === 5 ? "rgba(0,0,0,0.06)" : `${s.color}12` }}>{String(i + 1).padStart(2, "0")}</div>
                   <div className="relative z-10">
@@ -475,7 +475,7 @@ export default function OmenaPitch() {
               <button key={tab.label} onClick={() => setActiveTab(i)} className="flex items-center gap-2 px-5 py-3 rounded-full text-[12px] font-bold cursor-pointer transition-all duration-200" style={{
                 background: activeTab === i ? tab.color : "#fff",
                 color: activeTab === i ? D : "rgba(0,0,0,0.6)",
-                border: `2px solid ${D}`,
+                border: `1.5px solid #D4D4D4`,
                 boxShadow: activeTab === i ? `3px 3px 0px 0px ${D}` : "none",
               }}>
                 <tab.icon size={16} />
@@ -596,7 +596,7 @@ export default function OmenaPitch() {
               { icon: CalendarCheck, title: "Meeting Scheduler", desc: "Book meetings from portal. Syncs with team calendar. Auto-reminders. No back-and-forth email.", metric: "Direct", color: P },
               { icon: MessagesSquare, title: "In-Portal Chat", desc: "Messaging per project. Client ↔ team communication with file sharing, history, and notifications.", metric: "Per project", color: B },
             ].map((f) => (
-              <div key={f.title} className="ph-item rounded-[20px] p-6 transition-all duration-300 hover:-translate-y-1" style={{ background: "#fff", border: `2px solid ${D}`, boxShadow: `3px 3px 0px 0px ${f.color}` }}>
+              <div key={f.title} className="ph-item rounded-[20px] p-6 transition-all duration-300 hover:-translate-y-1" style={{ background: "#fff", border: `1.5px solid #D4D4D4`, boxShadow: `3px 3px 0px 0px ${f.color}` }}>
                 <div className="flex items-start justify-between mb-3">
                   <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: `${f.color}12` }}>
                     <f.icon size={18} color={f.color} />
@@ -659,7 +659,7 @@ export default function OmenaPitch() {
               { n: "8.5%", l: "Conversion Rate", sub: "industry avg: 2.3%" },
               { n: "3.2x", l: "ROI", sub: "on ad spend" },
             ].map((m) => (
-              <div key={m.l} className="ph-item rounded-[16px] p-5 text-center bg-white" style={{ border: `2px solid ${D}`, boxShadow: `3px 3px 0px 0px ${G}` }}>
+              <div key={m.l} className="ph-item rounded-[16px] p-5 text-center bg-white" style={{ border: `1.5px solid #D4D4D4`, boxShadow: `3px 3px 0px 0px ${G}` }}>
                 <div className="heading text-2xl mb-1" style={{ color: G }}>{m.n}</div>
                 <div className="text-[11px] font-bold" style={{ color: D }}>{m.l}</div>
                 <div className="text-[10px] mt-0.5" style={{ color: "rgba(0,0,0,0.8)" }}>{m.sub}</div>
@@ -668,7 +668,7 @@ export default function OmenaPitch() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-            <div className="rounded-[20px] p-8 bg-white" style={{ border: `2px solid ${D}`, boxShadow: `3px 3px 0px 0px ${G}` }}>
+            <div className="rounded-[20px] p-8 bg-white" style={{ border: `1.5px solid #D4D4D4`, boxShadow: `3px 3px 0px 0px ${G}` }}>
               <h3 className="heading text-lg mb-1">Lead Growth Projection</h3>
               <p className="text-[11px] mb-6" style={{ color: "rgba(0,0,0,0.8)" }}>By channel, first 6 months post-launch</p>
               <ResponsiveContainer width="100%" height={260}>
@@ -688,7 +688,7 @@ export default function OmenaPitch() {
                 </AreaChart>
               </ResponsiveContainer>
             </div>
-            <div className="rounded-[20px] p-8 bg-white" style={{ border: `2px solid ${D}`, boxShadow: `3px 3px 0px 0px ${G}` }}>
+            <div className="rounded-[20px] p-8 bg-white" style={{ border: `1.5px solid #D4D4D4`, boxShadow: `3px 3px 0px 0px ${G}` }}>
               <h3 className="heading text-lg mb-1">Traffic Channel Mix</h3>
               <p className="text-[11px] mb-6" style={{ color: "rgba(0,0,0,0.8)" }}>Projected at month 6</p>
               <ResponsiveContainer width="100%" height={200}>
@@ -711,7 +711,7 @@ export default function OmenaPitch() {
           </div>
 
           {/* Competitor chart */}
-          <div className="rounded-[20px] p-8 bg-white" style={{ border: `2px solid ${D}`, boxShadow: `3px 3px 0px 0px ${G}` }}>
+          <div className="rounded-[20px] p-8 bg-white" style={{ border: `1.5px solid #D4D4D4`, boxShadow: `3px 3px 0px 0px ${G}` }}>
             <h3 className="heading text-lg mb-1 text-center">OMENA vs. Traditional Agency</h3>
             <p className="text-[11px] text-center mb-6" style={{ color: "rgba(0,0,0,0.8)" }}>Competitive advantage score (0-100)</p>
             <ResponsiveContainer width="100%" height={250}>
@@ -811,7 +811,7 @@ export default function OmenaPitch() {
               { label: "Intelligence", color: P, duration: "6–8 Weeks", items: ["AI questionnaire (8-12 smart questions)", "Strategy engine (SWOT, Persona, Competitors)", "PDF report generator with branding", "Pricing & subscription system (Stripe)", "Client dashboard with live KPI charts", "Content approval workflow & client drive"] },
               { label: "Operations", color: A, duration: "4–6 Weeks", items: ["Admin dashboard with full controls", "Role-based access (4 permission levels)", "Internal task board synced with client view", "Automated workflow engine (6+ triggers)", "Team analytics & health scoring", "In-portal team & client messaging"] },
             ].map((p, i) => (
-              <div key={p.label} className="ph-item rounded-[24px] overflow-hidden" style={{ border: `2px solid ${D}`, boxShadow: `4px 4px 0px 0px ${p.color}` }}>
+              <div key={p.label} className="ph-item rounded-[24px] overflow-hidden" style={{ border: `1.5px solid #D4D4D4`, boxShadow: `4px 4px 0px 0px ${p.color}` }}>
                 <div className="flex flex-col md:flex-row">
                   {/* Phase sidebar */}
                   <div className="md:w-[200px] flex-shrink-0 p-8 flex flex-col items-center justify-center text-center" style={{ background: p.color }}>
@@ -847,56 +847,42 @@ export default function OmenaPitch() {
         </div>
       </section>
 
-      {/* ═══ WHY AHMED ═══ */}
-      <section className="ph-slide opacity-0" style={{ padding: "120px 24px 80px", background: "#fff" }}>
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
-            <p className="script text-xl md:text-2xl mb-3" style={{ color: G }}>About Me</p>
-            <h2 className="heading text-4xl md:text-5xl">Why <span style={{ color: G }}>Ahmed Ali</span>?</h2>
-          </div>
-
-          <div className="rounded-[24px] p-8 md:p-12 bg-white" style={{ border: `2px solid ${D}`, boxShadow: `4px 4px 0px 0px ${G}` }}>
-            <div className="flex flex-col md:flex-row gap-8 items-center mb-10">
-              <img src="/ahmed.jpeg" alt="Ahmed Ali" className="w-28 h-28 rounded-full object-cover" style={{ border: `3px solid ${G}` }} />
-              <div>
-                <h3 className="heading text-3xl mb-1">Ahmed Ali<span style={{ color: G }}>.</span></h3>
-                <p className="text-sm font-semibold mb-3" style={{ color: G }}>Full-Stack Digital Strategist</p>
-                <p className="text-sm leading-relaxed" style={{ color: "rgba(0,0,0,0.75)" }}>
-                  5+ years building digital products across Egypt, Qatar, Saudi Arabia & UAE. I don&apos;t just plan — I design, build, and ship complete platforms. From Ooredoo and QNB to Amazon Egypt and Saudi Airlines, I&apos;ve delivered results for enterprise clients across the MENA region.
-                </p>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10 ph-stagger">
-              {[{ n: 5, l: "Years", s: "+" }, { n: 50, l: "Projects", s: "+" }, { n: 4, l: "Countries" }, { n: 10, l: "Enterprise", s: "+" }].map((s) => (
-                <div key={s.l} className="ph-item text-center p-5 rounded-[16px]" style={{ border: `2px solid ${D}`, boxShadow: `3px 3px 0px 0px ${G}` }}>
-                  <div className="heading text-3xl" style={{ color: G }}><span className="ph-num" data-val={s.n}>0</span>{s.s || ""}</div>
-                  <div className="text-[11px] font-medium mt-1" style={{ color: "rgba(0,0,0,0.65)" }}>{s.l}</div>
-                </div>
-              ))}
-            </div>
-
-            <div className="flex flex-wrap justify-center gap-2 mb-10">
-              {["Performance Marketing", "SEO & Growth", "Web & App Dev", "AI Integration", "Data Analytics", "Full-Stack Development"].map((s) => (
-                <span key={s} className="px-4 py-2 rounded-full text-[11px] font-bold" style={{ background: `${G}12`, color: G, border: `1px solid ${G}25` }}>{s}</span>
-              ))}
-            </div>
-
-            <div className="flex flex-wrap justify-center gap-4">
-              <a href="https://ahmedali.online" target="_blank" rel="noopener" className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-sm font-bold" style={{ background: G, color: D, border: `2px solid ${D}`, boxShadow: `4px 4px 0px 0px ${D}`, textDecoration: "none" }}>
-                View Portfolio <ExternalLink size={16} />
-              </a>
-              <a href="https://wa.me/201011648156" target="_blank" rel="noopener" className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-sm font-bold" style={{ background: "#fff", color: D, border: `2px solid ${D}`, boxShadow: `4px 4px 0px 0px ${D}`, textDecoration: "none" }}>
-                WhatsApp <ArrowRight size={16} />
-              </a>
-            </div>
-          </div>
-
-          <div className="mt-16 text-center">
-            <p className="script text-2xl mb-4" style={{ color: "rgba(0,0,0,0.1)" }}>Let&apos;s build something extraordinary.</p>
-            <p className="text-[11px]" style={{ color: "rgba(0,0,0,0.7)" }}>&copy; {new Date().getFullYear()} Ahmed Ali. Prepared exclusively for OMENA.</p>
-          </div>
+      {/* ═══ CLOSING ═══ */}
+      <section className="ph-slide opacity-0" style={{ background: D, padding: "140px 24px 100px" }}>
+        <div className="max-w-6xl mx-auto text-center relative">
+          <span
+            className="inline-block mb-6"
+            style={{ fontSize: "clamp(2rem, 5vw, 4rem)", lineHeight: 1, animation: "sparkSpin 6s linear infinite" }}
+          >
+            ✨
+          </span>
+          <h2
+            className="heading"
+            style={{
+              fontSize: "clamp(3.5rem, 10vw, 9rem)",
+              letterSpacing: "-3px",
+              lineHeight: 0.95,
+              backgroundImage: "linear-gradient(90deg, #444 0%, #999 40%, #fff 50%, #999 60%, #444 100%)",
+              backgroundSize: "400% 100%",
+              WebkitBackgroundClip: "text",
+              backgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              animation: "shineMove 12s ease-in-out infinite",
+            }}
+          >
+            Let&apos;s Build Something Extraordinary.
+          </h2>
+          <p className="mt-8 text-sm" style={{ color: "rgba(255,255,255,0.4)" }}>
+            Prepared by{" "}
+            <a href="https://ahmedali.online" target="_blank" rel="noopener" style={{ color: G, fontWeight: 700, textDecoration: "none" }}>Ahmed Ali</a>
+            {" "}· Full-Stack Digital Strategist
+          </p>
+          <p className="mt-3 text-[11px]" style={{ color: "rgba(255,255,255,0.2)" }}>&copy; {new Date().getFullYear()} Ahmed Ali. Prepared exclusively for OMENA.</p>
         </div>
+        <style>{`
+          @keyframes shineMove{0%{background-position:100% 0}50%{background-position:-100% 0}100%{background-position:100% 0}}
+          @keyframes sparkSpin{0%{transform:rotate(0deg) scale(1)}25%{transform:rotate(90deg) scale(1.2)}50%{transform:rotate(180deg) scale(1)}75%{transform:rotate(270deg) scale(1.2)}100%{transform:rotate(360deg) scale(1)}}
+        `}</style>
       </section>
     </div>
   );
