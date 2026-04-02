@@ -332,7 +332,7 @@ export default function OmenaPitch() {
           </div>
 
           {/* Main OMENA title */}
-          <div className="ph-hero opacity-0 text-center mb-4">
+          <div className="ph-hero opacity-0 text-center mb-8">
             <h1 className="heading" style={{ fontSize: "clamp(72px, 15vw, 190px)", lineHeight: 0.88, letterSpacing: "-5px", color: D }}>
               OMENA<span style={{ color: G }}>.</span>
             </h1>
@@ -352,7 +352,7 @@ export default function OmenaPitch() {
                 { n: "4", l: "Core Pillars" },
                 { n: "38+", l: "Pages Mapped" },
                 { n: "3", l: "Dev Phases" },
-                { n: "20wk", l: "To Launch" },
+                { n: "14–20", l: "Weeks" },
               ].map((s, i) => (
                 <div key={s.l} className="flex-1 flex flex-col items-center justify-center py-6 px-2 relative" style={{ borderLeft: i > 0 ? "1px solid #F0F0F0" : "none" }}>
                   <span className="heading" style={{ fontSize: "clamp(22px,4vw,38px)", lineHeight: 1, color: D }}>{s.n}</span>
@@ -372,7 +372,7 @@ export default function OmenaPitch() {
 
           {/* Prepared by */}
           <div className="ph-hero opacity-0 mb-14">
-            <p style={{ fontSize: 12, color: "rgba(0,0,0,0.2)", letterSpacing: "0.03em" }}>
+            <p style={{ fontSize: 13, color: "rgba(0,0,0,0.55)", letterSpacing: "0.02em", fontWeight: 500 }}>
               Prepared by{" "}
               <a href="https://ahmedali.online" target="_blank" rel="noopener" style={{ color: G, fontWeight: 700, textDecoration: "none" }}>Ahmed Ali</a>
               {" "}· Full-Stack Digital Strategist
