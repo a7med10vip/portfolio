@@ -1,4 +1,4 @@
-import { Inter, Bricolage_Grotesque } from "next/font/google";
+import { Inter, Bricolage_Grotesque, Instrument_Serif } from "next/font/google";
 
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"], display: "swap" });
 
@@ -9,6 +9,14 @@ const bricolage = Bricolage_Grotesque({
   weight: ["200", "300", "400", "500", "600", "700", "800"],
 });
 
+const instrument = Instrument_Serif({
+  variable: "--font-accent",
+  subsets: ["latin"],
+  display: "swap",
+  weight: "400",
+  style: "italic",
+});
+
 export const metadata = {
   title: "OMENA Digital Platform Vision | Ahmed Ali",
   description: "An interactive pitch presentation for OMENA's digital ecosystem — built by Ahmed Ali.",
@@ -17,7 +25,7 @@ export const metadata = {
 
 export default function PitchLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable} ${bricolage.variable}`}>
+    <html lang="en" className={`${inter.variable} ${bricolage.variable} ${instrument.variable}`}>
       <head>
         <link rel="icon" href="/favicon.png" type="image/png" />
       </head>
