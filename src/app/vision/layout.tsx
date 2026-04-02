@@ -29,6 +29,9 @@ export default function PitchLayout({ children }: { children: React.ReactNode })
     <html lang="en" className={`${inter.variable} ${bricolage.variable} ${instrument.variable}`}>
       <head>
         <link rel="icon" href="/favicon.png" type="image/png" />
+        <link rel="icon" href="/favicon-32x32.png" sizes="32x32" type="image/png" />
+        <link rel="icon" href="/favicon-16x16.png" sizes="16x16" type="image/png" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
       </head>
       <body className="antialiased" style={{ margin: 0, fontFamily: "var(--font-bricolage), system-ui, sans-serif" }}>
         <SmoothScroll>{children}</SmoothScroll>

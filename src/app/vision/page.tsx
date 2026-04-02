@@ -190,34 +190,23 @@ export default function OmenaPitch() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      /* Hero entrance — staggered fade up */
-      gsap.fromTo(".ph-hero", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 1.4, stagger: 0.15, ease: "power4.out", delay: 0.4 });
+      /* Hero entrance */
+      gsap.fromTo(".ph-hero", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 1, stagger: 0.12, ease: "power3.out", delay: 0.3, force3D: true });
 
-      /* Sections — elegant fade up on scroll */
+      /* Sections — fade up on scroll */
       gsap.utils.toArray<HTMLElement>(".ph-slide").forEach((el) => {
-        gsap.fromTo(el, { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 1.2, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 88%", once: true } });
+        gsap.fromTo(el, { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: "power3.out", force3D: true, scrollTrigger: { trigger: el, start: "top 88%", once: true } });
       });
 
-      /* Stagger children with scale */
+      /* Stagger children */
       gsap.utils.toArray<HTMLElement>(".ph-stagger").forEach((el) => {
-        gsap.fromTo(el.querySelectorAll(".ph-item"), { y: 30, opacity: 0, scale: 0.97 }, { y: 0, opacity: 1, scale: 1, duration: 0.8, stagger: 0.06, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 85%", once: true } });
-      });
-
-      /* Section headings — subtle reveal */
-      gsap.utils.toArray<HTMLElement>(".heading").forEach((el) => {
-        if (el.closest(".ph-hero")) return;
-        gsap.fromTo(el, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 1, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 90%", once: true } });
+        gsap.fromTo(el.querySelectorAll(".ph-item"), { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, stagger: 0.05, ease: "power3.out", force3D: true, scrollTrigger: { trigger: el, start: "top 85%", once: true } });
       });
 
       /* Counter animation */
       gsap.utils.toArray<HTMLElement>(".ph-num").forEach((el) => {
         const val = parseInt(el.dataset.val || "0");
-        ScrollTrigger.create({ trigger: el, start: "top 90%", once: true, onEnter: () => gsap.to({ v: 0 }, { v: val, duration: 2.5, ease: "power2.out", onUpdate() { el.textContent = Math.round(this.targets()[0].v).toLocaleString(); } }) });
-      });
-
-      /* Parallax on section backgrounds */
-      gsap.utils.toArray<HTMLElement>(".ph-slide").forEach((el) => {
-        gsap.to(el, { backgroundPositionY: "20%", ease: "none", scrollTrigger: { trigger: el, start: "top bottom", end: "bottom top", scrub: true } });
+        ScrollTrigger.create({ trigger: el, start: "top 90%", once: true, onEnter: () => gsap.to({ v: 0 }, { v: val, duration: 2, ease: "power2.out", onUpdate() { el.textContent = Math.round(this.targets()[0].v).toLocaleString(); } }) });
       });
     }, ref);
     return () => ctx.revert();
@@ -354,6 +343,8 @@ export default function OmenaPitch() {
 
         <style>{`
           @keyframes mouseScroll{0%{transform:translateY(0);opacity:1}75%{transform:translateY(9px);opacity:0}76%{transform:translateY(0);opacity:0}100%{opacity:1}}
+          .ph-slide,.ph-item,.ph-hero{will-change:transform,opacity;-webkit-backface-visibility:hidden;backface-visibility:hidden}
+          *{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
         `}</style>
       </section>
 
