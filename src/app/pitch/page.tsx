@@ -727,8 +727,8 @@ export default function OmenaPitch() {
           </div>
 
           {/* Key insight */}
-          <div className="mt-8 rounded-[16px] p-6 text-center" style={{ background: `${G}08`, border: `1px solid ${G}20` }}>
-            <p className="text-[13px] font-medium" style={{ color: D }}>
+          <div className="mt-8 rounded-[16px] p-6 text-center" style={{ background: D, border: `1.5px solid #D4D4D4`, boxShadow: `3px 3px 0px 0px ${G}` }}>
+            <p className="text-[13px] font-medium leading-relaxed" style={{ color: "#fff" }}>
               <strong style={{ color: G }}>Key Insight:</strong> The AI Strategy Tool alone is projected to generate 20% of total leads by month 6, while reducing cost-per-lead by 40% compared to traditional outbound. Combined with SEO and paid channels, OMENA builds a self-sustaining acquisition engine that competitors cannot replicate.
             </p>
           </div>
@@ -753,7 +753,7 @@ export default function OmenaPitch() {
               { name: "Tailwind CSS", icon: "tailwindcss", desc: "Utility-first CSS" },
               { name: "Supabase", icon: "supabase", desc: "Database & auth" },
               { name: "Firebase", icon: "firebase", desc: "Real-time services" },
-              { name: "OpenAI", icon: "openai/white", desc: "AI engine" },
+              { name: "OpenAI", icon: null, desc: "AI engine", customIcon: "https://www.ahmedali.online/ext/openai.png" },
               { name: "Google Gemini", icon: "googlegemini", desc: "AI models" },
               { name: "Vercel", icon: "vercel/white", desc: "Deployment & CDN" },
               { name: "Stripe", icon: "stripe", desc: "Payments" },
@@ -761,7 +761,7 @@ export default function OmenaPitch() {
               { name: "Flutter", icon: "flutter", desc: "Mobile apps" },
             ].map((t) => (
               <div key={t.name} className="ph-item flex items-center gap-4 p-4 rounded-[16px] transition-all duration-300 hover:-translate-y-0.5" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
-                <img src={`https://cdn.simpleicons.org/${t.icon}`} alt={t.name} width={28} height={28} style={{ width: 28, height: 28 }} />
+                <img src={(t as { customIcon?: string }).customIcon || `https://cdn.simpleicons.org/${t.icon}`} alt={t.name} width={28} height={28} style={{ width: 28, height: 28 }} />
                 <div>
                   <div className="text-[13px] font-bold" style={{ color: "#fff" }}>{t.name}</div>
                   <div className="text-[10px]" style={{ color: "rgba(255,255,255,0.3)" }}>{t.desc}</div>
@@ -773,7 +773,7 @@ export default function OmenaPitch() {
           {/* Capabilities */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10 ph-stagger">
             {[
-              { icon: Gauge, label: "90+ Lighthouse", sub: "Performance", color: G },
+              { icon: Gauge, label: "90+ Lighthouse", sub: "Performance", color: R },
               { icon: Shield, label: "RLS + Encryption", sub: "Security", color: B },
               { icon: Cloud, label: "Auto-scaling CDN", sub: "Scalability", color: P },
               { icon: Smartphone, label: "PWA + Native Ready", sub: "Mobile", color: A },
@@ -815,12 +815,12 @@ export default function OmenaPitch() {
                 <div className="flex flex-col md:flex-row">
                   {/* Phase sidebar */}
                   <div className="md:w-[200px] flex-shrink-0 p-8 flex flex-col items-center justify-center text-center" style={{ background: p.color }}>
-                    <div className="text-[9px] font-bold tracking-[3px] uppercase mb-1" style={{ color: "rgba(0,0,0,0.7)" }}>Phase</div>
-                    <div className="heading text-5xl mb-2" style={{ color: D }}>{i + 1}</div>
-                    <div className="heading text-lg mb-2" style={{ color: D }}>{p.label}</div>
-                    <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full" style={{ background: "rgba(0,0,0,0.08)" }}>
-                      <Clock size={11} color={D} />
-                      <span className="text-[11px] font-bold" style={{ color: D }}>{p.duration}</span>
+                    <div className="text-[9px] font-bold tracking-[3px] uppercase mb-1" style={{ color: "rgba(255,255,255,0.7)" }}>Phase</div>
+                    <div className="heading text-5xl mb-2" style={{ color: "#fff" }}>{i + 1}</div>
+                    <div className="heading text-lg mb-2" style={{ color: "#fff" }}>{p.label}</div>
+                    <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full" style={{ background: "rgba(255,255,255,0.2)" }}>
+                      <Clock size={11} color="#fff" />
+                      <span className="text-[11px] font-bold" style={{ color: "#fff" }}>{p.duration}</span>
                     </div>
                   </div>
                   {/* Deliverables */}
@@ -850,18 +850,12 @@ export default function OmenaPitch() {
       {/* ═══ CLOSING ═══ */}
       <section className="ph-slide opacity-0" style={{ background: D, padding: "140px 24px 100px" }}>
         <div className="max-w-6xl mx-auto text-center relative">
-          <span
-            className="inline-block mb-6"
-            style={{ fontSize: "clamp(2rem, 5vw, 4rem)", lineHeight: 1, animation: "sparkSpin 6s linear infinite" }}
-          >
-            ✨
-          </span>
           <h2
             className="heading"
             style={{
               fontSize: "clamp(3.5rem, 10vw, 9rem)",
               letterSpacing: "-3px",
-              lineHeight: 0.95,
+              lineHeight: 1.3,
               backgroundImage: "linear-gradient(90deg, #444 0%, #999 40%, #fff 50%, #999 60%, #444 100%)",
               backgroundSize: "400% 100%",
               WebkitBackgroundClip: "text",
@@ -881,7 +875,6 @@ export default function OmenaPitch() {
         </div>
         <style>{`
           @keyframes shineMove{0%{background-position:100% 0}50%{background-position:-100% 0}100%{background-position:100% 0}}
-          @keyframes sparkSpin{0%{transform:rotate(0deg) scale(1)}25%{transform:rotate(90deg) scale(1.2)}50%{transform:rotate(180deg) scale(1)}75%{transform:rotate(270deg) scale(1.2)}100%{transform:rotate(360deg) scale(1)}}
         `}</style>
       </section>
     </div>
