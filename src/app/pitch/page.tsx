@@ -323,14 +323,6 @@ export default function OmenaPitch() {
 
         <div className="relative z-10 w-full max-w-5xl mx-auto px-6 flex flex-col items-center">
 
-          {/* Eyebrow */}
-          <div className="ph-hero opacity-0 mb-10">
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-[11px] font-bold tracking-[2px] uppercase" style={{ background: "#fff", color: "rgba(0,0,0,0.35)", border: "1px solid #E5E7EB", boxShadow: "0 1px 4px rgba(0,0,0,0.04)" }}>
-              <span className="w-1.5 h-1.5 rounded-full" style={{ background: G, boxShadow: `0 0 6px ${G}` }} />
-              Strategic Platform Vision — 2025
-            </span>
-          </div>
-
           {/* Main OMENA title */}
           <div className="ph-hero opacity-0 text-center mb-8">
             <h1 className="heading" style={{ fontSize: "clamp(72px, 15vw, 190px)", lineHeight: 0.88, letterSpacing: "-5px", color: D }}>
@@ -352,7 +344,6 @@ export default function OmenaPitch() {
                 { n: "4", l: "Core Pillars" },
                 { n: "38+", l: "Pages Mapped" },
                 { n: "3", l: "Dev Phases" },
-                { n: "14–20", l: "Weeks" },
               ].map((s, i) => (
                 <div key={s.l} className="flex-1 flex flex-col items-center justify-center py-6 px-2 relative" style={{ borderLeft: i > 0 ? "1px solid #F0F0F0" : "none" }}>
                   <span className="heading" style={{ fontSize: "clamp(22px,4vw,38px)", lineHeight: 1, color: D }}>{s.n}</span>
