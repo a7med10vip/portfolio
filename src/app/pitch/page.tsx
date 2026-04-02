@@ -315,61 +315,82 @@ export default function OmenaPitch() {
     <div ref={ref} style={{ background: "#FAFAFA", color: D }}>
 
       {/* ═══ HERO ═══ */}
-      <section className="min-h-screen flex items-center justify-center relative overflow-hidden" style={{ background: "#fff" }}>
-        <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at 50% 20%, rgba(79,255,176,0.08) 0%, transparent 60%)" }} />
+      <section className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden" style={{ background: "#FAFAFA" }}>
+        {/* Subtle dot grid */}
+        <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "radial-gradient(circle, rgba(0,0,0,0.06) 1px, transparent 1px)", backgroundSize: "28px 28px" }} />
+        {/* Green glow top */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[280px] pointer-events-none" style={{ background: `radial-gradient(ellipse, ${G}20 0%, transparent 70%)` }} />
 
-        <div className="max-w-5xl mx-auto text-center relative z-10 px-6">
-          <div className="ph-hero opacity-0 mb-6">
-            <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold" style={{ background: "#fff", color: D, border: "1px solid #E5E7EB" }}>
-              <span className="w-2 h-2 rounded-full" style={{ background: G, boxShadow: `0 0 8px ${G}` }} />
-              Strategic Digital Vision & Platform Architecture
+        <div className="relative z-10 w-full max-w-5xl mx-auto px-6 flex flex-col items-center">
+
+          {/* Eyebrow */}
+          <div className="ph-hero opacity-0 mb-10">
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-[11px] font-bold tracking-[2px] uppercase" style={{ background: "#fff", color: "rgba(0,0,0,0.35)", border: "1px solid #E5E7EB", boxShadow: "0 1px 4px rgba(0,0,0,0.04)" }}>
+              <span className="w-1.5 h-1.5 rounded-full" style={{ background: G, boxShadow: `0 0 6px ${G}` }} />
+              Strategic Platform Vision — 2025
             </span>
           </div>
 
-          <h1 className="ph-hero opacity-0 heading text-6xl sm:text-7xl md:text-8xl lg:text-9xl mb-4" style={{ letterSpacing: "-3px" }}>
-            OMENA<span style={{ color: G }}>.</span>
-          </h1>
+          {/* Main OMENA title */}
+          <div className="ph-hero opacity-0 text-center mb-4">
+            <h1 className="heading" style={{ fontSize: "clamp(72px, 15vw, 190px)", lineHeight: 0.88, letterSpacing: "-5px", color: D }}>
+              OMENA<span style={{ color: G }}>.</span>
+            </h1>
+          </div>
 
-          <p className="ph-hero opacity-0 text-xl md:text-2xl mb-8 font-medium" style={{ color: "rgba(0,0,0,0.18)" }}>Digital Platform Architecture & Growth Strategy</p>
+          {/* Subtitle */}
+          <div className="ph-hero opacity-0 text-center mb-10">
+            <p className="font-semibold tracking-wide" style={{ fontSize: 15, color: "rgba(0,0,0,0.2)", letterSpacing: "0.05em" }}>
+              Digital Platform Architecture & Growth Strategy
+            </p>
+          </div>
 
-          <p className="ph-hero opacity-0 text-base md:text-lg max-w-2xl mx-auto leading-relaxed mb-6" style={{ color: "rgba(0,0,0,0.28)" }}>
-            A comprehensive roadmap to transform OMENA from a marketing agency into an AI-powered digital ecosystem, unifying client acquisition, service delivery, and operations under one intelligent platform.
-          </p>
-
-          <p className="ph-hero opacity-0 text-sm mb-14" style={{ color: "rgba(0,0,0,0.18)" }}>
-            Prepared by <a href="https://ahmedali.online" target="_blank" rel="noopener" style={{ color: G, fontWeight: 700, textDecoration: "none" }}>Ahmed Ali</a> · Full-Stack Digital Strategist
-          </p>
-
-          {/* Stats strip */}
-          <div className="ph-hero opacity-0 mb-20 max-w-3xl mx-auto rounded-2xl overflow-hidden" style={{ border: "1px solid #EBEBEB" }}>
-            <div className="grid grid-cols-2 md:grid-cols-4">
+          {/* Stats — horizontal divider style */}
+          <div className="ph-hero opacity-0 mb-10 w-full max-w-2xl">
+            <div className="flex items-stretch justify-center" style={{ background: "#fff", border: "1px solid #E8E8E8", borderRadius: 16, overflow: "hidden", boxShadow: "0 2px 16px rgba(0,0,0,0.04)" }}>
               {[
                 { n: "4", l: "Core Pillars" },
                 { n: "38+", l: "Pages Mapped" },
                 { n: "3", l: "Dev Phases" },
-                { n: "14–20", l: "Weeks to Launch" },
+                { n: "20wk", l: "To Launch" },
               ].map((s, i) => (
-                <div key={s.l} className="flex flex-col items-center justify-center py-8 px-4 relative" style={{ borderRight: i < 3 ? "1px solid #EBEBEB" : "none", borderBottom: i < 2 ? "1px solid #EBEBEB" : "none" }}>
-                  <span className="heading text-4xl md:text-5xl mb-1" style={{ color: D }}>{s.n}</span>
-                  <span className="text-[10px] font-semibold tracking-widest uppercase" style={{ color: "rgba(0,0,0,0.3)" }}>{s.l}</span>
-                  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-[2px] rounded-full" style={{ background: G }} />
+                <div key={s.l} className="flex-1 flex flex-col items-center justify-center py-6 px-2 relative" style={{ borderLeft: i > 0 ? "1px solid #F0F0F0" : "none" }}>
+                  <span className="heading" style={{ fontSize: "clamp(22px,4vw,38px)", lineHeight: 1, color: D }}>{s.n}</span>
+                  <span className="text-[9px] font-bold tracking-[1.5px] uppercase mt-1.5" style={{ color: "rgba(0,0,0,0.28)" }}>{s.l}</span>
+                  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[3px] w-8 rounded-t-full" style={{ background: G }} />
                 </div>
               ))}
             </div>
           </div>
 
+          {/* Description */}
+          <div className="ph-hero opacity-0 text-center mb-8 max-w-xl">
+            <p style={{ fontSize: 15, lineHeight: 1.75, color: "rgba(0,0,0,0.38)" }}>
+              A roadmap to transform OMENA into an AI-powered digital ecosystem, unifying client acquisition, service delivery, and operations under one intelligent platform.
+            </p>
+          </div>
+
+          {/* Prepared by */}
+          <div className="ph-hero opacity-0 mb-14">
+            <p style={{ fontSize: 12, color: "rgba(0,0,0,0.2)", letterSpacing: "0.03em" }}>
+              Prepared by{" "}
+              <a href="https://ahmedali.online" target="_blank" rel="noopener" style={{ color: G, fontWeight: 700, textDecoration: "none" }}>Ahmed Ali</a>
+              {" "}· Full-Stack Digital Strategist
+            </p>
+          </div>
+
           {/* Mouse scroll indicator */}
           <div className="ph-hero opacity-0 flex flex-col items-center gap-2">
-            <div style={{ width: 26, height: 40, border: "2px solid rgba(0,0,0,0.15)", borderRadius: 13, display: "flex", justifyContent: "center", paddingTop: 6, position: "relative" }}>
-              <div style={{ width: 4, height: 7, borderRadius: 2, background: "rgba(0,0,0,0.2)", animation: "mouseScroll 1.6s ease-in-out infinite" }} />
+            <div style={{ width: 24, height: 38, border: "1.5px solid rgba(0,0,0,0.14)", borderRadius: 12, display: "flex", justifyContent: "center", paddingTop: 5 }}>
+              <div style={{ width: 3, height: 6, borderRadius: 2, background: G, animation: "mouseScroll 1.6s ease-in-out infinite" }} />
             </div>
-            <span className="text-[10px] tracking-widest uppercase" style={{ color: "rgba(0,0,0,0.2)" }}>scroll</span>
+            <span style={{ fontSize: 9, letterSpacing: "3px", textTransform: "uppercase", color: "rgba(0,0,0,0.18)" }}>scroll</span>
           </div>
-          <style>{`
-            @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(10px)}}
-            @keyframes mouseScroll{0%{transform:translateY(0);opacity:1}80%{transform:translateY(10px);opacity:0}81%{transform:translateY(0);opacity:0}100%{opacity:1}}
-          `}</style>
         </div>
+
+        <style>{`
+          @keyframes mouseScroll{0%{transform:translateY(0);opacity:1}75%{transform:translateY(9px);opacity:0}76%{transform:translateY(0);opacity:0}100%{opacity:1}}
+        `}</style>
       </section>
 
       {/* ═══ THE PROBLEM — INFOGRAPHIC ═══ */}
@@ -378,52 +399,54 @@ export default function OmenaPitch() {
           <div className="text-center mb-16">
             <p className="script text-xl md:text-2xl mb-3" style={{ color: R }}>The Challenge</p>
             <h2 className="heading text-4xl md:text-5xl mb-5" style={{ color: "#fff" }}>Why Most Agencies <span style={{ color: R }}>Fail</span></h2>
-            <p className="text-sm max-w-lg mx-auto" style={{ color: "rgba(255,255,255,0.35)" }}>80% of agencies use 5+ disconnected tools. This creates chaos, churn, and zero differentiation.</p>
+            <p className="text-sm max-w-lg mx-auto" style={{ color: "#fff" }}>80% of agencies use 5+ disconnected tools. This creates chaos, churn, and zero differentiation.</p>
           </div>
 
           {/* Problem process flow */}
           <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-12 ph-stagger">
             {[
               { icon: AlertTriangle, label: "Scattered Tools", stat: "5+", color: R },
-              { icon: ArrowRight, label: "", stat: "", color: "transparent" },
+              null,
               { icon: Puzzle, label: "No AI Moat", stat: "0%", color: A },
-              { icon: ArrowRight, label: "", stat: "", color: "transparent" },
+              null,
               { icon: Eye, label: "Blind Clients", stat: "67%", color: P },
             ].map((item, i) => (
-              item.label ? (
-                <div key={i} className="ph-item rounded-[20px] p-6 text-center" style={{ background: "#111", border: "1px solid rgba(255,255,255,0.06)" }}>
-                  <div className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-3" style={{ background: `${item.color}15`, border: `2px solid ${item.color}30` }}>
+              item ? (
+                <div key={i} className="ph-item rounded-[20px] p-6 text-center" style={{ background: "#fff", border: `1px solid ${item.color}20` }}>
+                  <div className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-3" style={{ background: `${item.color}12`, border: `2px solid ${item.color}25` }}>
                     <item.icon size={24} color={item.color} />
                   </div>
                   <div className="heading text-3xl mb-1" style={{ color: item.color }}>{item.stat}</div>
-                  <div className="text-[12px] font-semibold" style={{ color: "#fff" }}>{item.label}</div>
+                  <div className="text-[12px] font-semibold" style={{ color: D }}>{item.label}</div>
                 </div>
               ) : (
                 <div key={i} className="hidden md:flex items-center justify-center ph-item">
-                  <ArrowRight size={24} color="rgba(255,255,255,0.15)" />
+                  <div style={{ width: 36, height: 36, borderRadius: "50%", background: "#fff", border: `2px solid ${D}`, boxShadow: `3px 3px 0px 0px ${G}`, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <ArrowRight size={16} color={D} />
+                  </div>
                 </div>
               )
             ))}
           </div>
 
           {/* 3 pain points detailed */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 ph-stagger mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 ph-stagger mb-8">
             {[
-              { icon: AlertTriangle, title: "Fragmented Operations", desc: "WhatsApp for communication, Trello for tasks, Google Sheets for reports, Canva for assets, email for approvals. Every tool is a silo — data lives in 5+ disconnected places. Teams waste 30% of time context-switching.", points: ["No unified client view", "Data duplication & loss", "30% time wasted switching tools"], color: R },
-              { icon: Puzzle, title: "Zero Differentiation", desc: "Every agency pitches the same services with the same decks. Without a proprietary AI product, there's nothing stopping clients from switching to a cheaper alternative. Service commoditization is killing margins.", points: ["Same pitch as competitors", "No proprietary technology", "Price-based competition"], color: A },
-              { icon: Eye, title: "Client Trust Gap", desc: "Clients pay thousands monthly but can't see real-time ROI. They wait for monthly reports and wonder what the team is doing. 67% of agency churn comes from perceived lack of transparency and communication.", points: ["No real-time visibility", "Monthly reports feel outdated", "67% churn from opacity"], color: P },
+              { icon: AlertTriangle, title: "Fragmented Operations", desc: "WhatsApp for communication, Trello for tasks, Google Sheets for reports, Canva for assets, email for approvals. Every tool is a silo — data lives in 5+ disconnected places. Teams waste 30% of time context-switching.", points: ["No unified client view", "Data duplication & loss", "30% time wasted switching tools"], color: R, bg: "#fff", dark: false },
+              { icon: Puzzle, title: "Zero Differentiation", desc: "Every agency pitches the same services with the same decks. Without a proprietary AI product, there's nothing stopping clients from switching to a cheaper alternative. Service commoditization is killing margins.", points: ["Same pitch as competitors", "No proprietary technology", "Price-based competition"], color: A, bg: G, dark: false },
+              { icon: Eye, title: "Client Trust Gap", desc: "Clients pay thousands monthly but can't see real-time ROI. They wait for monthly reports and wonder what the team is doing. 67% of agency churn comes from perceived lack of transparency and communication.", points: ["No real-time visibility", "Monthly reports feel outdated", "67% churn from opacity"], color: P, bg: "#fff", dark: false },
             ].map((item) => (
-              <div key={item.title} className="ph-item rounded-[20px] p-7" style={{ background: "#111", border: "1px solid rgba(255,255,255,0.06)" }}>
-                <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-4" style={{ background: `${item.color}12` }}>
-                  <item.icon size={22} color={item.color} />
+              <div key={item.title} className="ph-item rounded-[20px] p-7" style={{ background: item.bg, border: item.bg === G ? `2px solid ${D}` : "1px solid #E8E8E8" }}>
+                <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-4" style={{ background: item.bg === G ? "rgba(0,0,0,0.08)" : `${item.color}10` }}>
+                  <item.icon size={22} color={item.bg === G ? D : item.color} />
                 </div>
-                <h3 className="heading text-lg mb-3" style={{ color: "#fff" }}>{item.title}</h3>
-                <p className="text-[12px] leading-relaxed mb-4" style={{ color: "rgba(255,255,255,0.4)" }}>{item.desc}</p>
+                <h3 className="heading text-lg mb-3" style={{ color: D }}>{item.title}</h3>
+                <p className="text-[12px] leading-relaxed mb-4" style={{ color: item.bg === G ? "rgba(0,0,0,0.55)" : "rgba(0,0,0,0.45)" }}>{item.desc}</p>
                 <div className="flex flex-col gap-2">
                   {item.points.map((p) => (
                     <div key={p} className="flex items-center gap-2">
-                      <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: item.color }} />
-                      <span className="text-[11px] font-medium" style={{ color: "rgba(255,255,255,0.5)" }}>{p}</span>
+                      <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: item.bg === G ? D : item.color }} />
+                      <span className="text-[11px] font-medium" style={{ color: item.bg === G ? "rgba(0,0,0,0.6)" : "rgba(0,0,0,0.5)" }}>{p}</span>
                     </div>
                   ))}
                 </div>
@@ -431,8 +454,8 @@ export default function OmenaPitch() {
             ))}
           </div>
 
-          <div className="rounded-[20px] p-8 text-center" style={{ background: `linear-gradient(135deg, ${G}08, ${P}08)`, border: `1px solid ${G}15` }}>
-            <p className="heading text-xl md:text-2xl mb-2" style={{ color: "#fff" }}>The solution isn&apos;t more tools — it&apos;s <span style={{ color: G }}>one platform</span> that does everything.</p>
+          <div className="rounded-[20px] py-5 px-8 text-center" style={{ background: `linear-gradient(135deg, ${G}10, ${P}10)`, border: `1px solid ${G}20` }}>
+            <p className="heading text-xl md:text-2xl" style={{ color: "#fff" }}>The solution isn&apos;t more tools — it&apos;s <span style={{ color: G }}>one platform</span> that does everything.</p>
           </div>
         </div>
       </section>
