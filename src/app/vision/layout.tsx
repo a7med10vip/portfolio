@@ -1,4 +1,5 @@
 import { Inter, Bricolage_Grotesque, Instrument_Serif } from "next/font/google";
+import SmoothScroll from "@/components/SmoothScroll";
 
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"], display: "swap" });
 
@@ -18,8 +19,8 @@ const instrument = Instrument_Serif({
 });
 
 export const metadata = {
-  title: "OMENA Digital Platform Vision | Ahmed Ali",
-  description: "An interactive pitch presentation for OMENA's digital ecosystem — built by Ahmed Ali.",
+  title: "OMENA — Digital Platform Vision | Ahmed Ali",
+  description: "A strategic digital platform vision for OMENA — architecture, growth strategy, and execution roadmap by Ahmed Ali.",
   robots: { index: false, follow: false },
 };
 
@@ -30,7 +31,7 @@ export default function PitchLayout({ children }: { children: React.ReactNode })
         <link rel="icon" href="/favicon.png" type="image/png" />
       </head>
       <body className="antialiased" style={{ margin: 0, fontFamily: "var(--font-bricolage), system-ui, sans-serif" }}>
-        {children}
+        <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>
   );

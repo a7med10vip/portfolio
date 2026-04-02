@@ -190,22 +190,35 @@ export default function OmenaPitch() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.fromTo(".ph-hero", { y: 50, opacity: 0 }, { y: 0, opacity: 1, duration: 1.2, stagger: 0.12, ease: "power4.out", delay: 0.3 });
+      /* Hero entrance — staggered fade up */
+      gsap.fromTo(".ph-hero", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 1.4, stagger: 0.15, ease: "power4.out", delay: 0.4 });
 
+      /* Sections — elegant fade up on scroll */
       gsap.utils.toArray<HTMLElement>(".ph-slide").forEach((el) => {
-        gsap.fromTo(el, { y: 80, opacity: 0 }, { y: 0, opacity: 1, duration: 1, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 85%", once: true } });
+        gsap.fromTo(el, { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 1.2, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 88%", once: true } });
       });
 
+      /* Stagger children with scale */
       gsap.utils.toArray<HTMLElement>(".ph-stagger").forEach((el) => {
-        gsap.fromTo(el.querySelectorAll(".ph-item"), { y: 40, opacity: 0, scale: 0.96 }, { y: 0, opacity: 1, scale: 1, duration: 0.7, stagger: 0.08, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 82%", once: true } });
+        gsap.fromTo(el.querySelectorAll(".ph-item"), { y: 30, opacity: 0, scale: 0.97 }, { y: 0, opacity: 1, scale: 1, duration: 0.8, stagger: 0.06, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 85%", once: true } });
       });
 
+      /* Section headings — subtle reveal */
+      gsap.utils.toArray<HTMLElement>(".heading").forEach((el) => {
+        if (el.closest(".ph-hero")) return;
+        gsap.fromTo(el, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 1, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 90%", once: true } });
+      });
+
+      /* Counter animation */
       gsap.utils.toArray<HTMLElement>(".ph-num").forEach((el) => {
         const val = parseInt(el.dataset.val || "0");
         ScrollTrigger.create({ trigger: el, start: "top 90%", once: true, onEnter: () => gsap.to({ v: 0 }, { v: val, duration: 2.5, ease: "power2.out", onUpdate() { el.textContent = Math.round(this.targets()[0].v).toLocaleString(); } }) });
       });
 
-      gsap.fromTo(".ph-tl-line", { scaleX: 0 }, { scaleX: 1, ease: "none", scrollTrigger: { trigger: ".ph-tl", start: "top 70%", end: "bottom 50%", scrub: 0.5 } });
+      /* Parallax on section backgrounds */
+      gsap.utils.toArray<HTMLElement>(".ph-slide").forEach((el) => {
+        gsap.to(el, { backgroundPositionY: "20%", ease: "none", scrollTrigger: { trigger: el, start: "top bottom", end: "bottom top", scrub: true } });
+      });
     }, ref);
     return () => ctx.revert();
   }, []);
@@ -444,7 +457,7 @@ export default function OmenaPitch() {
               ].map((s, i) => (
                 <div key={s.step} className="ph-item relative rounded-[20px] p-6 text-center overflow-hidden transition-all duration-300 hover:-translate-y-1" style={{ background: i === 5 ? G : "#fff", border: `1.5px solid #D4D4D4`, boxShadow: `3px 3px 0px 0px ${i === 5 ? D : s.color}` }}>
                   {/* Large watermark number */}
-                  <div className="absolute -right-1 -top-3 heading select-none pointer-events-none" style={{ fontSize: 80, lineHeight: 1, color: i === 5 ? "rgba(0,0,0,0.06)" : `${s.color}12` }}>{String(i + 1).padStart(2, "0")}</div>
+                  <div className="absolute -right-1 -top-1 heading select-none pointer-events-none" style={{ fontSize: 56, lineHeight: 1, color: i === 5 ? "rgba(0,0,0,0.06)" : `${s.color}10` }}>{String(i + 1).padStart(2, "0")}</div>
                   <div className="relative z-10">
                     <div className="w-11 h-11 rounded-xl flex items-center justify-center mx-auto mb-3" style={{ background: i === 5 ? "rgba(0,0,0,0.08)" : `${s.color}12` }}>
                       <s.icon size={20} color={i === 5 ? D : s.color} />
@@ -815,12 +828,12 @@ export default function OmenaPitch() {
                 <div className="flex flex-col md:flex-row">
                   {/* Phase sidebar */}
                   <div className="md:w-[200px] flex-shrink-0 p-8 flex flex-col items-center justify-center text-center" style={{ background: p.color }}>
-                    <div className="text-[9px] font-bold tracking-[3px] uppercase mb-1" style={{ color: "rgba(255,255,255,0.7)" }}>Phase</div>
-                    <div className="heading text-5xl mb-2" style={{ color: "#fff" }}>{i + 1}</div>
-                    <div className="heading text-lg mb-2" style={{ color: "#fff" }}>{p.label}</div>
-                    <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full" style={{ background: "rgba(255,255,255,0.2)" }}>
-                      <Clock size={11} color="#fff" />
-                      <span className="text-[11px] font-bold" style={{ color: "#fff" }}>{p.duration}</span>
+                    <div className="text-[9px] font-bold tracking-[3px] uppercase mb-1" style={{ color: i === 1 ? "rgba(255,255,255,0.6)" : "rgba(0,0,0,0.4)" }}>Phase</div>
+                    <div className="heading text-5xl mb-2" style={{ color: i === 1 ? "#fff" : D }}>{i + 1}</div>
+                    <div className="heading text-lg mb-2" style={{ color: i === 1 ? "#fff" : D }}>{p.label}</div>
+                    <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full" style={{ background: i === 1 ? "rgba(255,255,255,0.2)" : "rgba(0,0,0,0.06)" }}>
+                      <Clock size={11} color={i === 1 ? "#fff" : D} />
+                      <span className="text-[11px] font-bold" style={{ color: i === 1 ? "#fff" : D }}>{p.duration}</span>
                     </div>
                   </div>
                   {/* Deliverables */}
