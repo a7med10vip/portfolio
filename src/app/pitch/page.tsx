@@ -7,7 +7,7 @@ import {
   Globe, BrainCircuit, LayoutDashboard, ShieldCheck,
   AlertTriangle, Puzzle, BarChart3, Users, FileCheck,
   LineChart, Shield, Rocket, Clock, CheckCircle2,
-  ArrowRight, ArrowDown, Target,
+  ArrowRight, Target,
   Search, BookOpen,
   UserCheck, Activity, Workflow, ExternalLink,
   Eye, Mail, Gauge, Smartphone, Cloud,
@@ -330,29 +330,45 @@ export default function OmenaPitch() {
             OMENA<span style={{ color: G }}>.</span>
           </h1>
 
-          <p className="ph-hero opacity-0 script text-2xl md:text-3xl mb-8" style={{ color: "rgba(0,0,0,0.3)" }}>Digital Platform Architecture & Growth Strategy</p>
+          <p className="ph-hero opacity-0 text-xl md:text-2xl mb-8 font-medium" style={{ color: "rgba(0,0,0,0.18)" }}>Digital Platform Architecture & Growth Strategy</p>
 
-          <p className="ph-hero opacity-0 text-base md:text-lg max-w-2xl mx-auto leading-relaxed mb-6" style={{ color: "rgba(0,0,0,0.4)" }}>
-            A comprehensive roadmap to transform OMENA from a marketing agency into an AI-powered digital ecosystem — unifying client acquisition, service delivery, and operations under one intelligent platform.
+          <p className="ph-hero opacity-0 text-base md:text-lg max-w-2xl mx-auto leading-relaxed mb-6" style={{ color: "rgba(0,0,0,0.28)" }}>
+            A comprehensive roadmap to transform OMENA from a marketing agency into an AI-powered digital ecosystem, unifying client acquisition, service delivery, and operations under one intelligent platform.
           </p>
 
-          <p className="ph-hero opacity-0 text-sm mb-14" style={{ color: "rgba(0,0,0,0.25)" }}>
-            Prepared by <a href="https://ahmedali.online" target="_blank" rel="noopener" style={{ color: G, fontWeight: 700, textDecoration: "none" }}>Ahmed Ali</a> — Full-Stack Digital Strategist
+          <p className="ph-hero opacity-0 text-sm mb-14" style={{ color: "rgba(0,0,0,0.18)" }}>
+            Prepared by <a href="https://ahmedali.online" target="_blank" rel="noopener" style={{ color: G, fontWeight: 700, textDecoration: "none" }}>Ahmed Ali</a> · Full-Stack Digital Strategist
           </p>
 
-          <div className="ph-hero opacity-0 flex flex-wrap justify-center gap-4 mb-20">
-            {[{ n: "4", l: "Core Pillars" }, { n: "38+", l: "Pages Mapped" }, { n: "3", l: "Dev Phases" }, { n: "14-20", l: "Weeks" }].map((s) => (
-              <div key={s.l} className="px-6 py-3 rounded-full" style={{ background: G, border: `2px solid ${D}`, boxShadow: `3px 3px 0px 0px ${D}` }}>
-                <span className="heading text-lg mr-1">{s.n}</span>
-                <span className="text-[11px] font-semibold" style={{ color: "rgba(0,0,0,0.5)" }}>{s.l}</span>
-              </div>
-            ))}
+          {/* Stats strip */}
+          <div className="ph-hero opacity-0 mb-20 max-w-3xl mx-auto rounded-2xl overflow-hidden" style={{ border: "1px solid #EBEBEB" }}>
+            <div className="grid grid-cols-2 md:grid-cols-4">
+              {[
+                { n: "4", l: "Core Pillars" },
+                { n: "38+", l: "Pages Mapped" },
+                { n: "3", l: "Dev Phases" },
+                { n: "14–20", l: "Weeks to Launch" },
+              ].map((s, i) => (
+                <div key={s.l} className="flex flex-col items-center justify-center py-8 px-4 relative" style={{ borderRight: i < 3 ? "1px solid #EBEBEB" : "none", borderBottom: i < 2 ? "1px solid #EBEBEB" : "none" }}>
+                  <span className="heading text-4xl md:text-5xl mb-1" style={{ color: D }}>{s.n}</span>
+                  <span className="text-[10px] font-semibold tracking-widest uppercase" style={{ color: "rgba(0,0,0,0.3)" }}>{s.l}</span>
+                  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-[2px] rounded-full" style={{ background: G }} />
+                </div>
+              ))}
+            </div>
           </div>
 
-          <div className="ph-hero opacity-0" style={{ animation: "float 3s ease-in-out infinite" }}>
-            <ArrowDown size={28} color="rgba(0,0,0,0.15)" />
+          {/* Mouse scroll indicator */}
+          <div className="ph-hero opacity-0 flex flex-col items-center gap-2">
+            <div style={{ width: 26, height: 40, border: "2px solid rgba(0,0,0,0.15)", borderRadius: 13, display: "flex", justifyContent: "center", paddingTop: 6, position: "relative" }}>
+              <div style={{ width: 4, height: 7, borderRadius: 2, background: "rgba(0,0,0,0.2)", animation: "mouseScroll 1.6s ease-in-out infinite" }} />
+            </div>
+            <span className="text-[10px] tracking-widest uppercase" style={{ color: "rgba(0,0,0,0.2)" }}>scroll</span>
           </div>
-          <style>{`@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(10px)}}`}</style>
+          <style>{`
+            @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(10px)}}
+            @keyframes mouseScroll{0%{transform:translateY(0);opacity:1}80%{transform:translateY(10px);opacity:0}81%{transform:translateY(0);opacity:0}100%{opacity:1}}
+          `}</style>
         </div>
       </section>
 
