@@ -1,6 +1,6 @@
 export const metadata = {
-  title: "عرض فني ومالي — زين التنموية | Ahmed Ali",
-  description: "عرض فني ومالي متكامل للتحول الرقمي الشامل لشركة زين التنموية — تحليل، تطوير، AI، SEO",
+  title: "تحليل وخطة تطوير — زين التنموية | Ahmed Ali",
+  description: "تحليل شامل وخطة تطوير رقمي لشركة زين التنموية — تحليل، تطوير، AI، SEO",
   robots: { index: false, follow: false },
   icons: {
     icon: [

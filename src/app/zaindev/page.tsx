@@ -135,7 +135,7 @@ export default function ZainDevProposal() {
           </div>
 
           <div className="ph-hero opacity-0 text-center mb-4">
-            <h1 className="ar-heading" style={{ fontSize: "clamp(36px, 8vw, 80px)", lineHeight: 1.3, color: D }}>عرض فني ومالي متكامل</h1>
+            <h1 className="ar-heading" style={{ fontSize: "clamp(36px, 8vw, 80px)", lineHeight: 1.3, color: D }}>تحليل وخطة تطوير</h1>
           </div>
 
           <div className="ph-hero opacity-0 text-center mb-6">
@@ -197,7 +197,7 @@ export default function ZainDevProposal() {
           </div>
           <div className="rounded-[20px] p-8 md:p-10" style={{ border: "1px solid #EBEBEB" }}>
             <p className="text-[14px] ar-body leading-[2] mb-6" style={{ color: D }}>
-              زين التنموية شركة عندها 15 سنة خبرة و500+ مشروع — لكن الموقعين الحاليين ما يعكسوا هالحجم. العميل اللي يزور الموقع اليوم يشوف صور Freepik، بيانات وهمية، ومتجر ما يقبل دفع فعلي. هذا العرض يعالج كل هالمشاكل ويحول الحضور الرقمي لزين إلى أداة تجيب عملاء وتبني ثقة.
+              زين التنموية شركة عندها 15 سنة خبرة و500+ مشروع — لكن الموقعين الحاليين ما يعكسوا هالحجم. العميل اللي يزور الموقع اليوم يشوف صور Freepik، بيانات وهمية، ومتجر ما يقبل دفع فعلي. هذا التحليل يعالج كل هالمشاكل ويحول الحضور الرقمي لزين إلى أداة تجيب عملاء وتبني ثقة.
             </p>
             <p className="text-[14px] ar-body leading-[2]" style={{ color: "rgba(0,0,0,0.6)" }}>
               حللت الموقعين صفحة صفحة — Zynqore (الحلول التقنية) وZainDev (المقاولات والخدمات) — وفي الصفحات التالية هتشوف التقييم التفصيلي لكل صفحة، المشاكل اللي تأثر على مصداقيتكم، والخطة العملية لإصلاح كل شيء.
@@ -662,7 +662,7 @@ export default function ZainDevProposal() {
               </a>
             </div>
           </div>
-          <p className="text-[11px] ar-body" style={{ color: "rgba(0,0,0,0.15)" }}>&copy; {new Date().getFullYear()} Ahmed Ali. هذا العرض سري وخاص لشركة زين التنموية.</p>
+          <p className="text-[11px] ar-body" style={{ color: "rgba(0,0,0,0.15)" }}>&copy; {new Date().getFullYear()} Ahmed Ali. مُعد خصيصاً لشركة زين التنموية.</p>
         </div>
       </section>
     </div>
