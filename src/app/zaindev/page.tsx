@@ -192,7 +192,7 @@ export default function ZainDevProposal() {
       <section className="ph-slide opacity-0" style={{ padding: "100px 24px", background: "#fff" }}>
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <p className="ar-heading text-lg mb-3" style={{ color: G }}>القسم الأول</p>
+            <p className="ar-heading text-lg mb-3" style={{ color: G }}>نظرة عامة</p>
             <h2 className="ar-heading text-4xl md:text-5xl mb-5">الملخص التنفيذي</h2>
           </div>
           <div className="rounded-[20px] p-8 md:p-10" style={{ border: "1px solid #EBEBEB" }}>
@@ -206,11 +206,72 @@ export default function ZainDevProposal() {
         </div>
       </section>
 
+      {/* ═══ BEFORE vs AFTER ═══ */}
+      <section className="ph-slide opacity-0" style={{ padding: "80px 24px", background: D }}>
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="ar-heading text-3xl md:text-4xl" style={{ color: "#fff" }}>الفرق اللي <span style={{ color: G }}>هتشوفوه</span></h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* NOW */}
+            <div className="rounded-[24px] p-8" style={{ background: `${R}10`, border: `1px solid ${R}25` }}>
+              <p className="text-[10px] font-bold tracking-[3px] uppercase mb-6" style={{ color: R }}>الوضع الحالي</p>
+              <div className="flex flex-col gap-4">
+                {[
+                  "عميل يبحث \"شركة تكييف الأحساء\" — ما يلاقيكم في جوجل",
+                  "يدخل الموقع — يشوف صور Freepik مش حقيقية فيفقد الثقة",
+                  "يحاول يشتري مكيف — بوابات الدفع وهمية ما تقبل فلوس",
+                  "يحاول يتواصل — بيانات الهاتف والإيميل مش حقيقية",
+                  "النتيجة: يروح للمنافس اللي موقعه يشتغل",
+                ].map((item) => (
+                  <div key={item} className="flex items-start gap-3">
+                    <XCircle size={16} color={R} className="flex-shrink-0 mt-0.5" />
+                    <span className="text-[12px] ar-body" style={{ color: "rgba(255,255,255,0.6)" }}>{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            {/* AFTER */}
+            <div className="rounded-[24px] p-8" style={{ background: G, border: `2px solid ${D}` }}>
+              <p className="text-[10px] font-bold tracking-[3px] uppercase mb-6" style={{ color: "rgba(0,0,0,0.4)" }}>بعد التطوير</p>
+              <div className="flex flex-col gap-4">
+                {[
+                  "عميل يبحث \"شركة تكييف الأحساء\" — زين أول نتيجة في جوجل",
+                  "يدخل الموقع — يشوف مشاريعكم الحقيقية وفريقكم الفعلي",
+                  "يشتري مكيف — يدفع بـ مدى أو Apple Pay أو تمارا فوراً",
+                  "يسأل سؤال الساعة 2 الفجر — شات بوت ذكي يرد عليه فوراً",
+                  "النتيجة: عميل جديد بدون ما تدفعوا ريال إعلانات",
+                ].map((item) => (
+                  <div key={item} className="flex items-start gap-3">
+                    <CheckCircle2 size={16} color={D} className="flex-shrink-0 mt-0.5" />
+                    <span className="text-[12px] ar-body" style={{ color: "rgba(0,0,0,0.6)" }}>{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Cost of inaction */}
+          <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4 ph-stagger">
+            {[
+              { num: "كل يوم", text: "عملاء جاهزين يشتروا يدخلوا المتجر ويلاقوا بوابات دفع ما تشتغل — ويروحوا للمنافس", color: R },
+              { num: "كل شهر", text: "آلاف الريالات على إعلانات لأن الموقع مش ظاهر في جوجل أصلاً — والإعلانات توقفت = العملاء توقفوا", color: A },
+              { num: "كل سنة", text: "الفجوة بينكم وبين المنافسين تكبر — هم يبنون حضور رقمي وأنتم تعتمدون على السمعة بس", color: R },
+            ].map((item) => (
+              <div key={item.num} className="ph-item rounded-[16px] p-5 text-center" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)" }}>
+                <p className="ar-heading text-xl mb-2" style={{ color: item.color }}>{item.num}</p>
+                <p className="text-[11px] ar-body leading-relaxed" style={{ color: "rgba(255,255,255,0.45)" }}>{item.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ═══ COMPANY ═══ */}
       <section className="ph-slide opacity-0" style={{ padding: "100px 24px", background: "#fff" }}>
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <p className="ar-heading text-lg mb-3" style={{ color: G }}>القسم الثاني</p>
+            <p className="ar-heading text-lg mb-3" style={{ color: G }}>من أنتم</p>
             <h2 className="ar-heading text-4xl md:text-5xl mb-5">فهم <span style={{ color: G }}>الشركة</span></h2>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 ph-stagger">
@@ -243,7 +304,7 @@ export default function ZainDevProposal() {
       <section className="ph-slide opacity-0" style={{ padding: "100px 24px", background: D }}>
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <p className="ar-heading text-lg mb-3" style={{ color: G }}>القسم الثالث</p>
+            <p className="ar-heading text-lg mb-3" style={{ color: G }}>الموقع الأول</p>
             <h2 className="ar-heading text-4xl md:text-5xl mb-3" style={{ color: "#fff" }}>تحليل موقع <span style={{ color: G }}>Zynqore</span></h2>
             <p className="text-sm ar-body" style={{ color: "rgba(255,255,255,0.4)" }}>tech-pearl-rho.vercel.app</p>
           </div>
@@ -320,7 +381,7 @@ export default function ZainDevProposal() {
       <section className="ph-slide opacity-0" style={{ padding: "100px 24px", background: "#fff" }}>
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <p className="ar-heading text-lg mb-3" style={{ color: G }}>القسم الرابع</p>
+            <p className="ar-heading text-lg mb-3" style={{ color: G }}>الموقع الثاني</p>
             <h2 className="ar-heading text-4xl md:text-5xl mb-3">تحليل موقع <span style={{ color: G }}>ZainDev</span></h2>
             <p className="text-sm ar-body" style={{ color: "rgba(0,0,0,0.4)" }}>zaindev.com.sa</p>
           </div>
@@ -394,7 +455,7 @@ export default function ZainDevProposal() {
       <section className="ph-slide opacity-0" style={{ padding: "100px 24px", background: D }}>
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <p className="ar-heading text-lg mb-3" style={{ color: R }}>القسم الخامس</p>
+            <p className="ar-heading text-lg mb-3" style={{ color: R }}>المتجر</p>
             <h2 className="ar-heading text-4xl md:text-5xl mb-3" style={{ color: "#fff" }}>تحليل المتجر <span style={{ color: R }}>الإلكتروني</span></h2>
           </div>
 
@@ -441,7 +502,7 @@ export default function ZainDevProposal() {
       <section className="ph-slide opacity-0" style={{ padding: "100px 24px", background: "#fff" }}>
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <p className="ar-heading text-lg mb-3" style={{ color: G }}>القسم السادس</p>
+            <p className="ar-heading text-lg mb-3" style={{ color: G }}>التقنيات</p>
             <h2 className="ar-heading text-4xl md:text-5xl mb-5">تحليل <span style={{ color: G }}>SEO</span></h2>
           </div>
           <div className="overflow-x-auto rounded-[20px] border" style={{ borderColor: "#EBEBEB" }}>
@@ -471,7 +532,7 @@ export default function ZainDevProposal() {
       <section className="ph-slide opacity-0" style={{ padding: "100px 24px", background: D }}>
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-6">
-            <p className="ar-heading text-lg mb-3" style={{ color: G }}>القسم السابع</p>
+            <p className="ar-heading text-lg mb-3" style={{ color: G }}>الحل الذكي</p>
             <h2 className="ar-heading text-4xl md:text-5xl mb-5" style={{ color: "#fff" }}>استراتيجية <span style={{ color: G }}>الذكاء الاصطناعي</span></h2>
             <p className="text-sm ar-body max-w-lg mx-auto" style={{ color: "rgba(255,255,255,0.35)" }}>عميلك يسأل عن سعر مكيف الساعة 2 الفجر — مين يرد عليه؟ هنا يدخل الذكاء الاصطناعي.</p>
           </div>
@@ -531,7 +592,7 @@ export default function ZainDevProposal() {
       <section className="ph-slide opacity-0" style={{ padding: "100px 24px", background: "#fff" }}>
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
-            <p className="ar-heading text-lg mb-3" style={{ color: G }}>القسم الثامن</p>
+            <p className="ar-heading text-lg mb-3" style={{ color: G }}>كيف تنمو</p>
             <h2 className="ar-heading text-4xl md:text-5xl mb-5">استراتيجية <span style={{ color: G }}>النمو</span></h2>
             <p className="text-sm ar-body max-w-lg mx-auto" style={{ color: "rgba(0,0,0,0.4)" }}>الموقع الحلو بدون استراتيجية = بروشور ما حد يشوفه. هنا الخطة اللي تخلي الناس توصلكم.</p>
           </div>
@@ -627,7 +688,7 @@ export default function ZainDevProposal() {
       <section className="ph-slide opacity-0" style={{ padding: "100px 24px", background: "#fff" }}>
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
-            <p className="ar-heading text-lg mb-3" style={{ color: G }}>القسم التاسع</p>
+            <p className="ar-heading text-lg mb-3" style={{ color: G }}>التنفيذ</p>
             <h2 className="ar-heading text-4xl md:text-5xl mb-5">خطة <span style={{ color: G }}>التطوير</span></h2>
           </div>
           <div className="flex flex-col gap-6 ph-stagger">
@@ -642,25 +703,50 @@ export default function ZainDevProposal() {
 
 
 
-      {/* ═══ CLOSING ═══ */}
+      {/* ═══ CLOSING — Summary + CTA ═══ */}
+      <section className="ph-slide opacity-0" style={{ padding: "100px 24px", background: D }}>
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="ar-heading text-3xl md:text-4xl" style={{ color: "#fff" }}>الخلاصة</h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-12 ph-stagger">
+            {[
+              { num: "1", title: "المشكلة", desc: "موقعين ما يعكسوا 15 سنة خبرة — صور وهمية، بيانات مش حقيقية، متجر ما يقبل دفع، وجوجل ما يشوفكم", color: R },
+              { num: "2", title: "الحل", desc: "موقعين احترافيين بهوية موحدة، محتوى حقيقي، بوابات دفع فعلية، SEO يظهركم في جوجل، وأدوات ذكية تخدم عملائكم 24/7", color: G },
+              { num: "3", title: "الخطوة التالية", desc: "اجتماع 30 دقيقة نحدد فيه الأولويات ونتفق على نقطة البداية — ممكن نبدأ بمرحلة واحدة ونشوف النتائج قبل ما نكمل", color: B },
+            ].map((item) => (
+              <div key={item.num} className="ph-item rounded-[20px] p-7" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)" }}>
+                <span className="ar-heading text-4xl mb-4 block" style={{ color: `${item.color}30` }}>{item.num}</span>
+                <h3 className="ar-heading text-lg mb-3" style={{ color: "#fff" }}>{item.title}</h3>
+                <p className="text-[12px] ar-body leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ CONTACT CARD ═══ */}
       <section className="ph-slide opacity-0" style={{ padding: "80px 24px 60px", background: "#fff" }}>
         <div className="max-w-3xl mx-auto text-center">
           <div className="rounded-[24px] p-10 md:p-14 mb-8" style={{ border: "1px solid #EBEBEB" }}>
             <img src="/ahmed.jpeg" alt="Ahmed Ali" className="w-24 h-24 rounded-full object-cover mx-auto mb-6" style={{ border: `3px solid ${G}` }} />
-            <h3 className="ar-heading text-3xl mb-2">شكراً لوقتكم</h3>
-            <p className="ar-heading text-lg mb-6" style={{ color: G }}>15 سنة خبرة تستاهل حضور رقمي يليق بيها — وأنا مستعد أبنيه معاكم</p>
+            <h3 className="ar-heading text-3xl mb-2">جاهز نبدأ؟</h3>
+            <p className="text-[14px] ar-body mb-6 max-w-md mx-auto" style={{ color: "rgba(0,0,0,0.5)", lineHeight: 1.9 }}>
+              أرسل لي رسالة وخلال 24 ساعة نحدد موعد الاجتماع الأول — بدون أي التزام.
+            </p>
+            <div className="flex flex-wrap justify-center gap-3 mb-8">
+              <a href="https://wa.me/201011648156" target="_blank" rel="noopener" className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-sm font-bold" style={{ background: G, color: D, border: `2px solid ${D}`, boxShadow: `4px 4px 0px 0px ${D}`, textDecoration: "none" }}>
+                <MessageCircle size={16} /> تواصل عبر واتساب
+              </a>
+              <a href="mailto:hello@ahmedali.online" className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-sm font-bold" style={{ background: "#fff", color: D, border: `2px solid ${D}`, boxShadow: `4px 4px 0px 0px ${D}`, textDecoration: "none" }}>
+                أرسل إيميل <ArrowRight size={14} />
+              </a>
+            </div>
             <div className="w-full h-px mb-6" style={{ background: "#F0F0F0" }} />
             <p className="text-[14px] font-bold">Ahmed Ali</p>
             <p className="text-[12px] ar-body" style={{ color: G }}>Full-Stack Digital Strategist</p>
             <p className="text-[12px] ar-body mt-1" style={{ color: "rgba(0,0,0,0.4)" }}>hello@ahmedali.online | ahmedali.online</p>
-            <div className="flex flex-wrap justify-center gap-3 mt-8">
-              <a href="https://ahmedali.online" target="_blank" rel="noopener" className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold" style={{ background: G, color: D, border: `2px solid ${D}`, boxShadow: `3px 3px 0px 0px ${D}`, textDecoration: "none" }}>
-                الموقع الشخصي <ExternalLink size={14} />
-              </a>
-              <a href="https://wa.me/201011648156" target="_blank" rel="noopener" className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold" style={{ background: "#fff", color: D, border: `2px solid ${D}`, boxShadow: `3px 3px 0px 0px ${D}`, textDecoration: "none" }}>
-                واتساب <ArrowRight size={14} />
-              </a>
-            </div>
           </div>
           <p className="text-[11px] ar-body" style={{ color: "rgba(0,0,0,0.15)" }}>&copy; {new Date().getFullYear()} Ahmed Ali. مُعد خصيصاً لشركة زين التنموية.</p>
         </div>
