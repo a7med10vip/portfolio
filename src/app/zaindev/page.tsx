@@ -639,87 +639,8 @@ export default function ZainDevProposal() {
         </div>
       </section>
 
-      {/* ═══ FINANCIAL OFFER ═══ */}
-      <section className="ph-slide opacity-0" style={{ padding: "100px 24px", background: D }}>
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-16">
-            <p className="ar-heading text-lg mb-3" style={{ color: G }}>القسم العاشر</p>
-            <h2 className="ar-heading text-4xl md:text-5xl mb-5" style={{ color: "#fff" }}>العرض <span style={{ color: G }}>المالي</span></h2>
-          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-10 ph-stagger">
-            {[
-              { phase: "المرحلة الأولى", sub: "الاستراتيجية والهوية", duration: "أسبوعين", price: "2,500" },
-              { phase: "المرحلة الثانية", sub: "تطوير ZainDev", duration: "3 أسابيع", price: "4,500" },
-              { phase: "المرحلة الثالثة", sub: "تطوير Zynqore", duration: "3 أسابيع", price: "3,500" },
-              { phase: "المرحلة الرابعة", sub: "دمج AI + تحسينات", duration: "أسبوعين", price: "2,500" },
-            ].map((t) => (
-              <div key={t.phase} className="ph-item rounded-[20px] p-6" style={{ background: "#fff" }}>
-                <div className="text-[10px] font-bold tracking-[1px] uppercase mb-1 ar-body" style={{ color: G }}>{t.phase}</div>
-                <p className="text-[11px] ar-body mb-3" style={{ color: "rgba(0,0,0,0.45)" }}>{t.sub}</p>
-                <div className="ar-heading text-3xl mb-1">{t.price}<span className="text-lg mr-1">ر.س</span></div>
-                <div className="flex items-center gap-1.5 mt-2">
-                  <Clock size={11} color="rgba(0,0,0,0.3)" />
-                  <span className="text-[11px] ar-body" style={{ color: "rgba(0,0,0,0.35)" }}>{t.duration}</span>
-                </div>
-              </div>
-            ))}
-          </div>
 
-          <div className="rounded-[20px] p-8 text-center mb-6" style={{ background: G, border: `2px solid ${D}` }}>
-            <p className="text-[11px] font-bold tracking-[2px] uppercase mb-2 ar-body" style={{ color: "rgba(0,0,0,0.4)" }}>الإجمالي الشامل</p>
-            <p className="ar-heading text-4xl md:text-5xl mb-1" style={{ color: D }}>13,000 <span className="text-xl">ر.س</span></p>
-            <p className="text-[12px] ar-body" style={{ color: "rgba(0,0,0,0.5)" }}>10 أسابيع • موقعين كاملين • دعم شهرين</p>
-          </div>
-
-          <div className="rounded-[16px] p-6 text-center mb-10" style={{ background: "#111", border: "1px solid rgba(255,255,255,0.08)" }}>
-            <p className="text-[13px] ar-body" style={{ color: "rgba(255,255,255,0.5)" }}>
-              شروط الدفع: 40% مقدماً (5,200 ر.س) + 30% منتصف المشروع (3,900 ر.س) + 30% عند التسليم (3,900 ر.س)
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 ph-stagger">
-            {[
-              "التحليل الشامل اللي قدامك ده — تم إنجازه بالفعل كجزء من العرض",
-              "هوية بصرية موحدة تربط كل أذرع الشركة تحت مظلة واحدة",
-              "موقعين جديدين بالكامل يظهران في نتائج جوجل من اليوم الأول (SSR)",
-              "محتوى حقيقي يبني ثقة — مشاريعكم الفعلية، فريقكم، إنجازاتكم",
-              "أدوات ذكية تخدم عملائكم 24/7 بدون ما تحتاجوا توظفوا حد إضافي",
-              "ظهور في محركات البحث لما عميل في الأحساء يكتب صيانة تكييف",
-              "دعم فني مجاني لمدة شهرين — أي تعديل أو صيانة على حسابي",
-              "تدريب فريقكم بحيث تقدروا تديروا المحتوى والتحديثات بأنفسكم",
-            ].map((item) => (
-              <div key={item} className="ph-item flex items-center gap-3 p-4 rounded-[14px]" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)" }}>
-                <CheckCircle2 size={16} color={G} className="flex-shrink-0" />
-                <span className="text-[12px] ar-body" style={{ color: "#fff" }}>{item}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══ WHY ME ═══ */}
-      <section className="ph-slide opacity-0" style={{ padding: "100px 24px", background: "#fff" }}>
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
-            <p className="ar-heading text-lg mb-3" style={{ color: G }}>لماذا تختارني</p>
-          </div>
-          <div className="flex flex-col gap-3 ph-stagger">
-            {[
-              "مش بس مطور — أنا اللي حللت الموقعين وفهمت المشاكل قبل ما أقترح حلول",
-              "بشتغل على التسويق والتطوير والسيو والذكاء الاصطناعي — يعني مش هتحتاج 4 أشخاص مختلفين",
-              "اشتغلت مع Ooredoo وQNB وأمازون والخطوط السعودية — نفس المعايير هطبقها على زين",
-              "فاهم السوق السعودي — العميل في الأحساء بيدور إزاي وبيقارن إزاي وبياخد قراره إزاي",
-              "هتشوف تقدم يومي واضح — مفيش مفاجآت ولا تأخير",
-            ].map((item) => (
-              <div key={item} className="ph-item flex items-center gap-4 p-5 rounded-[16px]" style={{ background: "#fff", border: "1px solid #EBEBEB" }}>
-                <Star size={18} color={G} fill={G} className="flex-shrink-0" />
-                <span className="text-[13px] ar-body font-medium">{item}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* ═══ CLOSING ═══ */}
       <section className="ph-slide opacity-0" style={{ padding: "80px 24px 60px", background: "#fff" }}>
