@@ -167,7 +167,7 @@ export default function ShopweloProposal() {
 
         <div className="relative z-10 w-full max-w-5xl mx-auto px-6 flex flex-col items-center">
 
-          <div className="ph-hero opacity-0 text-center mb-4">
+          <div className="ph-hero opacity-0 text-center mb-4" style={{ paddingTop: 40 }}>
             <p className="text-[13px] font-bold tracking-wider" style={{ color: "rgba(0,0,0,0.3)" }}>أبريل 2026</p>
           </div>
 
