@@ -731,10 +731,7 @@ export default function ZainDevProposal() {
         <div className="max-w-3xl mx-auto text-center">
           <div className="rounded-[24px] p-10 md:p-14 mb-8" style={{ border: "1px solid #EBEBEB" }}>
             <img src="/ahmed.jpeg" alt="Ahmed Ali" className="w-24 h-24 rounded-full object-cover mx-auto mb-6" style={{ border: `3px solid ${G}` }} />
-            <h3 className="ar-heading text-3xl mb-2">جاهز نبدأ؟</h3>
-            <p className="text-[14px] ar-body mb-6 max-w-md mx-auto" style={{ color: "rgba(0,0,0,0.5)", lineHeight: 1.9 }}>
-              أرسل لي رسالة وخلال 24 ساعة نحدد موعد الاجتماع الأول — بدون أي التزام.
-            </p>
+            <h3 className="ar-heading text-3xl mb-6">شكراً لثقتكم</h3>
             <div className="flex flex-wrap justify-center gap-3 mb-8">
               <a href="https://wa.me/201011648156" target="_blank" rel="noopener" className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-sm font-bold" style={{ background: G, color: D, border: `2px solid ${D}`, boxShadow: `4px 4px 0px 0px ${D}`, textDecoration: "none" }}>
                 <MessageCircle size={16} /> تواصل عبر واتساب
