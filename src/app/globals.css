@@ -102,7 +102,7 @@
 
 /* Arabic word wrap for calligraphic tails */
 .ar-word-wrap {
-  font-feature-settings: "ss01" 1, "ss02" 1, "ss03" 1, "swsh" 1, "salt" 1, "calt" 1, "liga" 1, "rlig" 1, "fina" 1 !important;
+  font-feature-settings: "ss01" 1, "swsh" 1, "salt" 1, "calt" 1, "liga" 1, "rlig" 1 !important;
   display: inline;
   white-space: nowrap;
 }
