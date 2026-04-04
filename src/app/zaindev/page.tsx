@@ -175,7 +175,7 @@ export default function ZainDevProposal() {
           {/* Vision */}
           <div className="ph-hero opacity-0 rounded-[16px] p-6 text-center mb-10 max-w-2xl" style={{ background: `${G}08`, border: `1px solid ${G}20` }}>
             <p className="text-[13px] ar-body font-medium leading-relaxed" style={{ color: D }}>
-              <strong style={{ color: G }}>الرؤية:</strong> تحويل الحضور الرقمي لزين التنموية من موقعين بحاجة للتطوير إلى منصتين رقميتين احترافيتين بهوية موحدة تعكسان قوة الشركة وتاريخها
+              <strong style={{ color: G }}>الهدف:</strong> لما عميل في الأحساء يكتب في جوجل "شركة تكييف" أو "مقاول" — يلاقي زين التنموية في أول النتائج، يدخل موقع يبني ثقة، ويتواصل مباشرة
             </p>
           </div>
 
@@ -197,10 +197,10 @@ export default function ZainDevProposal() {
           </div>
           <div className="rounded-[20px] p-8 md:p-10" style={{ border: "1px solid #EBEBEB" }}>
             <p className="text-[14px] ar-body leading-[2] mb-6" style={{ color: D }}>
-              يسعدني تقديم هذا العرض الفني والمالي الشامل للتحول الرقمي لشركة زين التنموية (Zain Development)، المؤسسة السعودية المتخصصة في المقاولات والتكييف والصيانة والتسويق الإلكتروني منذ أكثر من 15 عاماً، بمقرها في الأحساء بالمنطقة الشرقية.
+              زين التنموية شركة عندها 15 سنة خبرة و500+ مشروع — لكن الموقعين الحاليين ما يعكسوا هالحجم. العميل اللي يزور الموقع اليوم يشوف صور Freepik، بيانات وهمية، ومتجر ما يقبل دفع فعلي. هذا العرض يعالج كل هالمشاكل ويحول الحضور الرقمي لزين إلى أداة تجيب عملاء وتبني ثقة.
             </p>
             <p className="text-[14px] ar-body leading-[2]" style={{ color: "rgba(0,0,0,0.6)" }}>
-              يغطي هذا العرض تحليلاً شاملاً لموقعين تابعين للشركة: موقع Zynqore للحلول التقنية وموقع ZainDev الرئيسي للمقاولات، ويقدم رؤية متكاملة للتطوير تشمل تحليل UX/UI، تحسين SEO، دمج الذكاء الاصطناعي، واستراتيجية نمو شاملة.
+              حللت الموقعين صفحة صفحة — Zynqore (الحلول التقنية) وZainDev (المقاولات والخدمات) — وفي الصفحات التالية هتشوف التقييم التفصيلي لكل صفحة، المشاكل اللي تأثر على مصداقيتكم، والخطة العملية لإصلاح كل شيء.
             </p>
           </div>
         </div>
@@ -233,7 +233,7 @@ export default function ZainDevProposal() {
           </div>
           <div className="mt-8 rounded-[16px] p-6 text-center" style={{ background: `${R}08`, border: `1px solid ${R}20` }}>
             <p className="text-[13px] ar-body" style={{ color: D }}>
-              <strong style={{ color: R }}>التحدي الرئيسي:</strong> الموقعان الحاليان لا يعكسان حجم الشركة وخبرتها الفعلية — 15+ عام و500+ مشروع
+              <strong style={{ color: R }}>المشكلة:</strong> عميل يبحث عنكم أونلاين يشوف موقع ما يقنعه — صور مش حقيقية، متجر ما يقبل دفع، وبيانات تواصل وهمية. هذا يكلفكم عملاء كل يوم.
             </p>
           </div>
         </div>
@@ -473,7 +473,7 @@ export default function ZainDevProposal() {
           <div className="text-center mb-6">
             <p className="ar-heading text-lg mb-3" style={{ color: G }}>القسم السابع</p>
             <h2 className="ar-heading text-4xl md:text-5xl mb-5" style={{ color: "#fff" }}>استراتيجية <span style={{ color: G }}>الذكاء الاصطناعي</span></h2>
-            <p className="text-sm ar-body max-w-lg mx-auto" style={{ color: "rgba(255,255,255,0.35)" }}>رؤية شاملة لكيف يمكن للذكاء الاصطناعي أن يحول تجربة العميل ويرفع كفاءة العمليات</p>
+            <p className="text-sm ar-body max-w-lg mx-auto" style={{ color: "rgba(255,255,255,0.35)" }}>عميلك يسأل عن سعر مكيف الساعة 2 الفجر — مين يرد عليه؟ هنا يدخل الذكاء الاصطناعي.</p>
           </div>
 
           {/* AI Journey — connected flow */}
@@ -533,7 +533,7 @@ export default function ZainDevProposal() {
           <div className="text-center mb-16">
             <p className="ar-heading text-lg mb-3" style={{ color: G }}>القسم الثامن</p>
             <h2 className="ar-heading text-4xl md:text-5xl mb-5">استراتيجية <span style={{ color: G }}>النمو</span></h2>
-            <p className="text-sm ar-body max-w-lg mx-auto" style={{ color: "rgba(0,0,0,0.4)" }}>ثلاث ركائز أساسية لبناء حضور رقمي قوي ومستدام</p>
+            <p className="text-sm ar-body max-w-lg mx-auto" style={{ color: "rgba(0,0,0,0.4)" }}>الموقع الحلو بدون استراتيجية = بروشور ما حد يشوفه. هنا الخطة اللي تخلي الناس توصلكم.</p>
           </div>
 
           <div className="flex flex-col gap-6 ph-stagger">
@@ -649,10 +649,10 @@ export default function ZainDevProposal() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-10 ph-stagger">
             {[
-              { phase: "المرحلة الأولى", sub: "الاستراتيجية والهوية", duration: "أسبوعين", price: "3,000" },
-              { phase: "المرحلة الثانية", sub: "تطوير ZainDev", duration: "3 أسابيع", price: "6,000" },
-              { phase: "المرحلة الثالثة", sub: "تطوير Zynqore", duration: "3 أسابيع", price: "5,000" },
-              { phase: "المرحلة الرابعة", sub: "دمج AI + تحسينات", duration: "أسبوعين", price: "4,000" },
+              { phase: "المرحلة الأولى", sub: "الاستراتيجية والهوية", duration: "أسبوعين", price: "2,500" },
+              { phase: "المرحلة الثانية", sub: "تطوير ZainDev", duration: "3 أسابيع", price: "4,500" },
+              { phase: "المرحلة الثالثة", sub: "تطوير Zynqore", duration: "3 أسابيع", price: "3,500" },
+              { phase: "المرحلة الرابعة", sub: "دمج AI + تحسينات", duration: "أسبوعين", price: "2,500" },
             ].map((t) => (
               <div key={t.phase} className="ph-item rounded-[20px] p-6" style={{ background: "#fff" }}>
                 <div className="text-[10px] font-bold tracking-[1px] uppercase mb-1 ar-body" style={{ color: G }}>{t.phase}</div>
@@ -667,31 +667,27 @@ export default function ZainDevProposal() {
           </div>
 
           <div className="rounded-[20px] p-8 text-center mb-6" style={{ background: G, border: `2px solid ${D}` }}>
-            <p className="text-[11px] font-bold tracking-[2px] uppercase mb-2 ar-body" style={{ color: "rgba(0,0,0,0.4)" }}>الإجمالي</p>
-            <p className="ar-heading text-4xl md:text-5xl mb-1" style={{ color: D }}>18,000 <span className="text-xl">ر.س</span></p>
-            <p className="text-[12px] ar-body" style={{ color: "rgba(0,0,0,0.5)" }}>10 أسابيع</p>
+            <p className="text-[11px] font-bold tracking-[2px] uppercase mb-2 ar-body" style={{ color: "rgba(0,0,0,0.4)" }}>الإجمالي الشامل</p>
+            <p className="ar-heading text-4xl md:text-5xl mb-1" style={{ color: D }}>13,000 <span className="text-xl">ر.س</span></p>
+            <p className="text-[12px] ar-body" style={{ color: "rgba(0,0,0,0.5)" }}>10 أسابيع • موقعين كاملين • دعم شهرين</p>
           </div>
 
           <div className="rounded-[16px] p-6 text-center mb-10" style={{ background: "#111", border: "1px solid rgba(255,255,255,0.08)" }}>
-            <p className="text-[14px] ar-body font-bold" style={{ color: "#fff" }}>
-              <span style={{ color: G }}>سعر خاص للتعاقد الشامل:</span>
+            <p className="text-[13px] ar-body" style={{ color: "rgba(255,255,255,0.5)" }}>
+              شروط الدفع: 40% مقدماً (5,200 ر.س) + 30% منتصف المشروع (3,900 ر.س) + 30% عند التسليم (3,900 ر.س)
             </p>
-            <p className="ar-heading text-3xl mt-2" style={{ color: G }}>15,000 <span className="text-lg">ر.س</span></p>
-            <p className="text-[12px] ar-body mt-1" style={{ color: "rgba(255,255,255,0.4)" }}>بدلاً من 18,000 ر.س (خصم 17%)</p>
-            <div className="w-full h-px my-4" style={{ background: "rgba(255,255,255,0.08)" }} />
-            <p className="text-[12px] ar-body" style={{ color: "rgba(255,255,255,0.5)" }}>الدفع: 40% مقدماً (6,000 ر.س) + 30% منتصف المشروع (4,500 ر.س) + 30% عند التسليم (4,500 ر.س)</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 ph-stagger">
             {[
-              "تحليل UX/UI + SEO + محتوى شامل (تم إنجازه)",
-              "استراتيجية هوية رقمية موحدة + Design System",
-              "تطوير وتصميم موقعين كاملين مع SSR",
-              "كتابة محتوى احترافي عربي/إنجليزي",
-              "دمج حلول AI (شات بوت + تقدير تكلفة + تخصيص محتوى)",
-              "تحسين SEO كامل + Google Analytics + Search Console",
-              "دعم فني مجاني لمدة شهرين بعد التسليم",
-              "تدريب الفريق على إدارة المحتوى والأدوات",
+              "التحليل الشامل اللي قدامك ده — تم إنجازه بالفعل كجزء من العرض",
+              "هوية بصرية موحدة تربط كل أذرع الشركة تحت مظلة واحدة",
+              "موقعين جديدين بالكامل يظهران في نتائج جوجل من اليوم الأول (SSR)",
+              "محتوى حقيقي يبني ثقة — مشاريعكم الفعلية، فريقكم، إنجازاتكم",
+              "أدوات ذكية تخدم عملائكم 24/7 بدون ما تحتاجوا توظفوا حد إضافي",
+              "ظهور في محركات البحث لما عميل في الأحساء يكتب صيانة تكييف",
+              "دعم فني مجاني لمدة شهرين — أي تعديل أو صيانة على حسابي",
+              "تدريب فريقكم بحيث تقدروا تديروا المحتوى والتحديثات بأنفسكم",
             ].map((item) => (
               <div key={item} className="ph-item flex items-center gap-3 p-4 rounded-[14px]" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)" }}>
                 <CheckCircle2 size={16} color={G} className="flex-shrink-0" />
@@ -710,11 +706,11 @@ export default function ZainDevProposal() {
           </div>
           <div className="flex flex-col gap-3 ph-stagger">
             {[
-              "+5 سنوات خبرة في أسواق الخليج (السعودية، قطر، الإمارات)",
-              "خبرة في التسويق الرقمي + التطوير + SEO + AI (مزيج نادر)",
-              "عملت مع: Ooredoo، QNB، Amazon Egypt، الخطوط السعودية",
-              "فهم عميق للسوق السعودي وسلوك المستهلك المحلي",
-              "التزام بالمواعيد والشفافية الكاملة",
+              "مش بس مطور — أنا اللي حللت الموقعين وفهمت المشاكل قبل ما أقترح حلول",
+              "بشتغل على التسويق والتطوير والسيو والذكاء الاصطناعي — يعني مش هتحتاج 4 أشخاص مختلفين",
+              "اشتغلت مع Ooredoo وQNB وأمازون والخطوط السعودية — نفس المعايير هطبقها على زين",
+              "فاهم السوق السعودي — العميل في الأحساء بيدور إزاي وبيقارن إزاي وبياخد قراره إزاي",
+              "هتشوف تقدم يومي واضح — مفيش مفاجآت ولا تأخير",
             ].map((item) => (
               <div key={item} className="ph-item flex items-center gap-4 p-5 rounded-[16px]" style={{ background: "#fff", border: "1px solid #EBEBEB" }}>
                 <Star size={18} color={G} fill={G} className="flex-shrink-0" />
@@ -730,8 +726,8 @@ export default function ZainDevProposal() {
         <div className="max-w-3xl mx-auto text-center">
           <div className="rounded-[24px] p-10 md:p-14 mb-8" style={{ border: "1px solid #EBEBEB" }}>
             <img src="/ahmed.jpeg" alt="Ahmed Ali" className="w-24 h-24 rounded-full object-cover mx-auto mb-6" style={{ border: `3px solid ${G}` }} />
-            <h3 className="ar-heading text-3xl mb-2">شكراً لثقتكم</h3>
-            <p className="ar-heading text-lg mb-6" style={{ color: G }}>أتطلع للعمل مع زين التنموية وبناء حضور رقمي يليق بخبرة 15+ عام</p>
+            <h3 className="ar-heading text-3xl mb-2">شكراً لوقتكم</h3>
+            <p className="ar-heading text-lg mb-6" style={{ color: G }}>15 سنة خبرة تستاهل حضور رقمي يليق بيها — وأنا مستعد أبنيه معاكم</p>
             <div className="w-full h-px mb-6" style={{ background: "#F0F0F0" }} />
             <p className="text-[14px] font-bold">Ahmed Ali</p>
             <p className="text-[12px] ar-body" style={{ color: G }}>Full-Stack Digital Strategist</p>
