@@ -248,34 +248,70 @@ export default function ZainDevProposal() {
             <p className="text-sm ar-body" style={{ color: "rgba(255,255,255,0.4)" }}>tech-pearl-rho.vercel.app</p>
           </div>
 
-          {/* Brand issues */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-10 ph-stagger">
-            {[
-              { title: "أزمة هوية", desc: 'ثلاثة أسماء مختلفة: Tab يعرض "Zain Tech"، البراند "Zynqore"، الشركة "زين التنموية"', color: R, bg: "#fff" },
-              { title: "استضافة مجانية", desc: "الموقع على vercel.app بدلاً من نطاق فرعي tech.zaindev.com.sa", color: A, bg: G },
-              { title: "بيانات وهمية", desc: "بيانات التواصل وهمية (+966 11 123 4567) والترجمة غير مفعلة", color: R, bg: "#fff" },
-            ].map((item) => (
-              <div key={item.title} className="ph-item rounded-[20px] p-7" style={{ background: item.bg, border: item.bg === G ? `2px solid ${D}` : "1px solid #EBEBEB" }}>
-                <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-4" style={{ background: item.bg === G ? "rgba(0,0,0,0.08)" : `${item.color}10` }}>
-                  <AlertTriangle size={22} color={item.bg === G ? D : item.color} />
-                </div>
-                <h3 className="ar-heading text-lg mb-3" style={{ color: D }}>{item.title}</h3>
-                <p className="text-[12px] leading-relaxed ar-body" style={{ color: item.bg === G ? "rgba(0,0,0,0.55)" : "rgba(0,0,0,0.5)" }}>{item.desc}</p>
+          {/* Overall score */}
+          <div className="flex flex-col md:flex-row gap-6 mb-12">
+            <div className="md:w-[240px] flex-shrink-0 rounded-[24px] p-8 flex flex-col items-center justify-center" style={{ background: R }}>
+              <p className="text-[10px] font-bold tracking-[3px] uppercase mb-2" style={{ color: "rgba(255,255,255,0.5)" }}>التقييم العام</p>
+              <div className="ar-heading" style={{ fontSize: 72, lineHeight: 1, color: "#fff" }}>2.7</div>
+              <p className="text-[12px] font-bold mt-1" style={{ color: "rgba(255,255,255,0.7)" }}>من 10</p>
+              <div className="w-full h-1.5 rounded-full mt-4" style={{ background: "rgba(255,255,255,0.15)" }}>
+                <div className="h-full rounded-full" style={{ width: "27%", background: "#fff" }} />
               </div>
-            ))}
+            </div>
+            <div className="flex-1 grid grid-cols-1 md:grid-cols-3 gap-4 ph-stagger">
+              {[
+                { title: "أزمة هوية", desc: 'ثلاثة أسماء مختلفة في موقع واحد: Zain Tech + Zynqore + زين التنموية', icon: AlertTriangle, color: R },
+                { title: "استضافة مجانية", desc: "vercel.app بدلاً من tech.zaindev.com.sa — يفقد المصداقية", icon: Globe, color: A },
+                { title: "بيانات وهمية", desc: "هاتف +966 11 123 4567 وبريد info@zynqore.com — غير حقيقية", icon: Shield, color: R },
+              ].map((item) => (
+                <div key={item.title} className="ph-item rounded-[16px] p-5" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
+                  <item.icon size={20} color={item.color} className="mb-3" />
+                  <h4 className="text-[13px] font-bold mb-1" style={{ color: "#fff" }}>{item.title}</h4>
+                  <p className="text-[11px] ar-body" style={{ color: "rgba(255,255,255,0.4)" }}>{item.desc}</p>
+                </div>
+              ))}
+            </div>
           </div>
 
-          {/* Page ratings */}
-          <div className="flex flex-col gap-3 ph-stagger">
-            {zynqorePages.map((p) => (
-              <div key={p.page} className="ph-item rounded-[14px] p-4 flex items-center gap-4" style={{ background: "#fff", border: "1px solid #EBEBEB" }}>
-                <ScoreBox score={p.score} />
-                <div className="flex-1">
-                  <h4 className="text-[13px] font-bold ar-body">{p.page}</h4>
-                  <p className="text-[11px] ar-body" style={{ color: "rgba(0,0,0,0.45)" }}>{p.note}</p>
+          {/* Page ratings with progress bars */}
+          <div className="rounded-[24px] p-8" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}>
+            <h3 className="ar-heading text-xl mb-8" style={{ color: "#fff" }}>تقييم الصفحات</h3>
+            <div className="flex flex-col gap-5 ph-stagger">
+              {zynqorePages.map((p) => {
+                const n = parseInt(p.score);
+                const c = n >= 7 ? G : n >= 4 ? A : R;
+                return (
+                  <div key={p.page} className="ph-item">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-[13px] font-bold" style={{ color: "#fff" }}>{p.page}</span>
+                      <span className="text-[13px] font-bold" style={{ color: c }}>{p.score}/10</span>
+                    </div>
+                    <div className="w-full h-2 rounded-full mb-2" style={{ background: "rgba(255,255,255,0.08)" }}>
+                      <div className="h-full rounded-full transition-all duration-700" style={{ width: `${n * 10}%`, background: c }} />
+                    </div>
+                    <p className="text-[10px] ar-body" style={{ color: "rgba(255,255,255,0.35)" }}>{p.note}</p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Technical issues */}
+          <div className="mt-8 rounded-[20px] p-7" style={{ background: `${R}15`, border: `1px solid ${R}30` }}>
+            <h3 className="ar-heading text-lg mb-4" style={{ color: "#fff" }}>مشاكل تقنية حرجة</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              {[
+                "الموقع يعتمد على Client-Side Rendering — جوجل لا تقرأ المحتوى",
+                "لا يوجد Sitemap.xml أو Robots.txt أو Meta Tags",
+                "لا يوجد Google Analytics أو أي أداة تتبع",
+                "يحتاج تحويل إلى SSR أو SSG فوراً",
+              ].map((issue) => (
+                <div key={issue} className="flex items-start gap-3 p-3 rounded-xl" style={{ background: "rgba(0,0,0,0.2)" }}>
+                  <XCircle size={14} color={R} className="flex-shrink-0 mt-0.5" />
+                  <span className="text-[11px] ar-body" style={{ color: "rgba(255,255,255,0.6)" }}>{issue}</span>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -289,31 +325,65 @@ export default function ZainDevProposal() {
             <p className="text-sm ar-body" style={{ color: "rgba(0,0,0,0.4)" }}>zaindev.com.sa</p>
           </div>
 
-          {/* Content issues */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-10 ph-stagger">
-            {[
-              { title: "صور وهمية", desc: "كل الصور من Freepik المجانية — لا توجد صورة حقيقية للشركة أو مشاريعها أو فريقها", color: R, bg: "#fff" },
-              { title: "محتوى مكرر", desc: "قسم المتجر مكرر 5 مرات بنفس النص حرفياً في الصفحة الرئيسية", color: A, bg: G },
-              { title: "روابط معطلة", desc: 'الفوتر يشير لـ example.com وروابط التطبيق تشير ل # وقسم الشركاء فارغ', color: R, bg: "#fff" },
-            ].map((item) => (
-              <div key={item.title} className="ph-item rounded-[20px] p-7" style={{ background: item.bg, border: item.bg === G ? `2px solid ${D}` : "1px solid #EBEBEB" }}>
-                <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-4" style={{ background: item.bg === G ? "rgba(0,0,0,0.08)" : `${item.color}10` }}>
-                  <AlertTriangle size={22} color={item.bg === G ? D : item.color} />
-                </div>
-                <h3 className="ar-heading text-lg mb-3" style={{ color: D }}>{item.title}</h3>
-                <p className="text-[12px] leading-relaxed ar-body" style={{ color: item.bg === G ? "rgba(0,0,0,0.55)" : "rgba(0,0,0,0.5)" }}>{item.desc}</p>
+          {/* Overall + Issues side by side */}
+          <div className="flex flex-col md:flex-row gap-6 mb-12">
+            <div className="md:w-[240px] flex-shrink-0 rounded-[24px] p-8 flex flex-col items-center justify-center" style={{ background: A }}>
+              <p className="text-[10px] font-bold tracking-[3px] uppercase mb-2" style={{ color: "rgba(0,0,0,0.4)" }}>التقييم العام</p>
+              <div className="ar-heading" style={{ fontSize: 72, lineHeight: 1, color: D }}>3.5</div>
+              <p className="text-[12px] font-bold mt-1" style={{ color: "rgba(0,0,0,0.5)" }}>من 10</p>
+              <div className="w-full h-1.5 rounded-full mt-4" style={{ background: "rgba(0,0,0,0.1)" }}>
+                <div className="h-full rounded-full" style={{ width: "35%", background: D }} />
               </div>
-            ))}
+            </div>
+            <div className="flex-1 grid grid-cols-1 md:grid-cols-3 gap-4 ph-stagger">
+              {[
+                { title: "صور وهمية", desc: "كل الصور Freepik — لا صورة حقيقية واحدة للشركة أو مشاريعها", icon: Eye, color: R },
+                { title: "محتوى مكرر", desc: "قسم المتجر مكرر 5 مرات بنفس النص حرفياً", icon: Layers, color: A },
+                { title: "روابط معطلة", desc: "الفوتر → example.com والتطبيق → # والشركاء فارغ", icon: Globe, color: R },
+              ].map((item) => (
+                <div key={item.title} className="ph-item rounded-[16px] p-5" style={{ background: "#fff", border: "1px solid #EBEBEB" }}>
+                  <item.icon size={20} color={item.color} className="mb-3" />
+                  <h4 className="text-[13px] font-bold mb-1">{item.title}</h4>
+                  <p className="text-[11px] ar-body" style={{ color: "rgba(0,0,0,0.45)" }}>{item.desc}</p>
+                </div>
+              ))}
+            </div>
           </div>
 
-          <div className="flex flex-col gap-3 ph-stagger">
-            {zaindevPages.map((p) => (
-              <div key={p.page} className="ph-item rounded-[14px] p-4 flex items-center gap-4" style={{ background: "#fff", border: "1px solid #EBEBEB" }}>
-                <ScoreBox score={p.score} />
-                <div className="flex-1">
-                  <h4 className="text-[13px] font-bold ar-body">{p.page}</h4>
-                  <p className="text-[11px] ar-body" style={{ color: "rgba(0,0,0,0.45)" }}>{p.note}</p>
-                </div>
+          {/* Page ratings with progress bars */}
+          <div className="rounded-[24px] p-8" style={{ background: "#FAFAFA", border: "1px solid #EBEBEB" }}>
+            <h3 className="ar-heading text-xl mb-8">تقييم الصفحات</h3>
+            <div className="flex flex-col gap-5 ph-stagger">
+              {zaindevPages.map((p) => {
+                const n = parseInt(p.score);
+                const c = n >= 7 ? G : n >= 4 ? A : R;
+                return (
+                  <div key={p.page} className="ph-item">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-[13px] font-bold">{p.page}</span>
+                      <span className="text-[13px] font-bold" style={{ color: c }}>{p.score}/10</span>
+                    </div>
+                    <div className="w-full h-2 rounded-full mb-2" style={{ background: "#E5E7EB" }}>
+                      <div className="h-full rounded-full transition-all duration-700" style={{ width: `${n * 10}%`, background: c }} />
+                    </div>
+                    <p className="text-[10px] ar-body" style={{ color: "rgba(0,0,0,0.4)" }}>{p.note}</p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Content issues detail */}
+          <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4 ph-stagger">
+            {[
+              { text: "تقييمات العملاء بأفاتار موحد (businessman avatar)", icon: Users },
+              { text: 'خدمة الصيانة تعرض فني "محمد أحمد" بصورة Freepik', icon: Wrench },
+              { text: "الإحصائيات (500+ مشروع) تحتاج توثيق", icon: BarChart3 },
+              { text: 'رابط "تطوير بواسطة" يشير ل example.com', icon: Code2 },
+            ].map((item) => (
+              <div key={item.text} className="ph-item flex items-center gap-3 p-4 rounded-[14px]" style={{ background: `${A}08`, border: `1px solid ${A}15` }}>
+                <item.icon size={16} color={A} className="flex-shrink-0" />
+                <span className="text-[12px] ar-body" style={{ color: "rgba(0,0,0,0.6)" }}>{item.text}</span>
               </div>
             ))}
           </div>
@@ -400,26 +470,57 @@ export default function ZainDevProposal() {
       {/* ═══ AI STRATEGY ═══ */}
       <section className="ph-slide opacity-0" style={{ padding: "100px 24px", background: D }}>
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
+          <div className="text-center mb-6">
             <p className="ar-heading text-lg mb-3" style={{ color: G }}>القسم السابع</p>
             <h2 className="ar-heading text-4xl md:text-5xl mb-5" style={{ color: "#fff" }}>استراتيجية <span style={{ color: G }}>الذكاء الاصطناعي</span></h2>
+            <p className="text-sm ar-body max-w-lg mx-auto" style={{ color: "rgba(255,255,255,0.35)" }}>رؤية شاملة لكيف يمكن للذكاء الاصطناعي أن يحول تجربة العميل ويرفع كفاءة العمليات</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 ph-stagger">
-            {[
-              { icon: Bot, title: "AI Chatbot", desc: "شات بوت مدرب على خدمات زين يرد 24/7 على الأسعار والمواعيد ويحجز الزيارات", benefit: "تقليل الضغط على الدعم 70%", bg: G },
-              { icon: Calculator, title: "تقدير التكلفة", desc: "العميل يدخل نوع المشروع + المساحة + الموقع ويحصل على تقدير فوري", benefit: "تحويل الزائر إلى Lead فوراً", bg: "#fff" },
-              { icon: Target, title: "تخصيص المحتوى", desc: "عرض خدمات مختلفة حسب موقع الزائر وسلوكه", benefit: "زيادة Conversion Rate", bg: "#fff" },
-              { icon: BarChart3, title: "لوحة تحكم ذكية", desc: "تحليلات AI تتنبأ بالطلب الموسمي (صيف = تكييف)", benefit: "قرارات مبنية على بيانات", bg: "#fff" },
-              { icon: Calendar, title: "جدولة ذكية", desc: "توزيع الفنيين حسب الموقع والتخصص والحمل", benefit: "تقليل وقت الاستجابة", bg: G },
-              { icon: PenTool, title: "محتوى AI", desc: "توليد وصف خدمات ومقالات مدونة بالذكاء الاصطناعي", benefit: "محتوى SEO مستمر", bg: "#fff" },
-            ].map((s) => (
-              <div key={s.title} className="ph-item rounded-[20px] p-7" style={{ background: s.bg, border: s.bg === G ? `2px solid ${D}` : "1px solid #EBEBEB" }}>
-                <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-4" style={{ background: s.bg === G ? "rgba(0,0,0,0.08)" : `${G}10` }}>
-                  <s.icon size={22} color={s.bg === G ? D : G} />
+
+          {/* AI Journey — connected flow */}
+          <div className="mb-12">
+            <div className="hidden md:flex justify-center mb-3">
+              <div className="h-[3px] rounded-full" style={{ width: "80%", background: `linear-gradient(90deg, ${G}30, ${G}, ${G}30)` }} />
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 ph-stagger">
+              {[
+                { icon: Bot, num: "01", title: "العميل يسأل", desc: "شات بوت مدرب على كل خدمات زين يرد فوراً 24/7 على الأسعار والمواعيد ويحجز زيارات الفنيين تلقائياً", stat: "-70%", statLabel: "ضغط على الدعم" },
+                { icon: Calculator, num: "02", title: "العميل يحسب", desc: "نظام تقدير تكلفة ذكي — العميل يدخل نوع المشروع + المساحة + الموقع ويحصل على تقدير فوري", stat: "3x", statLabel: "تحويل أسرع" },
+                { icon: Target, num: "03", title: "النظام يخصص", desc: "عرض خدمات مختلفة حسب موقع الزائر (أحساء/خبر/رياض) وسلوك التصفح — كل زائر يرى ما يناسبه", stat: "+40%", statLabel: "معدل التحويل" },
+              ].map((s) => (
+                <div key={s.title} className="ph-item rounded-[24px] p-8 relative overflow-hidden" style={{ background: "#fff" }}>
+                  <div className="absolute top-4 left-4">
+                    <span className="ar-heading text-[56px]" style={{ color: `${G}10` }}>{s.num}</span>
+                  </div>
+                  <div className="relative z-10">
+                    <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-5" style={{ background: `${G}12` }}>
+                      <s.icon size={26} color={G} />
+                    </div>
+                    <h3 className="ar-heading text-xl mb-3" style={{ color: D }}>{s.title}</h3>
+                    <p className="text-[12px] ar-body leading-relaxed mb-5" style={{ color: "rgba(0,0,0,0.5)" }}>{s.desc}</p>
+                    <div className="flex items-center gap-3 pt-4" style={{ borderTop: "1px solid #F0F0F0" }}>
+                      <span className="ar-heading text-2xl" style={{ color: G }}>{s.stat}</span>
+                      <span className="text-[11px] ar-body" style={{ color: "rgba(0,0,0,0.4)" }}>{s.statLabel}</span>
+                    </div>
+                  </div>
                 </div>
-                <h3 className="ar-heading text-lg mb-2" style={{ color: D }}>{s.title}</h3>
-                <p className="text-[12px] ar-body leading-relaxed mb-3" style={{ color: s.bg === G ? "rgba(0,0,0,0.55)" : "rgba(0,0,0,0.5)" }}>{s.desc}</p>
-                <span className="inline-block px-3 py-1.5 rounded-full text-[10px] font-bold ar-body" style={{ background: s.bg === G ? "rgba(0,0,0,0.08)" : `${G}10`, color: s.bg === G ? D : G }}>{s.benefit}</span>
+              ))}
+            </div>
+          </div>
+
+          {/* Supporting AI tools */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 ph-stagger">
+            {[
+              { icon: BarChart3, title: "لوحة تحكم ذكية", desc: "تحليلات AI تتنبأ بالطلب الموسمي", benefit: "صيف = تكييف → جهّز المخزون" },
+              { icon: Calendar, title: "جدولة ذكية", desc: "توزيع الفنيين حسب الموقع والتخصص", benefit: "تقليل وقت الاستجابة" },
+              { icon: PenTool, title: "محتوى AI", desc: "توليد وصف خدمات ومقالات SEO", benefit: "محتوى مستمر بدون تكلفة كاتب" },
+            ].map((s) => (
+              <div key={s.title} className="ph-item rounded-[16px] p-5" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
+                <div className="flex items-center gap-3 mb-3">
+                  <s.icon size={18} color={G} />
+                  <h4 className="text-[13px] font-bold" style={{ color: "#fff" }}>{s.title}</h4>
+                </div>
+                <p className="text-[11px] ar-body mb-2" style={{ color: "rgba(255,255,255,0.4)" }}>{s.desc}</p>
+                <span className="text-[10px] font-bold" style={{ color: G }}>{s.benefit}</span>
               </div>
             ))}
           </div>
@@ -429,26 +530,95 @@ export default function ZainDevProposal() {
       {/* ═══ GROWTH STRATEGY ═══ */}
       <section className="ph-slide opacity-0" style={{ padding: "100px 24px", background: "#fff" }}>
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
+          <div className="text-center mb-16">
             <p className="ar-heading text-lg mb-3" style={{ color: G }}>القسم الثامن</p>
             <h2 className="ar-heading text-4xl md:text-5xl mb-5">استراتيجية <span style={{ color: G }}>النمو</span></h2>
+            <p className="text-sm ar-body max-w-lg mx-auto" style={{ color: "rgba(0,0,0,0.4)" }}>ثلاث ركائز أساسية لبناء حضور رقمي قوي ومستدام</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 ph-stagger">
-            {[
-              { title: "الهوية الموحدة", color: G, items: ["zaindev.com.sa للمقاولات", "tech.zaindev.com.sa للتقنية", "لوجو + ألوان + خطوط موحدة", "ربط متبادل بين الموقعين"] },
-              { title: "استراتيجية المحتوى", color: P, items: ["محتوى حقيقي عربي + إنجليزي", "تصوير احترافي للمشاريع والفريق", "تقييمات عملاء حقيقية", "مدونة بمقالات متخصصة"] },
-              { title: "التحويل والنمو", color: B, items: ["نظام حجز مواعيد أونلاين", "عروض أسعار فورية", "WhatsApp Business API", "Google My Business", "حملات Google Ads جغرافية"] },
-            ].map((s) => (
-              <div key={s.title} className="ph-item rounded-[20px] p-7" style={{ background: "#fff", border: "1px solid #EBEBEB" }}>
-                <h3 className="ar-heading text-lg mb-4" style={{ color: s.color }}>{s.title}</h3>
-                {s.items.map((item) => (
-                  <div key={item} className="flex items-start gap-2 mb-2.5">
-                    <CheckCircle2 size={14} color={s.color} className="flex-shrink-0 mt-0.5" />
-                    <span className="text-[12px] ar-body" style={{ color: "rgba(0,0,0,0.55)" }}>{item}</span>
+
+          <div className="flex flex-col gap-6 ph-stagger">
+            {/* Strategy 1 — Identity */}
+            <div className="ph-item rounded-[24px] overflow-hidden" style={{ border: `2px solid ${G}25` }}>
+              <div className="flex flex-col md:flex-row">
+                <div className="md:w-[220px] flex-shrink-0 p-8 flex flex-col items-center justify-center text-center" style={{ background: G }}>
+                  <Layers size={32} color={D} className="mb-3" />
+                  <div className="ar-heading text-xl" style={{ color: D }}>الهوية الموحدة</div>
+                  <p className="text-[10px] mt-2" style={{ color: "rgba(0,0,0,0.4)" }}>الركيزة الأولى</p>
+                </div>
+                <div className="flex-1 p-8 bg-white">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="rounded-[16px] p-5" style={{ background: "#FAFAFA" }}>
+                      <p className="text-[10px] font-bold tracking-wider uppercase mb-2" style={{ color: G }}>الموقع الرئيسي</p>
+                      <p className="text-[14px] font-bold" style={{ fontFamily: "system-ui" }}>zaindev.com.sa</p>
+                      <p className="text-[11px] ar-body mt-1" style={{ color: "rgba(0,0,0,0.4)" }}>المقاولات والخدمات</p>
+                    </div>
+                    <div className="rounded-[16px] p-5" style={{ background: "#FAFAFA" }}>
+                      <p className="text-[10px] font-bold tracking-wider uppercase mb-2" style={{ color: P }}>الموقع التقني</p>
+                      <p className="text-[14px] font-bold" style={{ fontFamily: "system-ui" }}>tech.zaindev.com.sa</p>
+                      <p className="text-[11px] ar-body mt-1" style={{ color: "rgba(0,0,0,0.4)" }}>الحلول التقنية</p>
+                    </div>
                   </div>
-                ))}
+                  <div className="flex items-center gap-3 mt-4 pt-4" style={{ borderTop: "1px solid #F0F0F0" }}>
+                    <CheckCircle2 size={14} color={G} />
+                    <span className="text-[12px] ar-body" style={{ color: "rgba(0,0,0,0.5)" }}>لوجو موحد + ألوان موحدة + خطوط موحدة + ربط متبادل</span>
+                  </div>
+                </div>
               </div>
-            ))}
+            </div>
+
+            {/* Strategy 2 — Content */}
+            <div className="ph-item rounded-[24px] overflow-hidden" style={{ border: "1px solid #EBEBEB" }}>
+              <div className="flex flex-col md:flex-row">
+                <div className="md:w-[220px] flex-shrink-0 p-8 flex flex-col items-center justify-center text-center" style={{ background: "#fff", borderLeft: `4px solid ${P}` }}>
+                  <FileText size={32} color={P} className="mb-3" />
+                  <div className="ar-heading text-xl" style={{ color: D }}>استراتيجية المحتوى</div>
+                  <p className="text-[10px] mt-2" style={{ color: "rgba(0,0,0,0.35)" }}>الركيزة الثانية</p>
+                </div>
+                <div className="flex-1 p-8 bg-white">
+                  <div className="grid grid-cols-2 gap-3">
+                    {[
+                      { icon: Eye, text: "محتوى احترافي حقيقي (عربي + إنجليزي)" },
+                      { icon: Star, text: "تصوير احترافي للمشاريع والفريق" },
+                      { icon: Users, text: "تقييمات عملاء حقيقية بصورهم" },
+                      { icon: FileText, text: "مدونة بمقالات متخصصة (نصائح تكييف، أخطاء بناء شائعة)" },
+                    ].map((item) => (
+                      <div key={item.text} className="flex items-start gap-3 p-3 rounded-xl" style={{ background: "#FAFAFA" }}>
+                        <item.icon size={16} color={P} className="flex-shrink-0 mt-0.5" />
+                        <span className="text-[12px] ar-body" style={{ color: "rgba(0,0,0,0.55)" }}>{item.text}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Strategy 3 — Conversion */}
+            <div className="ph-item rounded-[24px] overflow-hidden" style={{ border: "1px solid #EBEBEB" }}>
+              <div className="flex flex-col md:flex-row">
+                <div className="md:w-[220px] flex-shrink-0 p-8 flex flex-col items-center justify-center text-center" style={{ background: "#fff", borderLeft: `4px solid ${B}` }}>
+                  <TrendingUp size={32} color={B} className="mb-3" />
+                  <div className="ar-heading text-xl" style={{ color: D }}>التحويل والنمو</div>
+                  <p className="text-[10px] mt-2" style={{ color: "rgba(0,0,0,0.35)" }}>الركيزة الثالثة</p>
+                </div>
+                <div className="flex-1 p-8 bg-white">
+                  <div className="grid grid-cols-2 gap-3">
+                    {[
+                      { icon: Calendar, text: "نظام حجز مواعيد أونلاين للصيانة والتكييف" },
+                      { icon: Calculator, text: "نظام عروض أسعار فوري للخدمات" },
+                      { icon: MessageCircle, text: "WhatsApp Business API للتواصل المباشر" },
+                      { icon: MapPin, text: "Google My Business لكل منطقة تغطية" },
+                      { icon: Target, text: "حملات Google Ads مستهدفة جغرافياً" },
+                      { icon: Users, text: "برنامج إحالة عملاء (Referral Program)" },
+                    ].map((item) => (
+                      <div key={item.text} className="flex items-start gap-3 p-3 rounded-xl" style={{ background: "#FAFAFA" }}>
+                        <item.icon size={16} color={B} className="flex-shrink-0 mt-0.5" />
+                        <span className="text-[12px] ar-body" style={{ color: "rgba(0,0,0,0.55)" }}>{item.text}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
