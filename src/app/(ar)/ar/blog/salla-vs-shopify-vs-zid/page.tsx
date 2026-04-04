@@ -214,12 +214,16 @@ export default function SallaVsShopifyArticle() {
         {[
           { name: "سلة", nameEn: "Salla", color: "#004D40", score: "8.5/10", logo: "https://cdn.simpleicons.org/salla/004D40", best: "الأفضل للمبتدئين والمتاجر الصغيرة", pros: ["أسهل استخداماً", "أرخص للبداية", "دعم عربي ممتاز", "بوابات دفع محلية", "خطة مجانية متاحة"], cons: ["تخصيص محدود", "SEO أساسي", "أقل إضافات"] },
           { name: "شوبيفاي", nameEn: "Shopify", color: "#96BF48", score: "9/10", logo: "https://cdn.simpleicons.org/shopify", best: "الأفضل للتوسع الدولي والتخصيص", pros: ["أقوى في السيو", "8000+ إضافة", "تخصيص غير محدود", "تحليلات متقدمة", "Shopify Markets"], cons: ["أغلى مع العمولات", "دعم إنجليزي فقط", "يحتاج خبرة تقنية"] },
-          { name: "زد", nameEn: "Zid", color: "#7B5EA7", score: "8/10", logo: "https://cdn.simpleicons.org/zid/7B5EA7", best: "الأفضل للمتاجر المتوسطة والكبيرة", pros: ["نظام فروع متعدد", "تكامل ERP", "فواتير ZATCA", "API قوي", "دعم عربي"], cons: ["أغلى من سلة", "واجهة أقل بساطة", "مجتمع أصغر"] },
+          { name: "زد", nameEn: "Zid", color: "#7B5EA7", score: "8/10", logo: "", best: "الأفضل للمتاجر المتوسطة والكبيرة", pros: ["نظام فروع متعدد", "تكامل ERP", "فواتير ZATCA", "API قوي", "دعم عربي"], cons: ["أغلى من سلة", "واجهة أقل بساطة", "مجتمع أصغر"] },
         ].map((platform) => (
           <div key={platform.name} style={{ background: "#fff", border: "1px solid #EBEBEB", borderRadius: 20, padding: 28, position: "relative", overflow: "hidden" }}>
             <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 4, background: platform.color }} />
             <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 12 }}>
-              <img src={platform.logo} alt={platform.nameEn} width={32} height={32} style={{ width: 32, height: 32 }} />
+              {platform.logo ? (
+                <img src={platform.logo} alt={platform.nameEn} width={32} height={32} style={{ width: 32, height: 32 }} />
+              ) : (
+                <div style={{ width: 32, height: 32, borderRadius: 8, background: `${platform.color}15`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14, fontWeight: 900, color: platform.color }}>{platform.nameEn.charAt(0)}</div>
+              )}
               <div style={{ flex: 1 }}>
                 <span style={{ fontFamily: "'Ahmed Serif Display', serif", fontSize: 22, fontWeight: 700, color: D, display: "block" }}>{platform.name}</span>
               </div>

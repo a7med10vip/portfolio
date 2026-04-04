@@ -195,7 +195,7 @@ export default function BlogPost({
 
           {/* Article */}
           <article className="flex-1 min-w-0">
-            <div className="prose-custom prose-body-no-tail">
+            <div className="prose-custom">
               {children}
             </div>
 
@@ -272,7 +272,6 @@ export default function BlogPost({
         .prose-custom .callout p { margin: 0; font-size: 13px; line-height: 1.9; }
         .prose-custom img { border-radius: 16px; margin: 28px 0; width: 100%; }
         .prose-custom hr { border: none; height: 1px; background: #F0F0F0; margin: 48px 0; }
-        .prose-body-no-tail p, .prose-body-no-tail li, .prose-body-no-tail td, .prose-body-no-tail span, .prose-body-no-tail blockquote p { font-feature-settings: normal !important; }
       `}</style>
     </div>
   );

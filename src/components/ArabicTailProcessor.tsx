@@ -7,7 +7,7 @@ const TAIL_LETTERS = "يىنبثفقتلكسشصض";
 const ARABIC_RE = /[\u0600-\u06FF]/;
 const ARABIC_BLOCKS = "\\u0600-\\u06FF\\u0750-\\u077F\\u08A0-\\u08FF\\uFB50-\\uFDFF\\uFE70-\\uFEFF";
 const TASHKEEL_BLOCK = "\\u064B-\\u065F";
-const EXCLUDE_SELECTOR = "script,style,textarea,input,code,pre,svg,canvas,noscript,select,option,a,button,[role='button'],.no-tail,.prose-body-no-tail p,.prose-body-no-tail li,.prose-body-no-tail td,.prose-body-no-tail span:not(h2 span):not(h3 span),.prose-body-no-tail blockquote";
+const EXCLUDE_SELECTOR = "script,style,textarea,input,code,pre,svg,canvas,noscript,select,option,a,button,[role='button'],.no-tail";
 const TAIL_WORD_RE = new RegExp(
   `([${ARABIC_BLOCKS}]*[${TAIL_LETTERS}][${TASHKEEL_BLOCK}]*)((?![${ARABIC_BLOCKS}]))`,
   "gu"
@@ -35,6 +35,12 @@ function processNode(root: Node) {
         node.parentElement?.closest(EXCLUDE_SELECTOR)
       ) {
         return NodeFilter.FILTER_REJECT;
+      }
+      // In blog prose: only process headings, skip body text
+      const proseParent = node.parentElement?.closest(".prose-custom");
+      if (proseParent) {
+        const isInHeading = node.parentElement?.closest("h1,h2,h3,h4,h5,h6");
+        if (!isInHeading) return NodeFilter.FILTER_REJECT;
       }
       return ARABIC_RE.test(node.textContent ?? "")
         ? NodeFilter.FILTER_ACCEPT
