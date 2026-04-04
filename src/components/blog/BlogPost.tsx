@@ -88,7 +88,7 @@ export default function BlogPost({
       ];
 
   return (
-    <div ref={ref} className="no-tail" style={{ background: "#fff", color: D, direction: isAr ? "rtl" : "ltr", fontFamily: isAr ? "'Ahmed Sans', sans-serif" : undefined }}>
+    <div ref={ref} style={{ background: "#fff", color: D, direction: isAr ? "rtl" : "ltr", fontFamily: isAr ? "'Ahmed Sans', sans-serif" : undefined }}>
 
       {/* ═══ HEADER ═══ */}
       <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300" style={{
@@ -195,7 +195,7 @@ export default function BlogPost({
 
           {/* Article */}
           <article className="flex-1 min-w-0">
-            <div className="prose-custom">
+            <div className="prose-custom prose-body-no-tail">
               {children}
             </div>
 
@@ -272,6 +272,7 @@ export default function BlogPost({
         .prose-custom .callout p { margin: 0; font-size: 13px; line-height: 1.9; }
         .prose-custom img { border-radius: 16px; margin: 28px 0; width: 100%; }
         .prose-custom hr { border: none; height: 1px; background: #F0F0F0; margin: 48px 0; }
+        .prose-body-no-tail p, .prose-body-no-tail li, .prose-body-no-tail td, .prose-body-no-tail span, .prose-body-no-tail blockquote p { font-feature-settings: normal !important; }
       `}</style>
     </div>
   );

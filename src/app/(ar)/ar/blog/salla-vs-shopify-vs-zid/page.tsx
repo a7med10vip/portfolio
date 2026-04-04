@@ -22,7 +22,7 @@ export default function SallaVsShopifyArticle() {
       date="أبريل 2026"
       readingTime="12 دقيقة قراءة"
       heroIcon={ShoppingBag}
-      heroGradient={`linear-gradient(135deg, ${D} 0%, #1a1a2e 50%, ${P}40 100%)`}
+      heroGradient={`linear-gradient(135deg, #004D40 0%, #1a1a2e 50%, #5B2C87 100%)`}
       lang="ar"
       toc={[
         { id: "intro", title: "نظرة عامة" },
@@ -212,14 +212,17 @@ export default function SallaVsShopifyArticle() {
       {/* Visual comparison cards */}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 16, margin: "24px 0" }}>
         {[
-          { name: "سلة", color: G, score: "8.5/10", best: "الأفضل للمبتدئين والمتاجر الصغيرة", pros: ["أسهل استخداماً", "أرخص للبداية", "دعم عربي ممتاز", "بوابات دفع محلية", "خطة مجانية متاحة"], cons: ["تخصيص محدود", "SEO أساسي", "أقل إضافات"] },
-          { name: "شوبيفاي", color: P, score: "9/10", best: "الأفضل للتوسع الدولي والتخصيص", pros: ["أقوى في السيو", "8000+ إضافة", "تخصيص غير محدود", "تحليلات متقدمة", "Shopify Markets"], cons: ["أغلى مع العمولات", "دعم إنجليزي فقط", "يحتاج خبرة تقنية"] },
-          { name: "زد", color: B, score: "8/10", best: "الأفضل للمتاجر المتوسطة والكبيرة", pros: ["نظام فروع متعدد", "تكامل ERP", "فواتير ZATCA", "API قوي", "دعم عربي"], cons: ["أغلى من سلة", "واجهة أقل بساطة", "مجتمع أصغر"] },
+          { name: "سلة", nameEn: "Salla", color: "#004D40", score: "8.5/10", logo: "https://cdn.simpleicons.org/salla/004D40", best: "الأفضل للمبتدئين والمتاجر الصغيرة", pros: ["أسهل استخداماً", "أرخص للبداية", "دعم عربي ممتاز", "بوابات دفع محلية", "خطة مجانية متاحة"], cons: ["تخصيص محدود", "SEO أساسي", "أقل إضافات"] },
+          { name: "شوبيفاي", nameEn: "Shopify", color: "#96BF48", score: "9/10", logo: "https://cdn.simpleicons.org/shopify", best: "الأفضل للتوسع الدولي والتخصيص", pros: ["أقوى في السيو", "8000+ إضافة", "تخصيص غير محدود", "تحليلات متقدمة", "Shopify Markets"], cons: ["أغلى مع العمولات", "دعم إنجليزي فقط", "يحتاج خبرة تقنية"] },
+          { name: "زد", nameEn: "Zid", color: "#7B5EA7", score: "8/10", logo: "https://cdn.simpleicons.org/zid/7B5EA7", best: "الأفضل للمتاجر المتوسطة والكبيرة", pros: ["نظام فروع متعدد", "تكامل ERP", "فواتير ZATCA", "API قوي", "دعم عربي"], cons: ["أغلى من سلة", "واجهة أقل بساطة", "مجتمع أصغر"] },
         ].map((platform) => (
           <div key={platform.name} style={{ background: "#fff", border: "1px solid #EBEBEB", borderRadius: 20, padding: 28, position: "relative", overflow: "hidden" }}>
             <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 4, background: platform.color }} />
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
-              <span style={{ fontFamily: "'Ahmed Serif Display', serif", fontSize: 22, fontWeight: 700, color: D }}>{platform.name}</span>
+            <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 12 }}>
+              <img src={platform.logo} alt={platform.nameEn} width={32} height={32} style={{ width: 32, height: 32 }} />
+              <div style={{ flex: 1 }}>
+                <span style={{ fontFamily: "'Ahmed Serif Display', serif", fontSize: 22, fontWeight: 700, color: D, display: "block" }}>{platform.name}</span>
+              </div>
               <span style={{ fontSize: 14, fontWeight: 700, color: platform.color }}>{platform.score}</span>
             </div>
             <p style={{ fontSize: 12, color: platform.color, fontWeight: 700, marginBottom: 16 }}>{platform.best}</p>
