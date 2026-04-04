@@ -2,6 +2,14 @@ export const metadata = {
   title: "عرض فني ومالي — متجر ويلو | Ahmed Ali",
   description: "عرض فني ومالي متكامل لتحسين وتطوير متجر ويلو الإلكتروني Shopwelo.com",
   robots: { index: false, follow: false },
+  icons: {
+    icon: [
+      { url: "/favicon.png", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+    ],
+    apple: "/apple-touch-icon.png",
+  },
 };
 
 export default function ShopweloLayout({ children }: { children: React.ReactNode }) {

@@ -11,6 +11,7 @@ import {
   TrendingUp, MousePointer, BarChart3, Search, Mail, Share2,
   type LucideIcon,
 } from "lucide-react";
+import ArabicTailProcessor from "@/components/ArabicTailProcessor";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -156,6 +157,7 @@ export default function ShopweloProposal() {
   /* ═══════════ RENDER ═══════════ */
 
   return (
+    <ArabicTailProcessor>
     <div ref={ref} style={{ background: "#fff", color: D, fontFamily: "'Ahmed Sans', sans-serif" }}>
 
       {/* ═══ HERO ═══ */}
@@ -166,11 +168,11 @@ export default function ShopweloProposal() {
         <div className="relative z-10 w-full max-w-5xl mx-auto px-6 flex flex-col items-center">
 
           <div className="ph-hero opacity-0 text-center mb-4">
-            <p className="text-[13px] font-bold tracking-wider" style={{ color: "rgba(0,0,0,0.3)" }}>سري وخاص • أبريل 2026</p>
+            <p className="text-[13px] font-bold tracking-wider" style={{ color: "rgba(0,0,0,0.3)" }}>أبريل 2026</p>
           </div>
 
           <div className="ph-hero opacity-0 text-center mb-4">
-            <h1 className="ar-heading" style={{ fontSize: "clamp(44px, 10vw, 100px)", lineHeight: 1.1, color: D }}>
+            <h1 className="ar-heading" style={{ fontSize: "clamp(44px, 10vw, 100px)", lineHeight: 1.3, color: D }}>
               عرض فني ومالي
             </h1>
           </div>
@@ -481,7 +483,7 @@ export default function ShopweloProposal() {
               "تنفيذ جميع التحسينات عبر CSS وJavaScript وإعدادات سلة",
               "تحسين التجربة على الجوال والديسكتوب",
               "تقرير مفصل بكل التعديلات التي تمت",
-              "دعم فني لمدة أسبوع بعد التسليم",
+              "دعم فني مجاني لمدة شهرين بعد التسليم — أي تعديلات أو صيانة كخدمة ما بعد البيع",
               "توصيات مستقبلية للنمو المستمر",
             ].map((item) => (
               <div key={item} className="ph-item flex items-center gap-3 p-4 rounded-[14px]" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)" }}>
@@ -517,7 +519,7 @@ export default function ShopweloProposal() {
                   <tr key={i} style={{ background: i % 2 === 0 ? "#fff" : "#FAFAFA", borderBottom: "1px solid #F3F4F6" }}>
                     <td style={{ padding: "12px 20px", fontSize: 12, fontWeight: 700, color: D, fontFamily: "'Ahmed Sans', sans-serif" }}>{row.day}</td>
                     <td style={{ padding: "12px 20px", textAlign: "center" }}>
-                      {row.p1 && <span className="inline-block px-3 py-1.5 rounded-full text-[10px] font-bold ar-body" style={{ background: `${G}12`, color: G }}>{row.p1}</span>}
+                      {row.p1 && <span className="inline-block px-3 py-1.5 rounded-full text-[10px] font-bold ar-body" style={{ background: `${G}15`, color: D }}>{row.p1}</span>}
                     </td>
                     <td style={{ padding: "12px 20px", textAlign: "center" }}>
                       {row.p2 && <span className="inline-block px-3 py-1.5 rounded-full text-[10px] font-bold ar-body" style={{ background: `${B}12`, color: B }}>{row.p2}</span>}
@@ -644,5 +646,6 @@ export default function ShopweloProposal() {
         </div>
       </section>
     </div>
+    </ArabicTailProcessor>
   );
 }
