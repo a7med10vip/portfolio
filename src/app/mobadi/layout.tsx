@@ -1,6 +1,21 @@
-import { Inter } from "next/font/google";
+import { Inter, Bricolage_Grotesque, Instrument_Serif } from "next/font/google";
 
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"], display: "swap" });
+
+const bricolage = Bricolage_Grotesque({
+  variable: "--font-bricolage",
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["200", "300", "400", "500", "600", "700", "800"],
+});
+
+const instrument = Instrument_Serif({
+  variable: "--font-accent",
+  subsets: ["latin"],
+  display: "swap",
+  weight: "400",
+  style: "italic",
+});
 
 export const metadata = {
   title: "MO BADI — Platform Architecture | Ahmed Ali",
@@ -17,11 +32,11 @@ export const metadata = {
 
 export default function MoBadiLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en" className={`${inter.variable} ${bricolage.variable} ${instrument.variable}`}>
       <head>
         <link rel="icon" href="/favicon.png" type="image/png" />
       </head>
-      <body className="antialiased" style={{ margin: 0, fontFamily: "var(--font-inter), system-ui, sans-serif" }}>
+      <body className="antialiased" style={{ margin: 0, fontFamily: "var(--font-bricolage), system-ui, sans-serif" }}>
         {children}
       </body>
     </html>

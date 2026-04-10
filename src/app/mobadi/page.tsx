@@ -125,7 +125,7 @@ export default function MoBadiArchitecture() {
           {/* What this platform does */}
           <div className="ph-hero opacity-0 rounded-[16px] p-6 text-center mb-10 max-w-2xl" style={{ background: `${G}08`, border: `1px solid ${G}20` }}>
             <p className="text-[13px] font-medium leading-relaxed" style={{ color: D }}>
-              <strong style={{ color: G }}>What is MO BADI?</strong> A bilingual (Arabic + English) platform that combines a premium portfolio showcase for a graphic designer with a full course platform — students enroll, learn via video, submit assignments, and receive auto-generated certificates.
+              <strong style={{ color: G }}>What is this?</strong> MO BADI needs two things on one domain: a portfolio that wins clients and a course platform that teaches students. This document maps every page, every database table, every user flow, and every line of the tech stack — so there are zero surprises during the build.
             </p>
           </div>
 
@@ -144,7 +144,7 @@ export default function MoBadiArchitecture() {
           <div className="text-center mb-12">
             <p className="script text-xl mb-3" style={{ color: O }}>Design System</p>
             <h2 className="heading text-3xl md:text-4xl mb-4">Extracted from <span style={{ color: O }}>Figma</span></h2>
-            <p className="text-sm max-w-lg mx-auto" style={{ color: "rgba(0,0,0,0.4)" }}>Every component follows the Folioblox template design system precisely.</p>
+            <p className="text-sm max-w-lg mx-auto" style={{ color: "rgba(0,0,0,0.4)" }}>Pulled directly from the Figma file. Every color, font weight, and border radius is documented here so the build matches the design pixel by pixel.</p>
           </div>
 
           {/* Color tokens */}
@@ -188,7 +188,7 @@ export default function MoBadiArchitecture() {
                     <p className="text-[13px] font-bold">{t.el}</p>
                     <p className="text-[11px]" style={{ color: "rgba(0,0,0,0.4)" }}>{t.weight} · {t.size}</p>
                   </div>
-                  <span className="text-[10px] px-3 py-1 rounded-full" style={{ background: `${O}12`, color: O }}>{t.note}</span>
+                  <span className="text-[10px] px-3 py-1 rounded-full" style={{ background: `${O}12`, color: D }}>{t.note}</span>
                 </div>
               ))}
             </div>
@@ -359,7 +359,7 @@ export default function MoBadiArchitecture() {
           <div className="text-center mb-12">
             <p className="script text-xl mb-3" style={{ color: G }}>User Journeys</p>
             <h2 className="heading text-3xl md:text-4xl mb-4" style={{ color: "#fff" }}>Key User <span style={{ color: G }}>Flows</span></h2>
-            <p className="text-sm max-w-lg mx-auto" style={{ color: "rgba(255,255,255,0.35)" }}>Every interaction mapped from start to finish — no ambiguity in the build.</p>
+            <p className="text-sm max-w-lg mx-auto" style={{ color: "rgba(255,255,255,0.35)" }}>What happens when a student signs up? Pays? Watches a lesson? Submits work? Gets a certificate? Every step is here.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -382,7 +382,7 @@ export default function MoBadiArchitecture() {
                   "Redirect to /learn or /courses",
                 ].map((step, i) => (
                   <div key={i} className="flex items-start gap-3 p-2.5 rounded-lg" style={{ background: "#FAFAFA" }}>
-                    <span className="text-[10px] font-bold w-5 h-5 rounded-md flex items-center justify-center flex-shrink-0" style={{ background: `${G}15`, color: G }}>{i + 1}</span>
+                    <span className="text-[10px] font-bold w-5 h-5 rounded-md flex items-center justify-center flex-shrink-0" style={{ background: `${G}15`, color: D }}>{i + 1}</span>
                     <span className="text-[12px]" style={{ color: "rgba(0,0,0,0.55)" }}>{step}</span>
                   </div>
                 ))}
@@ -513,7 +513,7 @@ export default function MoBadiArchitecture() {
           <div className="text-center mb-12">
             <p className="script text-xl mb-3" style={{ color: G }}>Portfolio</p>
             <h2 className="heading text-3xl md:text-4xl mb-4">17 Sections <span style={{ color: G }}>Mapped</span></h2>
-            <p className="text-sm max-w-lg mx-auto" style={{ color: "rgba(0,0,0,0.4)" }}>The home page is the full portfolio. Each section maps directly to the Figma design.</p>
+            <p className="text-sm max-w-lg mx-auto" style={{ color: "rgba(0,0,0,0.4)" }}>The homepage IS the portfolio. Visitors scroll through 17 purpose-built sections — from hero to footer, each one designed to convert a viewer into a client or a student.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 ph-stagger">
@@ -541,7 +541,7 @@ export default function MoBadiArchitecture() {
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-1">
                     <h4 className="text-[13px] font-bold">{s.name}</h4>
-                    {s.dynamic && <span className="text-[8px] px-2 py-0.5 rounded-full font-bold" style={{ background: `${G}12`, color: G }}>CMS</span>}
+                    {s.dynamic && <span className="text-[8px] px-2 py-0.5 rounded-full font-bold" style={{ background: `${G}15`, color: D }}>CMS</span>}
                   </div>
                   <p className="text-[11px]" style={{ color: "rgba(0,0,0,0.45)" }}>{s.desc}</p>
                 </div>
@@ -582,7 +582,7 @@ export default function MoBadiArchitecture() {
           <div className="text-center mb-16">
             <p className="script text-xl mb-3" style={{ color: G }}>Execution</p>
             <h2 className="heading text-3xl md:text-4xl mb-4">Development <span style={{ color: G }}>Roadmap</span></h2>
-            <p className="text-sm max-w-lg mx-auto" style={{ color: "rgba(0,0,0,0.4)" }}>6 phases, 9 weeks. Each phase ships a working product.</p>
+            <p className="text-sm max-w-lg mx-auto" style={{ color: "rgba(0,0,0,0.4)" }}>9 weeks from blank screen to live platform. Each phase ends with something you can see and test — not a status update.</p>
           </div>
 
           <div className="flex flex-col gap-6 ph-stagger">
