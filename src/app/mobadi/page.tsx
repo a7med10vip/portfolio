@@ -114,7 +114,7 @@ export default function MoBadiArchitecture() {
           {/* Project specs */}
           <div className="ph-hero opacity-0 mb-10 w-full max-w-2xl">
             <div className="flex items-stretch justify-center" style={{ background: "#fff", border: "1px solid #E8E8E8", borderRadius: 16, overflow: "hidden", boxShadow: "0 2px 16px rgba(0,0,0,0.04)" }}>
-              {[{ n: "17", l: "Portfolio Sections" }, { n: "6", l: "Dev Phases" }, { n: "9", l: "Weeks" }, { n: "7+", l: "DB Tables" }].map((s, i) => (
+              {[{ n: "17", l: "Portfolio Sections" }, { n: "6", l: "Dev Phases" }, { n: "40", l: "Days Max" }, { n: "7+", l: "DB Tables" }].map((s, i) => (
                 <div key={s.l} className="flex-1 flex flex-col items-center justify-center py-5 px-2 relative" style={{ borderLeft: i > 0 ? "1px solid #F0F0F0" : "none" }}>
                   <span className="heading" style={{ fontSize: 28, lineHeight: 1, color: D }}>{s.n}</span>
                   <span className="text-[9px] font-bold tracking-[1px] uppercase mt-1" style={{ color: "rgba(0,0,0,0.3)" }}>{s.l}</span>
@@ -129,6 +129,27 @@ export default function MoBadiArchitecture() {
             <p className="text-[13px] font-medium leading-relaxed" style={{ color: D }}>
               <strong style={{ color: G }}>What is this?</strong> MO BADI needs two things on one domain: a portfolio that wins clients and a course platform that teaches students. This document maps every page, every database table, every user flow, and every line of the tech stack — so there are zero surprises during the build.
             </p>
+          </div>
+
+          {/* Project specs table */}
+          <div className="ph-hero opacity-0 w-full max-w-2xl mb-10">
+            <div className="rounded-[16px] overflow-hidden" style={{ border: "1px solid #EBEBEB" }}>
+              {[
+                { label: "Platform Type", value: "Portfolio + Course Platform (Single Domain)" },
+                { label: "Languages", value: "Arabic + English — full RTL support" },
+                { label: "Design Reference", value: "Folioblox Framer Template" },
+                { label: "Auth Method", value: "Phone OTP (Twilio SMS via Supabase)" },
+                { label: "Database", value: "Supabase (PostgreSQL + Storage + Auth + RLS)" },
+                { label: "Payments", value: "PayMob (card + MENA local methods)" },
+                { label: "Video Hosting", value: "Bunny.net (HLS streaming + signed URLs)" },
+                { label: "Deployment", value: "Vercel (Edge Functions + CDN)" },
+              ].map((row, i) => (
+                <div key={row.label} className="flex" style={{ background: i % 2 === 0 ? "#fff" : "#FAFAFA", borderBottom: "1px solid #F3F4F6" }}>
+                  <span className="w-[140px] md:w-[180px] flex-shrink-0 text-[11px] font-bold p-3 px-4" style={{ color: D }}>{row.label}</span>
+                  <span className="flex-1 text-[11px] p-3 px-4" style={{ color: "rgba(0,0,0,0.5)" }}>{row.value}</span>
+                </div>
+              ))}
+            </div>
           </div>
 
           <div className="ph-hero opacity-0 flex flex-col items-center gap-2">
@@ -581,6 +602,27 @@ export default function MoBadiArchitecture() {
               </div>
             ))}
           </div>
+
+          {/* Font Strategy */}
+          <div className="mt-10">
+            <h3 className="heading text-xl mb-6">Font Strategy</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 ph-stagger">
+              {[
+                { label: "English", font: "Inter", note: "Same as design system — all weights from 400 to 800" },
+                { label: "Arabic", font: "IBM Plex Arabic", note: "Matches Inter's weight system for consistent bilingual layout" },
+                { label: "Loading", font: "next/font", note: "Zero layout shift — fonts preloaded and self-hosted" },
+                { label: "RTL", font: "Tailwind Plugin", note: "RTL-specific spacing adjustments automatically applied" },
+              ].map((f) => (
+                <div key={f.label} className="ph-item flex items-center gap-4 p-4 rounded-[14px]" style={{ background: "#FAFAFA", border: "1px solid #EBEBEB" }}>
+                  <span className="text-[10px] font-bold tracking-[2px] uppercase w-16 flex-shrink-0" style={{ color: G }}>{f.label}</span>
+                  <div>
+                    <p className="text-[13px] font-bold">{f.font}</p>
+                    <p className="text-[10px]" style={{ color: "rgba(0,0,0,0.4)" }}>{f.note}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
@@ -590,7 +632,7 @@ export default function MoBadiArchitecture() {
           <div className="text-center mb-16">
             <p className="script text-xl mb-3" style={{ color: G }}>Execution</p>
             <h2 className="heading text-3xl md:text-4xl mb-4">Development <span style={{ color: G }}>Roadmap</span></h2>
-            <p className="text-sm max-w-lg mx-auto" style={{ color: "rgba(0,0,0,0.4)" }}>9 weeks from blank screen to live platform. Each phase ends with something you can see and test — not a status update.</p>
+            <p className="text-sm max-w-lg mx-auto" style={{ color: "rgba(0,0,0,0.4)" }}>40 days max from blank screen to live platform. Each phase ends with something you can see and test — not a status update.</p>
           </div>
 
           <div className="flex flex-col gap-6 ph-stagger">
@@ -600,6 +642,133 @@ export default function MoBadiArchitecture() {
             <PhaseCard num={4} label="Learning" color={B} duration="Week 6-7" white items={["Course dashboard (/learn/[slug])", "Lesson player: video (Bunny.net HLS) + PDF viewer", "Lesson progress tracking", "Sequential lesson unlocking", "Final task submission flow"]} />
             <PhaseCard num={5} label="Admin & Certs" color={A} duration="Week 8" items={["Instructor dashboard: submissions review", "Approve / reject with feedback", "Dynamic certificate PDF generation (Edge Function)", "SMS notification on certificate issuance", "Public certificate verification page"]} />
             <PhaseCard num={6} label="Launch" color={G} duration="Week 9" items={["Performance audit (Lighthouse 90+)", "SEO: meta tags, og:image, sitemap, schema.org", "Cross-browser + RTL QA testing", "Analytics (Vercel Analytics + Supabase insights)", "Vercel production deployment + domain + SSL"]} />
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ PROJECT FOLDER STRUCTURE ═══ */}
+      <section className="ph-slide opacity-0" style={{ padding: "100px 24px", background: D }}>
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <p className="script text-xl mb-3" style={{ color: G }}>Codebase</p>
+            <h2 className="heading text-3xl md:text-4xl mb-4" style={{ color: "#fff" }}>Project <span style={{ color: G }}>Structure</span></h2>
+          </div>
+          <div className="rounded-[20px] p-6 md:p-8 overflow-x-auto" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}>
+            <pre style={{ color: "rgba(255,255,255,0.6)", fontSize: 12, lineHeight: 2, fontFamily: "monospace", margin: 0, whiteSpace: "pre-wrap" }}>{`mobadi/
+├── app/
+│   ├── [locale]/
+│   │   ├── (portfolio)/
+│   │   │   ├── page.tsx                ← Home (full portfolio)
+│   │   │   ├── projects/page.tsx
+│   │   │   ├── projects/[slug]/page.tsx
+│   │   │   ├── courses/page.tsx
+│   │   │   ├── courses/[slug]/page.tsx
+│   │   │   └── contact/page.tsx
+│   │   ├── (platform)/
+│   │   │   ├── learn/page.tsx
+│   │   │   ├── learn/[courseSlug]/page.tsx
+│   │   │   ├── learn/[courseSlug]/[lessonId]/page.tsx
+│   │   │   ├── learn/[courseSlug]/task/page.tsx
+│   │   │   ├── account/page.tsx
+│   │   │   └── certificates/[id]/page.tsx
+│   │   └── admin/
+│   │       ├── page.tsx
+│   │       ├── courses/page.tsx
+│   │       ├── submissions/page.tsx
+│   │       └── students/page.tsx
+│   └── api/
+│       ├── auth/send-otp/route.ts
+│       ├── payments/create-checkout/route.ts
+│       ├── webhooks/paymob/route.ts
+│       └── certificates/generate/route.ts
+├── components/
+│   ├── portfolio/       ← All 17 portfolio sections
+│   ├── platform/        ← Course platform UI
+│   ├── ui/              ← Design system components
+│   └── layout/          ← Navbar + Footer
+├── lib/
+│   ├── supabase/        ← Client + types
+│   ├── paymob/          ← Payment helpers
+│   ├── certificate/     ← PDF generation
+│   └── i18n/            ← next-intl config
+├── messages/
+│   ├── ar.json          ← Arabic translations
+│   └── en.json          ← English translations
+└── supabase/
+    ├── migrations/      ← SQL migration files
+    └── functions/       ← Edge Functions`}</pre>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ ENVIRONMENT VARIABLES ═══ */}
+      <section className="ph-slide opacity-0" style={{ padding: "100px 24px", background: "#fff" }}>
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <p className="script text-xl mb-3" style={{ color: G }}>Configuration</p>
+            <h2 className="heading text-3xl md:text-4xl mb-4">Environment <span style={{ color: G }}>Variables</span></h2>
+            <p className="text-sm max-w-lg mx-auto" style={{ color: "rgba(0,0,0,0.4)" }}>Every secret and API key the platform needs to run — organized by service.</p>
+          </div>
+          <div className="flex flex-col gap-3 ph-stagger">
+            {[
+              { var: "NEXT_PUBLIC_SUPABASE_URL", service: "Supabase", note: "Public URL", public: true },
+              { var: "NEXT_PUBLIC_SUPABASE_ANON_KEY", service: "Supabase", note: "Public anon key", public: true },
+              { var: "SUPABASE_SERVICE_ROLE_KEY", service: "Supabase", note: "Server-only, never expose", public: false },
+              { var: "TWILIO_ACCOUNT_SID", service: "Twilio", note: "Server-only", public: false },
+              { var: "TWILIO_AUTH_TOKEN", service: "Twilio", note: "Server-only", public: false },
+              { var: "TWILIO_VERIFY_SID", service: "Twilio", note: "Verify service SID", public: false },
+              { var: "PAYMOB_API_KEY", service: "PayMob", note: "Server-only", public: false },
+              { var: "PAYMOB_HMAC_SECRET", service: "PayMob", note: "Webhook verification", public: false },
+              { var: "NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME", service: "Cloudinary", note: "Image CDN", public: true },
+              { var: "BUNNY_CDN_KEY", service: "Bunny.net", note: "Video hosting", public: false },
+              { var: "NEXT_PUBLIC_APP_URL", service: "App", note: "Production domain", public: true },
+              { var: "NEXT_PUBLIC_DEFAULT_LOCALE", service: "i18n", note: '"ar" — default language', public: true },
+            ].map((e) => (
+              <div key={e.var} className="ph-item flex items-center gap-4 p-4 rounded-[14px]" style={{ background: "#FAFAFA", border: "1px solid #EBEBEB" }}>
+                <span className="text-[12px] font-bold flex-1" style={{ fontFamily: "monospace", color: D }}>{e.var}</span>
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded" style={{ background: e.public ? `${G}15` : `${R}12`, color: e.public ? D : R }}>{e.public ? "public" : "server"}</span>
+                <span className="text-[10px] hidden md:block" style={{ color: "rgba(0,0,0,0.35)" }}>{e.service} · {e.note}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ INVESTMENT ═══ */}
+      <section className="ph-slide opacity-0" style={{ padding: "100px 24px", background: D }}>
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-12">
+            <p className="script text-xl mb-3" style={{ color: G }}>Investment</p>
+            <h2 className="heading text-3xl md:text-4xl" style={{ color: "#fff" }}>Project <span style={{ color: G }}>Cost</span></h2>
+          </div>
+
+          <div className="rounded-[24px] p-10 text-center mb-6" style={{ background: G, border: `2px solid ${D}` }}>
+            <div className="heading" style={{ fontSize: "clamp(48px, 10vw, 72px)", lineHeight: 1, color: D }}>2,500 <span className="text-2xl">SAR</span></div>
+            <p className="text-[13px] font-bold mt-3" style={{ color: "rgba(0,0,0,0.5)" }}>Full platform — portfolio + courses + admin + certificates</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 ph-stagger">
+            <div className="ph-item rounded-[16px] p-5 text-center" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)" }}>
+              <div className="heading text-2xl mb-1" style={{ color: "#fff" }}>50%</div>
+              <p className="text-[11px]" style={{ color: "rgba(255,255,255,0.4)" }}>Before starting</p>
+              <p className="text-[12px] font-bold mt-1" style={{ color: G }}>1,250 SAR</p>
+            </div>
+            <div className="ph-item rounded-[16px] p-5 text-center" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)" }}>
+              <div className="heading text-2xl mb-1" style={{ color: "#fff" }}>50%</div>
+              <p className="text-[11px]" style={{ color: "rgba(255,255,255,0.4)" }}>On delivery</p>
+              <p className="text-[12px] font-bold mt-1" style={{ color: G }}>1,250 SAR</p>
+            </div>
+            <div className="ph-item rounded-[16px] p-5 text-center" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)" }}>
+              <div className="heading text-2xl mb-1" style={{ color: "#fff" }}>40</div>
+              <p className="text-[11px]" style={{ color: "rgba(255,255,255,0.4)" }}>Days maximum</p>
+              <p className="text-[12px] font-bold mt-1" style={{ color: G }}>Full delivery</p>
+            </div>
+          </div>
+
+          <div className="rounded-[16px] p-5 text-center" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)" }}>
+            <p className="text-[12px]" style={{ color: "rgba(255,255,255,0.4)" }}>
+              Includes: full design implementation from Figma, bilingual AR/EN, Supabase backend, PayMob payments, phone OTP, video platform, certificate system, admin dashboard, SEO, and deployment.
+            </p>
           </div>
         </div>
       </section>
