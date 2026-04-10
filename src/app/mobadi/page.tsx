@@ -5,21 +5,20 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   Layers, Globe, ShoppingBag, Smartphone, Database, Shield,
-  CheckCircle2, XCircle, Clock, Lock, Search, Code2,
-  BarChart3, Users, Star, Zap, MessageCircle, ArrowRight,
-  ExternalLink, Eye, FileText, Target, TrendingUp, Palette,
-  Bot, CreditCard, MapPin, Bell, PenTool, Calendar,
-  Server, Play, Upload, Award, BookOpen, GraduationCap,
-  MonitorSmartphone, Workflow, KeyRound, Video, FileDown,
-  Settings, LayoutDashboard, Table2, FolderTree,
+  CheckCircle2, Clock, Code2, BarChart3, Users, Zap,
+  MessageCircle, ArrowRight, ExternalLink, Eye, FileText,
+  Target, TrendingUp, Palette, Bot, CreditCard, Play,
+  Upload, Award, GraduationCap, MonitorSmartphone, KeyRound,
+  Video, Settings, FolderTree,
   type LucideIcon,
 } from "lucide-react";
+import ArabicTailProcessor from "@/components/ArabicTailProcessor";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const G = "#4FFFB0";
 const D = "#0A0A0A";
-const O = "#FF5E00"; // MO BADI's accent (orange)
+const O = "#FF5E00";
 const R = "#EF4444";
 const A = "#F59E0B";
 const P = "#5227FF";
@@ -48,9 +47,9 @@ export default function MoBadiArchitecture() {
       <div className="ph-item rounded-[24px] overflow-hidden" style={{ border: `2px solid ${color}25`, boxShadow: "0 2px 20px rgba(0,0,0,0.04)" }}>
         <div className="flex flex-col md:flex-row">
           <div className="md:w-[200px] flex-shrink-0 p-8 flex flex-col items-center justify-center text-center" style={{ background: color }}>
-            <div className="text-[9px] font-bold tracking-[3px] uppercase mb-1" style={{ color: sub }}>Phase</div>
-            <div className="heading text-5xl mb-2" style={{ color: fg }}>{num}</div>
-            <div className="heading text-base mb-2" style={{ color: fg }}>{label}</div>
+            <div className="text-[9px] font-bold tracking-[3px] uppercase mb-1" style={{ color: sub }}>المرحلة</div>
+            <div className="ar-heading text-5xl mb-2" style={{ color: fg }}>{num}</div>
+            <div className="ar-heading text-base mb-2" style={{ color: fg }}>{label}</div>
             <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full" style={{ background: white ? "rgba(255,255,255,0.15)" : "rgba(0,0,0,0.08)" }}>
               <Clock size={11} color={fg} />
               <span className="text-[11px] font-bold" style={{ color: fg }}>{duration}</span>
@@ -61,7 +60,7 @@ export default function MoBadiArchitecture() {
               {items.map((item, i) => (
                 <div key={i} className="flex items-start gap-3 p-3 rounded-xl hover:bg-gray-50 transition-colors">
                   <CheckCircle2 size={16} color={color} className="flex-shrink-0 mt-0.5" />
-                  <span className="text-[12px] leading-relaxed" style={{ color: "rgba(0,0,0,0.55)" }}>{item}</span>
+                  <span className="text-[12px] ar-body leading-relaxed" style={{ color: "rgba(0,0,0,0.55)" }}>{item}</span>
                 </div>
               ))}
             </div>
@@ -72,7 +71,8 @@ export default function MoBadiArchitecture() {
   }
 
   return (
-    <div ref={ref} style={{ background: "#fff", color: D }}>
+    <ArabicTailProcessor>
+    <div ref={ref} style={{ background: "#fff", color: D, fontFamily: "'Ahmed Sans', sans-serif" }}>
 
       {/* ═══ HERO ═══ */}
       <section className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden" style={{ background: "#fff" }}>
@@ -81,72 +81,72 @@ export default function MoBadiArchitecture() {
 
         <div className="relative z-10 w-full max-w-5xl mx-auto px-6 flex flex-col items-center">
           <div className="ph-hero opacity-0 text-center mb-4" style={{ paddingTop: 40 }}>
-            <p className="text-[13px] font-bold tracking-wider" style={{ color: "rgba(0,0,0,0.3)" }}>April 2025 · v1.0</p>
+            <p className="text-[13px] font-bold tracking-wider" style={{ color: "rgba(0,0,0,0.3)" }}>أبريل 2025 · الإصدار 1.0</p>
           </div>
 
           <div className="ph-hero opacity-0 text-center mb-4">
-            <h1 className="heading" style={{ fontSize: "clamp(48px, 12vw, 120px)", lineHeight: 0.95, letterSpacing: "-3px", color: D }}>
-              MO BADI<span style={{ color: G }}>.</span>
+            <h1 className="ar-heading" style={{ fontSize: "clamp(36px, 8vw, 80px)", lineHeight: 1.3, color: D }}>
+              وثيقة البنية التقنية
             </h1>
           </div>
 
-          <div className="ph-hero opacity-0 text-center mb-8">
-            <p className="text-lg md:text-xl font-medium" style={{ color: "rgba(0,0,0,0.4)" }}>Portfolio & Course Platform</p>
-            <p className="text-sm mt-2" style={{ color: "rgba(0,0,0,0.25)" }}>Full-Stack Web Application — Architecture Document</p>
+          <div className="ph-hero opacity-0 text-center mb-6">
+            <p className="ar-body text-lg md:text-xl" style={{ color: "rgba(0,0,0,0.5)" }}>منصة بورتفوليو وكورسات متكاملة</p>
+            <p className="text-2xl font-bold mt-2 ar-heading" style={{ color: G }}>MO BADI</p>
           </div>
 
-          {/* From / To */}
+          {/* من / إلى */}
           <div className="ph-hero opacity-0 grid grid-cols-1 md:grid-cols-2 gap-4 mb-10 w-full max-w-xl">
             <div className="rounded-[16px] p-5" style={{ background: "#fff", border: "1px solid #EBEBEB" }}>
-              <p className="text-[10px] font-bold tracking-[2px] uppercase mb-2" style={{ color: G }}>Built by</p>
-              <p className="text-[14px] font-bold">Ahmed Ali</p>
-              <p className="text-[11px]" style={{ color: "rgba(0,0,0,0.4)" }}>Full-Stack Digital Strategist</p>
-              <p className="text-[11px]" style={{ color: "rgba(0,0,0,0.3)" }}>hello@ahmedali.online</p>
+              <p className="text-[10px] font-bold tracking-[2px] uppercase mb-2" style={{ color: G }}>مقدم من</p>
+              <p className="text-[14px] font-bold ar-body">Ahmed Ali</p>
+              <p className="text-[11px] ar-body" style={{ color: "rgba(0,0,0,0.4)" }}>Full-Stack Digital Strategist</p>
+              <p className="text-[11px] ar-body" style={{ color: "rgba(0,0,0,0.3)" }}>hello@ahmedali.online</p>
             </div>
             <div className="rounded-[16px] p-5" style={{ background: "#fff", border: `2px solid ${G}`, boxShadow: `3px 3px 0px 0px ${D}` }}>
-              <p className="text-[10px] font-bold tracking-[2px] uppercase mb-2" style={{ color: G }}>Built for</p>
-              <p className="text-[14px] font-bold">MO BADI</p>
-              <p className="text-[11px]" style={{ color: "rgba(0,0,0,0.4)" }}>Graphic Designer & UI/UX Specialist</p>
-              <p className="text-[11px]" style={{ color: "rgba(0,0,0,0.3)" }}>Bilingual AR + EN Platform</p>
+              <p className="text-[10px] font-bold tracking-[2px] uppercase mb-2" style={{ color: G }}>مقدم إلى</p>
+              <p className="text-[14px] font-bold ar-body">MO BADI</p>
+              <p className="text-[11px] ar-body" style={{ color: "rgba(0,0,0,0.4)" }}>مصمم جرافيك ومتخصص UI/UX</p>
+              <p className="text-[11px] ar-body" style={{ color: "rgba(0,0,0,0.3)" }}>منصة ثنائية اللغة عربي + إنجليزي</p>
             </div>
           </div>
 
-          {/* Project specs */}
+          {/* إحصائيات */}
           <div className="ph-hero opacity-0 mb-10 w-full max-w-2xl">
             <div className="flex items-stretch justify-center" style={{ background: "#fff", border: "1px solid #E8E8E8", borderRadius: 16, overflow: "hidden", boxShadow: "0 2px 16px rgba(0,0,0,0.04)" }}>
-              {[{ n: "17", l: "Portfolio Sections" }, { n: "6", l: "Dev Phases" }, { n: "40", l: "Days Max" }, { n: "7+", l: "DB Tables" }].map((s, i) => (
-                <div key={s.l} className="flex-1 flex flex-col items-center justify-center py-5 px-2 relative" style={{ borderLeft: i > 0 ? "1px solid #F0F0F0" : "none" }}>
-                  <span className="heading" style={{ fontSize: 28, lineHeight: 1, color: D }}>{s.n}</span>
-                  <span className="text-[9px] font-bold tracking-[1px] uppercase mt-1" style={{ color: "rgba(0,0,0,0.3)" }}>{s.l}</span>
+              {[{ n: "17", l: "سكشن بورتفوليو" }, { n: "6", l: "مراحل تطوير" }, { n: "40", l: "يوم حد أقصى" }, { n: "+7", l: "جداول بيانات" }].map((s, i) => (
+                <div key={s.l} className="flex-1 flex flex-col items-center justify-center py-5 px-2 relative" style={{ borderRight: i > 0 ? "1px solid #F0F0F0" : "none" }}>
+                  <span className="ar-heading" style={{ fontSize: 28, lineHeight: 1, color: D }}>{s.n}</span>
+                  <span className="text-[9px] font-bold mt-1 ar-body" style={{ color: "rgba(0,0,0,0.3)" }}>{s.l}</span>
                   <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[3px] w-8 rounded-t-full" style={{ background: G }} />
                 </div>
               ))}
             </div>
           </div>
 
-          {/* What this platform does */}
-          <div className="ph-hero opacity-0 rounded-[16px] p-6 text-center mb-10 max-w-2xl" style={{ background: `${G}08`, border: `1px solid ${G}20` }}>
-            <p className="text-[13px] font-medium leading-relaxed" style={{ color: D }}>
-              <strong style={{ color: G }}>What is this?</strong> MO BADI needs two things on one domain: a portfolio that wins clients and a course platform that teaches students. This document maps every page, every database table, every user flow, and every line of the tech stack — so there are zero surprises during the build.
+          {/* ما هي المنصة */}
+          <div className="ph-hero opacity-0 rounded-[16px] p-6 text-center mb-6 max-w-2xl" style={{ background: `${G}08`, border: `1px solid ${G}20` }}>
+            <p className="text-[13px] ar-body font-medium leading-relaxed" style={{ color: D }}>
+              <strong style={{ color: G }}>ما هذه الوثيقة؟</strong> MO BADI يحتاج شيئين على دومين واحد: بورتفوليو يجذب عملاء ومنصة كورسات تعلّم الطلاب. هذه الوثيقة ترسم كل صفحة، كل جدول في قاعدة البيانات، كل مسار مستخدم، وكل أداة في الـ Tech Stack — بدون أي مفاجآت أثناء البناء.
             </p>
           </div>
 
-          {/* Project specs table */}
+          {/* مواصفات المشروع */}
           <div className="ph-hero opacity-0 w-full max-w-2xl mb-10">
             <div className="rounded-[16px] overflow-hidden" style={{ border: "1px solid #EBEBEB" }}>
               {[
-                { label: "Platform Type", value: "Portfolio + Course Platform (Single Domain)" },
-                { label: "Languages", value: "Arabic + English — full RTL support" },
-                { label: "Design Reference", value: "Folioblox Framer Template" },
-                { label: "Auth Method", value: "Phone OTP (Twilio SMS via Supabase)" },
-                { label: "Database", value: "Supabase (PostgreSQL + Storage + Auth + RLS)" },
-                { label: "Payments", value: "PayMob (card + MENA local methods)" },
-                { label: "Video Hosting", value: "Bunny.net (HLS streaming + signed URLs)" },
-                { label: "Deployment", value: "Vercel (Edge Functions + CDN)" },
+                { label: "نوع المنصة", value: "بورتفوليو + منصة كورسات (دومين واحد)" },
+                { label: "اللغات", value: "عربي + إنجليزي — دعم كامل لـ RTL" },
+                { label: "مرجع التصميم", value: "Folioblox Framer Template" },
+                { label: "المصادقة", value: "OTP عبر الهاتف (Twilio + Supabase Auth)" },
+                { label: "قاعدة البيانات", value: "Supabase (PostgreSQL + Storage + Auth + RLS)" },
+                { label: "الدفع", value: "PayMob (بطاقات + وسائل دفع محلية)" },
+                { label: "استضافة الفيديو", value: "Bunny.net (بث HLS + روابط موقعة)" },
+                { label: "النشر", value: "Vercel (Edge Functions + CDN)" },
               ].map((row, i) => (
                 <div key={row.label} className="flex" style={{ background: i % 2 === 0 ? "#fff" : "#FAFAFA", borderBottom: "1px solid #F3F4F6" }}>
-                  <span className="w-[140px] md:w-[180px] flex-shrink-0 text-[11px] font-bold p-3 px-4" style={{ color: D }}>{row.label}</span>
-                  <span className="flex-1 text-[11px] p-3 px-4" style={{ color: "rgba(0,0,0,0.5)" }}>{row.value}</span>
+                  <span className="w-[140px] md:w-[180px] flex-shrink-0 text-[11px] font-bold p-3 px-4 ar-body" style={{ color: D }}>{row.label}</span>
+                  <span className="flex-1 text-[11px] p-3 px-4 ar-body" style={{ color: "rgba(0,0,0,0.5)" }}>{row.value}</span>
                 </div>
               ))}
             </div>
@@ -161,32 +161,32 @@ export default function MoBadiArchitecture() {
         <style>{`@keyframes mouseScroll{0%{transform:translateY(0);opacity:1}75%{transform:translateY(9px);opacity:0}76%{transform:translateY(0);opacity:0}100%{opacity:1}}`}</style>
       </section>
 
-      {/* ═══ DESIGN SYSTEM ═══ */}
+      {/* ═══ نظام التصميم ═══ */}
       <section className="ph-slide opacity-0" style={{ padding: "100px 24px", background: "#fff" }}>
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <p className="script text-xl mb-3" style={{ color: O }}>Design System</p>
-            <h2 className="heading text-3xl md:text-4xl mb-4">Extracted from <span style={{ color: O }}>Figma</span></h2>
-            <p className="text-sm max-w-lg mx-auto" style={{ color: "rgba(0,0,0,0.4)" }}>Pulled directly from the Figma file. Every color, font weight, and border radius is documented here so the build matches the design pixel by pixel.</p>
+            <p className="ar-heading text-lg mb-3" style={{ color: O }}>نظام التصميم</p>
+            <h2 className="ar-heading text-4xl md:text-5xl mb-4">مستخرج من <span style={{ color: O }}>Figma</span></h2>
+            <p className="text-sm max-w-lg mx-auto ar-body" style={{ color: "rgba(0,0,0,0.4)" }}>كل لون، وزن خط، ونصف قطر زاوية موثّق هنا — عشان البناء يطابق التصميم بكسل ببكسل.</p>
           </div>
 
-          {/* Color tokens */}
+          {/* ألوان */}
           <div className="mb-10">
-            <h3 className="heading text-xl mb-6">Color Tokens</h3>
+            <h3 className="ar-heading text-xl mb-6">الألوان</h3>
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3 ph-stagger">
               {[
-                { name: "Dark", hex: "#0D0D0D", text: "#fff" },
-                { name: "Light", hex: "#F2F2F2", text: D },
-                { name: "White", hex: "#FFFFFF", text: D },
-                { name: "Accent", hex: "#FF5E00", text: "#fff" },
-                { name: "Muted", hex: "#757575", text: "#fff" },
-                { name: "Border", hex: "#E5E7EB", text: D },
-                { name: "Black", hex: "#000000", text: "#fff" },
+                { name: "داكن", hex: "#0D0D0D" },
+                { name: "فاتح", hex: "#F2F2F2" },
+                { name: "أبيض", hex: "#FFFFFF" },
+                { name: "برتقالي", hex: "#FF5E00" },
+                { name: "رمادي", hex: "#757575" },
+                { name: "حدود", hex: "#E5E7EB" },
+                { name: "أسود", hex: "#000000" },
               ].map((c) => (
                 <div key={c.name} className="ph-item rounded-[16px] overflow-hidden" style={{ border: "1px solid #EBEBEB" }}>
                   <div style={{ background: c.hex, height: 56 }} />
                   <div className="p-3">
-                    <p className="text-[12px] font-bold">{c.name}</p>
+                    <p className="text-[12px] font-bold ar-body">{c.name}</p>
                     <p className="text-[10px]" style={{ color: "rgba(0,0,0,0.35)", fontFamily: "monospace" }}>{c.hex}</p>
                   </div>
                 </div>
@@ -194,44 +194,41 @@ export default function MoBadiArchitecture() {
             </div>
           </div>
 
-          {/* Typography */}
+          {/* الخطوط */}
           <div className="mb-10">
-            <h3 className="heading text-xl mb-6">Typography — Inter</h3>
+            <h3 className="ar-heading text-xl mb-6">الخطوط — Inter</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3 ph-stagger">
               {[
-                { el: "Hero H1", weight: "ExtraBold 800", size: "58px", note: "tracking -1.2px, line-height 60px" },
-                { el: "Section H3", weight: "ExtraBold 800", size: "40-48px", note: "Large section headlines" },
-                { el: "Body Primary", weight: "Regular 400", size: "14-15px", note: "Line-height 27px" },
-                { el: "Button Text", weight: "Bold 700", size: "13-14px", note: "White on dark pill buttons" },
-                { el: "Pricing", weight: "Bold 700", size: "56px", note: "Card price display" },
-                { el: "Tag/Label", weight: "Bold 700", size: "16px", note: "Section label, orange color" },
+                { el: "عنوان رئيسي", weight: "ExtraBold 800", size: "58px" },
+                { el: "عنوان فرعي", weight: "ExtraBold 800", size: "40-48px" },
+                { el: "نص أساسي", weight: "Regular 400", size: "14-15px" },
+                { el: "نص الأزرار", weight: "Bold 700", size: "13-14px" },
+                { el: "سعر الباقة", weight: "Bold 700", size: "56px" },
+                { el: "تسمية القسم", weight: "Bold 700", size: "16px" },
               ].map((t) => (
                 <div key={t.el} className="ph-item flex items-center gap-4 p-4 rounded-[14px]" style={{ background: "#FAFAFA", border: "1px solid #EBEBEB" }}>
-                  <div className="flex-1">
-                    <p className="text-[13px] font-bold">{t.el}</p>
-                    <p className="text-[11px]" style={{ color: "rgba(0,0,0,0.4)" }}>{t.weight} · {t.size}</p>
-                  </div>
-                  <span className="text-[10px] px-3 py-1 rounded-full" style={{ background: `${O}12`, color: D }}>{t.note}</span>
+                  <span className="text-[13px] font-bold ar-body flex-1">{t.el}</span>
+                  <span className="text-[11px]" style={{ color: "rgba(0,0,0,0.4)", fontFamily: "monospace" }}>{t.weight} · {t.size}</span>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Component patterns */}
+          {/* أنماط المكونات */}
           <div>
-            <h3 className="heading text-xl mb-6">Component Patterns</h3>
+            <h3 className="ar-heading text-xl mb-6">أنماط المكونات</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3 ph-stagger">
               {[
-                { text: "Buttons: black pill (#0D0D0D), text left, orange circular arrow icon right", icon: Zap },
-                { text: "Cards: 30px outer radius / #F2F2F2 bg / inner white card 20px radius", icon: Layers },
-                { text: "Image overlays: CSS gradient from transparent to solid black", icon: Eye },
-                { text: "Section labels: small orange Bold text above large ExtraBold dark headline", icon: PenTool },
-                { text: "Hero container: bottom border-radius 60px, dark #0D0D0D background", icon: MonitorSmartphone },
-                { text: "Logo marquee: infinite horizontal scroll, masked edges", icon: TrendingUp },
+                { text: "الأزرار: شكل حبة دواء سوداء (#0D0D0D) مع أيقونة سهم برتقالي دائري", icon: Zap },
+                { text: "الكارتات: زوايا خارجية 30px / خلفية #F2F2F2 / كارت داخلي أبيض 20px", icon: Layers },
+                { text: "طبقات الصور: تدرج CSS من شفاف إلى أسود (أسفل 500px)", icon: Eye },
+                { text: "تسميات الأقسام: نص برتقالي Bold صغير فوق عنوان ExtraBold داكن كبير", icon: Palette },
+                { text: "الهيرو: زوايا سفلية 60px مع خلفية داكنة #0D0D0D", icon: MonitorSmartphone },
+                { text: "شريط اللوجوهات: تمرير أفقي لا نهائي مع حواف متلاشية", icon: TrendingUp },
               ].map((p) => (
                 <div key={p.text} className="ph-item flex items-start gap-3 p-4 rounded-[14px]" style={{ background: "#fff", border: "1px solid #EBEBEB" }}>
                   <p.icon size={16} color={O} className="flex-shrink-0 mt-0.5" />
-                  <span className="text-[12px]" style={{ color: "rgba(0,0,0,0.55)" }}>{p.text}</span>
+                  <span className="text-[12px] ar-body" style={{ color: "rgba(0,0,0,0.55)" }}>{p.text}</span>
                 </div>
               ))}
             </div>
@@ -239,28 +236,28 @@ export default function MoBadiArchitecture() {
         </div>
       </section>
 
-      {/* ═══ TECH STACK ═══ */}
+      {/* ═══ التقنيات ═══ */}
       <section className="ph-slide opacity-0" style={{ padding: "100px 24px", background: D }}>
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <p className="script text-xl mb-3" style={{ color: G }}>Technology</p>
-            <h2 className="heading text-3xl md:text-4xl mb-4" style={{ color: "#fff" }}>Tech <span style={{ color: G }}>Stack</span></h2>
+            <p className="ar-heading text-lg mb-3" style={{ color: G }}>التقنيات</p>
+            <h2 className="ar-heading text-4xl md:text-5xl mb-4" style={{ color: "#fff" }}>الأدوات <span style={{ color: G }}>المستخدمة</span></h2>
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-10 ph-stagger">
             {[
               { name: "Next.js 15", icon: "nextdotjs/white", desc: "SSR + App Router" },
-              { name: "TypeScript", icon: "typescript", desc: "Type safety" },
-              { name: "Tailwind CSS", icon: "tailwindcss", desc: "Utility-first CSS" },
-              { name: "Supabase", icon: "supabase", desc: "DB + Auth + Storage" },
-              { name: "PayMob", icon: "", fallback: "/paymob.png", desc: "Payments" },
-              { name: "Twilio", icon: "", fallback: "https://avatars.githubusercontent.com/u/109142?s=280&v=4", desc: "Phone OTP" },
-              { name: "Framer Motion", icon: "framer", desc: "Animations" },
-              { name: "Vercel", icon: "vercel/white", desc: "Deployment" },
-              { name: "Cloudinary", icon: "cloudinary", desc: "Image CDN" },
-              { name: "Bunny.net", icon: "bunnydotnet", desc: "Video CDN" },
-              { name: "shadcn/ui", icon: "shadcnui/white", desc: "Base components" },
-              { name: "Zustand", icon: "", fallback: "/zustand.png", desc: "Client state" },
+              { name: "TypeScript", icon: "typescript", desc: "أمان الأنواع" },
+              { name: "Tailwind CSS", icon: "tailwindcss", desc: "تنسيق سريع" },
+              { name: "Supabase", icon: "supabase", desc: "قاعدة بيانات + مصادقة" },
+              { name: "PayMob", icon: "", fallback: "/paymob.png", desc: "بوابة الدفع" },
+              { name: "Twilio", icon: "", fallback: "https://avatars.githubusercontent.com/u/109142?s=280&v=4", desc: "رسائل OTP" },
+              { name: "Framer Motion", icon: "framer", desc: "حركات وانتقالات" },
+              { name: "Vercel", icon: "vercel/white", desc: "استضافة ونشر" },
+              { name: "Cloudinary", icon: "cloudinary", desc: "صور CDN" },
+              { name: "Bunny.net", icon: "bunnydotnet", desc: "بث الفيديو" },
+              { name: "shadcn/ui", icon: "shadcnui/white", desc: "مكونات أساسية" },
+              { name: "Zustand", icon: "", fallback: "/zustand.png", desc: "إدارة الحالة" },
             ].map((t) => (
               <div key={t.name} className="ph-item flex items-center gap-4 p-4 rounded-[16px]" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
                 {t.icon ? (
@@ -272,27 +269,27 @@ export default function MoBadiArchitecture() {
                 )}
                 <div>
                   <div className="text-[13px] font-bold" style={{ color: "#fff" }}>{t.name}</div>
-                  <div className="text-[10px]" style={{ color: "rgba(255,255,255,0.3)" }}>{t.desc}</div>
+                  <div className="text-[10px] ar-body" style={{ color: "rgba(255,255,255,0.3)" }}>{t.desc}</div>
                 </div>
               </div>
             ))}
           </div>
 
-          {/* Why Supabase */}
+          {/* لماذا Supabase */}
           <div className="rounded-[20px] p-7" style={{ background: `${G}08`, border: `1px solid ${G}20` }}>
-            <h3 className="heading text-lg mb-4" style={{ color: "#fff" }}>Why Supabase over Firebase?</h3>
+            <h3 className="ar-heading text-lg mb-4" style={{ color: "#fff" }}>لماذا Supabase؟</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {[
-                "Course data is relational: courses → modules → lessons → tasks → submissions → certificates",
-                "Row Level Security (RLS) enforces enrollment-gated content at the DB layer",
-                "Phone OTP natively via Twilio — no extra service needed",
-                "PostgreSQL gives full JOIN queries for admin dashboards and analytics",
-                "Storage handles video/PDF/image uploads with signed URLs",
-                "Real-time subscriptions for live progress updates and admin notifications",
+                "بيانات الكورسات علاقتها ببعض: كورسات ← وحدات ← دروس ← مهام ← تسليمات ← شهادات",
+                "Row Level Security يحمي المحتوى — الطالب يشوف بس اللي دفع فيه",
+                "المصادقة بالهاتف جاهزة عبر Twilio بدون خدمة إضافية",
+                "PostgreSQL يوفر استعلامات JOIN للوحة التحكم والتحليلات",
+                "التخزين يتعامل مع رفع الفيديو والملفات بروابط موقّعة",
+                "الاشتراكات الفورية لتحديثات التقدم والإشعارات",
               ].map((item) => (
                 <div key={item} className="flex items-start gap-3 p-3 rounded-xl" style={{ background: "rgba(0,0,0,0.2)" }}>
                   <CheckCircle2 size={14} color={G} className="flex-shrink-0 mt-0.5" />
-                  <span className="text-[11px]" style={{ color: "rgba(255,255,255,0.6)" }}>{item}</span>
+                  <span className="text-[11px] ar-body" style={{ color: "rgba(255,255,255,0.6)" }}>{item}</span>
                 </div>
               ))}
             </div>
@@ -300,80 +297,80 @@ export default function MoBadiArchitecture() {
         </div>
       </section>
 
-      {/* ═══ SITE STRUCTURE ═══ */}
+      {/* ═══ هيكل الصفحات ═══ */}
       <section className="ph-slide opacity-0" style={{ padding: "100px 24px", background: "#fff" }}>
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <p className="script text-xl mb-3" style={{ color: G }}>Architecture</p>
-            <h2 className="heading text-3xl md:text-4xl mb-4">Site Structure & <span style={{ color: G }}>Routes</span></h2>
+            <p className="ar-heading text-lg mb-3" style={{ color: G }}>البنية</p>
+            <h2 className="ar-heading text-4xl md:text-5xl mb-4">هيكل <span style={{ color: G }}>الصفحات</span></h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 ph-stagger">
-            {/* Public */}
+            {/* عام */}
             <div className="ph-item rounded-[24px] overflow-hidden" style={{ border: `2px solid ${G}25` }}>
               <div className="p-5 text-center" style={{ background: G }}>
                 <Globe size={24} color={D} className="mx-auto mb-2" />
-                <h3 className="heading text-base" style={{ color: D }}>Public Portfolio</h3>
+                <h3 className="ar-heading text-base" style={{ color: D }}>البورتفوليو العام</h3>
               </div>
               <div className="p-5 flex flex-col gap-2">
                 {[
-                  { route: "/", page: "Home — Full portfolio (17 sections)" },
-                  { route: "/projects", page: "All projects — filterable gallery" },
-                  { route: "/projects/[slug]", page: "Case study with images & tools" },
-                  { route: "/courses", page: "Course catalog with pricing" },
-                  { route: "/courses/[slug]", page: "Course landing page" },
-                  { route: "/about", page: "Extended story & timeline" },
-                  { route: "/contact", page: "Contact form + socials" },
+                  { route: "/", page: "الرئيسية — البورتفوليو كامل (17 سكشن)" },
+                  { route: "/projects", page: "كل المشاريع — معرض قابل للفلترة" },
+                  { route: "/projects/[slug]", page: "دراسة حالة بالصور والأدوات" },
+                  { route: "/courses", page: "كتالوج الكورسات مع الأسعار" },
+                  { route: "/courses/[slug]", page: "صفحة هبوط الكورس" },
+                  { route: "/about", page: "صفحة عنّي مفصّلة" },
+                  { route: "/contact", page: "نموذج تواصل + روابط سوشيال" },
                 ].map((r) => (
                   <div key={r.route} className="p-3 rounded-xl" style={{ background: "#FAFAFA" }}>
                     <p className="text-[11px] font-bold" style={{ color: G, fontFamily: "monospace" }}>{r.route}</p>
-                    <p className="text-[10px] mt-0.5" style={{ color: "rgba(0,0,0,0.45)" }}>{r.page}</p>
+                    <p className="text-[10px] mt-0.5 ar-body" style={{ color: "rgba(0,0,0,0.45)" }}>{r.page}</p>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* Authenticated */}
+            {/* منصة التعلم */}
             <div className="ph-item rounded-[24px] overflow-hidden" style={{ border: `2px solid ${B}25` }}>
               <div className="p-5 text-center" style={{ background: B }}>
                 <GraduationCap size={24} color="#fff" className="mx-auto mb-2" />
-                <h3 className="heading text-base" style={{ color: "#fff" }}>Learning Platform</h3>
+                <h3 className="ar-heading text-base" style={{ color: "#fff" }}>منصة التعلم</h3>
               </div>
               <div className="p-5 flex flex-col gap-2">
                 {[
-                  { route: "/learn", page: "My courses, progress, certificates" },
-                  { route: "/learn/[slug]", page: "Course dashboard — modules list" },
-                  { route: "/learn/.../[lessonId]", page: "Video player + PDF + notes" },
-                  { route: "/learn/.../task", page: "Final task submission" },
-                  { route: "/account", page: "Profile, language, billing" },
-                  { route: "/certificates/[id]", page: "Public certificate view" },
+                  { route: "/learn", page: "كورساتي، التقدم، الشهادات" },
+                  { route: "/learn/[slug]", page: "لوحة الكورس — قائمة الوحدات" },
+                  { route: "/learn/.../[lessonId]", page: "مشغل الفيديو + PDF + ملاحظات" },
+                  { route: "/learn/.../task", page: "تسليم المهمة النهائية" },
+                  { route: "/account", page: "الملف الشخصي، اللغة، الفواتير" },
+                  { route: "/certificates/[id]", page: "عرض الشهادة العام" },
                 ].map((r) => (
                   <div key={r.route} className="p-3 rounded-xl" style={{ background: "#FAFAFA" }}>
                     <p className="text-[11px] font-bold" style={{ color: B, fontFamily: "monospace" }}>{r.route}</p>
-                    <p className="text-[10px] mt-0.5" style={{ color: "rgba(0,0,0,0.45)" }}>{r.page}</p>
+                    <p className="text-[10px] mt-0.5 ar-body" style={{ color: "rgba(0,0,0,0.45)" }}>{r.page}</p>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* Admin */}
+            {/* لوحة الإدارة */}
             <div className="ph-item rounded-[24px] overflow-hidden" style={{ border: `2px solid ${P}25` }}>
               <div className="p-5 text-center" style={{ background: P }}>
                 <Settings size={24} color="#fff" className="mx-auto mb-2" />
-                <h3 className="heading text-base" style={{ color: "#fff" }}>Admin Dashboard</h3>
+                <h3 className="ar-heading text-base" style={{ color: "#fff" }}>لوحة الإدارة</h3>
               </div>
               <div className="p-5 flex flex-col gap-2">
                 {[
-                  { route: "/admin", page: "Stats: students, revenue, pending" },
-                  { route: "/admin/courses", page: "Create / edit / publish courses" },
-                  { route: "/admin/.../lessons", page: "Add/reorder lessons, upload" },
-                  { route: "/admin/submissions", page: "Review, approve/reject + feedback" },
-                  { route: "/admin/students", page: "List, search, enrollment details" },
-                  { route: "/admin/certificates", page: "Issued log, revoke, re-issue" },
+                  { route: "/admin", page: "إحصائيات: طلاب، إيرادات، تسليمات" },
+                  { route: "/admin/courses", page: "إنشاء / تعديل / نشر الكورسات" },
+                  { route: "/admin/.../lessons", page: "إضافة/ترتيب دروس، رفع فيديو" },
+                  { route: "/admin/submissions", page: "مراجعة، قبول/رفض + ملاحظات" },
+                  { route: "/admin/students", page: "قائمة، بحث، تفاصيل التسجيل" },
+                  { route: "/admin/certificates", page: "سجل الشهادات، إلغاء، إعادة إصدار" },
                 ].map((r) => (
                   <div key={r.route} className="p-3 rounded-xl" style={{ background: "#FAFAFA" }}>
                     <p className="text-[11px] font-bold" style={{ color: P, fontFamily: "monospace" }}>{r.route}</p>
-                    <p className="text-[10px] mt-0.5" style={{ color: "rgba(0,0,0,0.45)" }}>{r.page}</p>
+                    <p className="text-[10px] mt-0.5 ar-body" style={{ color: "rgba(0,0,0,0.45)" }}>{r.page}</p>
                   </div>
                 ))}
               </div>
@@ -382,140 +379,58 @@ export default function MoBadiArchitecture() {
         </div>
       </section>
 
-      {/* ═══ USER FLOWS ═══ */}
+      {/* ═══ مسارات المستخدم ═══ */}
       <section className="ph-slide opacity-0" style={{ padding: "100px 24px", background: D }}>
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <p className="script text-xl mb-3" style={{ color: G }}>User Journeys</p>
-            <h2 className="heading text-3xl md:text-4xl mb-4" style={{ color: "#fff" }}>Key User <span style={{ color: G }}>Flows</span></h2>
-            <p className="text-sm max-w-lg mx-auto" style={{ color: "rgba(255,255,255,0.35)" }}>What happens when a student signs up? Pays? Watches a lesson? Submits work? Gets a certificate? Every step is here.</p>
+            <p className="ar-heading text-lg mb-3" style={{ color: G }}>رحلة المستخدم</p>
+            <h2 className="ar-heading text-4xl md:text-5xl mb-4" style={{ color: "#fff" }}>المسارات <span style={{ color: G }}>الأساسية</span></h2>
+            <p className="text-sm max-w-lg mx-auto ar-body" style={{ color: "rgba(255,255,255,0.35)" }}>إيش يصير لما طالب يسجل؟ يدفع؟ يتعلم؟ يسلّم واجب؟ ياخذ شهادة؟ كل خطوة هنا.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Auth Flow */}
-            <div className="rounded-[24px] p-7" style={{ background: "#fff" }}>
-              <div className="flex items-center gap-3 mb-5">
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: `${G}12` }}>
-                  <KeyRound size={18} color={G} />
-                </div>
-                <h3 className="heading text-base">Phone OTP Auth</h3>
-              </div>
-              <div className="flex flex-col gap-2">
-                {[
-                  "User enters phone number on /auth",
-                  "Next.js API triggers Supabase signInWithOtp",
-                  "Supabase sends OTP via Twilio SMS",
-                  "User enters 6-digit code",
-                  "Supabase verifies and returns session",
-                  "New user? Profile auto-created via DB trigger",
-                  "Redirect to /learn or /courses",
-                ].map((step, i) => (
-                  <div key={i} className="flex items-start gap-3 p-2.5 rounded-lg" style={{ background: "#FAFAFA" }}>
-                    <span className="text-[10px] font-bold w-5 h-5 rounded-md flex items-center justify-center flex-shrink-0" style={{ background: `${G}15`, color: D }}>{i + 1}</span>
-                    <span className="text-[12px]" style={{ color: "rgba(0,0,0,0.55)" }}>{step}</span>
+            {[
+              { icon: KeyRound, title: "تسجيل الدخول بالهاتف", color: G, steps: ["المستخدم يدخل رقم هاتفه في صفحة /auth", "الواجهة الخلفية تطلب OTP من Supabase عبر Twilio", "المستخدم يدخل الرمز المكون من 6 أرقام", "Supabase يتحقق ويعيد الجلسة — المستخدم مسجل", "مستخدم جديد؟ ملف شخصي يتنشأ تلقائياً", "توجيه إلى /learn أو /courses"] },
+              { icon: CreditCard, title: "التسجيل والدفع", color: P, steps: ["الطالب يزور صفحة الكورس — محتوى عام", "يضغط \"سجّل الآن\" — فحص مصادقة", "جلسة دفع PayMob تتنشأ عبر API", "الطالب يدفع في صفحة PayMob", "Webhook يُبلّغ النظام بنجاح الدفع", "سجل تسجيل يتنشأ في Supabase", "الطالب يوصل لمحتوى الكورس فوراً"] },
+              { icon: Play, title: "مسار التعلم", color: B, steps: ["الطالب يفتح لوحة الكورس — يشوف الوحدات", "الدروس المقفلة تظهر بأيقونة قفل", "يفتح درس — الفيديو يتحمل عبر Bunny.net", "ملفات PDF قابلة للتحميل أسفل الفيديو", "مشاهدة 90%+ = الدرس يتسجل مكتمل", "شريط التقدم يتحدث عبر الوحدة والكورس", "كل الدروس تمت؟ المهمة النهائية تنفتح"] },
+              { icon: Award, title: "المهمة والشهادة", color: A, steps: ["الطالب يقرأ المهمة ويرفع ملفاته", "حالة التسليم → قيد المراجعة", "المدرب يراجع في /admin/submissions", "يقبل أو يرفض مع ملاحظات مكتوبة", "عند القبول → Edge Function تولّد PDF الشهادة", "الشهادة برمز تحقق فريد (UUID)", "رسالة SMS للطالب: شهادتك جاهزة", "التحقق العام في /verify/[code]"] },
+            ].map((flow) => (
+              <div key={flow.title} className="rounded-[24px] p-7" style={{ background: "#fff" }}>
+                <div className="flex items-center gap-3 mb-5">
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: `${flow.color}12` }}>
+                    <flow.icon size={18} color={flow.color} />
                   </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Payment Flow */}
-            <div className="rounded-[24px] p-7" style={{ background: "#fff" }}>
-              <div className="flex items-center gap-3 mb-5">
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: `${P}12` }}>
-                  <CreditCard size={18} color={P} />
+                  <h3 className="ar-heading text-base">{flow.title}</h3>
                 </div>
-                <h3 className="heading text-base">Enrollment & Payment</h3>
-              </div>
-              <div className="flex flex-col gap-2">
-                {[
-                  "Student visits /courses/[slug] — public page",
-                  'Clicks "Enroll Now" — auth check',
-                  "PayMob checkout session created via API",
-                  "Student pays on PayMob hosted page",
-                  "PayMob webhook fires on successful payment",
-                  "Enrollment record created in Supabase",
-                  "Student accesses course content",
-                ].map((step, i) => (
-                  <div key={i} className="flex items-start gap-3 p-2.5 rounded-lg" style={{ background: "#FAFAFA" }}>
-                    <span className="text-[10px] font-bold w-5 h-5 rounded-md flex items-center justify-center flex-shrink-0" style={{ background: `${P}15`, color: P }}>{i + 1}</span>
-                    <span className="text-[12px]" style={{ color: "rgba(0,0,0,0.55)" }}>{step}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Learning Flow */}
-            <div className="rounded-[24px] p-7" style={{ background: "#fff" }}>
-              <div className="flex items-center gap-3 mb-5">
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: `${B}12` }}>
-                  <Play size={18} color={B} />
+                <div className="flex flex-col gap-2">
+                  {flow.steps.map((step, i) => (
+                    <div key={i} className="flex items-start gap-3 p-2.5 rounded-lg" style={{ background: "#FAFAFA" }}>
+                      <span className="text-[10px] font-bold w-5 h-5 rounded-md flex items-center justify-center flex-shrink-0" style={{ background: `${flow.color}15`, color: D }}>{i + 1}</span>
+                      <span className="text-[12px] ar-body" style={{ color: "rgba(0,0,0,0.55)" }}>{step}</span>
+                    </div>
+                  ))}
                 </div>
-                <h3 className="heading text-base">Learning Flow</h3>
               </div>
-              <div className="flex flex-col gap-2">
-                {[
-                  "Student opens course dashboard — sees modules",
-                  "Locked lessons shown with lock icon",
-                  "Opens lesson — video loads via Bunny.net signed URL",
-                  "PDF resources downloadable below video",
-                  "90%+ watched → lesson marked complete",
-                  "Progress bar updates across module & course",
-                  "All lessons done → Final Task unlocks",
-                ].map((step, i) => (
-                  <div key={i} className="flex items-start gap-3 p-2.5 rounded-lg" style={{ background: "#FAFAFA" }}>
-                    <span className="text-[10px] font-bold w-5 h-5 rounded-md flex items-center justify-center flex-shrink-0" style={{ background: `${B}15`, color: B }}>{i + 1}</span>
-                    <span className="text-[12px]" style={{ color: "rgba(0,0,0,0.55)" }}>{step}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Certificate Flow */}
-            <div className="rounded-[24px] p-7" style={{ background: "#fff" }}>
-              <div className="flex items-center gap-3 mb-5">
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: `${A}12` }}>
-                  <Award size={18} color={A} />
-                </div>
-                <h3 className="heading text-base">Task & Certificate</h3>
-              </div>
-              <div className="flex flex-col gap-2">
-                {[
-                  "Student reads task brief, uploads files",
-                  "Submission status → pending",
-                  "Instructor reviews in /admin/submissions",
-                  "Approves or rejects with written feedback",
-                  "On approval → Edge Function generates PDF",
-                  "Certificate with unique verification code",
-                  "SMS notification via Twilio sent to student",
-                  "Public verification at /verify/[code]",
-                ].map((step, i) => (
-                  <div key={i} className="flex items-start gap-3 p-2.5 rounded-lg" style={{ background: "#FAFAFA" }}>
-                    <span className="text-[10px] font-bold w-5 h-5 rounded-md flex items-center justify-center flex-shrink-0" style={{ background: `${A}15`, color: A }}>{i + 1}</span>
-                    <span className="text-[12px]" style={{ color: "rgba(0,0,0,0.55)" }}>{step}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ═══ DATABASE SCHEMA ═══ */}
+      {/* ═══ قاعدة البيانات ═══ */}
       <section className="ph-slide opacity-0" style={{ padding: "100px 24px", background: "#fff" }}>
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <p className="script text-xl mb-3" style={{ color: G }}>Database</p>
-            <h2 className="heading text-3xl md:text-4xl mb-4">Supabase <span style={{ color: G }}>Schema</span></h2>
+            <p className="ar-heading text-lg mb-3" style={{ color: G }}>قاعدة البيانات</p>
+            <h2 className="ar-heading text-4xl md:text-5xl mb-4">مخطط <span style={{ color: G }}>Supabase</span></h2>
           </div>
-
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 ph-stagger">
             {[
-              { name: "profiles", color: G, cols: ["id (uuid PK)", "phone (unique)", "full_name", "avatar_url", "locale (ar/en)", "role (student/instructor/admin)"] },
-              { name: "courses", color: P, cols: ["id, slug (unique)", "title_ar / title_en", "description_ar / description_en", "thumbnail_url, price, currency", "is_published (draft vs live)"] },
-              { name: "modules + lessons", color: B, cols: ["module: course_id, title_ar/en, order", "lesson: module_id, title_ar/en", "video_url (Bunny.net signed)", "pdf_url (Storage signed)", "duration_seconds, is_preview"] },
-              { name: "enrollments", color: A, cols: ["user_id, course_id, payment_id", "enrolled_at, completed_at", "lesson_progress: user_id, lesson_id", "completed_at per lesson"] },
-              { name: "tasks + submissions", color: O, cols: ["task: course_id, title, description, allowed_file_types", "submission: user_id, task_id, file_url", "status (pending/approved/rejected)", "feedback, submitted_at, reviewed_at"] },
-              { name: "certificates + payments", color: G, cols: ["cert: user_id, course_id, unique_code, pdf_url", "payment: paymob_order_id, amount, currency", "status (pending/succeeded/failed)"] },
+              { name: "profiles", color: G, cols: ["id (uuid PK) → مرتبط بـ auth.users", "phone (unique) — رقم الهاتف المحقق", "full_name — اسم العرض", "avatar_url — صورة الملف الشخصي", 'locale — "ar" أو "en"', 'role — "student" | "instructor" | "admin"'] },
+              { name: "courses", color: P, cols: ["id, slug (unique) — معرف URL", "title_ar / title_en — عناوين ثنائية", "description_ar / description_en — وصف ثنائي", "thumbnail_url — صورة غلاف الكورس", "price, currency — السعر والعملة (SAR/USD/EGP)", "is_published — مسودة أم منشور"] },
+              { name: "modules + lessons", color: B, cols: ["module: course_id, title_ar/en, order", "lesson: module_id, title_ar/en", "video_url — رابط Bunny.net موقّع", "pdf_url — رابط Supabase Storage موقّع", "duration_seconds — مدة الفيديو", "is_preview — معاينة مجانية قبل التسجيل"] },
+              { name: "enrollments + progress", color: A, cols: ["user_id, course_id, payment_id", "enrolled_at — تاريخ التسجيل", "completed_at — يتعبأ عند إصدار الشهادة", "lesson_progress: user_id, lesson_id", "completed_at — لكل درس على حدة"] },
+              { name: "tasks + submissions", color: O, cols: ["task: course_id, title, description", "allowed_file_types — أنواع الملفات المسموحة", "submission: user_id, task_id, file_url", 'status — "pending" | "approved" | "rejected"', "feedback — ملاحظات المدرب", "submitted_at, reviewed_at — التواريخ"] },
+              { name: "certificates + payments", color: G, cols: ["cert: user_id, course_id, unique_code", "pdf_url — ملف الشهادة في Storage", "issued_at — تاريخ الإصدار", "payment: paymob_order_id, amount, currency", 'status — "pending" | "succeeded" | "failed"'] },
             ].map((table) => (
               <div key={table.name} className="ph-item rounded-[20px] overflow-hidden" style={{ border: "1px solid #EBEBEB" }}>
                 <div className="px-6 py-4 flex items-center gap-3" style={{ background: `${table.color}08`, borderBottom: `2px solid ${table.color}` }}>
@@ -526,7 +441,7 @@ export default function MoBadiArchitecture() {
                   {table.cols.map((col) => (
                     <div key={col} className="flex items-center gap-2">
                       <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: table.color }} />
-                      <span className="text-[12px]" style={{ color: "rgba(0,0,0,0.55)", fontFamily: "monospace" }}>{col}</span>
+                      <span className="text-[12px] ar-body" style={{ color: "rgba(0,0,0,0.55)" }}>{col}</span>
                     </div>
                   ))}
                 </div>
@@ -536,43 +451,39 @@ export default function MoBadiArchitecture() {
         </div>
       </section>
 
-      {/* ═══ PORTFOLIO SECTIONS ═══ */}
+      {/* ═══ سكاشن البورتفوليو ═══ */}
       <section className="ph-slide opacity-0" style={{ padding: "100px 24px", background: "#FAFAFA" }}>
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <p className="script text-xl mb-3" style={{ color: G }}>Portfolio</p>
-            <h2 className="heading text-3xl md:text-4xl mb-4">17 Sections <span style={{ color: G }}>Mapped</span></h2>
-            <p className="text-sm max-w-lg mx-auto" style={{ color: "rgba(0,0,0,0.4)" }}>The homepage IS the portfolio. Visitors scroll through 17 purpose-built sections — from hero to footer, each one designed to convert a viewer into a client or a student.</p>
+            <p className="ar-heading text-lg mb-3" style={{ color: G }}>البورتفوليو</p>
+            <h2 className="ar-heading text-4xl md:text-5xl mb-4"><span style={{ color: G }}>17</span> سكشن مرسوم</h2>
+            <p className="text-sm max-w-lg mx-auto ar-body" style={{ color: "rgba(0,0,0,0.4)" }}>الصفحة الرئيسية هي البورتفوليو. الزائر يمر على 17 سكشن مصمم لتحويله من متصفح إلى عميل أو طالب.</p>
           </div>
-
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 ph-stagger">
             {[
-              { n: "01", name: "Navbar", desc: "Fixed, logo, hamburger mobile, language switcher, CTA", dynamic: false },
-              { n: "02", name: "Hero", desc: "Dark bg, brand name, title, 4 skill tags (#01-#04)", dynamic: true },
-              { n: "03", name: "Trusted Brands", desc: "Client logo marquee — infinite scroll, masked edges", dynamic: true },
-              { n: "04", name: "About Preview", desc: "Dark section, bio excerpt, 3 project thumbnails", dynamic: true },
-              { n: "05", name: "Featured Projects", desc: "3 project cards — image, title, description, View", dynamic: true },
-              { n: "06", name: "Process Approach", desc: "4 full-bleed image boxes: Strategy, Design, Systems, Consistency", dynamic: false },
-              { n: "07", name: "Services", desc: "3 tall cards: Brand Identity, Brand Strategy, Creative Consulting", dynamic: true },
-              { n: "08", name: "CTA Banner", desc: "Let's Bring Your Brand to Life + Get In Touch", dynamic: false },
-              { n: "09", name: "Process Steps", desc: "5 numbered steps: Discovery → Strategy → Design → Delivery → Ongoing", dynamic: false },
-              { n: "10", name: "Extended Portfolio", desc: "Circular image slider — more project work preview", dynamic: true },
-              { n: "11", name: "More Projects", desc: "Horizontal slider with prev/next arrows", dynamic: true },
-              { n: "12", name: "Specializations", desc: "3 image cards with gradient overlay + text", dynamic: true },
-              { n: "13", name: "Pricing", desc: "3 cards: Starter / Pro / Enterprise — features + CTA", dynamic: false },
-              { n: "14", name: "FAQ", desc: "Accordion — 5 questions, animated open/close", dynamic: false },
-              { n: "15", name: "Values", desc: "Mission / Vision / Values / Design Philosophy — accordion", dynamic: false },
-              { n: "16", name: "About Me", desc: "Bio section + embedded video (MP4 autoplay muted)", dynamic: true },
-              { n: "17", name: "Footer", desc: "Logo, tagline, menu, social icons, giant brand text", dynamic: false },
+              { n: "01", name: "شريط التنقل", desc: "ثابت، لوجو، قائمة موبايل، مبدّل لغة، زر CTA" },
+              { n: "02", name: "الهيرو", desc: "خلفية داكنة، اسم البراند، 4 مهارات مرقمة (#01-#04)" },
+              { n: "03", name: "العلامات التجارية", desc: "شريط لوجوهات العملاء — تمرير لا نهائي" },
+              { n: "04", name: "عنّي مختصر", desc: "سكشن داكن، نبذة، 3 صور مشاريع" },
+              { n: "05", name: "مشاريع مميزة", desc: "3 كارتات — صورة، عنوان، وصف، زر عرض" },
+              { n: "06", name: "نهج العمل", desc: "4 صور كاملة: استراتيجية، تصميم، أنظمة، اتساق" },
+              { n: "07", name: "الخدمات", desc: "3 كارتات طويلة: هوية بصرية، استراتيجية براند، استشارات" },
+              { n: "08", name: "شريط CTA", desc: 'سكشن داكن: "خلّنا نحيي براندك" + زر تواصل' },
+              { n: "09", name: "خطوات العمل", desc: "5 خطوات: اكتشاف ← استراتيجية ← تصميم ← تسليم ← دعم مستمر" },
+              { n: "10", name: "معرض إضافي", desc: "سلايدر صور دائري — المزيد من الأعمال" },
+              { n: "11", name: "مشاريع أخرى", desc: "سلايدر أفقي بأسهم التنقل" },
+              { n: "12", name: "التخصصات", desc: "3 كارتات صور مع تدرج + نص" },
+              { n: "13", name: "الباقات", desc: "3 كارتات: مبتدئ / محترف / مؤسسات — مع ميزات وCTA" },
+              { n: "14", name: "أسئلة شائعة", desc: "أكورديون — 5 أسئلة بأنيميشن فتح/إغلاق" },
+              { n: "15", name: "القيم", desc: "الرسالة / الرؤية / القيم / فلسفة التصميم — أكورديون" },
+              { n: "16", name: "عنّي", desc: "سكشن السيرة + فيديو مضمن (تشغيل تلقائي صامت)" },
+              { n: "17", name: "الفوتر", desc: "لوجو، شعار، قائمة روابط، أيقونات سوشيال، نص البراند الكبير" },
             ].map((s) => (
               <div key={s.n} className="ph-item rounded-[16px] p-5 flex gap-4" style={{ background: "#fff", border: "1px solid #EBEBEB" }}>
-                <span className="heading text-2xl" style={{ color: `${G}20` }}>{s.n}</span>
+                <span className="ar-heading text-2xl" style={{ color: `${G}20` }}>{s.n}</span>
                 <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-1">
-                    <h4 className="text-[13px] font-bold">{s.name}</h4>
-                    {s.dynamic && <span className="text-[8px] px-2 py-0.5 rounded-full font-bold" style={{ background: `${G}15`, color: D }}>CMS</span>}
-                  </div>
-                  <p className="text-[11px]" style={{ color: "rgba(0,0,0,0.45)" }}>{s.desc}</p>
+                  <h4 className="text-[13px] font-bold ar-body mb-1">{s.name}</h4>
+                  <p className="text-[11px] ar-body" style={{ color: "rgba(0,0,0,0.45)" }}>{s.desc}</p>
                 </div>
               </div>
             ))}
@@ -580,44 +491,44 @@ export default function MoBadiArchitecture() {
         </div>
       </section>
 
-      {/* ═══ i18n ═══ */}
+      {/* ═══ ثنائي اللغة ═══ */}
       <section className="ph-slide opacity-0" style={{ padding: "80px 24px", background: "#fff" }}>
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-10">
-            <p className="script text-xl mb-3" style={{ color: G }}>Bilingual</p>
-            <h2 className="heading text-3xl md:text-4xl">Arabic + English <span style={{ color: G }}>Support</span></h2>
+            <p className="ar-heading text-lg mb-3" style={{ color: G }}>ثنائي اللغة</p>
+            <h2 className="ar-heading text-4xl md:text-5xl">عربي + <span style={{ color: G }}>إنجليزي</span></h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 ph-stagger">
             {[
-              { icon: Globe, text: "next-intl for /en/ and /ar/ routing with locale detection" },
-              { icon: Target, text: "Default locale: Arabic (ar) — target audience is MENA" },
-              { icon: Layers, text: 'RTL auto-applied when locale = ar via dir="rtl" on <html>' },
-              { icon: Database, text: "All text stored as title_ar / title_en pairs in Supabase" },
-              { icon: Video, text: "Course videos can have separate AR/EN tracks" },
-              { icon: Award, text: "Certificates generated in the user's preferred language" },
+              { icon: Globe, text: "next-intl للتوجيه: /en/ و /ar/ مع اكتشاف اللغة تلقائياً" },
+              { icon: Target, text: "اللغة الافتراضية: عربي — الجمهور المستهدف منطقة الشرق الأوسط" },
+              { icon: Layers, text: 'RTL يتطبق تلقائياً لما اللغة = عربي عبر dir="rtl"' },
+              { icon: Database, text: "كل النصوص مخزنة بصيغة title_ar / title_en في Supabase" },
+              { icon: Video, text: "فيديوهات الكورسات ممكن يكون لها مسارات عربي/إنجليزي منفصلة" },
+              { icon: Award, text: "الشهادات تتولّد بلغة المستخدم المفضلة" },
             ].map((item) => (
               <div key={item.text} className="ph-item flex items-start gap-3 p-4 rounded-[14px]" style={{ background: "#FAFAFA", border: "1px solid #EBEBEB" }}>
                 <item.icon size={16} color={G} className="flex-shrink-0 mt-0.5" />
-                <span className="text-[12px]" style={{ color: "rgba(0,0,0,0.55)" }}>{item.text}</span>
+                <span className="text-[12px] ar-body" style={{ color: "rgba(0,0,0,0.55)" }}>{item.text}</span>
               </div>
             ))}
           </div>
 
-          {/* Font Strategy */}
+          {/* استراتيجية الخطوط */}
           <div className="mt-10">
-            <h3 className="heading text-xl mb-6">Font Strategy</h3>
+            <h3 className="ar-heading text-xl mb-6">استراتيجية الخطوط</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 ph-stagger">
               {[
-                { label: "English", font: "Inter", note: "Same as design system — all weights from 400 to 800" },
-                { label: "Arabic", font: "IBM Plex Arabic", note: "Matches Inter's weight system for consistent bilingual layout" },
-                { label: "Loading", font: "next/font", note: "Zero layout shift — fonts preloaded and self-hosted" },
-                { label: "RTL", font: "Tailwind Plugin", note: "RTL-specific spacing adjustments automatically applied" },
+                { label: "إنجليزي", font: "Inter", note: "نفس نظام التصميم — كل الأوزان من 400 إلى 800" },
+                { label: "عربي", font: "IBM Plex Arabic", note: "يتوافق مع أوزان Inter للتناسق ثنائي اللغة" },
+                { label: "التحميل", font: "next/font", note: "بدون أي إزاحة في التخطيط — الخطوط محملة مسبقاً" },
+                { label: "RTL", font: "Tailwind Plugin", note: "تعديلات المسافات لـ RTL تتطبق تلقائياً" },
               ].map((f) => (
                 <div key={f.label} className="ph-item flex items-center gap-4 p-4 rounded-[14px]" style={{ background: "#FAFAFA", border: "1px solid #EBEBEB" }}>
                   <span className="text-[10px] font-bold tracking-[2px] uppercase w-16 flex-shrink-0" style={{ color: G }}>{f.label}</span>
                   <div>
                     <p className="text-[13px] font-bold">{f.font}</p>
-                    <p className="text-[10px]" style={{ color: "rgba(0,0,0,0.4)" }}>{f.note}</p>
+                    <p className="text-[10px] ar-body" style={{ color: "rgba(0,0,0,0.4)" }}>{f.note}</p>
                   </div>
                 </div>
               ))}
@@ -626,175 +537,163 @@ export default function MoBadiArchitecture() {
         </div>
       </section>
 
-      {/* ═══ DEVELOPMENT PHASES ═══ */}
+      {/* ═══ خطة التطوير ═══ */}
       <section className="ph-slide opacity-0" style={{ padding: "100px 24px", background: "#fff" }}>
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
-            <p className="script text-xl mb-3" style={{ color: G }}>Execution</p>
-            <h2 className="heading text-3xl md:text-4xl mb-4">Development <span style={{ color: G }}>Roadmap</span></h2>
-            <p className="text-sm max-w-lg mx-auto" style={{ color: "rgba(0,0,0,0.4)" }}>40 days max from blank screen to live platform. Each phase ends with something you can see and test — not a status update.</p>
+            <p className="ar-heading text-lg mb-3" style={{ color: G }}>التنفيذ</p>
+            <h2 className="ar-heading text-4xl md:text-5xl mb-4">خطة <span style={{ color: G }}>التطوير</span></h2>
+            <p className="text-sm max-w-lg mx-auto ar-body" style={{ color: "rgba(0,0,0,0.4)" }}>40 يوم حد أقصى من شاشة فاضية لمنصة شغّالة. كل مرحلة تنتهي بحاجة تقدر تشوفها وتجربها.</p>
           </div>
-
           <div className="flex flex-col gap-6 ph-stagger">
-            <PhaseCard num={1} label="Foundation" color={G} duration="Week 1-2" items={["Next.js 15 project setup with TypeScript + Tailwind", "Supabase project: Auth, Database schema, Storage buckets", "next-intl setup: AR/EN routing, RTL support", "Design system implementation: tokens, typography, base components", "Navbar + Footer components"]} />
-            <PhaseCard num={2} label="Portfolio" color={O} duration="Week 3-4" items={["Hero section with animations (Framer Motion)", "All 17 portfolio sections as per Figma", "Supabase CMS integration: projects, services, clients", "Image optimization via Cloudinary", "Mobile responsiveness — all sections"]} />
-            <PhaseCard num={3} label="Auth & Payments" color={P} duration="Week 5" white items={["Phone OTP auth flow (Twilio + Supabase)", "User profile page", "PayMob integration: checkout, webhooks, enrollment", "Course landing pages (public)"]} />
-            <PhaseCard num={4} label="Learning" color={B} duration="Week 6-7" white items={["Course dashboard (/learn/[slug])", "Lesson player: video (Bunny.net HLS) + PDF viewer", "Lesson progress tracking", "Sequential lesson unlocking", "Final task submission flow"]} />
-            <PhaseCard num={5} label="Admin & Certs" color={A} duration="Week 8" items={["Instructor dashboard: submissions review", "Approve / reject with feedback", "Dynamic certificate PDF generation (Edge Function)", "SMS notification on certificate issuance", "Public certificate verification page"]} />
-            <PhaseCard num={6} label="Launch" color={G} duration="Week 9" items={["Performance audit (Lighthouse 90+)", "SEO: meta tags, og:image, sitemap, schema.org", "Cross-browser + RTL QA testing", "Analytics (Vercel Analytics + Supabase insights)", "Vercel production deployment + domain + SSL"]} />
+            <PhaseCard num={1} label="الأساسات" color={G} duration="الأسبوع 1-2" items={["إعداد مشروع Next.js 15 مع TypeScript + Tailwind", "مشروع Supabase: مصادقة، مخطط قاعدة البيانات، مساحات التخزين", "إعداد next-intl: توجيه عربي/إنجليزي، دعم RTL", "تطبيق نظام التصميم: الألوان، الخطوط، المكونات الأساسية", "شريط التنقل + الفوتر"]} />
+            <PhaseCard num={2} label="البورتفوليو" color={O} duration="الأسبوع 3-4" items={["سكشن الهيرو مع الحركات (Framer Motion)", "كل الـ 17 سكشن حسب تصميم Figma", "ربط Supabase CMS: المشاريع، الخدمات، العملاء", "تحسين الصور عبر Cloudinary", "استجابة كاملة للموبايل — كل السكاشن"]} />
+            <PhaseCard num={3} label="المصادقة والدفع" color={P} duration="الأسبوع 5" white items={["مسار تسجيل دخول OTP بالهاتف (Twilio + Supabase)", "صفحة الملف الشخصي", "ربط PayMob: دفع، webhooks، تسجيل بالكورس", "صفحات هبوط الكورسات (عامة)"]} />
+            <PhaseCard num={4} label="منصة التعلم" color={B} duration="الأسبوع 6-7" white items={["لوحة الكورس (/learn/[slug])", "مشغّل الدروس: فيديو (Bunny.net HLS) + عارض PDF", "تتبع تقدم الدروس", "فتح الدروس بالتسلسل", "مسار تسليم المهمة النهائية"]} />
+            <PhaseCard num={5} label="الإدارة والشهادات" color={A} duration="الأسبوع 8" items={["لوحة المدرب: مراجعة التسليمات", "قبول / رفض مع ملاحظات", "توليد شهادة PDF ديناميكية (Edge Function)", "إشعار SMS عند إصدار الشهادة", "صفحة التحقق العامة من الشهادة"]} />
+            <PhaseCard num={6} label="الإطلاق" color={G} duration="الأسبوع 9" items={["فحص الأداء (Lighthouse 90+)", "SEO: meta tags, og:image, sitemap, schema.org", "اختبار كل المتصفحات + RTL", "تحليلات (Vercel Analytics + Supabase)", "نشر على Vercel + دومين + SSL"]} />
           </div>
         </div>
       </section>
 
-      {/* ═══ PROJECT FOLDER STRUCTURE ═══ */}
+      {/* ═══ هيكل المجلدات ═══ */}
       <section className="ph-slide opacity-0" style={{ padding: "100px 24px", background: D }}>
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <p className="script text-xl mb-3" style={{ color: G }}>Codebase</p>
-            <h2 className="heading text-3xl md:text-4xl mb-4" style={{ color: "#fff" }}>Project <span style={{ color: G }}>Structure</span></h2>
+            <p className="ar-heading text-lg mb-3" style={{ color: G }}>الكود</p>
+            <h2 className="ar-heading text-4xl md:text-5xl mb-4" style={{ color: "#fff" }}>هيكل <span style={{ color: G }}>المجلدات</span></h2>
           </div>
           <div className="rounded-[20px] p-6 md:p-8 overflow-x-auto" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}>
-            <pre style={{ color: "rgba(255,255,255,0.6)", fontSize: 12, lineHeight: 2, fontFamily: "monospace", margin: 0, whiteSpace: "pre-wrap" }}>{`mobadi/
+            <pre style={{ color: "rgba(255,255,255,0.6)", fontSize: 12, lineHeight: 2, fontFamily: "monospace", margin: 0, whiteSpace: "pre-wrap", direction: "ltr", textAlign: "left" }}>{`mobadi/
 ├── app/
 │   ├── [locale]/
 │   │   ├── (portfolio)/
-│   │   │   ├── page.tsx                ← Home (full portfolio)
-│   │   │   ├── projects/page.tsx
-│   │   │   ├── projects/[slug]/page.tsx
-│   │   │   ├── courses/page.tsx
-│   │   │   ├── courses/[slug]/page.tsx
-│   │   │   └── contact/page.tsx
+│   │   │   ├── page.tsx              ← الرئيسية (البورتفوليو كامل)
+│   │   │   ├── projects/
+│   │   │   ├── courses/
+│   │   │   └── contact/
 │   │   ├── (platform)/
-│   │   │   ├── learn/page.tsx
-│   │   │   ├── learn/[courseSlug]/page.tsx
-│   │   │   ├── learn/[courseSlug]/[lessonId]/page.tsx
-│   │   │   ├── learn/[courseSlug]/task/page.tsx
-│   │   │   ├── account/page.tsx
-│   │   │   └── certificates/[id]/page.tsx
+│   │   │   ├── learn/
+│   │   │   ├── account/
+│   │   │   └── certificates/
 │   │   └── admin/
-│   │       ├── page.tsx
-│   │       ├── courses/page.tsx
-│   │       ├── submissions/page.tsx
-│   │       └── students/page.tsx
+│   │       ├── courses/
+│   │       ├── submissions/
+│   │       └── students/
 │   └── api/
-│       ├── auth/send-otp/route.ts
-│       ├── payments/create-checkout/route.ts
-│       ├── webhooks/paymob/route.ts
-│       └── certificates/generate/route.ts
+│       ├── auth/send-otp/
+│       ├── payments/create-checkout/
+│       ├── webhooks/paymob/
+│       └── certificates/generate/
 ├── components/
-│   ├── portfolio/       ← All 17 portfolio sections
-│   ├── platform/        ← Course platform UI
-│   ├── ui/              ← Design system components
-│   └── layout/          ← Navbar + Footer
+│   ├── portfolio/       ← كل سكاشن البورتفوليو
+│   ├── platform/        ← واجهة منصة التعلم
+│   ├── ui/              ← مكونات نظام التصميم
+│   └── layout/          ← التنقل + الفوتر
 ├── lib/
-│   ├── supabase/        ← Client + types
-│   ├── paymob/          ← Payment helpers
-│   ├── certificate/     ← PDF generation
-│   └── i18n/            ← next-intl config
+│   ├── supabase/        ← العميل + الأنواع
+│   ├── paymob/          ← مساعدات الدفع
+│   ├── certificate/     ← توليد PDF
+│   └── i18n/            ← إعداد next-intl
 ├── messages/
-│   ├── ar.json          ← Arabic translations
-│   └── en.json          ← English translations
+│   ├── ar.json          ← الترجمة العربية
+│   └── en.json          ← الترجمة الإنجليزية
 └── supabase/
-    ├── migrations/      ← SQL migration files
+    ├── migrations/      ← ملفات SQL
     └── functions/       ← Edge Functions`}</pre>
           </div>
         </div>
       </section>
 
-      {/* ═══ ENVIRONMENT VARIABLES ═══ */}
+      {/* ═══ المتغيرات البيئية ═══ */}
       <section className="ph-slide opacity-0" style={{ padding: "100px 24px", background: "#fff" }}>
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <p className="script text-xl mb-3" style={{ color: G }}>Configuration</p>
-            <h2 className="heading text-3xl md:text-4xl mb-4">Environment <span style={{ color: G }}>Variables</span></h2>
-            <p className="text-sm max-w-lg mx-auto" style={{ color: "rgba(0,0,0,0.4)" }}>Every secret and API key the platform needs to run — organized by service.</p>
+            <p className="ar-heading text-lg mb-3" style={{ color: G }}>الإعدادات</p>
+            <h2 className="ar-heading text-4xl md:text-5xl mb-4">المتغيرات <span style={{ color: G }}>البيئية</span></h2>
+            <p className="text-sm max-w-lg mx-auto ar-body" style={{ color: "rgba(0,0,0,0.4)" }}>كل مفتاح API وسر تحتاجه المنصة — مرتبة حسب الخدمة.</p>
           </div>
           <div className="flex flex-col gap-3 ph-stagger">
             {[
-              { var: "NEXT_PUBLIC_SUPABASE_URL", service: "Supabase", note: "Public URL", public: true },
-              { var: "NEXT_PUBLIC_SUPABASE_ANON_KEY", service: "Supabase", note: "Public anon key", public: true },
-              { var: "SUPABASE_SERVICE_ROLE_KEY", service: "Supabase", note: "Server-only, never expose", public: false },
-              { var: "TWILIO_ACCOUNT_SID", service: "Twilio", note: "Server-only", public: false },
-              { var: "TWILIO_AUTH_TOKEN", service: "Twilio", note: "Server-only", public: false },
-              { var: "TWILIO_VERIFY_SID", service: "Twilio", note: "Verify service SID", public: false },
-              { var: "PAYMOB_API_KEY", service: "PayMob", note: "Server-only", public: false },
-              { var: "PAYMOB_HMAC_SECRET", service: "PayMob", note: "Webhook verification", public: false },
-              { var: "NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME", service: "Cloudinary", note: "Image CDN", public: true },
-              { var: "BUNNY_CDN_KEY", service: "Bunny.net", note: "Video hosting", public: false },
-              { var: "NEXT_PUBLIC_APP_URL", service: "App", note: "Production domain", public: true },
-              { var: "NEXT_PUBLIC_DEFAULT_LOCALE", service: "i18n", note: '"ar" — default language', public: true },
+              { v: "NEXT_PUBLIC_SUPABASE_URL", svc: "Supabase", pub: true },
+              { v: "NEXT_PUBLIC_SUPABASE_ANON_KEY", svc: "Supabase", pub: true },
+              { v: "SUPABASE_SERVICE_ROLE_KEY", svc: "Supabase", pub: false },
+              { v: "TWILIO_ACCOUNT_SID", svc: "Twilio", pub: false },
+              { v: "TWILIO_AUTH_TOKEN", svc: "Twilio", pub: false },
+              { v: "TWILIO_VERIFY_SID", svc: "Twilio", pub: false },
+              { v: "PAYMOB_API_KEY", svc: "PayMob", pub: false },
+              { v: "PAYMOB_HMAC_SECRET", svc: "PayMob", pub: false },
+              { v: "NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME", svc: "Cloudinary", pub: true },
+              { v: "BUNNY_CDN_KEY", svc: "Bunny.net", pub: false },
+              { v: "NEXT_PUBLIC_APP_URL", svc: "التطبيق", pub: true },
+              { v: "NEXT_PUBLIC_DEFAULT_LOCALE", svc: "i18n", pub: true },
             ].map((e) => (
-              <div key={e.var} className="ph-item flex items-center gap-4 p-4 rounded-[14px]" style={{ background: "#FAFAFA", border: "1px solid #EBEBEB" }}>
-                <span className="text-[12px] font-bold flex-1" style={{ fontFamily: "monospace", color: D }}>{e.var}</span>
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded" style={{ background: e.public ? `${G}15` : `${R}12`, color: e.public ? D : R }}>{e.public ? "public" : "server"}</span>
-                <span className="text-[10px] hidden md:block" style={{ color: "rgba(0,0,0,0.35)" }}>{e.service} · {e.note}</span>
+              <div key={e.v} className="ph-item flex items-center gap-4 p-4 rounded-[14px]" style={{ background: "#FAFAFA", border: "1px solid #EBEBEB" }}>
+                <span className="text-[11px] font-bold flex-1" style={{ fontFamily: "monospace", color: D }}>{e.v}</span>
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded" style={{ background: e.pub ? `${G}15` : `${R}12`, color: e.pub ? D : R }}>{e.pub ? "عام" : "سيرفر"}</span>
+                <span className="text-[10px] hidden md:block" style={{ color: "rgba(0,0,0,0.35)" }}>{e.svc}</span>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ═══ INVESTMENT ═══ */}
+      {/* ═══ الاستثمار ═══ */}
       <section className="ph-slide opacity-0" style={{ padding: "100px 24px", background: D }}>
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-12">
-            <p className="script text-xl mb-3" style={{ color: G }}>Investment</p>
-            <h2 className="heading text-3xl md:text-4xl" style={{ color: "#fff" }}>Project <span style={{ color: G }}>Cost</span></h2>
+            <p className="ar-heading text-lg mb-3" style={{ color: G }}>الاستثمار</p>
+            <h2 className="ar-heading text-4xl md:text-5xl" style={{ color: "#fff" }}>تكلفة <span style={{ color: G }}>المشروع</span></h2>
           </div>
 
           <div className="rounded-[24px] p-10 text-center mb-6" style={{ background: G, border: `2px solid ${D}` }}>
-            <div className="heading" style={{ fontSize: "clamp(48px, 10vw, 72px)", lineHeight: 1, color: D }}>2,500 <span className="text-2xl">SAR</span></div>
-            <p className="text-[13px] font-bold mt-3" style={{ color: "rgba(0,0,0,0.5)" }}>Full platform — portfolio + courses + admin + certificates</p>
+            <div className="ar-heading" style={{ fontSize: "clamp(48px, 10vw, 72px)", lineHeight: 1, color: D }}>2,500 <span className="text-2xl">ر.س</span></div>
+            <p className="text-[13px] font-bold mt-3 ar-body" style={{ color: "rgba(0,0,0,0.5)" }}>المنصة كاملة — بورتفوليو + كورسات + إدارة + شهادات</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 ph-stagger">
             <div className="ph-item rounded-[16px] p-5 text-center" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)" }}>
-              <div className="heading text-2xl mb-1" style={{ color: "#fff" }}>50%</div>
-              <p className="text-[11px]" style={{ color: "rgba(255,255,255,0.4)" }}>Before starting</p>
-              <p className="text-[12px] font-bold mt-1" style={{ color: G }}>1,250 SAR</p>
+              <div className="ar-heading text-2xl mb-1" style={{ color: "#fff" }}>50%</div>
+              <p className="text-[11px] ar-body" style={{ color: "rgba(255,255,255,0.4)" }}>قبل البدء</p>
+              <p className="text-[12px] font-bold mt-1" style={{ color: G }}>1,250 ر.س</p>
             </div>
             <div className="ph-item rounded-[16px] p-5 text-center" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)" }}>
-              <div className="heading text-2xl mb-1" style={{ color: "#fff" }}>50%</div>
-              <p className="text-[11px]" style={{ color: "rgba(255,255,255,0.4)" }}>On delivery</p>
-              <p className="text-[12px] font-bold mt-1" style={{ color: G }}>1,250 SAR</p>
+              <div className="ar-heading text-2xl mb-1" style={{ color: "#fff" }}>50%</div>
+              <p className="text-[11px] ar-body" style={{ color: "rgba(255,255,255,0.4)" }}>عند التسليم</p>
+              <p className="text-[12px] font-bold mt-1" style={{ color: G }}>1,250 ر.س</p>
             </div>
             <div className="ph-item rounded-[16px] p-5 text-center" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)" }}>
-              <div className="heading text-2xl mb-1" style={{ color: "#fff" }}>40</div>
-              <p className="text-[11px]" style={{ color: "rgba(255,255,255,0.4)" }}>Days maximum</p>
-              <p className="text-[12px] font-bold mt-1" style={{ color: G }}>Full delivery</p>
+              <div className="ar-heading text-2xl mb-1" style={{ color: "#fff" }}>40</div>
+              <p className="text-[11px] ar-body" style={{ color: "rgba(255,255,255,0.4)" }}>يوم حد أقصى</p>
+              <p className="text-[12px] font-bold mt-1" style={{ color: G }}>تسليم كامل</p>
             </div>
-          </div>
-
-          <div className="rounded-[16px] p-5 text-center" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)" }}>
-            <p className="text-[12px]" style={{ color: "rgba(255,255,255,0.4)" }}>
-              Includes: full design implementation from Figma, bilingual AR/EN, Supabase backend, PayMob payments, phone OTP, video platform, certificate system, admin dashboard, SEO, and deployment.
-            </p>
           </div>
         </div>
       </section>
 
-      {/* ═══ CLOSING ═══ */}
+      {/* ═══ الختام ═══ */}
       <section className="ph-slide opacity-0" style={{ padding: "80px 24px 60px", background: "#fff" }}>
         <div className="max-w-3xl mx-auto text-center">
           <div className="rounded-[24px] p-10 md:p-14 mb-8" style={{ border: "1px solid #EBEBEB" }}>
             <img src="/ahmed.jpeg" alt="Ahmed Ali" className="w-24 h-24 rounded-full object-cover mx-auto mb-6" style={{ border: `3px solid ${G}` }} />
-            <h3 className="heading text-3xl mb-6">Let&apos;s Build This<span style={{ color: G }}>.</span></h3>
+            <h3 className="ar-heading text-3xl mb-6">شكراً لثقتكم</h3>
             <div className="flex flex-wrap justify-center gap-3 mb-8">
               <a href="https://wa.me/201011648156" target="_blank" rel="noopener" className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-sm font-bold" style={{ background: G, color: D, border: `2px solid ${D}`, boxShadow: `4px 4px 0px 0px ${D}`, textDecoration: "none" }}>
-                <MessageCircle size={16} /> WhatsApp
+                <MessageCircle size={16} /> واتساب
               </a>
               <a href="mailto:hello@ahmedali.online" className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-sm font-bold" style={{ background: "#fff", color: D, border: `2px solid ${D}`, boxShadow: `4px 4px 0px 0px ${D}`, textDecoration: "none" }}>
-                Email <ArrowRight size={14} />
+                إيميل <ArrowRight size={14} />
               </a>
             </div>
             <div className="w-full h-px mb-6" style={{ background: "#F0F0F0" }} />
             <p className="text-[14px] font-bold">Ahmed Ali</p>
-            <p className="text-[12px]" style={{ color: G }}>Full-Stack Digital Strategist</p>
-            <p className="text-[12px] mt-1" style={{ color: "rgba(0,0,0,0.4)" }}>hello@ahmedali.online · ahmedali.online</p>
+            <p className="text-[12px] ar-body" style={{ color: G }}>Full-Stack Digital Strategist</p>
+            <p className="text-[12px] ar-body mt-1" style={{ color: "rgba(0,0,0,0.4)" }}>hello@ahmedali.online · ahmedali.online</p>
           </div>
-          <p className="text-[11px]" style={{ color: "rgba(0,0,0,0.15)" }}>&copy; {new Date().getFullYear()} Ahmed Ali. Prepared exclusively for MO BADI.</p>
+          <p className="text-[11px] ar-body" style={{ color: "rgba(0,0,0,0.15)" }}>&copy; {new Date().getFullYear()} Ahmed Ali. مُعد خصيصاً لـ MO BADI.</p>
         </div>
       </section>
     </div>
+    </ArabicTailProcessor>
   );
 }
