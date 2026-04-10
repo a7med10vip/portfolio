@@ -41,17 +41,20 @@ export default function MoBadiArchitecture() {
     return () => ctx.revert();
   }, []);
 
-  function PhaseCard({ num, label, color, duration, items }: { num: number; label: string; color: string; duration: string; items: string[] }) {
+  function PhaseCard({ num, label, color, duration, items, light }: { num: number; label: string; color: string; duration: string; items: string[]; light?: boolean }) {
+    const bg = light ? "#fff" : color;
+    const fg = light ? D : D;
+    const sub = light ? "rgba(0,0,0,0.3)" : "rgba(0,0,0,0.4)";
     return (
-      <div className="ph-item rounded-[24px] overflow-hidden" style={{ border: `2px solid ${color}25`, boxShadow: "0 2px 20px rgba(0,0,0,0.04)" }}>
+      <div className="ph-item rounded-[24px] overflow-hidden" style={{ border: light ? `2px solid ${color}` : `2px solid ${color}25`, boxShadow: "0 2px 20px rgba(0,0,0,0.04)" }}>
         <div className="flex flex-col md:flex-row">
-          <div className="md:w-[200px] flex-shrink-0 p-8 flex flex-col items-center justify-center text-center" style={{ background: color }}>
-            <div className="text-[9px] font-bold tracking-[3px] uppercase mb-1" style={{ color: "rgba(0,0,0,0.4)" }}>Phase</div>
-            <div className="heading text-5xl mb-2" style={{ color: D }}>{num}</div>
-            <div className="heading text-base mb-2" style={{ color: D }}>{label}</div>
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full" style={{ background: "rgba(0,0,0,0.08)" }}>
-              <Clock size={11} color={D} />
-              <span className="text-[11px] font-bold" style={{ color: D }}>{duration}</span>
+          <div className="md:w-[200px] flex-shrink-0 p-8 flex flex-col items-center justify-center text-center" style={{ background: bg, borderLeft: light ? `4px solid ${color}` : "none" }}>
+            <div className="text-[9px] font-bold tracking-[3px] uppercase mb-1" style={{ color: sub }}>Phase</div>
+            <div className="heading text-5xl mb-2" style={{ color: light ? color : fg }}>{num}</div>
+            <div className="heading text-base mb-2" style={{ color: fg }}>{label}</div>
+            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full" style={{ background: light ? `${color}12` : "rgba(0,0,0,0.08)" }}>
+              <Clock size={11} color={light ? color : D} />
+              <span className="text-[11px] font-bold" style={{ color: light ? color : D }}>{duration}</span>
             </div>
           </div>
           <div className="flex-1 p-6 bg-white">
@@ -230,14 +233,14 @@ export default function MoBadiArchitecture() {
               { name: "TypeScript", icon: "typescript", desc: "Type safety" },
               { name: "Tailwind CSS", icon: "tailwindcss", desc: "Utility-first CSS" },
               { name: "Supabase", icon: "supabase", desc: "DB + Auth + Storage" },
-              { name: "Stripe", icon: "stripe", desc: "Payments" },
+              { name: "PayMob", icon: "", fallback: "https://play-lh.googleusercontent.com/zcIqcdT6vOOYLyslVXMK9gXQW1E6zMfh-QKrP8NvfvZ4-ayGbZS55jt6bASt6vL-wA", desc: "Payments" },
               { name: "Twilio", icon: "", fallback: "https://avatars.githubusercontent.com/u/109142?s=280&v=4", desc: "Phone OTP" },
               { name: "Framer Motion", icon: "framer", desc: "Animations" },
               { name: "Vercel", icon: "vercel/white", desc: "Deployment" },
               { name: "Cloudinary", icon: "cloudinary", desc: "Image CDN" },
-              { name: "Bunny.net", icon: "bunnynet", desc: "Video CDN" },
+              { name: "Bunny.net", icon: "bunnydotnet", desc: "Video CDN" },
               { name: "shadcn/ui", icon: "shadcnui/white", desc: "Base components" },
-              { name: "Zustand", icon: "", fallback: "https://files.svgcdn.io/devicon-plain/zustand.png", desc: "Client state" },
+              { name: "Zustand", icon: "", fallback: "/zustand.png", desc: "Client state" },
             ].map((t) => (
               <div key={t.name} className="ph-item flex items-center gap-4 p-4 rounded-[16px]" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
                 {t.icon ? (
@@ -407,9 +410,9 @@ export default function MoBadiArchitecture() {
                 {[
                   "Student visits /courses/[slug] — public page",
                   'Clicks "Enroll Now" — auth check',
-                  "Stripe Checkout session created via API",
-                  "Student pays on Stripe hosted page",
-                  "Webhook fires payment_intent.succeeded",
+                  "PayMob checkout session created via API",
+                  "Student pays on PayMob hosted page",
+                  "PayMob webhook fires on successful payment",
                   "Enrollment record created in Supabase",
                   "Student accesses course content",
                 ].map((step, i) => (
@@ -492,7 +495,7 @@ export default function MoBadiArchitecture() {
               { name: "modules + lessons", color: B, cols: ["module: course_id, title_ar/en, order", "lesson: module_id, title_ar/en", "video_url (Bunny.net signed)", "pdf_url (Storage signed)", "duration_seconds, is_preview"] },
               { name: "enrollments", color: A, cols: ["user_id, course_id, payment_id", "enrolled_at, completed_at", "lesson_progress: user_id, lesson_id", "completed_at per lesson"] },
               { name: "tasks + submissions", color: O, cols: ["task: course_id, title, description, allowed_file_types", "submission: user_id, task_id, file_url", "status (pending/approved/rejected)", "feedback, submitted_at, reviewed_at"] },
-              { name: "certificates + payments", color: G, cols: ["cert: user_id, course_id, unique_code, pdf_url", "payment: stripe_payment_id, amount, currency", "status (pending/succeeded/failed)"] },
+              { name: "certificates + payments", color: G, cols: ["cert: user_id, course_id, unique_code, pdf_url", "payment: paymob_order_id, amount, currency", "status (pending/succeeded/failed)"] },
             ].map((table) => (
               <div key={table.name} className="ph-item rounded-[20px] overflow-hidden" style={{ border: "1px solid #EBEBEB" }}>
                 <div className="px-6 py-4 flex items-center gap-3" style={{ background: `${table.color}08`, borderBottom: `2px solid ${table.color}` }}>
@@ -594,8 +597,8 @@ export default function MoBadiArchitecture() {
           <div className="flex flex-col gap-6 ph-stagger">
             <PhaseCard num={1} label="Foundation" color={G} duration="Week 1-2" items={["Next.js 15 project setup with TypeScript + Tailwind", "Supabase project: Auth, Database schema, Storage buckets", "next-intl setup: AR/EN routing, RTL support", "Design system implementation: tokens, typography, base components", "Navbar + Footer components"]} />
             <PhaseCard num={2} label="Portfolio" color={O} duration="Week 3-4" items={["Hero section with animations (Framer Motion)", "All 17 portfolio sections as per Figma", "Supabase CMS integration: projects, services, clients", "Image optimization via Cloudinary", "Mobile responsiveness — all sections"]} />
-            <PhaseCard num={3} label="Auth & Payments" color={P} duration="Week 5" items={["Phone OTP auth flow (Twilio + Supabase)", "User profile page", "Stripe integration: checkout, webhooks, enrollment", "Course landing pages (public)"]} />
-            <PhaseCard num={4} label="Learning" color={B} duration="Week 6-7" items={["Course dashboard (/learn/[slug])", "Lesson player: video (Bunny.net HLS) + PDF viewer", "Lesson progress tracking", "Sequential lesson unlocking", "Final task submission flow"]} />
+            <PhaseCard num={3} label="Auth & Payments" color={P} duration="Week 5" light items={["Phone OTP auth flow (Twilio + Supabase)", "User profile page", "PayMob integration: checkout, webhooks, enrollment", "Course landing pages (public)"]} />
+            <PhaseCard num={4} label="Learning" color={B} duration="Week 6-7" light items={["Course dashboard (/learn/[slug])", "Lesson player: video (Bunny.net HLS) + PDF viewer", "Lesson progress tracking", "Sequential lesson unlocking", "Final task submission flow"]} />
             <PhaseCard num={5} label="Admin & Certs" color={A} duration="Week 8" items={["Instructor dashboard: submissions review", "Approve / reject with feedback", "Dynamic certificate PDF generation (Edge Function)", "SMS notification on certificate issuance", "Public certificate verification page"]} />
             <PhaseCard num={6} label="Launch" color={G} duration="Week 9" items={["Performance audit (Lighthouse 90+)", "SEO: meta tags, og:image, sitemap, schema.org", "Cross-browser + RTL QA testing", "Analytics (Vercel Analytics + Supabase insights)", "Vercel production deployment + domain + SSL"]} />
           </div>
