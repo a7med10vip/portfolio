@@ -86,7 +86,7 @@ export default function MoBadiArchitecture() {
 
           <div className="ph-hero opacity-0 text-center mb-4">
             <h1 className="ar-heading" style={{ fontSize: "clamp(36px, 8vw, 80px)", lineHeight: 1.3, color: D }}>
-              وثيقة البنية التقنية
+              من الفكــــرة إلى الإبــــداع
             </h1>
           </div>
 

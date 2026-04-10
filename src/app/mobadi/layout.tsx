@@ -1,6 +1,6 @@
 export const metadata = {
-  title: "وثيقة البنية التقنية — MO BADI | Ahmed Ali",
-  description: "وثيقة بنية تقنية كاملة لمنصة MO BADI — بورتفوليو + منصة كورسات. نظام تصميم، قاعدة بيانات، مسارات المستخدم، وخطة تطوير.",
+  title: "من الفكرة إلى الإبداع — MO BADI | Ahmed Ali",
+  description: "المخطط التقني الكامل لمنصة MO BADI — بورتفوليو + منصة كورسات. نظام تصميم، قاعدة بيانات، مسارات المستخدم، وخطة تطوير.",
   robots: { index: false, follow: false },
   icons: {
     icon: [
