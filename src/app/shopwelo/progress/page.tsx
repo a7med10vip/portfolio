@@ -64,6 +64,119 @@ const phase3Tasks = [
   { task: "تحسين صفحة السلة وعملية الدفع", impact: "تقليل التخلي" },
 ];
 
+/* ═══════════ CODE DATA ═══════════ */
+const CSS_CODE = `
+.top-navbar {
+  display: none;
+  padding: 0.5rem 0;
+}
+
+.customer-reviews-title {
+  display: inline-block;
+  background-color: #2a6c50;
+  color: #ffffff;
+  border-radius: 20px 0 20px 0;
+  padding: 7px 20px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+[dir="rtl"] .s-slider-block__title,
+[dir="rtl"] .s-block__title .right-side,
+.s-block h3,
+.banner__title {
+  display: none;
+}
+
+#app salla-add-product-button button.s-button-primary {
+  background-color: #2a6c50 !important;
+  color: #eeeeee;
+  border-color: #ffffff;
+}
+
+salla-slider .swiper-pagination-bullets {
+  display: none;
+}
+
+.sm\\:pt-12 { padding-top: 0 !important; }
+.pt-8      { padding-top: 0; }
+`.trim();
+
+const PERF_CODE = `
+const imgObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach(({ target, isIntersecting }) => {
+      if (!isIntersecting) return;
+      target.src = target.dataset.src;
+      target.classList.add('img--loaded');
+      imgObserver.unobserve(target);
+    });
+  },
+  { rootMargin: '300px 0px', threshold: 0 }
+);
+
+document
+  .querySelectorAll('img[data-src]')
+  .forEach(img => imgObserver.observe(img));
+`.trim();
+
+const SCHEMA_CODE = `
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "ويلو | Welo",
+  "url": "https://shopwelo.com",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://shopwelo.com?q={q}",
+    "query-input": "required name=q"
+  }
+};
+
+const el = document.createElement('script');
+el.type = 'application/ld+json';
+el.textContent = JSON.stringify(schema, null, 2);
+document.head.appendChild(el);
+`.trim();
+
+/* ═══════════ CODE BLOCK COMPONENT ═══════════ */
+function CodeBlock({ filename, lang, code }: { filename: string; lang: string; code: string }) {
+  const lines = code.split('\n');
+  return (
+    <div style={{ borderRadius: 14, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.07)' }}>
+      {/* title bar */}
+      <div style={{ padding: '10px 16px', background: '#141312', borderBottom: '1px solid rgba(255,255,255,0.06)', display: 'flex', alignItems: 'center', gap: 10 }}>
+        <div style={{ display: 'flex', gap: 6 }}>
+          {['#FF5F56', '#FFBD2E', '#27C93F'].map((c, i) => (
+            <div key={i} style={{ width: 12, height: 12, borderRadius: '50%', background: c }} />
+          ))}
+        </div>
+        <span style={{ flex: 1, textAlign: 'center', fontSize: 12, color: 'rgba(255,255,255,0.3)', fontFamily: 'ui-monospace, monospace', letterSpacing: '0.3px' }}>{filename}</span>
+        <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: '1.5px', color: '#4FFFB0', opacity: 0.8 }}>{lang}</span>
+      </div>
+      {/* code body */}
+      <div style={{ background: '#1C1B19', overflowX: 'auto' }}>
+        <table style={{ borderCollapse: 'collapse', width: '100%' }}>
+          <tbody>
+            <tr><td colSpan={2} style={{ height: 12 }} /></tr>
+            {lines.map((line, i) => (
+              <tr key={i}>
+                <td style={{ padding: '1px 14px', fontSize: 12, color: 'rgba(255,255,255,0.18)', fontFamily: 'ui-monospace, monospace', userSelect: 'none', textAlign: 'right', width: 40, verticalAlign: 'top' }}>
+                  {i + 1}
+                </td>
+                <td style={{ padding: '1px 20px 1px 6px', fontSize: 12.5, fontFamily: 'ui-monospace, monospace', color: '#E8DCC8', whiteSpace: 'pre', verticalAlign: 'top' }}>
+                  {line}
+                </td>
+              </tr>
+            ))}
+            <tr><td colSpan={2} style={{ height: 12 }} /></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
 /* ═══════════ MAIN ═══════════ */
 export default function ShopweloProgress() {
   const ref = useRef<HTMLDivElement>(null);
@@ -502,6 +615,33 @@ export default function ShopweloProgress() {
                 </div>
               </div>
             ))}
+          </div>
+
+          {/* ══ CODE SHOWCASE ══ */}
+          <div className="mt-16 prg-slide opacity-0">
+            <div className="text-center mb-10">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-4" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
+                <div className="w-1.5 h-1.5 rounded-full" style={{ background: G }} />
+                <span className="text-[11px] font-bold tracking-[2px] uppercase" style={{ color: "rgba(255,255,255,0.4)" }}>الكود المنفَّذ</span>
+              </div>
+              <h3 className="ar-heading text-2xl md:text-3xl mb-2" style={{ color: "#fff" }}>
+                تحسينات <span style={{ color: G }}>تقنية</span>
+              </h3>
+              <p className="text-[12px] ar-body" style={{ color: "rgba(255,255,255,0.3)" }}>
+                CSS مخصص + JavaScript للأداء والأرشفة — Twilight Theme
+              </p>
+            </div>
+
+            <div className="flex flex-col gap-4">
+              {/* CSS — full width */}
+              <CodeBlock filename="custom.css" lang="CSS" code={CSS_CODE} />
+
+              {/* JS — 2 columns */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <CodeBlock filename="performance.js" lang="JS" code={PERF_CODE} />
+                <CodeBlock filename="schema.js" lang="JS" code={SCHEMA_CODE} />
+              </div>
+            </div>
           </div>
 
           {/* ══ PHONE SHOWCASE ══ */}
