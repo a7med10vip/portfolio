@@ -526,7 +526,7 @@ export default function ShopweloProgress() {
                 {screens.map((s, i) => (
                   <div key={i} className="prg-phone-card flex-shrink-0 flex flex-col items-center gap-3 group" style={{ opacity: 0 }}>
                     {/* phone frame */}
-                    <div className="relative transition-transform duration-500 ease-out group-hover:-translate-y-3" style={{ width: 160, height: 320 }}>
+                    <div className="relative transition-transform duration-500 ease-out group-hover:-translate-y-3" style={{ width: 240, height: 480 }}>
                       {/* outer glow on hover */}
                       <div className="absolute inset-[-4px] rounded-[32px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" style={{ background: `radial-gradient(ellipse, ${G}20, transparent 70%)` }} />
                       {/* phone shell */}
