@@ -695,8 +695,8 @@ export default function ShopweloProgress() {
                         <img
                           src={s.src}
                           alt={s.label}
-                          className="w-full h-full object-cover object-top"
-                          style={{ paddingTop: 7 }}
+                          className="w-full h-full"
+                          style={{ objectFit: "fill", display: "block" }}
                           onError={(e) => {
                             (e.target as HTMLImageElement).src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='320'%3E%3Crect width='160' height='320' fill='%23111'/%3E%3Ctext x='50%25' y='50%25' fill='%23333' font-size='12' text-anchor='middle' dominant-baseline='middle'%3Eقريباً%3C/text%3E%3C/svg%3E";
                           }}
