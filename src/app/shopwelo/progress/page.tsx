@@ -208,7 +208,7 @@ export default function ShopweloProgress() {
         <div className="relative z-10 flex flex-col items-center px-6">
 
           {/* date */}
-          <div className="prg-hero opacity-0 mb-8">
+          <div className="prg-hero opacity-0 mb-8" style={{ marginTop: 60 }}>
             <span className="px-5 py-2 rounded-full text-[11px] font-bold tracking-wide" style={{ background: `${G}10`, color: D, border: `1px solid ${G}25` }}>
               آخر تحديث: أبريل 2026
             </span>
