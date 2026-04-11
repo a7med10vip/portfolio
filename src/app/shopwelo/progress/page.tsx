@@ -5,7 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   CheckCircle2, Clock, Lock, ArrowLeft, ExternalLink,
-  Sparkles, Shield, Zap, TrendingUp,
+  Sparkles, Shield, Zap, TrendingUp, ChevronLeft, ChevronRight,
 } from "lucide-react";
 import ArabicTailProcessor from "@/components/ArabicTailProcessor";
 
@@ -67,7 +67,13 @@ const phase3Tasks = [
 /* ═══════════ MAIN ═══════════ */
 export default function ShopweloProgress() {
   const ref = useRef<HTMLDivElement>(null);
+  const phonesRef = useRef<HTMLDivElement>(null);
   const CIRC = 2 * Math.PI * 90;
+
+  const scrollPhones = (dir: "prev" | "next") => {
+    if (!phonesRef.current) return;
+    phonesRef.current.scrollBy({ left: dir === "next" ? 270 : -270, behavior: "smooth" });
+  };
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -519,7 +525,7 @@ export default function ShopweloProgress() {
               <div className="absolute top-0 right-0 bottom-0 w-20 z-10 pointer-events-none" style={{ background: `linear-gradient(to right, transparent, ${D})` }} />
               <div className="absolute top-0 left-0 bottom-0 w-20 z-10 pointer-events-none" style={{ background: `linear-gradient(to left, transparent, ${D})` }} />
 
-              <div className="prg-phones flex gap-6 overflow-x-auto pb-8 px-10" style={{ scrollbarWidth: "none", scrollBehavior: "smooth" }}>
+              <div ref={phonesRef} className="prg-phones flex gap-6 overflow-x-auto pb-8 px-10" style={{ scrollbarWidth: "none", scrollBehavior: "smooth" }}>
                 {screens.map((s, i) => (
                   <div key={i} className="prg-phone-card flex-shrink-0 flex flex-col items-center gap-3 group" style={{ opacity: 0 }}>
                     {/* phone frame */}
@@ -556,11 +562,32 @@ export default function ShopweloProgress() {
               </div>
             </div>
 
-            {/* scroll hint */}
-            <div className="flex items-center justify-center gap-2 mt-2">
-              <div className="h-px w-8" style={{ background: "rgba(255,255,255,0.1)" }} />
-              <span className="text-[10px]" style={{ color: "rgba(255,255,255,0.2)" }}>مرّر للجانب لرؤية المزيد</span>
-              <div className="h-px w-8" style={{ background: "rgba(255,255,255,0.1)" }} />
+            {/* nav arrows */}
+            <div className="flex items-center justify-center gap-6 mt-6">
+              <button
+                onClick={() => scrollPhones("prev")}
+                className="prg-arrow-btn group"
+                style={{ width: 52, height: 52, borderRadius: "50%", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", transition: "all 0.35s cubic-bezier(0.4,0,0.2,1)", outline: "none" }}
+                onMouseEnter={e => { const b = e.currentTarget; b.style.background = `${G}12`; b.style.borderColor = `${G}40`; b.style.transform = "scale(1.08)"; }}
+                onMouseLeave={e => { const b = e.currentTarget; b.style.background = "rgba(255,255,255,0.04)"; b.style.borderColor = "rgba(255,255,255,0.1)"; b.style.transform = "scale(1)"; }}
+              >
+                <ChevronRight size={20} color="rgba(255,255,255,0.5)" />
+              </button>
+
+              <div className="flex items-center gap-1.5">
+                {screens.map((_, i) => (
+                  <div key={i} className="rounded-full transition-all duration-300" style={{ width: i === 0 ? 20 : 5, height: 5, background: i === 0 ? G : "rgba(255,255,255,0.15)" }} />
+                ))}
+              </div>
+
+              <button
+                onClick={() => scrollPhones("next")}
+                style={{ width: 52, height: 52, borderRadius: "50%", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", transition: "all 0.35s cubic-bezier(0.4,0,0.2,1)", outline: "none" }}
+                onMouseEnter={e => { const b = e.currentTarget; b.style.background = `${G}12`; b.style.borderColor = `${G}40`; b.style.transform = "scale(1.08)"; }}
+                onMouseLeave={e => { const b = e.currentTarget; b.style.background = "rgba(255,255,255,0.04)"; b.style.borderColor = "rgba(255,255,255,0.1)"; b.style.transform = "scale(1)"; }}
+              >
+                <ChevronLeft size={20} color="rgba(255,255,255,0.5)" />
+              </button>
             </div>
           </div>
 
