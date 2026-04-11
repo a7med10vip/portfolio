@@ -26,6 +26,11 @@ const phase1Tasks = [
   { task: "إضافة الرقم الضريبي وشهادة التوثيق", impact: "بناء الثقة" },
   { task: "إضافة روابط سوشيال ميديا في الفوتر", impact: "التواصل والثقة" },
   { task: "ترتيب سكاشن الصفحة الرئيسية", impact: "الانطباع الأول" },
+  { task: "تثبيت Schema Markup للمنتجات (JSON-LD Structured Data)", impact: "تحسين الأرشفة" },
+  { task: "تحسين HTML الدلالي (Semantic HTML) للصفحات الرئيسية", impact: "SEO والفهرسة" },
+  { task: "ضغط وتنظيف ملفات CSS وإزالة الكود الزائد", impact: "سرعة التحميل" },
+  { task: "تحسين ملفات JavaScript وإصلاح الأخطاء التقنية", impact: "أداء المتجر" },
+  { task: "إعداد Sitemap وتحسين ملف Robots.txt للزواحف", impact: "سرعة الأرشفة" },
 ];
 
 const phase2Tasks = [
@@ -65,7 +70,7 @@ export default function ShopweloProgress() {
       /* progress ring stroke */
       const ring = document.querySelector(".prg-ring-fill") as SVGCircleElement | null;
       if (ring) {
-        const target = CIRC * (1 - 0.333);
+        const target = CIRC * (1 - 0.46);
         gsap.fromTo(ring,
           { strokeDashoffset: CIRC },
           { strokeDashoffset: target, duration: 2.8, ease: "power3.out", delay: 0.8 },
@@ -76,8 +81,8 @@ export default function ShopweloProgress() {
       const pctEl = document.querySelector(".prg-pct");
       if (pctEl) {
         gsap.to({ v: 0 }, {
-          v: 33, duration: 2.8, ease: "power3.out", delay: 0.8,
-          onUpdate() { pctEl.textContent = Math.round(this.targets()[0].v) + "٪"; },
+          v: 46, duration: 2.8, ease: "power3.out", delay: 0.8,
+          onUpdate() { pctEl.textContent = Math.round(this.targets()[0].v) + "%"; },
         });
       }
 
@@ -155,7 +160,7 @@ export default function ShopweloProgress() {
           FIXED TOP PROGRESS BAR
       ══════════════════════════════════════════ */}
       <div style={{ position: "fixed", top: 0, left: 0, right: 0, height: 4, background: "#F0F0F0", zIndex: 100 }}>
-        <div className="prg-bar-fill" style={{ height: "100%", width: "33.3%", background: `linear-gradient(90deg, ${G}, #2DD88A)`, borderRadius: "0 4px 4px 0", transformOrigin: "right" }} />
+        <div className="prg-bar-fill" style={{ height: "100%", width: "46%", background: `linear-gradient(90deg, ${G}, #2DD88A)`, borderRadius: "0 4px 4px 0", transformOrigin: "right" }} />
       </div>
 
       {/* ══════════════════════════════════════════
@@ -186,7 +191,7 @@ export default function ShopweloProgress() {
           {/* date */}
           <div className="prg-hero opacity-0 mb-8">
             <span className="px-5 py-2 rounded-full text-[11px] font-bold tracking-wide" style={{ background: `${G}10`, color: D, border: `1px solid ${G}25` }}>
-              آخر تحديث: أبريل ٢٠٢٦
+              آخر تحديث: أبريل 2026
             </span>
           </div>
 
@@ -224,7 +229,7 @@ export default function ShopweloProgress() {
             </svg>
             {/* center text */}
             <div className="absolute inset-0 flex flex-col items-center justify-center">
-              <span className="prg-pct ar-heading" style={{ fontSize: 52, color: D, lineHeight: 1 }}>٠٪</span>
+              <span className="prg-pct ar-heading" style={{ fontSize: 52, color: D, lineHeight: 1 }}>0%</span>
               <span className="text-[11px] font-bold mt-1.5 ar-body" style={{ color: "rgba(0,0,0,0.3)" }}>نسبة الإنجاز</span>
             </div>
             {/* glow behind */}
@@ -258,10 +263,10 @@ export default function ShopweloProgress() {
           <div className="prg-hero opacity-0 w-full max-w-2xl">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               {[
-                { label: "مهام مكتملة", value: 7, suffix: "/٢١", icon: CheckCircle2, accent: G },
-                { label: "مراحل مكتملة", value: 1, suffix: "/٣", icon: Shield, accent: G },
+                { label: "مهام مكتملة", value: 12, suffix: "/26", icon: CheckCircle2, accent: G },
+                { label: "مراحل مكتملة", value: 1, suffix: "/3", icon: Shield, accent: G },
                 { label: "أيام عمل", value: 7, suffix: "", icon: Zap, accent: B },
-                { label: "نسبة الإنجاز", value: 33, suffix: "٪", icon: TrendingUp, accent: G },
+                { label: "نسبة الإنجاز", value: 46, suffix: "%", icon: TrendingUp, accent: G },
               ].map((s, i) => (
                 <div key={i} className="text-center p-5 rounded-[18px] relative overflow-hidden group transition-all duration-300 hover:-translate-y-0.5" style={{ background: "#fff", border: "1px solid #EBEBEB" }}>
                   <div className="absolute top-3 left-3 opacity-[0.06] group-hover:opacity-[0.1] transition-opacity">
@@ -383,10 +388,10 @@ export default function ShopweloProgress() {
             <h2 className="ar-heading text-4xl md:text-5xl mb-3" style={{ color: "#fff" }}>
               المرحلة <span style={{ color: G }}>الأولى</span>
             </h2>
-            <p className="text-[14px] ar-body mb-2" style={{ color: "rgba(255,255,255,0.4)" }}>إصلاحات حرجة وأساسيات الثقة</p>
+            <p className="text-[14px] ar-body mb-2" style={{ color: "rgba(255,255,255,0.4)" }}>إصلاحات حرجة + تحسينات البنية التحتية والسيو</p>
             <div className="flex items-center justify-center gap-3 mt-4">
               <div className="h-[2px] w-16 rounded-full" style={{ background: `${G}40` }} />
-              <span className="text-[12px] font-bold ar-body" style={{ color: G }}>٧ من ٧ مهام مكتملة</span>
+              <span className="text-[12px] font-bold ar-body" style={{ color: G }}>12 من 12 مهام مكتملة</span>
               <div className="h-[2px] w-16 rounded-full" style={{ background: `${G}40` }} />
             </div>
 
@@ -416,6 +421,10 @@ export default function ShopweloProgress() {
                   "بدون رقم ضريبي أو توثيق",
                   "بدون روابط سوشيال ميديا",
                   "ترتيب سكاشن غير مدروس",
+                  "بدون Schema Markup للمنتجات",
+                  "HTML غير دلالي يضعف الفهرسة",
+                  "CSS وJS زائد يبطئ التحميل",
+                  "Sitemap وRobots.txt غير محسّنَين",
                 ].map((item, i) => (
                   <div key={i} className="flex items-center gap-2.5">
                     <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: "#EF4444" }} />
@@ -441,6 +450,10 @@ export default function ShopweloProgress() {
                   "الرقم الضريبي وشهادة التوثيق ظاهرين",
                   "روابط سوشيال ميديا في الفوتر",
                   "سكاشن مرتبة لانطباع أول احترافي",
+                  "Schema Markup JSON-LD على جميع المنتجات",
+                  "HTML دلالي يساعد جوجل على الفهم والفهرسة",
+                  "CSS وJS محسّن وخفيف للتحميل السريع",
+                  "Sitemap وRobots.txt محسّنَين للأرشفة",
                 ].map((item, i) => (
                   <div key={i} className="flex items-center gap-2.5">
                     <CheckCircle2 size={13} color={G} className="flex-shrink-0" />
@@ -475,7 +488,7 @@ export default function ShopweloProgress() {
             <p className="text-[14px] ar-body font-medium leading-relaxed" style={{ color: "#fff" }}>
               <span className="font-bold" style={{ color: G }}>تم إنجاز جميع مهام المرحلة الأولى بنجاح</span>
               <br />
-              <span style={{ color: "rgba(255,255,255,0.5)" }}>المتجر الآن يظهر بشكل احترافي ويبني ثقة الزائر من اللحظة الأولى</span>
+              <span style={{ color: "rgba(255,255,255,0.5)" }}>المتجر محسَّن من الظاهر والبنية التحتية — جاهز للفهرسة والأرشفة، لكنه لا يستقبل زوار بعد حتى اكتمال مراحل التحويل</span>
             </p>
           </div>
         </div>
@@ -492,14 +505,14 @@ export default function ShopweloProgress() {
             <p className="text-[14px] ar-body" style={{ color: "rgba(0,0,0,0.4)" }}>تحسينات التحويل وتجربة المستخدم</p>
             <div className="flex items-center justify-center gap-3 mt-5">
               <Clock size={14} color={B} />
-              <span className="text-[12px] font-bold ar-body" style={{ color: B }}>٧ مهام • الأسبوع الثاني</span>
+              <span className="text-[12px] font-bold ar-body" style={{ color: B }}>7 مهام • الأسبوع الثاني</span>
             </div>
             {/* progress bar */}
             <div className="mt-5 mx-auto max-w-xs">
               <div className="h-2 rounded-full overflow-hidden" style={{ background: "#F0F0F0" }}>
                 <div className="h-full rounded-full" style={{ width: "0%", background: B }} />
               </div>
-              <span className="text-[10px] font-bold mt-1.5 block" style={{ color: "rgba(0,0,0,0.2)" }}>٠ من ٧</span>
+              <span className="text-[10px] font-bold mt-1.5 block" style={{ color: "rgba(0,0,0,0.2)" }}>0 من 7</span>
             </div>
           </div>
 
@@ -531,13 +544,13 @@ export default function ShopweloProgress() {
             <p className="text-[14px] ar-body" style={{ color: "rgba(0,0,0,0.4)" }}>تحسينات متقدمة للنمو</p>
             <div className="flex items-center justify-center gap-3 mt-5">
               <Lock size={14} color={`${A}90`} />
-              <span className="text-[12px] font-bold ar-body" style={{ color: `${A}` }}>٧ مهام • الأسبوع الثالث</span>
+              <span className="text-[12px] font-bold ar-body" style={{ color: `${A}` }}>7 مهام • الأسبوع الثالث</span>
             </div>
             <div className="mt-5 mx-auto max-w-xs">
               <div className="h-2 rounded-full overflow-hidden" style={{ background: "#EBEBEB" }}>
                 <div className="h-full rounded-full" style={{ width: "0%", background: A }} />
               </div>
-              <span className="text-[10px] font-bold mt-1.5 block" style={{ color: "rgba(0,0,0,0.15)" }}>٠ من ٧</span>
+              <span className="text-[10px] font-bold mt-1.5 block" style={{ color: "rgba(0,0,0,0.15)" }}>0 من 7</span>
             </div>
           </div>
 
