@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, BarChart3, Inbox, MessagesSquare, Settings, LogOut, ExternalLink } from "lucide-react";
+import { LayoutDashboard, BarChart3, Inbox, MessagesSquare, Users, LogOut, ExternalLink } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 
 const links = [
@@ -9,6 +9,7 @@ const links = [
   { href: "/dashboard/analytics", label: "Analytics", icon: BarChart3 },
   { href: "/dashboard/submissions", label: "Submissions", icon: Inbox },
   { href: "/dashboard/chat", label: "Chat Logs", icon: MessagesSquare },
+  { href: "/dashboard/clients", label: "Clients", icon: Users },
 ];
 
 const quickLinks = [
@@ -70,6 +71,7 @@ export default function Sidebar() {
               key={link.href}
               href={link.href}
               style={{
+                
                 display: "flex",
                 alignItems: "center",
                 gap: "10px",

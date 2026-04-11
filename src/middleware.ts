@@ -50,7 +50,7 @@ export function middleware(request: NextRequest) {
       "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://analytics.tiktok.com",
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       "font-src 'self' https://fonts.gstatic.com data:",
-      "img-src 'self' https://cdn.simpleicons.org https://*.githubusercontent.com https://www.googletagmanager.com https://www.google-analytics.com https://analytics.tiktok.com https://*.tiktok.com data: blob:",
+      "img-src 'self' https://cdn.simpleicons.org https://*.githubusercontent.com https://www.googletagmanager.com https://www.google-analytics.com https://analytics.tiktok.com https://*.tiktok.com https://buluejioiybbphtzccbh.supabase.co data: blob:",
       "connect-src 'self' https://api.lanyard.rest wss://api.lanyard.rest https://fonts.googleapis.com https://fonts.gstatic.com https://www.googletagmanager.com https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://buluejioiybbphtzccbh.supabase.co https://analytics.tiktok.com https://*.tiktok.com",
       "frame-src https://www.googletagmanager.com",
       "object-src 'none'",
