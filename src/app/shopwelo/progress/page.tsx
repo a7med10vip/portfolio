@@ -483,19 +483,16 @@ export default function ShopweloProgress() {
             </div>
           </div>
 
-          {/* task list */}
-          <div className="flex flex-col gap-3 prg-stagger">
+          {/* task grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 prg-stagger">
             {phase1Tasks.map((t, i) => (
-              <div key={i} className="prg-item rounded-[16px] p-5 flex items-center gap-4 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg group" style={{ background: "#fff", borderRight: `4px solid ${G}` }}>
-                <div className="prg-chk w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:scale-110" style={{ background: `${G}12` }}>
-                  <CheckCircle2 size={22} color="#0D9255" />
+              <div key={i} className="prg-item rounded-[14px] p-4 flex items-center gap-3 transition-all duration-300 hover:-translate-y-0.5 group" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)", borderRight: `3px solid ${G}40` }}>
+                <div className="prg-chk w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: `${G}15` }}>
+                  <CheckCircle2 size={15} color="#0D9255" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-[13px] font-bold ar-body" style={{ color: D }}>{t.task}</p>
-                </div>
-                <span className="px-3 py-1.5 rounded-full text-[10px] font-bold flex-shrink-0" style={{ background: `${G}10`, color: "#0D9255" }}>{t.impact}</span>
-                <div className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: G }}>
-                  <CheckCircle2 size={14} color={D} strokeWidth={3} />
+                  <p className="text-[12px] font-bold ar-body leading-snug" style={{ color: "rgba(255,255,255,0.85)" }}>{t.task}</p>
+                  <span className="text-[10px] font-bold mt-0.5 block" style={{ color: G, opacity: 0.7 }}>{t.impact}</span>
                 </div>
               </div>
             ))}
@@ -554,11 +551,6 @@ export default function ShopweloProgress() {
                       </div>
                     </div>
 
-                    {/* label */}
-                    <div className="text-center">
-                      <span className="text-[11px] font-bold block ar-body" style={{ color: "rgba(255,255,255,0.7)" }}>{s.label}</span>
-                      <span className="text-[9px] font-bold px-2 py-0.5 rounded-full mt-1 inline-block" style={{ background: `${G}10`, color: G }}>{s.tag}</span>
-                    </div>
                   </div>
                 ))}
               </div>
