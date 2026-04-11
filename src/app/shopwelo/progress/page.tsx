@@ -20,12 +20,12 @@ const A = "#F59E0B";
 /* ═══════════ DATA ═══════════ */
 const screens = [
   { src: "/shopwelo/s1.png", label: "الصفحة الرئيسية", tag: "Homepage" },
-  { src: "/shopwelo/s2.png", label: "منتجات بدون سكر", tag: "Category" },
-  { src: "/shopwelo/s3.png", label: "شوفان + الأكثر مبيعًا", tag: "Category" },
-  { src: "/shopwelo/s4.png", label: "كيتو دايت + عضوية", tag: "Category" },
-  { src: "/shopwelo/s5.png", label: "خالي من الجلوتين", tag: "Category" },
-  { src: "/shopwelo/s6.png", label: "سناكس + بروتين", tag: "Category" },
-  { src: "/shopwelo/s7.png", label: "البراندز + الأسئلة", tag: "Trust" },
+  { src: "/shopwelo/s2.png", label: "سناكس صحية + عالي البروتين", tag: "Category" },
+  { src: "/shopwelo/s3.png", label: "خالي من الجلوتين + مشروبات بدون سكر", tag: "Category" },
+  { src: "/shopwelo/s4.png", label: "كيتو دايت + منتجات عضوية", tag: "Category" },
+  { src: "/shopwelo/s5.png", label: "شوفان + الأكثر مبيعًا", tag: "Category" },
+  { src: "/shopwelo/s6.png", label: "العلامات التجارية + الأسئلة الشائعة", tag: "Trust" },
+  { src: "/shopwelo/s7.png", label: "الأسئلة الشائعة + الفوتر", tag: "Trust" },
   { src: "/shopwelo/s8.png", label: "الفوتر المحسَّن", tag: "Footer" },
 ];
 
