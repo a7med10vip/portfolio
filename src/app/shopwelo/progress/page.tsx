@@ -665,7 +665,7 @@ export default function ShopweloProgress() {
                 <span className="text-[11px] font-bold tracking-[2px] uppercase" style={{ color: "rgba(255,255,255,0.4)" }}>توثيق بصري للتنفيذ</span>
               </div>
               <h3 className="ar-heading text-2xl md:text-3xl mb-2" style={{ color: "#fff" }}>
-                التقسيمات البصرية <span style={{ color: G }}>المنفَّذة</span>
+                بعض التقسيمات البصرية <span style={{ color: G }}>المنفَّذة</span>
               </h3>
               <p className="text-[12px] ar-body max-w-md mx-auto leading-relaxed" style={{ color: "rgba(255,255,255,0.35)" }}>
                 تم اختيار أسلوب التقسيمات البصرية لكثرة التصنيفات وتوضيح المنتجات للزائر بشكل سهل وجذاب — بدل ما الزائر يضيع يدور، يشوف فين يروح في ثانية
