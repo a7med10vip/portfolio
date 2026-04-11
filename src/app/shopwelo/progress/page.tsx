@@ -19,14 +19,14 @@ const A = "#F59E0B";
 
 /* ═══════════ DATA ═══════════ */
 const screens = [
-  { src: "/shopwelo/s1.jpg", label: "الصفحة الرئيسية", tag: "Homepage" },
-  { src: "/shopwelo/s2.jpg", label: "منتجات بدون سكر", tag: "Category" },
-  { src: "/shopwelo/s3.jpg", label: "شوفان + الأكثر مبيعًا", tag: "Category" },
-  { src: "/shopwelo/s4.jpg", label: "كيتو دايت + عضوية", tag: "Category" },
-  { src: "/shopwelo/s5.jpg", label: "خالي من الجلوتين", tag: "Category" },
-  { src: "/shopwelo/s6.jpg", label: "سناكس + بروتين", tag: "Category" },
-  { src: "/shopwelo/s7.jpg", label: "البراندز + الأسئلة", tag: "Trust" },
-  { src: "/shopwelo/s8.jpg", label: "الفوتر المحسَّن", tag: "Footer" },
+  { src: "/shopwelo/s1.png", label: "الصفحة الرئيسية", tag: "Homepage" },
+  { src: "/shopwelo/s2.png", label: "منتجات بدون سكر", tag: "Category" },
+  { src: "/shopwelo/s3.png", label: "شوفان + الأكثر مبيعًا", tag: "Category" },
+  { src: "/shopwelo/s4.png", label: "كيتو دايت + عضوية", tag: "Category" },
+  { src: "/shopwelo/s5.png", label: "خالي من الجلوتين", tag: "Category" },
+  { src: "/shopwelo/s6.png", label: "سناكس + بروتين", tag: "Category" },
+  { src: "/shopwelo/s7.png", label: "البراندز + الأسئلة", tag: "Trust" },
+  { src: "/shopwelo/s8.png", label: "الفوتر المحسَّن", tag: "Footer" },
 ];
 
 const phase1Tasks = [
