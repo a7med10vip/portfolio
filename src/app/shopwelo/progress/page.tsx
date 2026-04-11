@@ -18,6 +18,17 @@ const B = "#3B82F6";
 const A = "#F59E0B";
 
 /* ═══════════ DATA ═══════════ */
+const screens = [
+  { src: "/shopwelo/s1.jpg", label: "الصفحة الرئيسية", tag: "Homepage" },
+  { src: "/shopwelo/s2.jpg", label: "منتجات بدون سكر", tag: "Category" },
+  { src: "/shopwelo/s3.jpg", label: "شوفان + الأكثر مبيعًا", tag: "Category" },
+  { src: "/shopwelo/s4.jpg", label: "كيتو دايت + عضوية", tag: "Category" },
+  { src: "/shopwelo/s5.jpg", label: "خالي من الجلوتين", tag: "Category" },
+  { src: "/shopwelo/s6.jpg", label: "سناكس + بروتين", tag: "Category" },
+  { src: "/shopwelo/s7.jpg", label: "البراندز + الأسئلة", tag: "Trust" },
+  { src: "/shopwelo/s8.jpg", label: "الفوتر المحسَّن", tag: "Footer" },
+];
+
 const phase1Tasks = [
   { task: "إصلاح تكرار التصنيفات في القائمة", impact: "احترافية المظهر" },
   { task: "إصلاح خطأ قصة المتجر (ويلوWel → Welo)", impact: "المصداقية" },
@@ -139,6 +150,14 @@ export default function ShopweloProgress() {
         gsap.fromTo(el,
           { y: 40, opacity: 0, rotateX: 8 },
           { y: 0, opacity: 1, rotateX: 0, duration: 0.8, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 85%", once: true } },
+        );
+      });
+
+      /* phone cards stagger */
+      gsap.utils.toArray<HTMLElement>(".prg-phone-card").forEach((el, i) => {
+        gsap.fromTo(el,
+          { y: 50, opacity: 0, scale: 0.9 },
+          { y: 0, opacity: 1, scale: 1, duration: 0.7, ease: "power3.out", delay: i * 0.08, scrollTrigger: { trigger: ".prg-phones", start: "top 85%", once: true } },
         );
       });
 
@@ -480,6 +499,77 @@ export default function ShopweloProgress() {
                 </div>
               </div>
             ))}
+          </div>
+
+          {/* ══ PHONE SHOWCASE ══ */}
+          <div className="mt-14 prg-slide opacity-0">
+            <div className="text-center mb-8">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-4" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
+                <div className="w-1.5 h-1.5 rounded-full" style={{ background: G }} />
+                <span className="text-[11px] font-bold tracking-[2px] uppercase" style={{ color: "rgba(255,255,255,0.4)" }}>توثيق بصري للتنفيذ</span>
+              </div>
+              <h3 className="ar-heading text-2xl md:text-3xl mb-2" style={{ color: "#fff" }}>
+                التقسيمات البصرية <span style={{ color: G }}>المنفَّذة</span>
+              </h3>
+              <p className="text-[12px] ar-body max-w-md mx-auto leading-relaxed" style={{ color: "rgba(255,255,255,0.35)" }}>
+                تم اختيار أسلوب التقسيمات البصرية لكثرة التصنيفات وتوضيح المنتجات للزائر بشكل سهل وجذاب — بدل ما الزائر يضيع يدور، يشوف فين يروح في ثانية
+              </p>
+            </div>
+
+            {/* phones row */}
+            <div className="relative">
+              {/* fade edges */}
+              <div className="absolute top-0 right-0 bottom-0 w-20 z-10 pointer-events-none" style={{ background: `linear-gradient(to right, transparent, ${D})` }} />
+              <div className="absolute top-0 left-0 bottom-0 w-20 z-10 pointer-events-none" style={{ background: `linear-gradient(to left, transparent, ${D})` }} />
+
+              <div className="prg-phones flex gap-6 overflow-x-auto pb-8 px-10" style={{ scrollbarWidth: "none", scrollBehavior: "smooth" }}>
+                {screens.map((s, i) => (
+                  <div key={i} className="prg-phone-card flex-shrink-0 flex flex-col items-center gap-3 group" style={{ opacity: 0 }}>
+                    {/* phone frame */}
+                    <div className="relative transition-transform duration-500 ease-out group-hover:-translate-y-3" style={{ width: 160, height: 320 }}>
+                      {/* outer glow on hover */}
+                      <div className="absolute inset-[-4px] rounded-[32px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" style={{ background: `radial-gradient(ellipse, ${G}20, transparent 70%)` }} />
+                      {/* phone shell */}
+                      <div className="absolute inset-0 rounded-[28px] overflow-hidden" style={{ border: "2px solid rgba(255,255,255,0.12)", background: "#0A0A0A", boxShadow: "0 20px 60px rgba(0,0,0,0.5)" }}>
+                        {/* status bar */}
+                        <div className="absolute top-0 left-0 right-0 h-7 z-10 flex items-center justify-center" style={{ background: "rgba(0,0,0,0.3)" }}>
+                          <div className="w-12 h-1.5 rounded-full" style={{ background: "rgba(255,255,255,0.2)" }} />
+                        </div>
+                        {/* screenshot */}
+                        <img
+                          src={s.src}
+                          alt={s.label}
+                          className="w-full h-full object-cover object-top"
+                          style={{ paddingTop: 7 }}
+                          onError={(e) => {
+                            (e.target as HTMLImageElement).src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='320'%3E%3Crect width='160' height='320' fill='%23111'/%3E%3Ctext x='50%25' y='50%25' fill='%23333' font-size='12' text-anchor='middle' dominant-baseline='middle'%3Eقريباً%3C/text%3E%3C/svg%3E";
+                          }}
+                        />
+                        {/* screen reflection */}
+                        <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.04) 0%, transparent 50%)" }} />
+                      </div>
+                      {/* number badge */}
+                      <div className="absolute top-3 right-3 w-6 h-6 rounded-full flex items-center justify-center z-20" style={{ background: G }}>
+                        <span className="text-[10px] font-bold" style={{ color: D }}>{i + 1}</span>
+                      </div>
+                    </div>
+
+                    {/* label */}
+                    <div className="text-center">
+                      <span className="text-[11px] font-bold block ar-body" style={{ color: "rgba(255,255,255,0.7)" }}>{s.label}</span>
+                      <span className="text-[9px] font-bold px-2 py-0.5 rounded-full mt-1 inline-block" style={{ background: `${G}10`, color: G }}>{s.tag}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* scroll hint */}
+            <div className="flex items-center justify-center gap-2 mt-2">
+              <div className="h-px w-8" style={{ background: "rgba(255,255,255,0.1)" }} />
+              <span className="text-[10px]" style={{ color: "rgba(255,255,255,0.2)" }}>مرّر للجانب لرؤية المزيد</span>
+              <div className="h-px w-8" style={{ background: "rgba(255,255,255,0.1)" }} />
+            </div>
           </div>
 
           {/* summary */}
