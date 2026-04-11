@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
@@ -182,11 +182,24 @@ export default function ShopweloProgress() {
   const ref = useRef<HTMLDivElement>(null);
   const phonesRef = useRef<HTMLDivElement>(null);
   const CIRC = 2 * Math.PI * 90;
+  const [activeDot, setActiveDot] = useState(0);
 
   const scrollPhones = (dir: "prev" | "next") => {
-    if (!phonesRef.current) return;
-    phonesRef.current.scrollBy({ left: dir === "next" ? 270 : -270, behavior: "smooth" });
+    const el = phonesRef.current;
+    if (!el) return;
+    el.scrollBy({ left: dir === "next" ? 270 : -270, behavior: "smooth" });
   };
+
+  useEffect(() => {
+    const el = phonesRef.current;
+    if (!el) return;
+    const onScroll = () => {
+      const idx = Math.round(Math.abs(el.scrollLeft) / 270);
+      setActiveDot(Math.min(idx, screens.length - 1));
+    };
+    el.addEventListener("scroll", onScroll, { passive: true });
+    return () => el.removeEventListener("scroll", onScroll);
+  }, []);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -628,7 +641,7 @@ export default function ShopweloProgress() {
                 تحسينات <span style={{ color: G }}>تقنية</span>
               </h3>
               <p className="text-[12px] ar-body" style={{ color: "rgba(255,255,255,0.3)" }}>
-                CSS مخصص + JavaScript للأداء والأرشفة — Twilight Theme
+                بعض الأكواد المضافة — لا يزال العمل جارياً على مزيد من التحسينات
               </p>
             </div>
 
@@ -665,7 +678,7 @@ export default function ShopweloProgress() {
               <div className="absolute top-0 right-0 bottom-0 w-20 z-10 pointer-events-none" style={{ background: `linear-gradient(to right, transparent, ${D})` }} />
               <div className="absolute top-0 left-0 bottom-0 w-20 z-10 pointer-events-none" style={{ background: `linear-gradient(to left, transparent, ${D})` }} />
 
-              <div ref={phonesRef} className="prg-phones flex gap-6 overflow-x-auto pb-8 px-10" style={{ scrollbarWidth: "none", scrollBehavior: "smooth" }}>
+              <div ref={phonesRef} dir="ltr" className="prg-phones flex gap-6 overflow-x-auto pb-8 px-10" style={{ scrollbarWidth: "none", scrollBehavior: "smooth" }}>
                 {screens.map((s, i) => (
                   <div key={i} className="prg-phone-card flex-shrink-0 flex flex-col items-center gap-3 group" style={{ opacity: 0 }}>
                     {/* phone frame */}
@@ -716,7 +729,7 @@ export default function ShopweloProgress() {
 
               <div className="flex items-center gap-1.5">
                 {screens.map((_, i) => (
-                  <div key={i} className="rounded-full transition-all duration-300" style={{ width: i === 0 ? 20 : 5, height: 5, background: i === 0 ? G : "rgba(255,255,255,0.15)" }} />
+                  <div key={i} className="rounded-full transition-all duration-300" style={{ width: i === activeDot ? 20 : 5, height: 5, background: i === activeDot ? G : "rgba(255,255,255,0.15)" }} />
                 ))}
               </div>
 
