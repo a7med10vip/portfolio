@@ -608,6 +608,18 @@ function SitemapInner() {
 }
 
 export default function SitemapPage() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
+  if (!mounted) {
+    return (
+      <div style={{
+        position: "fixed", inset: 0, overflow: "hidden",
+        background: "radial-gradient(ellipse 1400px 1000px at 50% 35%, #FFFFFF 0%, #F6F7F9 55%, #EDEFF2 100%)",
+      }} />
+    );
+  }
+
   return (
     <ReactFlowProvider>
       <SitemapInner />
