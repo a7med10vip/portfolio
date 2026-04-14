@@ -13,6 +13,8 @@ import {
   Eye, Mail, Gauge, Smartphone, Cloud,
   FolderOpen, Bell, CalendarCheck, ThumbsUp, Timer,
   GitBranch, MessagesSquare, HeartPulse,
+  PencilLine, Presentation, Megaphone, Briefcase,
+  Wallet, Calculator, PieChart as PieIcon, Lightbulb, Bot,
   type LucideIcon
 } from "lucide-react";
 import {
@@ -187,6 +189,7 @@ function DataTable({ rows, color = G }: { headers: string[]; rows: string[][]; c
 export default function OmenaPitch() {
   const ref = useRef<HTMLDivElement>(null);
   const [activeTab, setActiveTab] = useState(0);
+  const [activeAgentTab, setActiveAgentTab] = useState(0);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -270,6 +273,59 @@ export default function OmenaPitch() {
         ["Time Tracking", "Per-task time logs — team sees time spent, managers see utilization reports", "Accuracy", "Medium"],
         ["SLA Alerts", "Automated warnings when task approaches deadline — escalation to manager if overdue", "On-time rate", "Medium"],
       ]
+    },
+  ];
+
+  const aiAgentCategories: {
+    label: string;
+    icon: LucideIcon;
+    color: string;
+    agents: { icon: LucideIcon; name: string; desc: string; useCase: string }[];
+  }[] = [
+    {
+      label: "Lead Generation", icon: Target, color: G,
+      agents: [
+        { icon: Mail, name: "Outreach Specialist", desc: "Cold email sequences, LinkedIn messages, and partnership pitches tailored to each prospect's industry and role.", useCase: "Book qualified sales meetings without hiring an SDR team." },
+        { icon: Search, name: "Data Scraper", desc: "Pulls structured leads, contacts, and market data from any website — cleaned, deduped, and export-ready.", useCase: "Build a 10,000-prospect list overnight from public sources." },
+        { icon: MessagesSquare, name: "Bulk Messaging", desc: "Personalized email, SMS, and WhatsApp blasts at scale with smart throttling and reply detection.", useCase: "Run launch campaigns to entire client lists in one click." },
+        { icon: Bot, name: "Chatbot Builder", desc: "Deploy a trained support bot on any site or WhatsApp — answers FAQs, qualifies leads, routes to humans.", useCase: "24/7 first-line support that captures leads while you sleep." },
+      ],
+    },
+    {
+      label: "Content Production", icon: BookOpen, color: P,
+      agents: [
+        { icon: PencilLine, name: "Copywriter", desc: "On-brand ads, landing pages, emails, and social captions — A/B variants generated in seconds.", useCase: "Ship a full campaign's copy in a single afternoon." },
+        { icon: CalendarCheck, name: "Content Plan Generator", desc: "Editorial calendars mapped to SEO goals: topics, formats, channels, posting times, pillar structure.", useCase: "Plan 90 days of content aligned to search intent and brand pillars." },
+        { icon: Activity, name: "Instagram Analytics", desc: "Analyzes best posting times, top-performing hashtags, and benchmarks against competitor accounts.", useCase: "Double engagement rate with data-backed posting decisions." },
+        { icon: Presentation, name: "Presentation Generator", desc: "Produces polished PowerPoint and PDF decks — on-brand layouts, charts, speaker notes included.", useCase: "Turn a rough brief into a client-ready deck in under 10 minutes." },
+      ],
+    },
+    {
+      label: "Marketing Automation", icon: Rocket, color: B,
+      agents: [
+        { icon: Target, name: "Marketing Manager", desc: "Full-funnel strategy: positioning, channel mix, KPI targets, quarterly campaign roadmap.", useCase: "Replace a fractional CMO with a strategy refresh every month." },
+        { icon: Megaphone, name: "PR Manager", desc: "Drafts press releases, media pitches, crisis responses, and journalist outreach lists.", useCase: "Land coverage in target publications without a PR agency retainer." },
+        { icon: Gauge, name: "Budget Allocator", desc: "Reforecasts channel spend based on live ROAS — flags underperformers and suggests reallocation.", useCase: "Keep paid spend efficient without daily media-buyer oversight." },
+        { icon: Briefcase, name: "Company Profile Generator", desc: "Generates investor-ready and partner-ready one-pagers with narrative, metrics, and visuals.", useCase: "Stand up a fundraise or partnership profile in one sitting." },
+      ],
+    },
+    {
+      label: "Financial Planning", icon: BarChart3, color: A,
+      agents: [
+        { icon: Wallet, name: "Accountant", desc: "Generates P&L views, cash-flow forecasts, burn analysis, and monthly financial summaries.", useCase: "Replace a bookkeeper's monthly close with a same-day report." },
+        { icon: Calculator, name: "Pricing Strategy Calculator", desc: "Models margins, elasticity, and competitor pricing to recommend tier structures and price anchors.", useCase: "Re-price a product line with confidence, not guesswork." },
+        { icon: FileCheck, name: "Proposal Generator", desc: "Client-ready proposals with scope, timeline, pricing tables, terms, and e-signature fields.", useCase: "Turn a discovery call into a sent proposal within an hour." },
+        { icon: PieIcon, name: "Report Generator", desc: "Exec-grade reports with charts, summaries, and insights — scheduled weekly or monthly.", useCase: "Deliver board-quality reporting without a dedicated analyst." },
+      ],
+    },
+    {
+      label: "Team Management", icon: Users, color: PIK,
+      agents: [
+        { icon: UserCheck, name: "HR Assistant", desc: "Writes job descriptions, onboarding checklists, employee handbooks, and policy docs.", useCase: "Hire your next role with a polished JD and onboarding flow ready day one." },
+        { icon: Lightbulb, name: "Business Strategy Generator", desc: "SWOT, OKRs, quarterly roadmaps, and scenario planning grounded in your real business data.", useCase: "Run a strategy offsite in-app, then export decisions to the team." },
+        { icon: Eye, name: "Competitor Comparison", desc: "Side-by-side feature, pricing, and positioning gaps — with action items you can ship next sprint.", useCase: "Know exactly where you win, lose, and where to move next." },
+        { icon: Rocket, name: "Investor Pitch Deck", desc: "15-slide decks following proven fundraising narratives — problem, market, traction, ask.", useCase: "Walk into a VC meeting with a deck that looks like it took weeks." },
+      ],
     },
   ];
 
@@ -520,15 +576,62 @@ export default function OmenaPitch() {
             ]} />
           </div>
 
-          {/* What AI generates - detailed */}
-          <h3 className="heading text-xl text-center mb-8">What the AI Report Includes</h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 ph-stagger mb-16">
-            <InfoCard icon={Target} title="SWOT Analysis" desc="Strengths, weaknesses, opportunities, threats — auto-generated from questionnaire data and industry benchmarks." color={P} />
-            <InfoCard icon={Users} title="Target Persona" desc="Detailed buyer personas: demographics, pain points, media habits, purchase triggers, objections and how to overcome them." color={PIK} />
-            <InfoCard icon={Eye} title="Competitor Scan" desc="AI scans top competitors: their channels, estimated spend, content strategy, weak spots you can exploit." color={R} />
-            <InfoCard icon={BarChart3} title="Channel Strategy" desc="Recommended marketing channels with budget allocation percentages based on industry, goals, and audience." color={G} />
-            <InfoCard icon={BookOpen} title="Content Calendar" desc="30-day content plan with topics, formats, platforms, posting times — ready to execute immediately." color={B} />
-            <InfoCard icon={LineChart} title="KPI Targets" desc="Specific measurable targets for each channel: CPL, ROAS, CTR, engagement rate — with monthly milestones." color={A} />
+          {/* AI Agents Suite — tabbed catalog */}
+          <div className="mb-16">
+            <div className="text-center mb-10">
+              <h3 className="heading text-2xl md:text-3xl mb-3">AI Agents <span style={{ color: P }}>Suite</span></h3>
+              <p className="text-sm max-w-xl mx-auto" style={{ color: "rgba(0,0,0,0.7)" }}>20+ specialized AI agents that replace entire roles on your team — organized into five operating categories.</p>
+            </div>
+
+            {/* Category tabs */}
+            <div className="flex flex-wrap justify-center gap-3 mb-10">
+              {aiAgentCategories.map((cat, i) => (
+                <button
+                  key={cat.label}
+                  onClick={() => setActiveAgentTab(i)}
+                  className="flex items-center gap-2 px-5 py-3 rounded-full text-[12px] font-bold cursor-pointer transition-all duration-200"
+                  style={{
+                    background: activeAgentTab === i ? cat.color : "#fff",
+                    color: activeAgentTab === i ? D : "rgba(0,0,0,0.6)",
+                    border: `1.5px solid #D4D4D4`,
+                    boxShadow: activeAgentTab === i ? `3px 3px 0px 0px ${D}` : "none",
+                  }}
+                >
+                  <cat.icon size={16} />
+                  {cat.label}
+                  <span
+                    className="w-5 h-5 rounded-full flex items-center justify-center text-[10px]"
+                    style={{ background: activeAgentTab === i ? "rgba(0,0,0,0.1)" : "#F3F4F6" }}
+                  >
+                    {cat.agents.length}
+                  </span>
+                </button>
+              ))}
+            </div>
+
+            {/* Agent grid */}
+            <div key={activeAgentTab} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 ph-stagger">
+              {aiAgentCategories[activeAgentTab].agents.map((agent) => {
+                const color = aiAgentCategories[activeAgentTab].color;
+                return (
+                  <div
+                    key={agent.name}
+                    className="ph-item rounded-[20px] p-6 transition-all duration-300 hover:-translate-y-1"
+                    style={{ background: "#fff", border: `1.5px solid #D4D4D4`, boxShadow: `3px 3px 0px 0px ${color}` }}
+                  >
+                    <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style={{ background: `${color}15` }}>
+                      <agent.icon size={18} color={color} />
+                    </div>
+                    <h4 className="text-[14px] font-bold mb-2" style={{ color: D }}>{agent.name}</h4>
+                    <p className="text-[11px] leading-relaxed mb-3" style={{ color: "rgba(0,0,0,0.7)" }}>{agent.desc}</p>
+                    <div className="pt-3 mt-auto border-t" style={{ borderColor: "rgba(0,0,0,0.06)" }}>
+                      <span className="text-[10px] font-bold tracking-[1.5px] uppercase" style={{ color }}>Use case</span>
+                      <p className="text-[11px] leading-relaxed mt-1" style={{ color: "rgba(0,0,0,0.55)" }}>{agent.useCase}</p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
 
           {/* Pricing */}
