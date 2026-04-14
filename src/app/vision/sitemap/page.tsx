@@ -540,7 +540,10 @@ function SitemapInner() {
   }, []);
 
   return (
-    <div style={{ position: "fixed", inset: 0, background: "#fafafa", overflow: "hidden" }}>
+    <div style={{
+      position: "fixed", inset: 0, overflow: "hidden",
+      background: "radial-gradient(ellipse 1400px 1000px at 50% 35%, #FFFFFF 0%, #F6F7F9 55%, #EDEFF2 100%)",
+    }}>
       {showIntro && <IntroCard onClose={() => setShowIntro(false)} counts={counts} />}
 
       <TopBar
@@ -567,7 +570,8 @@ function SitemapInner() {
           nodesConnectable={false}
           elementsSelectable={true}
         >
-          <Background color="#E5E7EB" gap={24} size={1.5} />
+          <Background id="dots-fine" color="#DDE1E6" gap={16} size={1} />
+          <Background id="dots-anchor" color="#B8BEC7" gap={80} size={1.6} />
           <Controls position="bottom-right" showInteractive={false} />
           <MiniMap
             position="top-right"
