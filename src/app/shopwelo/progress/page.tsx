@@ -29,6 +29,42 @@ const screens = [
   { src: "/shopwelo/s8.png", label: "الفوتر المحسَّن", tag: "Footer" },
 ];
 
+/* ═══════════ PHASE 2 DESIGN ASSETS ═══════════ */
+const phase2HeroBanners = [
+  { src: "/shopwelo/phase2/hero/hero-01-all-snacks-v1.jpg", label: "كل السناكس الصحية في سلة واحدة" },
+  { src: "/shopwelo/phase2/hero/hero-04-all-snacks-v2.jpg", label: "السناك الصحي — تشكيلة مختارة" },
+  { src: "/shopwelo/phase2/hero/hero-03-baked-not-fried.jpg", label: "مخبوز مو مقلي" },
+];
+
+const phase2Categories = [
+  { src: "/shopwelo/phase2/categories/cat-01-gluten-free-chips.jpg", label: "شيبس خالي من الجلوتين" },
+  { src: "/shopwelo/phase2/categories/cat-02-gluten-free.jpg", label: "خالي من الجلوتين" },
+  { src: "/shopwelo/phase2/categories/cat-03-protein-waffle.jpg", label: "بروتين وافل" },
+  { src: "/shopwelo/phase2/categories/cat-04-chocolate-no-sugar.jpg", label: "شوكولاتة بدون سكر مضاف" },
+  { src: "/shopwelo/phase2/categories/cat-05-oats.jpg", label: "شوفان" },
+  { src: "/shopwelo/phase2/categories/cat-06-protein-bar.jpg", label: "بروتين بار" },
+  { src: "/shopwelo/phase2/categories/cat-07-drinks-no-sugar.jpg", label: "مشروبات بدون سكر" },
+  { src: "/shopwelo/phase2/categories/cat-08-energy-bars.jpg", label: "ألواح طاقة" },
+  { src: "/shopwelo/phase2/categories/cat-09-protein-cookies.jpg", label: "بروتين كوكيز" },
+  { src: "/shopwelo/phase2/categories/cat-10-protein-wafer.jpg", label: "بروتين ويفر" },
+  { src: "/shopwelo/phase2/categories/cat-11-biscuit-no-sugar.jpg", label: "بسكويت بدون سكر مضاف" },
+  { src: "/shopwelo/phase2/categories/cat-12-keto-bar.jpg", label: "بار كيتو" },
+  { src: "/shopwelo/phase2/categories/cat-13-organic.jpg", label: "منتجات عضوية" },
+  { src: "/shopwelo/phase2/categories/cat-14-keto-diet.jpg", label: "كيتو دايت" },
+  { src: "/shopwelo/phase2/categories/cat-15-wafer-no-sugar.jpg", label: "ويفر بدون سكر مضاف" },
+  { src: "/shopwelo/phase2/categories/cat-16-gluten-free-rice-cake.jpg", label: "كعك الأرز خالي من الجلوتين" },
+  { src: "/shopwelo/phase2/categories/cat-17-drinks-no-sugar-v2.jpg", label: "مشروبات بدون سكر — مختارات" },
+  { src: "/shopwelo/phase2/categories/cat-18-gluten-free-biscuit.jpg", label: "بسكويت خالي من الجلوتين" },
+  { src: "/shopwelo/phase2/categories/cat-19-protein-chocolate.jpg", label: "شوكولاتة بروتين" },
+];
+
+const phase2Mini = [
+  { src: "/shopwelo/phase2/mini/mini-01-gluten-free-cake.jpg", label: "كعك خالي من الجلوتين" },
+  { src: "/shopwelo/phase2/mini/mini-05-baked-not-fried.jpg", label: "مخبوز مو مقلي" },
+  { src: "/shopwelo/phase2/mini/mini-06-tahini-wafer.jpg", label: "ويفر بطعم الطحينة" },
+  { src: "/shopwelo/phase2/mini/mini-07-crispy-wafer.jpg", label: "ويفر مقرمش" },
+];
+
 const phase1Tasks = [
   { task: "إصلاح تكرار التصنيفات في القائمة", impact: "احترافية المظهر" },
   { task: "إصلاح خطأ قصة المتجر (ويلوWel → Welo)", impact: "المصداقية" },
@@ -183,6 +219,7 @@ export default function ShopweloProgress() {
   const phonesRef = useRef<HTMLDivElement>(null);
   const CIRC = 2 * Math.PI * 90;
   const [activeDot, setActiveDot] = useState(0);
+  const [p2HeroIdx, setP2HeroIdx] = useState(0);
 
   const scrollPhones = (dir: "prev" | "next") => {
     const el = phonesRef.current;
@@ -213,7 +250,7 @@ export default function ShopweloProgress() {
       /* progress ring stroke */
       const ring = document.querySelector(".prg-ring-fill") as SVGCircleElement | null;
       if (ring) {
-        const target = CIRC * (1 - 0.46);
+        const target = CIRC * (1 - 0.73);
         gsap.fromTo(ring,
           { strokeDashoffset: CIRC },
           { strokeDashoffset: target, duration: 2.8, ease: "power3.out", delay: 0.8 },
@@ -224,7 +261,7 @@ export default function ShopweloProgress() {
       const pctEl = document.querySelector(".prg-pct");
       if (pctEl) {
         gsap.to({ v: 0 }, {
-          v: 46, duration: 2.8, ease: "power3.out", delay: 0.8,
+          v: 73, duration: 2.8, ease: "power3.out", delay: 0.8,
           onUpdate() { pctEl.textContent = Math.round(this.targets()[0].v) + "%"; },
         });
       }
@@ -311,7 +348,7 @@ export default function ShopweloProgress() {
           FIXED TOP PROGRESS BAR
       ══════════════════════════════════════════ */}
       <div style={{ position: "fixed", top: 0, left: 0, right: 0, height: 4, background: "#F0F0F0", zIndex: 100 }}>
-        <div className="prg-bar-fill" style={{ height: "100%", width: "46%", background: `linear-gradient(90deg, ${G}, #2DD88A)`, borderRadius: "0 4px 4px 0", transformOrigin: "right" }} />
+        <div className="prg-bar-fill" style={{ height: "100%", width: "73%", background: `linear-gradient(90deg, ${G}, #2DD88A)`, borderRadius: "0 4px 4px 0", transformOrigin: "right" }} />
       </div>
 
       {/* ══════════════════════════════════════════
@@ -405,7 +442,7 @@ export default function ShopweloProgress() {
                 <div className="w-2.5 h-2.5 rounded-full" style={{ background: G }} />
                 <div className="absolute inset-0 w-2.5 h-2.5 rounded-full" style={{ background: G, animation: "prg-ping 1.5s cubic-bezier(0,0,0.2,1) infinite" }} />
               </div>
-              <span className="text-[13px] font-bold ar-body" style={{ color: D }}>المرحلة الأولى مكتملة</span>
+              <span className="text-[13px] font-bold ar-body" style={{ color: D }}>المرحلتان الأولى والثانية مكتملتان</span>
               <Sparkles size={14} color={G} />
             </div>
           </div>
@@ -414,10 +451,10 @@ export default function ShopweloProgress() {
           <div className="prg-hero opacity-0 w-full max-w-2xl">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               {[
-                { label: "مهام مكتملة", value: 12, suffix: "/26", icon: CheckCircle2, accent: G },
-                { label: "مراحل مكتملة", value: 1, suffix: "/3", icon: Shield, accent: G },
-                { label: "أيام عمل", value: 7, suffix: "", icon: Zap, accent: B },
-                { label: "نسبة الإنجاز", value: 46, suffix: "%", icon: TrendingUp, accent: G },
+                { label: "مهام مكتملة", value: 19, suffix: "/26", icon: CheckCircle2, accent: G },
+                { label: "مراحل مكتملة", value: 2, suffix: "/3", icon: Shield, accent: G },
+                { label: "أيام عمل", value: 14, suffix: "", icon: Zap, accent: B },
+                { label: "نسبة الإنجاز", value: 73, suffix: "%", icon: TrendingUp, accent: G },
               ].map((s, i) => (
                 <div key={i} className="text-center p-5 rounded-[18px] relative overflow-hidden group transition-all duration-300 hover:-translate-y-0.5" style={{ background: "#fff", border: "1px solid #EBEBEB" }}>
                   <div className="absolute top-3 left-3 opacity-[0.06] group-hover:opacity-[0.1] transition-opacity">
@@ -457,7 +494,7 @@ export default function ShopweloProgress() {
             {/* bg line */}
             <div className="absolute top-1/2 right-4 md:right-10 left-4 md:left-10 h-[3px] -translate-y-1/2 rounded-full" style={{ background: "#E5E5E5" }} />
             {/* filled line */}
-            <div className="prg-tl-fill absolute top-1/2 right-4 md:right-10 h-[3px] -translate-y-1/2 rounded-full" style={{ width: "33.3%", background: `linear-gradient(to left, ${G}, ${G}70)`, transformOrigin: "right" }} />
+            <div className="prg-tl-fill absolute top-1/2 right-4 md:right-10 h-[3px] -translate-y-1/2 rounded-full" style={{ width: "66.6%", background: `linear-gradient(to left, ${G}, ${G}70)`, transformOrigin: "right" }} />
 
             {/* node 1 — completed */}
             <div className="relative z-10 flex flex-col items-center gap-3">
@@ -472,25 +509,27 @@ export default function ShopweloProgress() {
               </div>
             </div>
 
-            {/* node 2 — next */}
+            {/* node 2 — completed */}
             <div className="relative z-10 flex flex-col items-center gap-3">
-              <div className="w-[72px] h-[72px] rounded-full flex items-center justify-center" style={{ background: "#fff", border: `3px dashed ${B}40`, boxShadow: "0 4px 20px rgba(0,0,0,0.04)" }}>
-                <Clock size={26} color={B} />
+              <div className="w-[72px] h-[72px] rounded-full flex items-center justify-center relative" style={{ background: G, border: `3px solid ${D}`, boxShadow: `0 0 30px ${G}50` }}>
+                <CheckCircle2 size={30} color={D} strokeWidth={2.5} />
+                <div className="absolute inset-[-4px] rounded-full pointer-events-none" style={{ border: `2px solid ${G}`, animation: "prg-ripple 2.5s ease-out infinite" }} />
+                <div className="absolute inset-[-4px] rounded-full pointer-events-none" style={{ border: `2px solid ${G}`, animation: "prg-ripple 2.5s ease-out 0.8s infinite" }} />
               </div>
               <div className="text-center mt-1">
                 <span className="text-[12px] font-bold block ar-body" style={{ color: D }}>تحسينات التحويل</span>
-                <span className="text-[10px] font-bold px-3 py-1 rounded-full mt-1.5 inline-block" style={{ background: `${B}10`, color: B }}>التالية</span>
+                <span className="text-[10px] font-bold px-3 py-1 rounded-full mt-1.5 inline-block" style={{ background: G, color: D }}>مكتملة</span>
               </div>
             </div>
 
-            {/* node 3 — upcoming */}
+            {/* node 3 — next */}
             <div className="relative z-10 flex flex-col items-center gap-3">
-              <div className="w-[72px] h-[72px] rounded-full flex items-center justify-center" style={{ background: "#fff", border: `3px dashed ${A}25`, boxShadow: "0 4px 20px rgba(0,0,0,0.02)" }}>
-                <Lock size={22} color={`${A}90`} />
+              <div className="w-[72px] h-[72px] rounded-full flex items-center justify-center" style={{ background: "#fff", border: `3px dashed ${A}60`, boxShadow: "0 4px 20px rgba(0,0,0,0.04)" }}>
+                <Clock size={26} color={A} />
               </div>
               <div className="text-center mt-1">
-                <span className="text-[12px] font-bold block ar-body" style={{ color: "rgba(0,0,0,0.4)" }}>تحسينات النمو</span>
-                <span className="text-[10px] font-bold px-3 py-1 rounded-full mt-1.5 inline-block" style={{ background: `${A}08`, color: `${A}` }}>قادمة</span>
+                <span className="text-[12px] font-bold block ar-body" style={{ color: D }}>تحسينات النمو</span>
+                <span className="text-[10px] font-bold px-3 py-1 rounded-full mt-1.5 inline-block" style={{ background: `${A}15`, color: `${A}` }}>التالية</span>
               </div>
             </div>
           </div>
@@ -757,40 +796,285 @@ export default function ShopweloProgress() {
       </section>
 
       {/* ══════════════════════════════════════════
-          PHASE 2 — NEXT
+          PHASE 2 — COMPLETED (DESIGN SHOWCASE)
       ══════════════════════════════════════════ */}
-      <section className="prg-slide opacity-0" style={{ padding: "100px 24px", background: "#fff" }}>
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
-            <span className="text-[10px] font-bold tracking-[3px] uppercase mb-4 block" style={{ color: B }}>المرحلة التالية</span>
-            <h2 className="ar-heading text-4xl md:text-5xl mb-3">المرحلة <span style={{ color: B }}>الثانية</span></h2>
-            <p className="text-[14px] ar-body" style={{ color: "rgba(0,0,0,0.4)" }}>تحسينات التحويل وتجربة المستخدم</p>
-            <div className="flex items-center justify-center gap-3 mt-5">
-              <Clock size={14} color={B} />
-              <span className="text-[12px] font-bold ar-body" style={{ color: B }}>7 مهام • الأسبوع الثاني</span>
+      <section className="prg-slide opacity-0" style={{ padding: "100px 24px", background: D, position: "relative", overflow: "hidden" }}>
+        {/* ambient background glow */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] pointer-events-none" style={{ background: `radial-gradient(ellipse, ${G}12 0%, transparent 65%)` }} />
+        <div className="absolute bottom-0 right-0 w-[500px] h-[500px] pointer-events-none" style={{ background: `radial-gradient(circle, ${G}08 0%, transparent 70%)` }} />
+
+        <div className="max-w-5xl mx-auto relative z-10">
+
+          {/* header + celebration */}
+          <div className="text-center mb-14 relative">
+            {/* confetti */}
+            <div className="absolute inset-0 pointer-events-none overflow-hidden">
+              {Array.from({ length: 18 }, (_, i) => (
+                <div key={i} className="absolute" style={{
+                  width: 5 + (i % 4) * 2,
+                  height: 5 + (i % 4) * 2,
+                  background: [G, "#2DD88A", "#FFD700", B, "#FF6B9D", "#A78BFA"][i % 6],
+                  borderRadius: i % 3 === 0 ? "50%" : "2px",
+                  top: "-10px",
+                  left: `${10 + (i * 4.5)}%`,
+                  animation: `prg-confetti ${2 + i * 0.15}s ease-out forwards`,
+                  animationDelay: `${0.5 + i * 0.08}s`,
+                  opacity: 0,
+                  transform: `rotate(${i * 30}deg)`,
+                }} />
+              ))}
             </div>
-            {/* progress bar */}
-            <div className="mt-5 mx-auto max-w-xs">
-              <div className="h-2 rounded-full overflow-hidden" style={{ background: "#F0F0F0" }}>
-                <div className="h-full rounded-full" style={{ width: "0%", background: B }} />
+
+            {/* stamp */}
+            <div className="prg-stamp inline-block mb-6">
+              <div className="relative">
+                <div className="w-28 h-28 rounded-full flex items-center justify-center mx-auto" style={{ border: `3px solid ${G}`, boxShadow: `0 0 40px ${G}25, inset 0 0 20px ${G}08` }}>
+                  <div className="text-center">
+                    <CheckCircle2 size={32} color={G} className="mx-auto mb-1" />
+                    <span className="text-[11px] font-bold block ar-body" style={{ color: G }}>تم الإنجاز</span>
+                  </div>
+                </div>
+                <div className="absolute inset-[-6px] rounded-full" style={{ border: `1.5px dashed ${G}40` }} />
               </div>
-              <span className="text-[10px] font-bold mt-1.5 block" style={{ color: "rgba(0,0,0,0.2)" }}>0 من 7</span>
+            </div>
+
+            <h2 className="ar-heading text-4xl md:text-5xl mb-3" style={{ color: "#fff" }}>
+              المرحلة <span style={{ color: G }}>الثانية</span>
+            </h2>
+            <p className="text-[14px] ar-body mb-2" style={{ color: "rgba(255,255,255,0.4)" }}>تحسينات التحويل + تجربة المستخدم + نظام بصري متكامل</p>
+            <div className="flex items-center justify-center gap-3 mt-4">
+              <div className="h-[2px] w-16 rounded-full" style={{ background: `${G}40` }} />
+              <span className="text-[12px] font-bold ar-body" style={{ color: G }}>7 من 7 مهام مكتملة</span>
+              <div className="h-[2px] w-16 rounded-full" style={{ background: `${G}40` }} />
+            </div>
+
+            {/* progress bar */}
+            <div className="mt-6 mx-auto max-w-xs">
+              <div className="h-2 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.06)" }}>
+                <div className="h-full rounded-full" style={{ width: "100%", background: `linear-gradient(90deg, ${G}, #2DD88A)`, animation: "prg-shimmer 2s ease-in-out infinite" }} />
+              </div>
             </div>
           </div>
 
-          <div className="flex flex-col gap-3 prg-stagger">
-            {phase2Tasks.map((t, i) => (
-              <div key={i} className="prg-item rounded-[16px] p-5 flex items-center gap-4 transition-all duration-200" style={{ background: "#fff", border: "1px solid #EBEBEB", borderRight: `4px solid ${B}20` }}>
-                <span className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 text-[11px] font-bold" style={{ background: `${B}06`, color: B }}>2.{i + 1}</span>
-                <div className="flex-1 min-w-0">
-                  <p className="text-[13px] font-bold ar-body" style={{ color: D, opacity: 0.6 }}>{t.task}</p>
+          {/* before / after highlight */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
+            <div className="prg-ba rounded-[20px] p-6" style={{ background: "rgba(239,68,68,0.06)", border: "1px solid rgba(239,68,68,0.12)" }}>
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: "rgba(239,68,68,0.1)" }}>
+                  <span className="text-[14px]" style={{ color: "#EF4444" }}>✕</span>
                 </div>
-                <span className="px-3 py-1.5 rounded-full text-[10px] font-bold flex-shrink-0" style={{ background: `${B}06`, color: `${B}90` }}>{t.impact}</span>
-                <div className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: "#F5F5F5" }}>
-                  <Clock size={13} color="rgba(0,0,0,0.2)" />
+                <span className="text-[13px] font-bold ar-body" style={{ color: "#EF4444" }}>قبل التحسينات</span>
+              </div>
+              <div className="flex flex-col gap-2.5">
+                {[
+                  "بنر وحيد ثابت بدون تنوع",
+                  "بدون قسم آراء عملاء",
+                  "منتجات بدون بادجات تمييز",
+                  "إضافة للسلة تتطلب خطوات",
+                  "صفحة العروض بدون نسب خصم واضحة",
+                  "صفحة المنتج معلوماتها غير مرتبة",
+                  "أزرار صغيرة على الجوال",
+                ].map((item, i) => (
+                  <div key={i} className="flex items-center gap-2.5">
+                    <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: "#EF4444" }} />
+                    <span className="text-[12px] ar-body" style={{ color: "rgba(255,255,255,0.5)" }}>{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="prg-ba rounded-[20px] p-6" style={{ background: `${G}06`, border: `1px solid ${G}15` }}>
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: `${G}12` }}>
+                  <CheckCircle2 size={16} color={G} />
+                </div>
+                <span className="text-[13px] font-bold ar-body" style={{ color: G }}>بعد التحسينات</span>
+              </div>
+              <div className="flex flex-col gap-2.5">
+                {[
+                  "سلايدر بنرات متعدد بعروض متنوعة",
+                  "آراء عملاء ظاهرة تبني الثقة",
+                  "بادجات (كيتو / خالي جلوتين / بروتين)",
+                  "إضافة سريعة للسلة بزر واحد",
+                  "نسب خصم بارزة مع عدّ تنازلي",
+                  "صفحة منتج مرتبة واحترافية",
+                  "تجربة جوال محسّنة وأزرار كبيرة",
+                ].map((item, i) => (
+                  <div key={i} className="flex items-center gap-2.5">
+                    <CheckCircle2 size={13} color={G} className="flex-shrink-0" />
+                    <span className="text-[12px] ar-body" style={{ color: "rgba(255,255,255,0.7)" }}>{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* task grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 prg-stagger">
+            {phase2Tasks.map((t, i) => (
+              <div key={i} className="prg-item rounded-[14px] p-4 flex items-center gap-3 transition-all duration-300 hover:-translate-y-0.5 group" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)", borderRight: `3px solid ${G}40` }}>
+                <div className="prg-chk w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: `${G}15` }}>
+                  <CheckCircle2 size={15} color="#0D9255" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-[12px] font-bold ar-body leading-snug" style={{ color: "rgba(255,255,255,0.85)" }}>{t.task}</p>
+                  <span className="text-[10px] font-bold mt-0.5 block" style={{ color: G, opacity: 0.7 }}>{t.impact}</span>
                 </div>
               </div>
             ))}
+          </div>
+
+          {/* ══ MAIN BANNERS SHOWCASE ══ */}
+          <div className="mt-20 prg-slide opacity-0">
+            <div className="text-center mb-10">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-4" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
+                <div className="w-1.5 h-1.5 rounded-full" style={{ background: G }} />
+                <span className="text-[11px] font-bold tracking-[2px] uppercase" style={{ color: "rgba(255,255,255,0.4)" }}>سلايدر البنرات الرئيسي</span>
+              </div>
+              <h3 className="ar-heading text-2xl md:text-3xl mb-2" style={{ color: "#fff" }}>
+                بنرات <span style={{ color: G }}>فخمة</span> صُمّمت لمتجر ويلو
+              </h3>
+              <p className="text-[12px] ar-body max-w-lg mx-auto leading-relaxed" style={{ color: "rgba(255,255,255,0.35)" }}>
+                {phase2HeroBanners.length} بنرات مختلفة بتيمات متنوعة وعروض متعددة — بدل البنر الواحد الثابت
+              </p>
+            </div>
+
+            {/* main banner display */}
+            <div className="relative rounded-[24px] overflow-hidden mb-5" style={{ border: "1px solid rgba(255,255,255,0.08)", boxShadow: `0 30px 80px -20px ${G}15, 0 0 0 1px rgba(255,255,255,0.03) inset` }}>
+              <div className="relative aspect-[16/8] md:aspect-[16/7] bg-[#111] overflow-hidden">
+                {phase2HeroBanners.map((b, i) => (
+                  <img
+                    key={i}
+                    src={b.src}
+                    alt={b.label}
+                    className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700"
+                    style={{ opacity: i === p2HeroIdx ? 1 : 0 }}
+                  />
+                ))}
+                {/* overlay gradient */}
+                <div className="absolute inset-x-0 bottom-0 h-24 pointer-events-none" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.55), transparent)" }} />
+                {/* label */}
+                <div className="absolute bottom-4 right-4 left-4 flex items-center justify-between">
+                  <span className="text-[11px] font-bold px-3 py-1.5 rounded-full ar-body" style={{ background: "rgba(0,0,0,0.55)", color: "#fff", backdropFilter: "blur(10px)" }}>
+                    {phase2HeroBanners[p2HeroIdx]?.label}
+                  </span>
+                  <span className="text-[10px] font-bold px-2.5 py-1 rounded-full" style={{ background: G, color: D, fontFamily: "system-ui" }}>
+                    {p2HeroIdx + 1} / {phase2HeroBanners.length}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* thumbnails */}
+            <div className="grid grid-cols-3 gap-3">
+              {phase2HeroBanners.map((b, i) => (
+                <button
+                  key={i}
+                  onClick={() => setP2HeroIdx(i)}
+                  className="relative aspect-[16/8] rounded-xl overflow-hidden transition-all duration-300"
+                  style={{
+                    border: i === p2HeroIdx ? `2px solid ${G}` : "1px solid rgba(255,255,255,0.08)",
+                    opacity: i === p2HeroIdx ? 1 : 0.55,
+                    transform: i === p2HeroIdx ? "scale(1)" : "scale(0.97)",
+                    cursor: "pointer",
+                    outline: "none",
+                    padding: 0,
+                    background: "#111",
+                  }}
+                >
+                  <img src={b.src} alt={b.label} className="w-full h-full object-cover" />
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* ══ CATEGORY BANNERS GRID ══ */}
+          <div className="mt-20 prg-slide opacity-0">
+            <div className="text-center mb-10">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-4" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
+                <div className="w-1.5 h-1.5 rounded-full" style={{ background: G }} />
+                <span className="text-[11px] font-bold tracking-[2px] uppercase" style={{ color: "rgba(255,255,255,0.4)" }}>النظام البصري للتصنيفات</span>
+              </div>
+              <h3 className="ar-heading text-2xl md:text-3xl mb-2" style={{ color: "#fff" }}>
+                <span style={{ color: G }}>{phase2Categories.length}</span> بنر تصنيف بهوية موحّدة
+              </h3>
+              <p className="text-[12px] ar-body max-w-lg mx-auto leading-relaxed" style={{ color: "rgba(255,255,255,0.35)" }}>
+                نظام بصري متكامل لكل تصنيف — بادجات المنتجات المطلوبة (كيتو، بروتين، خالي جلوتين، عضوي) بتصميم محترف
+              </p>
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 prg-stagger">
+              {phase2Categories.map((c, i) => (
+                <div key={i} className="prg-item relative aspect-[16/9] rounded-2xl overflow-hidden group cursor-pointer transition-all duration-500" style={{ border: "1px solid rgba(255,255,255,0.06)" }}>
+                  <img src={c.src} alt={c.label} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.75), transparent 50%)" }} />
+                  <div className="absolute bottom-0 left-0 right-0 p-3 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-500">
+                    <span className="text-[11px] font-bold ar-body" style={{ color: "#fff" }}>{c.label}</span>
+                  </div>
+                  <div className="absolute top-2 right-2 w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold" style={{ background: `${G}E6`, color: D, fontFamily: "system-ui" }}>
+                    {i + 1}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* ══ MINI BANNERS ROW ══ */}
+          <div className="mt-20 prg-slide opacity-0">
+            <div className="text-center mb-10">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-4" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
+                <div className="w-1.5 h-1.5 rounded-full" style={{ background: G }} />
+                <span className="text-[11px] font-bold tracking-[2px] uppercase" style={{ color: "rgba(255,255,255,0.4)" }}>بطاقات العروض الفرعية</span>
+              </div>
+              <h3 className="ar-heading text-2xl md:text-3xl mb-2" style={{ color: "#fff" }}>
+                عروض <span style={{ color: G }}>مميّزة</span> بتصاميم مخصوصة
+              </h3>
+              <p className="text-[12px] ar-body max-w-md mx-auto leading-relaxed" style={{ color: "rgba(255,255,255,0.35)" }}>
+                بطاقات عروض مقسّمة حسب خط المنتج — تساعد الزبون يوصل لاختياره أسرع
+              </p>
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 prg-stagger">
+              {phase2Mini.map((m, i) => (
+                <div key={i} className="prg-item relative aspect-square rounded-2xl overflow-hidden group cursor-pointer" style={{ border: "1px solid rgba(255,255,255,0.06)" }}>
+                  <img src={m.src} alt={m.label} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.7), transparent 55%)" }} />
+                  <div className="absolute bottom-0 left-0 right-0 p-3 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-500">
+                    <span className="text-[11px] font-bold ar-body" style={{ color: "#fff" }}>{m.label}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* ══ DESIGN STATS ══ */}
+          <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-3 prg-stagger">
+            {[
+              { num: phase2HeroBanners.length, label: "بنر رئيسي", icon: Sparkles },
+              { num: phase2Categories.length, label: "بنر تصنيف", icon: TrendingUp },
+              { num: phase2Mini.length, label: "بطاقة فرعية", icon: Shield },
+              { num: phase2HeroBanners.length + phase2Categories.length + phase2Mini.length, label: "إجمالي التصاميم", icon: Zap },
+            ].map((s, i) => (
+              <div key={i} className="prg-item rounded-[18px] p-5 text-center relative overflow-hidden" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}>
+                <div className="absolute top-3 left-3 opacity-[0.08]">
+                  <s.icon size={30} color={G} />
+                </div>
+                <div className="relative">
+                  <span className="ar-heading text-3xl block" style={{ color: G, fontFamily: "system-ui", fontWeight: 700 }}>{s.num}</span>
+                  <span className="text-[11px] font-bold ar-body mt-1 block" style={{ color: "rgba(255,255,255,0.4)" }}>{s.label}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* summary */}
+          <div className="mt-12 rounded-[20px] p-7 text-center relative overflow-hidden" style={{ background: `${G}08`, border: `1px solid ${G}18` }}>
+            <div className="absolute top-0 left-0 right-0 h-1 rounded-b-full" style={{ background: `linear-gradient(90deg, transparent, ${G}, transparent)` }} />
+            <p className="text-[14px] ar-body font-medium leading-relaxed" style={{ color: "#fff" }}>
+              <span className="font-bold" style={{ color: G }}>المرحلة الثانية مكتملة بنظام بصري احترافي</span>
+              <br />
+              <span style={{ color: "rgba(255,255,255,0.5)" }}>المتجر دلوقتي عنده هوية بصرية موحّدة لكل التصنيفات وسلايدر بنرات فخم وبطاقات عروض مصمّمة خصيصاً — جاهز يستقبل الزوار ويحوّلهم لعملاء</span>
+            </p>
           </div>
         </div>
       </section>
@@ -801,11 +1085,11 @@ export default function ShopweloProgress() {
       <section className="prg-slide opacity-0" style={{ padding: "100px 24px", background: "#FAFAFA" }}>
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <span className="text-[10px] font-bold tracking-[3px] uppercase mb-4 block" style={{ color: A }}>قادمة</span>
+            <span className="text-[10px] font-bold tracking-[3px] uppercase mb-4 block" style={{ color: A }}>المرحلة التالية</span>
             <h2 className="ar-heading text-4xl md:text-5xl mb-3">المرحلة <span style={{ color: A }}>الثالثة</span></h2>
             <p className="text-[14px] ar-body" style={{ color: "rgba(0,0,0,0.4)" }}>تحسينات متقدمة للنمو</p>
             <div className="flex items-center justify-center gap-3 mt-5">
-              <Lock size={14} color={`${A}90`} />
+              <Clock size={14} color={`${A}`} />
               <span className="text-[12px] font-bold ar-body" style={{ color: `${A}` }}>7 مهام • الأسبوع الثالث</span>
             </div>
             <div className="mt-5 mx-auto max-w-xs">
@@ -818,14 +1102,14 @@ export default function ShopweloProgress() {
 
           <div className="flex flex-col gap-3 prg-stagger">
             {phase3Tasks.map((t, i) => (
-              <div key={i} className="prg-item rounded-[16px] p-5 flex items-center gap-4 transition-all duration-200" style={{ background: "#fff", border: "1px solid #EBEBEB", borderRight: `4px solid ${A}15`, opacity: 0.55 }}>
-                <span className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 text-[11px] font-bold" style={{ background: `${A}05`, color: `${A}` }}>3.{i + 1}</span>
+              <div key={i} className="prg-item rounded-[16px] p-5 flex items-center gap-4 transition-all duration-200" style={{ background: "#fff", border: "1px solid #EBEBEB", borderRight: `4px solid ${A}25` }}>
+                <span className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 text-[11px] font-bold" style={{ background: `${A}08`, color: `${A}` }}>3.{i + 1}</span>
                 <div className="flex-1 min-w-0">
-                  <p className="text-[13px] font-bold ar-body" style={{ color: D }}>{t.task}</p>
+                  <p className="text-[13px] font-bold ar-body" style={{ color: D, opacity: 0.7 }}>{t.task}</p>
                 </div>
-                <span className="px-3 py-1.5 rounded-full text-[10px] font-bold flex-shrink-0" style={{ background: `${A}06`, color: `${A}` }}>{t.impact}</span>
-                <div className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: "#F0F0F0" }}>
-                  <Lock size={12} color="rgba(0,0,0,0.15)" />
+                <span className="px-3 py-1.5 rounded-full text-[10px] font-bold flex-shrink-0" style={{ background: `${A}08`, color: `${A}` }}>{t.impact}</span>
+                <div className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: "#F5F5F5" }}>
+                  <Clock size={13} color={`${A}80`} />
                 </div>
               </div>
             ))}
@@ -851,7 +1135,7 @@ export default function ShopweloProgress() {
 
               <h3 className="ar-heading text-2xl md:text-3xl mb-3" style={{ color: D }}>المشروع يتقدم بثبات</h3>
               <p className="text-[13px] ar-body mb-2 leading-relaxed" style={{ color: "rgba(0,0,0,0.5)" }}>
-                تم إنجاز المرحلة الأولى بنجاح وجاري التجهيز للمرحلة الثانية
+                تم إنجاز المرحلتين الأولى والثانية بنجاح — جاري التجهيز للمرحلة الثالثة
               </p>
               <p className="text-[12px] ar-body" style={{ color: "rgba(0,0,0,0.3)" }}>
                 سيتم تحديث هذه الصفحة مع كل تقدم جديد في المشروع
@@ -925,3 +1209,4 @@ export default function ShopweloProgress() {
     </ArabicTailProcessor>
   );
 }
+
