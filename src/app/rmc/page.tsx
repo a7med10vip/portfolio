@@ -980,7 +980,7 @@ export default function RMCSeoStrategy() {
           </div>
 
           <div className="rounded-[24px] p-10 md:p-14 text-center" style={{ border: "1px solid #EBEBEB" }}>
-            <img src="/ahmed.jpeg" alt="Ahmed Ali" className="w-24 h-24 rounded-full object-cover mx-auto mb-6" style={{ border: `3px solid ${G}` }} />
+            <img src="/myphoto-profile.png" alt="Ahmed Ali" className="w-24 h-24 rounded-full object-cover mx-auto mb-6" style={{ border: `3px solid ${G}` }} />
             <h3 className="ar-heading text-3xl mb-2">جاهز للبدء؟</h3>
             <p className="text-[13px] ar-body mb-8" style={{ color: "rgba(0,0,0,0.5)" }}>خلّنا نحوّل الخطة إلى نتائج قابلة للقياس.</p>
             <div className="flex flex-wrap justify-center gap-3 mb-8">

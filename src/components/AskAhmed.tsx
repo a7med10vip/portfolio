@@ -251,7 +251,7 @@ export default function AskAhmed() {
 
   const AhmedAvatar = ({ size = 30 }: { size?: number }) => (
     <img
-      src="/ahmed.jpeg"
+      src="/myphoto-profile.png"
       alt="Ahmed Ali"
       style={{
         width: size,

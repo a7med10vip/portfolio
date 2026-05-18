@@ -675,7 +675,7 @@ export default function MoBadiArchitecture() {
       <section className="ph-slide opacity-0" style={{ padding: "80px 24px 60px", background: "#fff" }}>
         <div className="max-w-3xl mx-auto text-center">
           <div className="rounded-[24px] p-10 md:p-14 mb-8" style={{ border: "1px solid #EBEBEB" }}>
-            <img src="/ahmed.jpeg" alt="Ahmed Ali" className="w-24 h-24 rounded-full object-cover mx-auto mb-6" style={{ border: `3px solid ${G}` }} />
+            <img src="/myphoto-profile.png" alt="Ahmed Ali" className="w-24 h-24 rounded-full object-cover mx-auto mb-6" style={{ border: `3px solid ${G}` }} />
             <h3 className="ar-heading text-3xl mb-6">شكراً لثقتكم</h3>
             <div className="flex flex-wrap justify-center gap-3 mb-8">
               <a href="https://wa.me/201011648156" target="_blank" rel="noopener" className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-sm font-bold" style={{ background: G, color: D, border: `2px solid ${D}`, boxShadow: `4px 4px 0px 0px ${D}`, textDecoration: "none" }}>

@@ -140,7 +140,7 @@ export default function BlogPost({
           </p>
 
           <div className="bp-hero opacity-0 flex items-center gap-4 mb-10 pb-8" style={{ borderBottom: "1px solid #F0F0F0" }}>
-            <img src="/ahmed.jpeg" alt="Ahmed Ali" className="w-11 h-11 rounded-full object-cover" style={{ border: `2px solid ${G}` }} />
+            <img src="/myphoto-profile.png" alt="Ahmed Ali" className="w-11 h-11 rounded-full object-cover" style={{ border: `2px solid ${G}` }} />
             <div>
               <p className="text-[13px] font-bold" style={{ margin: 0 }}>Ahmed Ali</p>
               <p className="text-[11px]" style={{ color: "rgba(0,0,0,0.35)", margin: 0 }}>Full-Stack Digital Strategist</p>
@@ -201,7 +201,7 @@ export default function BlogPost({
 
             {/* Author */}
             <div className="mt-16 rounded-[24px] p-8 md:p-10 flex flex-col md:flex-row items-center gap-6" style={{ background: D }}>
-              <img src="/ahmed.jpeg" alt="Ahmed Ali" className="w-20 h-20 rounded-full object-cover flex-shrink-0" style={{ border: `3px solid ${G}` }} />
+              <img src="/myphoto-profile.png" alt="Ahmed Ali" className="w-20 h-20 rounded-full object-cover flex-shrink-0" style={{ border: `3px solid ${G}` }} />
               <div className={isAr ? "text-right" : ""}>
                 <p className={`text-lg font-bold mb-1 ${isAr ? "ar-heading" : "heading"}`} style={{ color: "#fff", margin: 0 }}>Ahmed Ali</p>
                 <p className="text-[12px] mb-3" style={{ color: G, margin: "4px 0 12px" }}>Full-Stack Digital Strategist</p>

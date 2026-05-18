@@ -622,7 +622,7 @@ export default function ShopweloProposal() {
       <section className="ph-slide opacity-0" style={{ padding: "80px 24px 60px", background: "#fff" }}>
         <div className="max-w-3xl mx-auto text-center">
           <div className="rounded-[24px] p-10 md:p-14 mb-8" style={{ background: "#fff", border: "1px solid #EBEBEB" }}>
-            <img src="/ahmed.jpeg" alt="Ahmed Ali" className="w-24 h-24 rounded-full object-cover mx-auto mb-6" style={{ border: `3px solid ${G}` }} />
+            <img src="/myphoto-profile.png" alt="Ahmed Ali" className="w-24 h-24 rounded-full object-cover mx-auto mb-6" style={{ border: `3px solid ${G}` }} />
             <h3 className="ar-heading text-3xl mb-2" style={{ color: D }}>شكراً لثقتكم</h3>
             <p className="ar-heading text-lg mb-6" style={{ color: G }}>أتطلع للعمل معكم والمساهمة في نمو متجر ويلو</p>
 
@@ -649,3 +649,4 @@ export default function ShopweloProposal() {
     </ArabicTailProcessor>
   );
 }
+

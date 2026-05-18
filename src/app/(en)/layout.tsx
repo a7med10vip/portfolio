@@ -77,7 +77,7 @@ export const metadata: Metadata = {
       "Full-Stack Digital Strategist | performance marketing, product development, and AI integration across Egypt, Qatar, Saudi Arabia & UAE.",
     images: [
       {
-        url: "https://ahmedali.online/ahmed.jpeg",
+        url: "https://ahmedali.online/myphoto-profile.png",
         width: 1200,
         height: 630,
         alt: "Ahmed Ali | Full-Stack Digital Strategist",
@@ -89,7 +89,7 @@ export const metadata: Metadata = {
     title: "Ahmed Ali | Full-Stack Digital Strategist",
     description:
       "Full-Stack Digital Strategist | performance marketing, product development, and AI integration across Egypt, Qatar, Saudi Arabia & UAE.",
-    images: ["https://ahmedali.online/ahmed.jpeg"],
+    images: ["https://ahmedali.online/myphoto-profile.png"],
   },
   alternates: {
     canonical: "https://ahmedali.online",
@@ -130,7 +130,7 @@ export default function EnLayout({ children }: { children: React.ReactNode }) {
         <GoogleAnalytics />
         <TikTokPixel />
       </head>
-      <body className="antialiased">
+      <body className="antialiased" suppressHydrationWarning>
         <GoogleTagManagerNoScript />
         <SmoothScroll>{children}</SmoothScroll>
       </body>

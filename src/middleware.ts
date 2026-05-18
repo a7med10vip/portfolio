@@ -35,9 +35,15 @@ export function middleware(request: NextRequest) {
   response.headers.set('X-Content-Type-Options', 'nosniff')
   response.headers.set('X-XSS-Protection', '1; mode=block')
   response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin')
+
+  // Pages that need Gemini Live voice call (mic + WebSocket to Google)
+  const isLiveVoicePage = pathname.startsWith('/motionmotors')
+
   response.headers.set(
     'Permissions-Policy',
-    'camera=(), microphone=(), geolocation=()'
+    isLiveVoicePage
+      ? 'microphone=(self), autoplay=(self), camera=(), geolocation=()'
+      : 'camera=(), microphone=(), geolocation=()'
   )
   response.headers.set(
     'Strict-Transport-Security',
@@ -51,7 +57,10 @@ export function middleware(request: NextRequest) {
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       "font-src 'self' https://fonts.gstatic.com data:",
       "img-src 'self' https://cdn.simpleicons.org https://*.githubusercontent.com https://www.googletagmanager.com https://www.google-analytics.com https://analytics.tiktok.com https://*.tiktok.com https://buluejioiybbphtzccbh.supabase.co data: blob:",
-      "connect-src 'self' https://api.lanyard.rest wss://api.lanyard.rest https://fonts.googleapis.com https://fonts.gstatic.com https://www.googletagmanager.com https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://buluejioiybbphtzccbh.supabase.co https://analytics.tiktok.com https://*.tiktok.com",
+      // For motionmotors voice call: also allow Gemini Live WebSocket + audio worklet blob:
+      `connect-src 'self' https://api.lanyard.rest wss://api.lanyard.rest https://fonts.googleapis.com https://fonts.gstatic.com https://www.googletagmanager.com https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://buluejioiybbphtzccbh.supabase.co https://analytics.tiktok.com https://*.tiktok.com${isLiveVoicePage ? ' https://generativelanguage.googleapis.com wss://generativelanguage.googleapis.com' : ''}`,
+      `media-src 'self' blob:${isLiveVoicePage ? ' data:' : ''}`,
+      "worker-src 'self' blob:",
       "frame-src https://www.googletagmanager.com",
       "object-src 'none'",
       "base-uri 'self'",

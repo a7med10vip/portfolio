@@ -36,12 +36,13 @@ function processNode(root: Node) {
       ) {
         return NodeFilter.FILTER_REJECT;
       }
-      // In blog prose: only process headings, skip body text
-      const proseParent = node.parentElement?.closest(".prose-custom");
-      if (proseParent) {
-        const isInHeading = node.parentElement?.closest("h1,h2,h3,h4,h5,h6");
-        if (!isInHeading) return NodeFilter.FILTER_REJECT;
-      }
+      // Only process text inside headings/titles — skip all body/description text
+      // so the swash (decorative tail) feature only applies to titles
+      const isInHeading =
+        node.parentElement?.closest("h1,h2,h3,h4,h5,h6,.ar-heading") ||
+        node.parentElement?.classList.contains("ar-heading");
+      if (!isInHeading) return NodeFilter.FILTER_REJECT;
+
       return ARABIC_RE.test(node.textContent ?? "")
         ? NodeFilter.FILTER_ACCEPT
         : NodeFilter.FILTER_REJECT;

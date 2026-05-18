@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     url: "https://ahmedali.online/ar/blog/salla-vs-shopify-vs-zid",
     type: "article",
     locale: "ar_SA",
-    images: [{ url: "https://ahmedali.online/ahmed.jpeg", width: 1200, height: 630 }],
+    images: [{ url: "https://ahmedali.online/myphoto-profile.png", width: 1200, height: 630 }],
   },
   alternates: {
     canonical: "https://ahmedali.online/ar/blog/salla-vs-shopify-vs-zid",

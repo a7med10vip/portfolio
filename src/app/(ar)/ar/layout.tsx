@@ -55,7 +55,7 @@ export const metadata: Metadata = {
       "استراتيجي رقمي شامل | تسويق أداء، تطوير منتجات، ودمج ذكاء اصطناعي عبر مصر وقطر والسعودية والإمارات.",
     images: [
       {
-        url: "https://ahmedali.online/ahmed.jpeg",
+        url: "https://ahmedali.online/myphoto-profile.png",
         width: 1200,
         height: 630,
         alt: "أحمد علي | استراتيجي رقمي شامل",
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
     title: "أحمد علي | استراتيجي رقمي شامل",
     description:
       "استراتيجي رقمي شامل | تسويق أداء، تطوير منتجات، ودمج ذكاء اصطناعي عبر مصر وقطر والسعودية والإمارات.",
-    images: ["https://ahmedali.online/ahmed.jpeg"],
+    images: ["https://ahmedali.online/myphoto-profile.png"],
   },
   alternates: {
     canonical: "https://ahmedali.online/ar",
@@ -105,7 +105,7 @@ export default function ArLayout({ children }: { children: React.ReactNode }) {
         <GoogleAnalytics />
         <TikTokPixel />
       </head>
-      <body className="ar-rtl" style={{ fontFamily: "'Ahmed Sans', sans-serif", direction: "rtl" }}>
+      <body className="ar-rtl" style={{ fontFamily: "'Ahmed Sans', sans-serif", direction: "rtl" }} suppressHydrationWarning>
         <GoogleTagManagerNoScript />
         <SmoothScroll>
           <ArabicTailProcessor>{children}</ArabicTailProcessor>

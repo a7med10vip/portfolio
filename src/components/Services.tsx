@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { BarChart3, Search, Code2, Bot, LineChart, Rocket } from "lucide-react";
+/* eslint-disable @next/next/no-img-element */
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -87,16 +87,13 @@ function ServiceArtwork({ service }: { service: ServiceItem }) {
     <div
       className="group/art relative w-full max-w-[390px] aspect-square overflow-hidden mx-auto"
     >
-      <div className="absolute inset-0">
-        <Image
-          src={service.imageSrc}
-          alt={service.imageAlt}
-          fill
-          sizes="(max-width: 768px) 82vw, 28vw"
-          className="object-contain"
-          priority={service.num === "01"}
-        />
-      </div>
+      <img
+        src={service.imageSrc}
+        alt={service.imageAlt}
+        loading={service.num === "01" ? "eager" : "lazy"}
+        decoding="async"
+        className="absolute inset-0 w-full h-full object-contain"
+      />
     </div>
   );
 }

@@ -1143,7 +1143,7 @@ export default function ShopweloProgress() {
 
               <div className="w-full h-px my-8" style={{ background: "#F0F0F0" }} />
 
-              <img src="/ahmed.jpeg" alt="Ahmed Ali" className="w-16 h-16 rounded-full object-cover mx-auto mb-4" style={{ border: `3px solid ${G}` }} />
+              <img src="/myphoto-profile.png" alt="Ahmed Ali" className="w-16 h-16 rounded-full object-cover mx-auto mb-4" style={{ border: `3px solid ${G}` }} />
               <p className="text-[15px] font-bold" style={{ color: D }}>Ahmed Ali</p>
               <p className="text-[12px] ar-body" style={{ color: G }}>Full-Stack Digital Strategist</p>
               <p className="text-[11px] ar-body mt-1" style={{ color: "rgba(0,0,0,0.3)" }}>hello@ahmedali.online</p>

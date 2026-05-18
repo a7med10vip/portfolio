@@ -22,7 +22,12 @@
 
 # misc
 .DS_Store
+._*
 *.pem
+
+# project sources (proposals, briefs, brand assets, raw inputs)
+# these are local-only reference materials, not part of the codebase
+/projects/
 
 # debug
 npm-debug.log*

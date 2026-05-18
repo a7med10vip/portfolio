@@ -69,7 +69,7 @@ export default function AboutSectionAr() {
 
             {/* Photo */}
             <div className="relative">
-              <img src="/ahmed.jpeg" alt="أحمد علي" className="w-full h-[300px] object-cover" />
+              <img src="/myphoto-profile.png" alt="أحمد علي" className="w-full h-[340px] object-cover" style={{ objectPosition: "center top" }} />
               <div className="absolute inset-0" style={{ background: "linear-gradient(to top, #111 0%, transparent 60%)" }} />
               {/* Available */}
               <div className="absolute top-4 right-4 flex items-center gap-1.5 px-3 py-1.5 rounded-full" style={{ background: "rgba(0,0,0,0.5)", backdropFilter: "blur(10px)" }}>
