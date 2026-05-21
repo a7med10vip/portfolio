@@ -24,7 +24,7 @@ const NAV_ITEMS: { id: string; label: string; color: string; tourDesc: string }[
   { id: "section-08", label: "قاعدة البيانات", color: "#0EA5E9",
     tourDesc: "هيكل قاعدة البيانات وأهم الجداول والعلاقات بينها." },
   { id: "section-09", label: "المتطلبات الإضافية", color: "#A855F7",
-    tourDesc: "عشرون متطلباً وميزة تفصيلية مطلوبة في المنصة والتطبيق." },
+    tourDesc: "اثنان وعشرون متطلباً وميزة تفصيلية مطلوبة في المنصة والتطبيق." },
   { id: "section-10", label: "الإقرارات والتعهدات", color: "#F97316",
     tourDesc: "الإقرارات والتعهدات المطلوبة من الأعضاء قبل التسجيل وبعده." },
   { id: "section-11", label: "نماذج التسجيل", color: "#EC4899",
