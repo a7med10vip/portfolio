@@ -1,5 +1,7 @@
+import "@/app/globals.css";
 import { Bricolage_Grotesque, Instrument_Serif } from "next/font/google";
 import SmoothScroll from "@/components/SmoothScroll";
+import RootChrome from "@/components/RootChrome";
 
 const bricolage = Bricolage_Grotesque({
   variable: "--font-bricolage",
@@ -17,8 +19,8 @@ const instrument = Instrument_Serif({
 });
 
 export const metadata = {
-  title: "Motion Motors × Soueast — May 2026 Campaign Approach | Ahmed Ali",
-  description: "Campaign Approach & Plan for Motion Motors × Soueast May 2026 — ANB Finance Offers, Jeddah, May 1–31, 2026. Prepared by Ahmed Ali.",
+  title: "Motion Motors × Soueast — June 2026 Campaign Approach | Ahmed Ali",
+  description: "Campaign Approach & Plan for Motion Motors × Soueast June 2026 — ANB Finance Offers, Jeddah, June 7–30, 2026. Prepared by Ahmed Ali.",
   robots: { index: false, follow: false },
   icons: {
     icon: [
@@ -38,6 +40,7 @@ export default function MotionMotorsLayout({ children }: { children: React.React
       </head>
       <body className="antialiased" style={{ margin: 0, fontFamily: "var(--font-bricolage), system-ui, sans-serif" }}>
         <SmoothScroll>{children}</SmoothScroll>
+        <RootChrome />
       </body>
     </html>
   );

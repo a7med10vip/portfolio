@@ -1,5 +1,7 @@
+import "@/app/globals.css";
 import { Inter, Bricolage_Grotesque, Instrument_Serif } from "next/font/google";
 import SmoothScroll from "@/components/SmoothScroll";
+import RootChrome from "@/components/RootChrome";
 
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"], display: "swap" });
 
@@ -35,6 +37,7 @@ export default function PitchLayout({ children }: { children: React.ReactNode })
       </head>
       <body className="antialiased" style={{ margin: 0, fontFamily: "var(--font-bricolage), system-ui, sans-serif" }}>
         <SmoothScroll>{children}</SmoothScroll>
+        <RootChrome />
       </body>
     </html>
   );

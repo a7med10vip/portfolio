@@ -13,14 +13,14 @@ const contactMethods = [
     label: "البريد الإلكتروني",
     value: "hello@ahmedali.online",
     href: "mailto:hello@ahmedali.online",
-    color: "#4FFFB0",
+    color: "#004D5A",
   },
   {
     icon: Phone,
     label: "الهاتف",
     value: "+20 101 164 8156",
     href: "tel:+201011648156",
-    color: "#4FFFB0",
+    color: "#004D5A",
   },
   {
     icon: MessageCircle,
@@ -88,19 +88,18 @@ export default function ContactAr() {
       ref={sectionRef}
       id="contact"
       className="relative overflow-hidden"
-      style={{ background: "#0A0A0A", padding: "100px 24px" }}
+      style={{ background: "#fff", padding: "100px 24px" }}
     >
       {/* Background glow */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] rounded-full opacity-[0.04]"
-        style={{ background: "radial-gradient(circle, #4FFFB0 0%, transparent 70%)" }}
-      />
+      {/* A mint radial at 3-4% opacity used to sit here — it never rendered
+          as anything. Removed, as on the English side. */}
 
       <div className="max-w-6xl mx-auto relative">
         {/* Header */}
         <div className="ct-anim-ar opacity-0 text-center mb-16">
-          <p className="ar-script text-xl md:text-2xl mb-3" style={{ color: "#4FFFB0" }}>تواصل</p>
-          <h2 className="ar-heading text-3xl md:text-4xl mb-4" style={{ color: "#fff" }}>لنعمل معاً</h2>
-          <p className="ar-body text-base max-w-xl mx-auto" style={{ color: "rgba(255,255,255,0.5)" }}>
+          <p className="ar-script text-xl md:text-2xl mb-3" style={{ color: "#004D5A" }}>تواصل</p>
+          <h2 className="ar-heading text-3xl md:text-4xl mb-4" style={{ color: "#04323A" }}>لنعمل معاً</h2>
+          <p className="ar-body text-base max-w-xl mx-auto" style={{ color: "#4E717A" }}>
             لديك مشروع في ذهنك؟ دعنا نحوّل رؤيتك إلى واقع.
           </p>
         </div>
@@ -109,17 +108,17 @@ export default function ContactAr() {
           {/* Right - Contact info (2 cols) - in RTL this appears on the right */}
           <div className="lg:col-span-2 flex flex-col gap-5">
             {/* Location card */}
-            <div className="ct-anim-ar opacity-0 rounded-[20px] p-6" style={{ background: "#4FFFB0" }}>
+            <div className="ct-anim-ar opacity-0 rounded-[20px] p-6" style={{ background: "#CFF7EE", border: "2px solid #004D5A", boxShadow: "5px 5px 0px 0px #004D5A" }}>
               <div className="flex items-center gap-3 mb-3">
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "#fff", border: "1px solid #e0e0e0" }}>
-                  <MapPin size={18} color="#0A0A0A" />
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "#fff", border: "1.5px solid #004D5A" }}>
+                  <MapPin size={18} color="#004D5A" />
                 </div>
                 <div>
-                  <p className="ar-body text-xs font-semibold" style={{ color: "rgba(0,0,0,0.5)" }}>مقيم في</p>
-                  <p className="ar-body text-sm font-bold" style={{ color: "#0A0A0A" }}>القاهرة، مصر</p>
+                  <p className="ar-body text-xs font-semibold" style={{ color: "rgba(4,50,58,0.70)" }}>مقيم في</p>
+                  <p className="ar-body text-sm font-bold" style={{ color: "#04323A" }}>جدة، السعودية</p>
                 </div>
               </div>
-              <p className="ar-body text-xs" style={{ color: "rgba(0,0,0,0.5)" }}>متاح للعمل عن بُعد في الشرق الأوسط والعالم</p>
+              <p className="ar-body text-xs" style={{ color: "rgba(4,50,58,0.70)" }}>متاح للعمل عن بُعد في الشرق الأوسط والعالم</p>
             </div>
 
             {/* Contact methods */}
@@ -129,10 +128,10 @@ export default function ContactAr() {
                 href={method.href}
                 target={method.href.startsWith("http") ? "_blank" : undefined}
                 rel={method.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                className="ct-anim-ar opacity-0 rounded-[20px] p-5 flex items-center gap-4 group transition-all duration-300 hover:-translate-y-0.5"
-                style={{ background: "#fff" }}
+                className="ct-anim-ar opacity-0 rounded-[20px] p-5 flex items-center gap-4"
+                style={{ background: "#F4FBF9", border: "2px solid #004D5A", boxShadow: "5px 5px 0px 0px #004D5A" }}
               >
-                <div className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: `${method.color}15`, border: `1px solid ${method.color}30` }}>
+                <div className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: "#fff", border: "1.5px solid #004D5A" }}>
                   {method.customIcon ? (
                     <img src={method.customIcon} alt="" width={22} height={22} className="object-contain" />
                   ) : (
@@ -140,109 +139,109 @@ export default function ContactAr() {
                   )}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="ar-body text-[10px] font-semibold uppercase tracking-wider mb-0.5" style={{ color: "rgba(0,0,0,0.4)" }}>{method.label}</p>
-                  <p className="text-sm font-bold truncate" dir="ltr" style={{ color: "#0A0A0A", textAlign: "right" }}>{method.value}</p>
+                  <p className="ar-body text-[10px] font-semibold uppercase tracking-wider mb-0.5" style={{ color: "#4E717A" }}>{method.label}</p>
+                  <p className="text-sm font-bold truncate" dir="ltr" style={{ color: "#04323A", textAlign: "right" }}>{method.value}</p>
                 </div>
-                <ArrowLeft size={16} className="flex-shrink-0 opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" style={{ color: "#0A0A0A" }} />
+                <ArrowLeft size={16} className="flex-shrink-0" style={{ color: "#004D5A" }} />
               </a>
             ))}
           </div>
 
           {/* Left - Form (3 cols) - in RTL this appears on the left */}
-          <div className="lg:col-span-3 ct-anim-ar opacity-0">
-            <div className="rounded-[24px] p-8 md:p-10" style={{ background: "#fff" }}>
-              <h3 className="ar-heading text-2xl md:text-3xl mb-2" style={{ color: "#0A0A0A", lineHeight: 1.5 }}>أرسل رسالة</h3>
-              <p className="ar-body text-sm mb-8" style={{ color: "rgba(0,0,0,0.45)" }}>سأعود إليك خلال 24 ساعة.</p>
+          <div className="lg:col-span-3 ct-anim-ar opacity-0 flex">
+            <div className="rounded-[20px] p-6 md:p-8 w-full flex flex-col" style={{ background: "#F4FBF9", border: "2px solid #004D5A", boxShadow: "6px 6px 0px 0px #004D5A" }}>
+              <h3 className="ar-heading text-2xl md:text-3xl mb-2" style={{ color: "#04323A", lineHeight: 1.5 }}>أرسل رسالة</h3>
+              <p className="ar-body text-sm mb-8" style={{ color: "rgba(4,50,58,0.45)" }}>سأعود إليك خلال 24 ساعة.</p>
 
-              <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+              <form onSubmit={handleSubmit} className="flex flex-col gap-4 flex-1">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                   <div>
-                    <label className="ar-body block text-xs font-bold mb-2" style={{ color: "#0A0A0A" }}>الاسم</label>
+                    <label className="ar-body block text-xs font-bold mb-2" style={{ color: "#04323A" }}>الاسم</label>
                     <input
                       name="name"
                       type="text"
                       required
                       placeholder="اسمك"
                       className="ar-body w-full h-12 px-4 rounded-xl text-sm outline-none transition-all duration-200"
-                      style={{ background: "#f7f7f7", border: "2px solid #e8e8e8", color: "#0A0A0A" }}
-                      onFocus={(e) => { e.target.style.borderColor = "#4FFFB0"; }}
-                      onBlur={(e) => { e.target.style.borderColor = "#e8e8e8"; }}
+                      style={{ background: "#fff", border: "2px solid #004D5A", color: "#04323A" }}
+                      onFocus={(e) => { e.target.style.borderColor = "#CFF7EE"; }}
+                      onBlur={(e) => { e.target.style.boxShadow = "none"; }}
                     />
                   </div>
                   <div>
-                    <label className="ar-body block text-xs font-bold mb-2" style={{ color: "#0A0A0A" }}>البريد الإلكتروني</label>
+                    <label className="ar-body block text-xs font-bold mb-2" style={{ color: "#04323A" }}>البريد الإلكتروني</label>
                     <input
                       name="email"
                       type="email"
                       required
                       placeholder="your@email.com"
                       className="ar-body w-full h-12 px-4 rounded-xl text-sm outline-none transition-all duration-200"
-                      style={{ background: "#f7f7f7", border: "2px solid #e8e8e8", color: "#0A0A0A" }}
-                      onFocus={(e) => { e.target.style.borderColor = "#4FFFB0"; }}
-                      onBlur={(e) => { e.target.style.borderColor = "#e8e8e8"; }}
+                      style={{ background: "#fff", border: "2px solid #004D5A", color: "#04323A" }}
+                      onFocus={(e) => { e.target.style.borderColor = "#CFF7EE"; }}
+                      onBlur={(e) => { e.target.style.boxShadow = "none"; }}
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="ar-body block text-xs font-bold mb-2" style={{ color: "#0A0A0A" }}>الموضوع</label>
+                  <label className="ar-body block text-xs font-bold mb-2" style={{ color: "#04323A" }}>الموضوع</label>
                   <input
                     name="subject"
                     type="text"
                     placeholder="ما موضوع رسالتك؟"
                     className="ar-body w-full h-12 px-4 rounded-xl text-sm outline-none transition-all duration-200"
-                    style={{ background: "#f7f7f7", border: "2px solid #e8e8e8", color: "#0A0A0A" }}
-                    onFocus={(e) => { e.target.style.borderColor = "#4FFFB0"; }}
-                    onBlur={(e) => { e.target.style.borderColor = "#e8e8e8"; }}
+                    style={{ background: "#fff", border: "2px solid #004D5A", color: "#04323A" }}
+                    onFocus={(e) => { e.target.style.borderColor = "#CFF7EE"; }}
+                    onBlur={(e) => { e.target.style.boxShadow = "none"; }}
                   />
                 </div>
 
                 <div>
-                  <label className="ar-body block text-xs font-bold mb-2" style={{ color: "#0A0A0A" }}>الرسالة</label>
+                  <label className="ar-body block text-xs font-bold mb-2" style={{ color: "#04323A" }}>الرسالة</label>
                   <textarea
                     name="message"
                     required
                     rows={5}
                     placeholder="أخبرني عن مشروعك وأهدافك والجدول الزمني..."
                     className="ar-body w-full px-4 py-3 rounded-xl text-sm outline-none transition-all duration-200 resize-none"
-                    style={{ background: "#f7f7f7", border: "2px solid #e8e8e8", color: "#0A0A0A" }}
-                    onFocus={(e) => { e.target.style.borderColor = "#4FFFB0"; }}
-                    onBlur={(e) => { e.target.style.borderColor = "#e8e8e8"; }}
+                    style={{ background: "#fff", border: "2px solid #004D5A", color: "#04323A" }}
+                    onFocus={(e) => { e.target.style.borderColor = "#CFF7EE"; }}
+                    onBlur={(e) => { e.target.style.boxShadow = "none"; }}
                   />
                 </div>
 
                 {formState === "sent" ? (
-                  <div className="ar-body flex items-center justify-center gap-2 h-14 rounded-full text-base font-bold" style={{ background: "#4FFFB0", color: "#0A0A0A" }}>
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10l4 4 8-8" stroke="#0A0A0A" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  <div className="ar-body flex items-center justify-center gap-2 h-14 rounded-full text-base font-bold" style={{ background: "#CFF7EE", color: "#04323A" }}>
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10l4 4 8-8" stroke="#04323A" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                     تم الإرسال! تفقد بريدك.
                   </div>
                 ) : formState === "error" ? (
                   <div className="text-center">
                     <button
                       type="submit"
-                      className="ar-body inline-flex items-center justify-center gap-3 h-14 w-full rounded-full text-base font-bold transition-all duration-200 hover:-translate-y-0.5 cursor-pointer"
-                      style={{ background: "#ff4d4d", color: "#fff", border: "2px solid #0A0A0A", boxShadow: "5px 5px 0px 0px #0A0A0A" }}
+                      className="ar-body inline-flex items-center justify-center gap-3 h-14 w-full rounded-full text-base font-bold cursor-pointer"
+                      style={{ background: "#ff4d4d", color: "#fff", border: "2px solid #04323A", boxShadow: "5px 5px 0px 0px #04323A" }}
                     >
                       <Send size={16} />
                       حاول مرة أخرى
                     </button>
-                    <p className="ar-body text-xs mt-2" style={{ color: "rgba(0,0,0,0.4)" }}>حدث خطأ. حاول مرة أخرى.</p>
+                    <p className="ar-body text-xs mt-2" style={{ color: "rgba(4,50,58,0.4)" }}>حدث خطأ. حاول مرة أخرى.</p>
                   </div>
                 ) : (
                   <button
                     type="submit"
                     disabled={formState === "sending"}
-                    className="ar-body inline-flex items-center justify-center gap-3 h-14 w-full rounded-full text-base font-bold transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed"
+                    className="ar-body inline-flex items-center justify-center gap-3 h-14 w-full rounded-full text-base font-bold active:translate-y-0 cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed"
                     style={{
-                      background: "#4FFFB0",
-                      color: "#0A0A0A",
-                      border: "2px solid #0A0A0A",
-                      boxShadow: "5px 5px 0px 0px #0A0A0A",
+                      background: "#CFF7EE",
+                      color: "#04323A",
+                      border: "2px solid #04323A",
+                      boxShadow: "5px 5px 0px 0px #04323A",
                     }}
                   >
                     {formState === "sending" ? (
                       <>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ animation: "spin 1s linear infinite" }}><circle cx="8" cy="8" r="6" stroke="#0A0A0A" strokeWidth="2" strokeDasharray="28" strokeDashoffset="8" strokeLinecap="round"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ animation: "spin 1s linear infinite" }}><circle cx="8" cy="8" r="6" stroke="#04323A" strokeWidth="2" strokeDasharray="28" strokeDashoffset="8" strokeLinecap="round"/></svg>
                         جاري الإرسال...
                       </>
                     ) : (

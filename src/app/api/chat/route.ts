@@ -24,7 +24,7 @@ FORMATTING RULES:
 - Keep it tight. If you can say it in 2 sentences, don't use 3.
 
 ABOUT AHMED:
-- Full-Stack Digital Strategist | Cairo, Egypt
+- Full-Stack Digital Strategist | Jeddah, Saudi Arabia
 - 5+ years across Egypt, Qatar, Saudi Arabia & UAE
 - Contact: hello@ahmedali.online | WhatsApp: +201011648156
 

@@ -1,5 +1,7 @@
+import "@/app/globals.css";
 import type { Metadata } from "next";
 import SmoothScroll from "@/components/SmoothScroll";
+import RootChrome from "@/components/RootChrome";
 
 export const metadata: Metadata = {
   title: "نَوِيت — منصة قصص إسلامية تفاعلية للأطفال | Ahmed Ali",
@@ -24,6 +26,7 @@ export default function NawaytLayout({ children }: { children: React.ReactNode }
       </head>
       <body className="antialiased" style={{ margin: 0 }}>
         <SmoothScroll>{children}</SmoothScroll>
+        <RootChrome />
       </body>
     </html>
   );

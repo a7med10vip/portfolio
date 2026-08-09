@@ -1,6 +1,8 @@
+import "@/app/globals.css";
 import type { Metadata } from "next";
 import { Bricolage_Grotesque, Instrument_Serif, Bebas_Neue, Poppins, Tajawal } from "next/font/google";
 import SmoothScroll from "@/components/SmoothScroll";
+import RootChrome from "@/components/RootChrome";
 
 const bricolage = Bricolage_Grotesque({
   variable: "--font-bricolage",
@@ -71,6 +73,7 @@ export default function VertexLayout({ children }: { children: React.ReactNode }
         }}
       >
         <SmoothScroll>{children}</SmoothScroll>
+        <RootChrome />
       </body>
     </html>
   );

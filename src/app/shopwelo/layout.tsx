@@ -1,3 +1,5 @@
+import "@/app/globals.css";
+import RootChrome from "@/components/RootChrome";
 export const metadata = {
   title: "عرض فني ومالي — متجر ويلو | Ahmed Ali",
   description: "عرض فني ومالي متكامل لتحسين وتطوير متجر ويلو الإلكتروني Shopwelo.com",
@@ -20,6 +22,7 @@ export default function ShopweloLayout({ children }: { children: React.ReactNode
       </head>
       <body className="antialiased" style={{ margin: 0 }}>
         {children}
+        <RootChrome />
       </body>
     </html>
   );

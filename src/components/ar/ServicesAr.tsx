@@ -1,171 +1,141 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { BarChart3, Search, Code2, Bot, LineChart, Rocket } from "lucide-react";
+import { Target, Sprout, MonitorSmartphone, BrainCircuit, Gauge, Compass } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
+/* Arabic mirror of the English Services section — the same sticker scatter in
+   the same retro language: 2px outline, hard offset shadow, no hover motion,
+   size varied by column span rather than by removing copy. Only the strings
+   and the type classes differ. */
+type Fill = "mint" | "paper";
+
 type ServiceItem = {
-  num: string;
-  Icon: typeof BarChart3;
+  Icon: typeof Target;
   title: string;
   desc: string;
   tools: string[];
-  variant: "green" | "white";
-  imageSrc: string;
-  imageAlt: string;
+  fill: Fill;
+  span: string;
+  rotate: number;
+  nudge: number;
+  z: number;
 };
 
-const services = [
+const services: ServiceItem[] = [
   {
-    num: "01",
-    Icon: BarChart3,
+    Icon: Target,
     title: "التسويق بالأداء",
     desc: "حملات مبنية على البيانات عبر جوجل وميتا وتيك توك تحقق أعلى عائد استثماري وتوسّع الإيرادات. أُدير ميزانيات إعلانية تصل إلى +15 ألف دولار شهرياً مع تتبع وتحسين كامل.",
     tools: ["إعلانات جوجل", "إعلانات ميتا", "إعلانات تيك توك", "إعلانات سناب شات"],
-    variant: "green",
-    imageSrc: "/services/16.png",
-    imageAlt: "رسم توضيحي يمثل التسويق بالأداء ونمو الحملات",
+    fill: "mint", span: "md:col-span-7", rotate: -1.8, nudge: 0, z: 6,
   },
   {
-    num: "02",
-    Icon: Search,
+    Icon: Sprout,
     title: "تحسين محركات البحث",
     desc: "تدقيق تقني، استراتيجية كلمات مفتاحية، تحسين داخلي وخارجي، وبناء روابط تدفع الظهور العضوي. حققت ترتيباً ضمن أفضل 10 نتائج في 8 أشهر.",
     tools: ["تدقيق تقني", "تحسين داخلي", "تحسين خارجي", "تحسين محلي"],
-    variant: "white",
-    imageSrc: "/services/14.png",
-    imageAlt: "رسم توضيحي يمثل تحسين محركات البحث والنمو العضوي",
+    fill: "paper", span: "md:col-span-5", rotate: 2.1, nudge: 38, z: 5,
   },
   {
-    num: "03",
-    Icon: Code2,
+    Icon: MonitorSmartphone,
     title: "تطوير المواقع والتطبيقات",
-    desc: "تطبيقات متكاملة بأحدث الأطر البرمجية, من صفحات الهبوط إلى منصات معقدة ببوابات دفع وقواعد بيانات لحظية وتكامل ذكاء اصطناعي. تم نشرها على متجر آبل وجوجل بلاي.",
+    desc: "تطبيقات متكاملة بأحدث الأطر البرمجية، من صفحات الهبوط إلى منصات معقدة ببوابات دفع وقواعد بيانات لحظية وتكامل ذكاء اصطناعي. تم نشرها على متجر آبل وجوجل بلاي.",
     tools: ["تطوير الواجهات", "تطوير الويب", "تطبيقات الجوال", "قواعد البيانات", "البنية السحابية"],
-    variant: "green",
-    imageSrc: "/services/16.png",
-    imageAlt: "رسم توضيحي يمثل تطوير المواقع والتطبيقات",
+    fill: "paper", span: "md:col-span-5", rotate: 1.5, nudge: -30, z: 4,
   },
   {
-    num: "04",
-    Icon: Bot,
+    Icon: BrainCircuit,
     title: "الذكاء الاصطناعي والأتمتة",
     desc: "روبوتات محادثة ذكية، أتمتة سير العمل، ومنتجات مدعومة بالذكاء الاصطناعي توفر الوقت وتفتح إمكانيات جديدة.",
     tools: ["روبوتات ذكية", "أتمتة العمليات", "تكامل الأنظمة", "ذكاء اصطناعي"],
-    variant: "white",
-    imageSrc: "/services/15.png",
-    imageAlt: "رسم توضيحي يمثل دمج الذكاء الاصطناعي والأتمتة",
+    fill: "mint", span: "md:col-span-7", rotate: -2.3, nudge: 12, z: 3,
   },
   {
-    num: "05",
-    Icon: LineChart,
+    Icon: Gauge,
     title: "البيانات والتحليلات",
     desc: "إعداد تحليلات جوجل وإدارة العلامات وتتبع التحويلات ولوحات التقارير. بنية تحليلية كاملة تحوّل البيانات الخام إلى رؤى نمو قابلة للتنفيذ.",
     tools: ["تحليلات جوجل", "إدارة العلامات", "لوحات التقارير", "أدوات مشرفي المواقع"],
-    variant: "green",
-    imageSrc: "/services/16.png",
-    imageAlt: "رسم توضيحي يمثل لوحات البيانات وأنظمة التحليلات",
+    fill: "paper", span: "md:col-span-6", rotate: 1.7, nudge: -22, z: 2,
   },
   {
-    num: "06",
-    Icon: Rocket,
+    Icon: Compass,
     title: "استراتيجية رقمية شاملة",
-    desc: "من الفكرة إلى المنتج الحي, ربط التسويق والمنتج والتقنية في خطة متماسكة واحدة. استراتيجية، بناء، إطلاق، نمو. الكل تحت سقف واحد.",
+    desc: "من الفكرة إلى المنتج الحي، ربط التسويق والمنتج والتقنية في خطة متماسكة واحدة. استراتيجية، بناء، إطلاق، نمو. الكل تحت سقف واحد.",
     tools: ["الاستراتيجية", "الهوية", "تجربة المستخدم", "النمو"],
-    variant: "white",
-    imageSrc: "/services/13.png",
-    imageAlt: "رسم توضيحي يمثل الاستراتيجية الرقمية الشاملة",
+    fill: "mint", span: "md:col-span-6", rotate: -1.4, nudge: 26, z: 1,
   },
-] satisfies ServiceItem[];
+];
 
-function ServiceArtwork({ service }: { service: ServiceItem }) {
-  return (
-    <div className="group/art relative w-full max-w-[390px] aspect-square overflow-hidden mx-auto">
-      <div className="absolute inset-0">
-        <Image
-          src={service.imageSrc}
-          alt={service.imageAlt}
-          fill
-          sizes="(max-width: 768px) 82vw, 28vw"
-          className="object-contain"
-          priority={service.num === "01"}
-        />
-      </div>
-    </div>
-  );
-}
+const OUTLINE = "#004D5A";
+const CHIP_TILTS = [-3, 2.2, -1.4, 3, -2.4];
 
-function ServiceCard({ service }: { service: ServiceItem }) {
-  const isGreen = service.variant === "green";
-  const bg = isGreen ? "#4FFFB0" : "#fff";
-  const textColor = "#0A0A0A";
-  const mutedColor = isGreen ? "rgba(0,0,0,0.5)" : "rgba(0,0,0,0.45)";
-  const pillBg = isGreen ? "rgba(0,0,0,0.08)" : "rgba(79,255,176,0.15)";
-  const pillColor = isGreen ? "#0A0A0A" : "#0A0A0A";
-  const numColor = isGreen ? "rgba(0,0,0,0.08)" : "rgba(79,255,176,0.15)";
+const fills: Record<Fill, { bg: string; body: string; chipBg: string }> = {
+  mint:  { bg: "#CFF7EE", body: "rgba(4,50,58,0.70)", chipBg: "#FFFFFF" },
+  paper: { bg: "#F4FBF9", body: "#4E717A",            chipBg: "#FFFFFF" },
+};
+
+function ServiceSticker({ service }: { service: ServiceItem }) {
+  const f = fills[service.fill];
 
   return (
-    <div
-      className="rounded-[24px] p-8 md:p-14 relative overflow-hidden flex flex-col justify-center"
-      style={{ background: bg, minHeight: "70vh" }}
+    <article
+      className="service-sticker-ar relative rounded-[20px] p-7 md:p-8 h-full opacity-0"
+      data-rotate={service.rotate}
+      style={{
+        background: f.bg,
+        border: `2px solid ${OUTLINE}`,
+        boxShadow: `6px 6px 0px 0px ${OUTLINE}`,
+        zIndex: service.z,
+      }}
     >
-      <span
-        className="ar-heading absolute top-5 left-8 text-[92px] md:text-[132px] leading-none pointer-events-none select-none"
-        style={{ color: numColor }}
-      >
-        {service.num}
-      </span>
-
-      <div className="grid grid-cols-1 md:grid-cols-5 gap-8 items-center relative z-10 h-full">
-        {/* Content side — 3 cols */}
-        <div className="md:col-span-3">
-          {/* Icon + number */}
-          <div className="flex items-center gap-3 mb-6">
-            <div
-              className="w-12 h-12 rounded-2xl flex items-center justify-center"
-              style={{ background: isGreen ? "rgba(0,0,0,0.08)" : "rgba(79,255,176,0.15)" }}
-            >
-              <service.Icon size={22} style={{ color: textColor }} />
-            </div>
-            <span className="ar-body text-sm font-bold" style={{ color: mutedColor }}>{service.num}</span>
-          </div>
-
-          {/* Title */}
-          <h3 className="ar-heading text-3xl md:text-4xl mb-4" style={{ color: textColor }}>
-            {service.title}
-          </h3>
-
-          {/* Description */}
-          <p className="ar-body text-sm md:text-base leading-relaxed mb-6" style={{ color: mutedColor }}>
-            {service.desc}
-          </p>
-
-          {/* Tools */}
-          <div className="flex flex-wrap gap-2 mb-6">
-            {service.tools.map(t => (
-              <span key={t} className="px-3 py-1.5 rounded-full text-xs font-semibold" style={{ background: pillBg, color: pillColor }}>
-                {t}
-              </span>
-            ))}
-          </div>
+      <div className="flex flex-col h-full">
+        <div
+          className="rounded-[13px] flex items-center justify-center mb-5 w-12 h-12"
+          style={{ background: f.chipBg, border: `2px solid ${OUTLINE}` }}
+        >
+          <service.Icon size={21} strokeWidth={1.9} style={{ color: OUTLINE }} />
         </div>
 
-        {/* Left side (RTL) — art — 2 cols */}
-        <div className="md:col-span-2 flex flex-col items-center justify-center">
-          <ServiceArtwork service={service} />
+        {/* Arabic needs looser leading than the Latin build — 1.22 on the
+            heading and 1.68 on the body clipped the descenders here. */}
+        <h3 className="ar-heading mb-3" style={{ color: "#04323A", fontSize: "1.35rem", lineHeight: 1.5 }}>
+          {service.title}
+        </h3>
+
+        <p className="ar-body mb-6" style={{ color: f.body, fontSize: "0.9375rem", lineHeight: 1.9, maxWidth: "50ch" }}>
+          {service.desc}
+        </p>
+
+        <div className="flex flex-wrap gap-2.5 mt-auto">
+          {service.tools.map((t, i) => (
+            <span
+              key={t}
+              className="ar-body rounded-full font-bold"
+              style={{
+                background: f.chipBg,
+                color: "#04323A",
+                border: `1.5px solid ${OUTLINE}`,
+                boxShadow: `2px 2px 0px 0px ${OUTLINE}`,
+                transform: `rotate(${CHIP_TILTS[i % CHIP_TILTS.length]}deg)`,
+                fontSize: "0.75rem",
+                padding: "5px 12px",
+              }}
+            >
+              {t}
+            </span>
+          ))}
         </div>
       </div>
-    </div>
+    </article>
   );
 }
 
 export default function ServicesAr() {
   const sectionRef = useRef<HTMLElement>(null);
-  const stackRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -173,73 +143,22 @@ export default function ServicesAr() {
         ".services-header-ar",
         { y: 32, opacity: 0 },
         {
-          y: 0,
-          opacity: 1,
-          duration: 0.7,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 78%",
-            once: true,
-          },
+          y: 0, opacity: 1, duration: 0.7, ease: "power3.out",
+          scrollTrigger: { trigger: sectionRef.current, start: "top 78%", once: true },
         }
       );
 
-      const cardShells = gsap.utils.toArray<HTMLElement>(".service-card-shell-ar");
-
-      cardShells.forEach((card, index) => {
-        gsap.set(card, {
-          transformOrigin: "top center",
-          force3D: true,
-          zIndex: index + 1,
-        });
-
-        if (index === 0) {
-          gsap.set(card, { yPercent: 0, y: 0, scale: 1, rotateX: 0 });
-          return;
-        }
-
-        gsap.set(card, {
-          yPercent: 115,
-          y: 0,
-          scale: 1,
-          rotateX: 0,
-        });
-      });
-
-      const timeline = gsap.timeline({
-        defaults: { ease: "power2.inOut", duration: 1 },
-        scrollTrigger: {
-          trigger: stackRef.current,
-          start: "top top+=110",
-          end: () => `+=${Math.max(1, cardShells.length - 1) * window.innerHeight * 0.65}`,
-          scrub: 0.8,
-          invalidateOnRefresh: true,
-        },
-      });
-
-      cardShells.slice(1).forEach((card, index) => {
-        const previousCard = cardShells[index];
-
-        if (previousCard) {
-          timeline.to(
-            previousCard,
-            {
-              scale: 0.97,
-              y: -16,
-            },
-            index
-          );
-        }
-
-        timeline.to(
+      const cards = gsap.utils.toArray<HTMLElement>(".service-sticker-ar");
+      cards.forEach((card, i) => {
+        const rest = Number(card.dataset.rotate ?? 0);
+        gsap.fromTo(
           card,
+          { y: 46, opacity: 0, rotate: 0 },
           {
-            yPercent: 0,
-            y: 0,
-            scale: 1,
-          },
-          index
+            y: 0, opacity: 1, rotate: rest,
+            duration: 0.7, delay: i * 0.09, ease: "back.out(1.4)",
+            scrollTrigger: { trigger: sectionRef.current, start: "top 72%", once: true },
+          }
         );
       });
     }, sectionRef);
@@ -248,40 +167,33 @@ export default function ServicesAr() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="services" style={{ background: "#0A0A0A" }}>
-      {/* Header */}
-      <div className="services-header-ar text-center pt-24 pb-10 px-6 opacity-0">
-        <p className="ar-script text-xl md:text-2xl mb-3" style={{ color: "#4FFFB0" }}>الخدمات</p>
-        <h2 className="ar-heading text-3xl md:text-4xl" style={{ color: "#fff" }}>خبرات تصنع الفارق</h2>
+    <section ref={sectionRef} id="services" style={{ background: "#fff", padding: "100px 0 120px" }}>
+      <div className="services-header-ar text-center px-6 mb-14 opacity-0">
+        <p className="ar-script text-xl md:text-2xl mb-3" style={{ color: OUTLINE }}>الخدمات</p>
+        <h2 className="ar-heading text-3xl md:text-4xl" style={{ color: "#04323A" }}>خبرات تصنع الفارق</h2>
       </div>
 
-      <div
-        ref={stackRef}
-        className="max-w-6xl mx-auto px-4 md:px-6 pb-24 relative"
-        style={{ minHeight: `calc(${services.length * 72}vh)` }}
-      >
-        <div
-          className="sticky"
-          style={{
-            top: "110px",
-            height: "72vh",
-          }}
-        >
-          <div className="relative h-full overflow-hidden">
-            {services.map((service, index) => (
-              <div
-                key={service.num}
-                className="service-card-shell-ar absolute inset-0"
-                style={{
-                  zIndex: index + 1,
-                }}
-              >
-                <ServiceCard service={service} />
-              </div>
-            ))}
-          </div>
+      <div className="max-w-6xl mx-auto px-5 md:px-6">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-5 md:gap-6 items-start">
+          {services.map(service => (
+            <div
+              key={service.title}
+              className={`${service.span} service-slot-ar`}
+              style={{ "--nudge": `${service.nudge}px` } as React.CSSProperties}
+            >
+              <ServiceSticker service={service} />
+            </div>
+          ))}
         </div>
       </div>
+
+      <style>{`
+        .service-slot-ar { margin-top: 0; }
+        @media (min-width: 768px) {
+          .service-slot-ar { margin-top: var(--nudge, 0px); }
+        }
+        .service-sticker-ar { will-change: transform; }
+      `}</style>
     </section>
   );
 }

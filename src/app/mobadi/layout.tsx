@@ -1,3 +1,5 @@
+import "@/app/globals.css";
+import RootChrome from "@/components/RootChrome";
 export const metadata = {
   title: "من الفكرة إلى الإبداع — MO BADI | Ahmed Ali",
   description: "المخطط التقني الكامل لمنصة MO BADI — بورتفوليو + منصة كورسات. نظام تصميم، قاعدة بيانات، مسارات المستخدم، وخطة تطوير.",
@@ -19,6 +21,7 @@ export default function MoBadiLayout({ children }: { children: React.ReactNode }
       </head>
       <body className="antialiased" style={{ margin: 0 }}>
         {children}
+        <RootChrome />
       </body>
     </html>
   );

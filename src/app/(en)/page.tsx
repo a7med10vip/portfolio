@@ -13,6 +13,7 @@ import Certifications from "@/components/Certifications";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import AskAhmed from "@/components/AskAhmed";
+import RobotBuddy from "@/components/RobotBuddy";
 
 export default function Home() {
   return (
@@ -34,6 +35,7 @@ export default function Home() {
       </main>
       <Footer />
       <AskAhmed />
+      <RobotBuddy />
     </>
   );
 }

@@ -16,6 +16,8 @@
 # next.js
 /.next/
 /out/
+# a stray build trace landed here once and got tracked
+public/.next/
 
 # production
 /build

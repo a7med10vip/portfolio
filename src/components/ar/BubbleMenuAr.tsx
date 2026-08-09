@@ -2,6 +2,28 @@
 
 import { useState, useEffect, useRef } from "react";
 import gsap from "gsap";
+import { MINT, TEAL } from "../ui/brand";
+
+/* eslint-disable @next/next/no-img-element */
+/* eslint-disable @next/next/no-html-link-for-pages -- /ar and / are separate
+   root layouts; crossing between them is a full page load either way. */
+
+/* Arabic mirror of the English header: three floating capsules rather than one
+   bar, same pod treatment, same entrance and the same mobile drawer. The only
+   differences are the labels, the language it switches to, and the drawer
+   sliding in from the left because the page reads right to left. */
+const pod = (scrolled: boolean) =>
+  ({
+    background: scrolled ? "rgba(255,255,255,0.94)" : "rgba(255,255,255,0.80)",
+    backdropFilter: "blur(20px)",
+    WebkitBackdropFilter: "blur(20px)",
+    border: "1px solid rgba(4,50,58,0.07)",
+    boxShadow: scrolled ? "0 6px 28px rgba(4,50,58,0.12)" : "0 3px 20px rgba(4,50,58,0.07)",
+    borderRadius: 9999,
+    transition: "background 0.4s, box-shadow 0.4s",
+  }) as const;
+
+const INK = "#04323A";
 
 const navLinks = [
   { label: "عني", href: "#about" },
@@ -16,12 +38,13 @@ export default function BubbleMenuAr() {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("");
   const [mobileOpen, setMobileOpen] = useState(false);
-  const navRef = useRef<HTMLElement>(null);
+  const navRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 50);
-      const sections = navLinks.map(l => l.href.replace("#", ""));
+
+      const sections = navLinks.map((l) => l.href.replace("#", ""));
       for (let i = sections.length - 1; i >= 0; i--) {
         const el = document.getElementById(sections[i]);
         if (el && el.getBoundingClientRect().top <= 150) {
@@ -31,95 +54,180 @@ export default function BubbleMenuAr() {
       }
       setActiveSection("");
     };
+
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   useEffect(() => {
-    if (navRef.current) {
-      gsap.fromTo(navRef.current, { marginTop: -30, opacity: 0 }, { marginTop: 0, opacity: 1, duration: 0.8, ease: "power3.out", delay: 0.5 });
-    }
+    if (!navRef.current) return;
+    const ctx = gsap.context(() => {
+      gsap.set(navRef.current, { opacity: 1 });
+      gsap.fromTo(
+        ".hdr-pod-ar",
+        { y: -26, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.7, ease: "power3.out", stagger: 0.09, delay: 0.5 }
+      );
+    }, navRef);
+    return () => ctx.revert();
   }, []);
 
   useEffect(() => {
     if (mobileOpen) {
       gsap.fromTo(".mob-backdrop-ar", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3, ease: "power2.out" });
-      gsap.fromTo(".mob-link-ar", { x: -30, opacity: 0 }, { x: 0, opacity: 1, duration: 0.4, ease: "power3.out", stagger: 0.06, delay: 0.1 });
+      /* Links fly in from the left here, the side the drawer opens from. */
+      gsap.fromTo(
+        ".mob-link-ar",
+        { x: -30, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.4, ease: "power3.out", stagger: 0.06, delay: 0.1 }
+      );
     }
   }, [mobileOpen]);
 
   const closeMobile = () => {
     gsap.to(".mob-link-ar", { x: -30, opacity: 0, duration: 0.2, ease: "power3.in", stagger: 0.03 });
-    gsap.to(".mob-backdrop-ar", { autoAlpha: 0, duration: 0.25, ease: "power2.in", delay: 0.1, onComplete: () => setMobileOpen(false) });
+    gsap.to(".mob-backdrop-ar", {
+      autoAlpha: 0,
+      duration: 0.25,
+      ease: "power2.in",
+      delay: 0.1,
+      onComplete: () => setMobileOpen(false),
+    });
   };
 
   return (
     <>
-      <div className="fixed top-4 left-0 right-0 z-[100] flex justify-center pointer-events-none px-4 md:px-0">
-        <nav ref={navRef} className="transition-all duration-500 opacity-0 pointer-events-auto w-full md:w-auto" style={{ background: scrolled ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.08)", backdropFilter: "blur(20px)", WebkitBackdropFilter: "blur(20px)", borderRadius: "9999px", border: scrolled ? "1px solid rgba(0,0,0,0.06)" : "1px solid rgba(255,255,255,0.1)", boxShadow: scrolled ? "0 4px 30px rgba(0,0,0,0.08)" : "none", padding: "6px 20px 6px 6px" }}>
-          <div className="flex items-center justify-between md:justify-start gap-1 w-full md:w-auto" dir="rtl">
-            {/* Logo - English TAN font, right side in RTL */}
-            <a href="#" className="heading text-lg ml-4" style={{ color: scrolled ? "#0A0A0A" : "#fff", fontFamily: "'TAN Headline'" }}>
-              Ahmed<span style={{ color: "#4FFFB0" }}>.</span>
+      <div className="fixed top-5 left-0 right-0 z-[100] flex justify-center pointer-events-none px-4">
+        <div
+          ref={navRef}
+          className="pointer-events-auto w-full lg:w-auto flex items-center gap-3 opacity-0"
+          dir="rtl"
+        >
+          {/* ── pod 1 · wordmark ── */}
+          <div
+            className="hdr-pod-ar flex items-center justify-between lg:justify-start w-full lg:w-auto"
+            style={{ ...pod(scrolled), padding: "13px 20px" }}
+          >
+            {/* The wordmark stays Latin in both builds — it is the mark. */}
+            <a href="#" className="heading text-[22px] leading-none" style={{ color: INK, fontFamily: "'TAN Headline'" }}>
+              Ahmed<span style={{ color: TEAL }}>.</span>
             </a>
 
-            {/* Desktop links */}
-            <div className="hidden md:flex items-center gap-0.5">
-              {navLinks.map((link) => {
-                const isActive = activeSection === link.href.replace("#", "");
-                return (
-                  <a key={link.label} href={link.href} className="relative px-4 py-2 rounded-full text-[13px] font-medium transition-all duration-300 ar-body" style={{ color: isActive ? "#0A0A0A" : scrolled ? "rgba(0,0,0,0.5)" : "rgba(255,255,255,0.6)", background: isActive ? "#4FFFB0" : "transparent" }}
-                    onMouseEnter={(e) => { if (!isActive) { e.currentTarget.style.color = scrolled ? "#0A0A0A" : "#fff"; e.currentTarget.style.background = scrolled ? "rgba(0,0,0,0.05)" : "rgba(255,255,255,0.1)"; } }}
-                    onMouseLeave={(e) => { if (!isActive) { e.currentTarget.style.color = scrolled ? "rgba(0,0,0,0.5)" : "rgba(255,255,255,0.6)"; e.currentTarget.style.background = "transparent"; } }}
-                  >
-                    {link.label}
-                  </a>
-                );
-              })}
-            </div>
+            <button
+              onClick={() => (mobileOpen ? closeMobile() : setMobileOpen(true))}
+              className="lg:hidden w-10 h-10 rounded-full flex flex-col items-center justify-center gap-[5px] cursor-pointer me-4 -my-1"
+              style={{ background: TEAL, border: "none" }}
+              aria-label="القائمة"
+            >
+              <span
+                className="block h-[2px] rounded-full transition-all duration-300"
+                style={{ width: 18, background: MINT, transform: mobileOpen ? "translateY(3.5px) rotate(45deg)" : "none" }}
+              />
+              <span
+                className="block h-[2px] rounded-full transition-all duration-300"
+                style={{ width: 12, background: MINT, opacity: mobileOpen ? 0 : 1 }}
+              />
+              <span
+                className="block h-[2px] rounded-full transition-all duration-300"
+                style={{ width: mobileOpen ? 18 : 15, background: MINT, transform: mobileOpen ? "translateY(-3.5px) rotate(-45deg)" : "none" }}
+              />
+            </button>
+          </div>
 
-            {/* Language switch - desktop */}
+          {/* ── pod 2 · links ── */}
+          <div
+            className="hdr-pod-ar hidden lg:flex items-center gap-0.5"
+            style={{ ...pod(scrolled), padding: "8px 10px" }}
+          >
+            {navLinks.map((link) => {
+              const isActive = activeSection === link.href.replace("#", "");
+              return (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  className="ar-body px-3.5 xl:px-5 py-2.5 rounded-full text-[14px] xl:text-[15px] transition-all duration-300 whitespace-nowrap"
+                  style={{
+                    color: isActive ? TEAL : "rgba(4,50,58,0.58)",
+                    background: isActive ? MINT : "transparent",
+                    fontWeight: isActive ? 700 : 500,
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!isActive) {
+                      e.currentTarget.style.color = INK;
+                      e.currentTarget.style.background = "rgba(4,50,58,0.045)";
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!isActive) {
+                      e.currentTarget.style.color = "rgba(4,50,58,0.58)";
+                      e.currentTarget.style.background = "transparent";
+                    }
+                  }}
+                >
+                  {link.label}
+                </a>
+              );
+            })}
+          </div>
+
+          {/* ── pod 3 · language + CTA ── */}
+          <div
+            className="hdr-pod-ar hidden lg:flex items-center gap-2"
+            style={{ ...pod(scrolled), padding: "8px" }}
+          >
             <a
               href="/"
-              className="hidden md:inline-flex items-center gap-1.5 h-9 px-3.5 rounded-full text-[12px] font-bold transition-all duration-200 hover:-translate-y-0.5 mr-1"
+              className="inline-flex items-center gap-2 h-11 px-4 rounded-full text-[14px] font-bold transition-transform duration-200 hover:-translate-y-0.5"
               style={{
-                background: scrolled ? "rgba(0,0,0,0.05)" : "rgba(255,255,255,0.08)",
-                color: scrolled ? "#0A0A0A" : "#fff",
-                border: scrolled ? "1px solid rgba(0,0,0,0.06)" : "1px solid rgba(255,255,255,0.1)",
+                background: "rgba(4,50,58,0.05)",
+                color: INK,
+                border: "1px solid rgba(4,50,58,0.06)",
               }}
               title="English"
             >
-              <img src="/flags/gb.svg" alt="" width={18} height={18} style={{ borderRadius: "50%", flexShrink: 0 }} />
+              <img src="/flags/gb.svg" alt="" width={20} height={20} style={{ borderRadius: "50%", flexShrink: 0 }} />
               EN
             </a>
 
-            {/* CTA - left side in RTL */}
-            <a href="#contact" className="hidden md:inline-flex items-center h-9 px-5 rounded-full text-[13px] font-bold transition-all duration-200 hover:-translate-y-0.5 mr-1 ar-body" style={{ background: "#4FFFB0", color: "#0A0A0A", border: "2px solid #0A0A0A", boxShadow: "3px 3px 0px 0px #0A0A0A" }}>
-              لنتحدث &nbsp;👋
+            <a
+              href="#contact"
+              className="ar-body inline-flex items-center h-11 px-6 rounded-full text-[15px] font-bold transition-transform duration-200 hover:-translate-y-0.5"
+              style={{ background: MINT, color: TEAL, border: `2px solid ${TEAL}`, boxShadow: `3px 3px 0px 0px ${TEAL}` }}
+            >
+              لنتحدث
             </a>
-
-            {/* Mobile burger */}
-            <button onClick={() => mobileOpen ? closeMobile() : setMobileOpen(true)} className="md:hidden w-9 h-9 rounded-full flex flex-col items-center justify-center gap-[5px] cursor-pointer mr-2" style={{ background: scrolled ? "#0A0A0A" : "rgba(255,255,255,0.15)", border: "none" }} aria-label="القائمة">
-              <span className="block h-[2px] rounded-full transition-all duration-300" style={{ width: 18, background: scrolled ? "#4FFFB0" : "#fff", transform: mobileOpen ? "translateY(3.5px) rotate(45deg)" : "none" }} />
-              <span className="block h-[2px] rounded-full transition-all duration-300" style={{ width: 12, background: scrolled ? "#4FFFB0" : "#fff", opacity: mobileOpen ? 0 : 1 }} />
-              <span className="block h-[2px] rounded-full transition-all duration-300" style={{ width: mobileOpen ? 18 : 15, background: scrolled ? "#4FFFB0" : "#fff", transform: mobileOpen ? "translateY(-3.5px) rotate(-45deg)" : "none" }} />
-            </button>
           </div>
-        </nav>
+        </div>
       </div>
 
+      {/* Mobile drawer — opens from the left, the near edge in RTL */}
       {mobileOpen && (
         <>
-          <div className="mob-backdrop-ar fixed inset-0 z-[98]" style={{ background: "rgba(0,0,0,0.6)", backdropFilter: "blur(20px)", WebkitBackdropFilter: "blur(20px)", opacity: 0 }} onClick={closeMobile} />
-          <div className="fixed top-0 left-0 bottom-0 z-[99] w-[280px] flex flex-col justify-center px-8" style={{ background: "#0A0A0A" }}>
+          <div
+            className="mob-backdrop-ar fixed inset-0 z-[98]"
+            style={{ background: "rgba(4,50,58,0.6)", backdropFilter: "blur(20px)", WebkitBackdropFilter: "blur(20px)", opacity: 0 }}
+            onClick={closeMobile}
+          />
+          <div className="fixed top-0 left-0 bottom-0 z-[99] w-[280px] flex flex-col justify-center px-8" style={{ background: INK }} dir="rtl">
             <div className="flex flex-col gap-2">
               {navLinks.map((link) => (
-                <a key={link.label} href={link.href} onClick={closeMobile} className="mob-link-ar text-2xl font-bold py-3 transition-colors duration-200 hover:text-[#4FFFB0] ar-heading" style={{ color: "#fff", opacity: 0, borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+                <a
+                  key={link.label}
+                  href={link.href}
+                  onClick={closeMobile}
+                  className="mob-link-ar ar-heading text-2xl py-3 transition-colors duration-200 hover:text-[#CFF7EE]"
+                  style={{ color: "#fff", opacity: 0, borderBottom: "1px solid rgba(255,255,255,0.06)" }}
+                >
                   {link.label}
                 </a>
               ))}
-              <a href="#contact" onClick={closeMobile} className="mob-link-ar inline-flex items-center justify-center h-12 rounded-full text-base font-bold mt-4 ar-body" style={{ background: "#4FFFB0", color: "#0A0A0A", opacity: 0, border: "2px solid #0A0A0A", boxShadow: "4px 4px 0px 0px #0A0A0A" }}>
-                يلا نتكلم
+              <a
+                href="#contact"
+                onClick={closeMobile}
+                className="mob-link-ar ar-body inline-flex items-center justify-center h-12 rounded-full text-base font-bold mt-4"
+                style={{ background: MINT, color: INK, opacity: 0, border: `2px solid ${INK}`, boxShadow: `4px 4px 0px 0px ${INK}` }}
+              >
+                لنتحدث
               </a>
               <a
                 href="/"

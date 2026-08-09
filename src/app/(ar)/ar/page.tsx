@@ -17,7 +17,7 @@ import AskAhmedAr from "@/components/ar/AskAhmedAr";
 export default function HomeAr() {
   return (
     <>
-      <Preloader />
+      <Preloader lang="ar" />
       <NavbarAr />
       <main>
         <HeroAr />

@@ -3,170 +3,161 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { BarChart3, Search, Code2, Bot, LineChart, Rocket } from "lucide-react";
-/* eslint-disable @next/next/no-img-element */
+import { Target, Sprout, MonitorSmartphone, BrainCircuit, Gauge, Compass } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
+/* Sticker scatter in the site's retro language: 2px ink outline and a hard
+   offset shadow with no blur, the same treatment as the CTA buttons and the
+   AskAhmed panels. Cards sit at slight angles and overlap; hovering presses
+   one flat into the page and straightens it.
+
+   Every card carries the full description and the full tool list. An earlier
+   pass varied size by *removing* copy from the small cards, which just made
+   three services look half-finished — size varies by width here, and the copy
+   stays intact everywhere. */
+type Fill = "mint" | "paper";
+
 type ServiceItem = {
-  num: string;
-  Icon: typeof BarChart3;
+  Icon: typeof Target;
   title: string;
   desc: string;
   tools: string[];
-  variant: "green" | "white";
-  imageSrc: string;
-  imageAlt: string;
+  fill: Fill;
+  /* Column span on the 12-col bed — this is the only thing that varies the
+     card's size, so no service loses content to the layout. */
+  span: string;
+  rotate: number;
+  nudge: number;
+  z: number;
 };
 
-const services = [
+/* Icons are picked so no two read alike at 20px: the old set paired BarChart3
+   with LineChart for two different services, and used a rocket for strategy.
+   Target = what the campaigns aim at, Sprout = organic, MonitorSmartphone =
+   web *and* mobile in one mark, BrainCircuit = the AI work, Gauge = reading
+   instruments rather than another chart, Compass = direction, not liftoff. */
+const services: ServiceItem[] = [
   {
-    num: "01",
-    Icon: BarChart3,
+    Icon: Target,
     title: "Performance Marketing",
     desc: "Data-driven campaigns across Google, Meta, and TikTok that maximize ROAS and scale revenue. From strategy to execution, I manage ad budgets up to $15K+/month with full tracking and optimization.",
     tools: ["Google Ads", "Meta Ads", "TikTok Ads", "Snapchat Ads"],
-    variant: "green",
-    imageSrc: "/services/16.png",
-    imageAlt: "Premium green illustration representing performance marketing and campaign growth",
+    fill: "mint", span: "md:col-span-7", rotate: -1.8, nudge: 0, z: 6,
   },
   {
-    num: "02",
-    Icon: Search,
+    Icon: Sprout,
     title: "SEO & Organic Growth",
     desc: "Technical audits, keyword strategy, on-page optimization, and link building that drive organic visibility. I've achieved top-10 rankings for competitive keywords within 8 months.",
     tools: ["Technical SEO", "On-Page", "Off-Page", "Local SEO"],
-    variant: "white",
-    imageSrc: "/services/14.png",
-    imageAlt: "Editorial illustration representing SEO and organic growth strategy",
+    fill: "paper", span: "md:col-span-5", rotate: 2.1, nudge: 38, z: 5,
   },
   {
-    num: "03",
-    Icon: Code2,
+    Icon: MonitorSmartphone,
     title: "Web & Mobile Development",
     desc: "Full-stack applications built with modern frameworks, from landing pages to complex platforms with payment gateways, real-time databases, and AI integrations. Shipped to App Store & Google Play.",
     tools: ["React", "Next.js", "Flutter", "Firebase", "Supabase"],
-    variant: "green",
-    imageSrc: "/services/16.png",
-    imageAlt: "Premium green illustration representing web and mobile product development",
+    fill: "paper", span: "md:col-span-5", rotate: 1.5, nudge: -30, z: 4,
   },
   {
-    num: "04",
-    Icon: Bot,
+    Icon: BrainCircuit,
     title: "AI Integration & Automation",
     desc: "Custom AI chatbots, automated workflows, and AI-powered products that save time and unlock new capabilities. From Zapier automations to full AI product builds.",
     tools: ["AI Chatbots", "Zapier", "Make", "OpenAI"],
-    variant: "white",
-    imageSrc: "/services/15.png",
-    imageAlt: "Editorial illustration representing AI integration and workflow automation",
+    fill: "mint", span: "md:col-span-7", rotate: -2.3, nudge: 12, z: 3,
   },
   {
-    num: "05",
-    Icon: LineChart,
+    Icon: Gauge,
     title: "Data & Analytics",
     desc: "GA4 setup, Google Tag Manager, conversion tracking, and Looker Studio dashboards. Full tracking infrastructure that turns raw data into actionable growth insights.",
     tools: ["GA4", "GTM", "Looker Studio", "Search Console"],
-    variant: "green",
-    imageSrc: "/services/16.png",
-    imageAlt: "Premium green illustration representing data dashboards and analytics systems",
+    fill: "paper", span: "md:col-span-6", rotate: 1.7, nudge: -22, z: 2,
   },
   {
-    num: "06",
-    Icon: Rocket,
+    Icon: Compass,
     title: "Full-Stack Digital Strategy",
     desc: "End-to-end from idea to live product, connecting marketing, product, and technology into one cohesive plan. Strategy, build, launch, grow. All under one roof.",
     tools: ["Strategy", "Branding", "UX", "Growth"],
-    variant: "white",
-    imageSrc: "/services/13.png",
-    imageAlt: "Editorial illustration representing full-stack digital strategy and collaboration",
+    fill: "mint", span: "md:col-span-6", rotate: -1.4, nudge: 26, z: 1,
   },
-] satisfies ServiceItem[];
+];
 
-function ServiceArtwork({ service }: { service: ServiceItem }) {
-  return (
-    <div
-      className="group/art relative w-full max-w-[390px] aspect-square overflow-hidden mx-auto"
-    >
-      <img
-        src={service.imageSrc}
-        alt={service.imageAlt}
-        loading={service.num === "01" ? "eager" : "lazy"}
-        decoding="async"
-        className="absolute inset-0 w-full h-full object-contain"
-      />
-    </div>
-  );
-}
+/* Retro outline and shadow are the same ink on both fills — that consistency
+   is what makes the six read as one set of stickers rather than six cards. */
+const OUTLINE = "#004D5A";
 
-function ServiceCard({ service }: { service: ServiceItem }) {
-  const isGreen = service.variant === "green";
-  const bg = isGreen ? "#4FFFB0" : "#fff";
-  const textColor = "#0A0A0A";
-  const mutedColor = isGreen ? "rgba(0,0,0,0.5)" : "rgba(0,0,0,0.45)";
-  const pillBg = isGreen ? "rgba(0,0,0,0.08)" : "rgba(79,255,176,0.15)";
-  const pillColor = isGreen ? "#0A0A0A" : "#0A0A0A";
-  const numColor = isGreen ? "rgba(0,0,0,0.08)" : "rgba(79,255,176,0.15)";
+/* Chips get the same retro outline and hard shadow as the cards, tilted so a
+   row of them reads as scattered stickers rather than a tidy tag list. The
+   angles cycle from a fixed list rather than Math.random() — random tilts
+   would differ between the server render and the client and break hydration. */
+const CHIP_TILTS = [-3, 2.2, -1.4, 3, -2.4];
+/* On a white section the `paper` cards would vanish into the ground, so they
+   take the pale wash instead — the outline still does the separating, but the
+   fill keeps the two variants distinguishable. */
+const fills: Record<Fill, { bg: string; body: string; chipBg: string }> = {
+  mint:  { bg: "#CFF7EE", body: "rgba(4,50,58,0.70)", chipBg: "#FFFFFF" },
+  paper: { bg: "#F4FBF9", body: "#4E717A",            chipBg: "#FFFFFF" },
+};
+
+function ServiceSticker({ service }: { service: ServiceItem }) {
+  const f = fills[service.fill];
 
   return (
-    <div
-      className="rounded-[24px] p-8 md:p-14 relative overflow-hidden flex flex-col justify-center"
-      style={{ background: bg, minHeight: "70vh" }}
+    <article
+      className="service-sticker relative rounded-[20px] p-7 md:p-8 h-full opacity-0"
+      data-rotate={service.rotate}
+      style={{
+        background: f.bg,
+        border: `2px solid ${OUTLINE}`,
+        boxShadow: `6px 6px 0px 0px ${OUTLINE}`,
+        zIndex: service.z,
+      }}
     >
-      <span
-        className="heading absolute top-5 right-8 text-[92px] md:text-[132px] leading-none pointer-events-none select-none"
-        style={{ color: numColor }}
-      >
-        {service.num}
-      </span>
-
-      <div className="grid grid-cols-1 md:grid-cols-5 gap-8 items-center relative z-10 h-full">
-        {/* Content side — 3 cols */}
-        <div className="md:col-span-3">
-          {/* Icon + number */}
-          <div className="flex items-center gap-3 mb-6">
-            <div
-              className="w-12 h-12 rounded-2xl flex items-center justify-center"
-              style={{ background: isGreen ? "rgba(0,0,0,0.08)" : "rgba(79,255,176,0.15)" }}
-            >
-              <service.Icon size={22} style={{ color: textColor }} />
-            </div>
-            <span className="text-sm font-bold" style={{ color: mutedColor }}>{service.num}</span>
-          </div>
-
-          {/* Title */}
-          <h3 className="heading text-3xl md:text-4xl mb-4" style={{ color: textColor }}>
-            {service.title}
-          </h3>
-
-          {/* Description */}
-          <p className="text-sm md:text-base leading-relaxed mb-6" style={{ color: mutedColor }}>
-            {service.desc}
-          </p>
-
-          {/* Tools */}
-          <div className="flex flex-wrap gap-2 mb-6">
-            {service.tools.map(t => (
-              <span key={t} className="px-3 py-1.5 rounded-full text-xs font-semibold" style={{ background: pillBg, color: pillColor }}>
-                {t}
-              </span>
-            ))}
-          </div>
-
-          {/* Tools end */}
+      <div className="flex flex-col h-full">
+        <div
+          className="rounded-[13px] flex items-center justify-center mb-5 w-12 h-12"
+          style={{ background: f.chipBg, border: `2px solid ${OUTLINE}` }}
+        >
+          <service.Icon size={21} strokeWidth={1.9} style={{ color: OUTLINE }} />
         </div>
 
-        {/* Right side — art + stat — 2 cols */}
-        <div className="md:col-span-2 flex flex-col items-center justify-center">
-          <ServiceArtwork service={service} />
+        <h3
+          className="heading mb-3"
+          style={{ color: "#04323A", fontSize: "1.35rem", lineHeight: 1.22, letterSpacing: "-0.01em" }}
+        >
+          {service.title}
+        </h3>
+
+        <p className="mb-6" style={{ color: f.body, fontSize: "0.9375rem", lineHeight: 1.68, maxWidth: "50ch" }}>
+          {service.desc}
+        </p>
+
+        <div className="flex flex-wrap gap-2.5 mt-auto">
+          {service.tools.map((t, i) => (
+            <span
+              key={t}
+              className="service-chip rounded-full font-bold"
+              style={{
+                background: f.chipBg,
+                color: "#04323A",
+                border: `1.5px solid ${OUTLINE}`,
+                boxShadow: `2px 2px 0px 0px ${OUTLINE}`,
+                transform: `rotate(${CHIP_TILTS[i % CHIP_TILTS.length]}deg)`,
+                fontSize: "0.6875rem",
+                padding: "5px 12px",
+              }}
+            >
+              {t}
+            </span>
+          ))}
         </div>
       </div>
-    </div>
+    </article>
   );
 }
 
 export default function Services() {
   const sectionRef = useRef<HTMLElement>(null);
-  const stackRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -174,73 +165,24 @@ export default function Services() {
         ".services-header",
         { y: 32, opacity: 0 },
         {
-          y: 0,
-          opacity: 1,
-          duration: 0.7,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 78%",
-            once: true,
-          },
+          y: 0, opacity: 1, duration: 0.7, ease: "power3.out",
+          scrollTrigger: { trigger: sectionRef.current, start: "top 78%", once: true },
         }
       );
 
-      const cardShells = gsap.utils.toArray<HTMLElement>(".service-card-shell");
-
-      cardShells.forEach((card, index) => {
-        gsap.set(card, {
-          transformOrigin: "top center",
-          force3D: true,
-          zIndex: index + 1,
-        });
-
-        if (index === 0) {
-          gsap.set(card, { yPercent: 0, y: 0, scale: 1, rotateX: 0 });
-          return;
-        }
-
-        gsap.set(card, {
-          yPercent: 115,
-          y: 0,
-          scale: 1,
-          rotateX: 0,
-        });
-      });
-
-      const timeline = gsap.timeline({
-        defaults: { ease: "power2.inOut", duration: 1 },
-        scrollTrigger: {
-          trigger: stackRef.current,
-          start: "top top+=110",
-          end: () => `+=${Math.max(1, cardShells.length - 1) * window.innerHeight * 0.65}`,
-          scrub: 0.8,
-          invalidateOnRefresh: true,
-        },
-      });
-
-      cardShells.slice(1).forEach((card, index) => {
-        const previousCard = cardShells[index];
-
-        if (previousCard) {
-          timeline.to(
-            previousCard,
-            {
-              scale: 0.97,
-              y: -16,
-            },
-            index
-          );
-        }
-
-        timeline.to(
+      /* Stickers drop in and settle onto their resting tilt. That drop is
+         the section's only motion — there is no hover state to hand off to. */
+      const cards = gsap.utils.toArray<HTMLElement>(".service-sticker");
+      cards.forEach((card, i) => {
+        const rest = Number(card.dataset.rotate ?? 0);
+        gsap.fromTo(
           card,
+          { y: 46, opacity: 0, rotate: 0 },
           {
-            yPercent: 0,
-            y: 0,
-            scale: 1,
-          },
-          index
+            y: 0, opacity: 1, rotate: rest,
+            duration: 0.7, delay: i * 0.09, ease: "back.out(1.4)",
+            scrollTrigger: { trigger: sectionRef.current, start: "top 72%", once: true },
+          }
         );
       });
     }, sectionRef);
@@ -249,40 +191,40 @@ export default function Services() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="services" style={{ background: "#0A0A0A" }}>
-      {/* Header */}
-      <div className="services-header text-center pt-24 pb-10 px-6 opacity-0">
-        <p className="script text-xl md:text-2xl mb-3" style={{ color: "#4FFFB0" }}>Services</p>
-        <h2 className="heading text-3xl md:text-4xl" style={{ color: "#fff" }}>What I Do Best</h2>
+    <section ref={sectionRef} id="services" style={{ background: "#fff", padding: "100px 0 120px" }}>
+      <div className="services-header text-center px-6 mb-14 opacity-0">
+        <p className="script text-xl md:text-2xl mb-3" style={{ color: "#004D5A" }}>Services</p>
+        <h2 className="heading text-3xl md:text-4xl" style={{ color: "#04323A" }}>What I Do Best</h2>
       </div>
 
-      <div
-        ref={stackRef}
-        className="max-w-6xl mx-auto px-4 md:px-6 pb-24 relative"
-        style={{ minHeight: `calc(${services.length * 72}vh)` }}
-      >
-        <div
-          className="sticky"
-          style={{
-            top: "110px",
-            height: "72vh",
-          }}
-        >
-          <div className="relative h-full overflow-hidden">
-            {services.map((service, index) => (
-              <div
-                key={service.num}
-                className="service-card-shell absolute inset-0"
-                style={{
-                  zIndex: index + 1,
-                }}
-              >
-                <ServiceCard service={service} />
-              </div>
-            ))}
-          </div>
+      {/* 12-column bed. Width comes from the span, the dropped look from the
+          per-card nudge — both collapse to a plain stack under md. */}
+      <div className="max-w-6xl mx-auto px-5 md:px-6">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-5 md:gap-6 items-stretch">
+          {services.map(service => (
+            <div
+              key={service.title}
+              className={`${service.span} service-sticker-slot`}
+              /* Only the variable is set inline — the margin itself is applied
+                 in the stylesheet so the md breakpoint can zero it out. An
+                 inline margin-top would outrank the mobile reset. */
+              style={{ "--nudge": `${service.nudge}px` } as React.CSSProperties}
+            >
+              <ServiceSticker service={service} />
+            </div>
+          ))}
         </div>
       </div>
+
+      <style>{`
+        .service-sticker-slot { margin-top: 0; }
+        @media (min-width: 768px) {
+          .service-sticker-slot { margin-top: var(--nudge, 0px); }
+        }
+        /* No hover motion: the cards and chips stay exactly where they land.
+           The entrance drop is the only movement in the section. */
+        .service-sticker { will-change: transform; }
+      `}</style>
     </section>
   );
 }

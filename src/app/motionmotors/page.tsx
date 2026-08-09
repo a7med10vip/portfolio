@@ -5,11 +5,11 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import MotionMotorsChat from "@/components/MotionMotorsChat";
 import {
-  Car, Banknote, Target, TrendingUp, Zap,
+  Car, Banknote, Target, TrendingUp,
   ArrowRight, ArrowDown, Calendar, Clock, Users, MapPin, BarChart3,
   Filter, Heart, Send,
   CheckCircle2, AlertCircle, Eye, FileText, Palette,
-  Database, Lightbulb, ShieldCheck, Megaphone, Phone,
+  Database, ShieldCheck, Megaphone, Phone,
   type LucideIcon,
 } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
@@ -38,17 +38,6 @@ export default function MotionMotorsCampaign() {
       gsap.utils.toArray<HTMLElement>(".mm-stagger").forEach((el) => {
         gsap.fromTo(el.querySelectorAll(".mm-item"), { y: 40, opacity: 0, scale: 0.96 }, { y: 0, opacity: 1, scale: 1, duration: 0.7, stagger: 0.08, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 82%", once: true } });
       });
-
-      // Counter animation for the price
-      const priceEl = document.querySelector<HTMLElement>(".mm-price-num");
-      if (priceEl) {
-        gsap.fromTo({ v: 0 }, { v: 1051 }, {
-          v: 1051, duration: 2.4, delay: 0.7, ease: "power3.out",
-          onUpdate() {
-            priceEl.textContent = Math.round(this.targets()[0].v).toLocaleString();
-          },
-        });
-      }
     }, ref);
     return () => ctx.revert();
   }, []);
@@ -91,7 +80,6 @@ export default function MotionMotorsCampaign() {
     { name: "Snapchat", logo: "/platforms/snapchat.svg", sub: "Vertical Short-form", role: "Localized Reach in Jeddah", color: A, tags: ["City-level", "9:16 Video", "Click-to-WhatsApp"], body: "Snap is huge in KSA and lets us target Jeddah specifically — the cheapest way to reach the city without wasting spend elsewhere. Vertical video on the price hook + model spotlight, with click-to-WhatsApp as the primary path." },
     { name: "TikTok", logo: "/platforms/tiktok.jpg", sub: "Discovery + Creator-Style", role: "Consideration & Discovery", color: R, tags: ["Discovery Feed", "Creator Edits", "Family Context"], body: "Sits in the middle of the funnel — short-form video introducing models in family and city-driving scenarios. Creator-style edits of the offer usually outperform polished brand creative here." },
     { name: "Google Ads", logo: "/platforms/google.png", sub: "Search + YouTube", role: "High-Intent Capture", color: P, tags: ["Search Ads", "YouTube", "In-market Audiences"], body: "Search picks up the people already searching to buy — keywords like Soueast price, monthly installment, financing offers, dealer in Jeddah. YouTube runs awareness video against in-market and demographic audiences." },
-    { name: "X", logo: "/platforms/x.webp", sub: "Announcement & News-cycle", role: "Supplementary Reach", color: D, tags: ["Announcements", "News-cycle", "Niche Reach"], body: "A smaller share for offer announcements, news-cycle alignment, and reaching the segment that doesn't engage on TikTok or Snapchat." },
   ];
 
   const pillars: { n: string; title: string; tagline: string; desc: string; format: string; color: string; dark: boolean; icon: LucideIcon }[] = [
@@ -150,23 +138,14 @@ export default function MotionMotorsCampaign() {
       desc: "Within 3 working days of close. Full breakdown by channel, audience, creative — with lead-quality from sales and recommendations." },
   ];
 
-  const platforms: { name: string; access: string; purpose: string }[] = [
-    { name: "Meta Business Manager", access: "Admin", purpose: "April review, May build, pixel + lead-form setup" },
-    { name: "TikTok Ads Manager", access: "Admin", purpose: "April review, May build, pixel + audience setup" },
-    { name: "Snapchat Ads Manager", access: "Admin", purpose: "April review, May build, conversion setup" },
-    { name: "Google Ads", access: "Admin", purpose: "Search + YouTube + conversion configuration" },
-    { name: "X Ads", access: "Admin", purpose: "April review, May build, audience setup" },
-    { name: "Google Analytics 4", access: "Editor", purpose: "Cross-channel attribution + audience build" },
-    { name: "CRM", access: "User", purpose: "Lead-quality monitoring + outcome attribution" },
+  // June projection — provisional targets (prior-campaign performance + optimized June setup); lock after pre-launch data review.
+  const projection: { name: string; tier: string; color: string; budget: string; leads: string }[] = [
+    { name: "Meta", tier: "PRIMARY", color: B, budget: "11,250", leads: "~290" },
+    { name: "Snapchat", tier: "CORE", color: A, budget: "6,250", leads: "~120" },
+    { name: "TikTok", tier: "SUPPORT", color: R, budget: "4,500", leads: "~100" },
+    { name: "Google Ads", tier: "SUPPORT", color: P, budget: "3,000", leads: "~50" },
   ];
 
-  const performanceData: string[] = [
-    "Spend by channel and ad set",
-    "Leads delivered by channel — including CPL by audience and creative",
-    "CTR, CPM, and engagement benchmarks",
-    "Lead-quality breakdown from sales (qualified vs unqualified, showroom-visit rate, sales conversion)",
-    "Creative assets that ran — to assess what worked and what to evolve",
-  ];
 
   const openQuestions: { category: string; icon: LucideIcon; color: string; items: string[] }[] = [
     { category: "Performance Targets", icon: TrendingUp, color: G, items: [
@@ -180,7 +159,7 @@ export default function MotionMotorsCampaign() {
     ]},
     { category: "Creative Production", icon: Palette, color: P, items: [
       "Who's producing the creative — in-house team, an agency, or freelancers?",
-      "When can creative be delivered? Will it land before the April 28 go-live deadline?",
+      "When can creative be delivered? Will it land before the June 4 go-live deadline?",
       "Is there a brand guideline doc, logo pack, and a list of any must-have brand elements?",
     ]},
     { category: "Landing & Lead Routing", icon: Target, color: A, items: [
@@ -195,20 +174,14 @@ export default function MotionMotorsCampaign() {
   ];
 
   const timeline: { date: string; action: string; owner: string; highlight?: boolean }[] = [
-    { date: "April 26", action: "Approach document delivered.", owner: "Strategist" },
-    { date: "April 26–27", action: "Platform access granted; April performance data shared.", owner: "Marketing leadership" },
-    { date: "April 27–28", action: "April reviewed; final media plan with budget allocation + CPL targets.", owner: "Strategist" },
-    { date: "April 28", action: "Final media plan approved; final creative approved (AR + EN).", owner: "Marketing leadership", highlight: true },
-    { date: "April 29–30", action: "Campaign build, QA, pre-launch checklist across all platforms.", owner: "Strategist" },
-    { date: "May 1", action: "Campaign goes LIVE.", owner: "Strategist", highlight: true },
+    { date: "June 2", action: "Approach document delivered.", owner: "Strategist" },
+    { date: "June 2–3", action: "Platform access granted; May performance data shared.", owner: "Marketing leadership" },
+    { date: "June 3–4", action: "May reviewed; final media plan with budget allocation + CPL targets.", owner: "Strategist" },
+    { date: "June 4", action: "Final media plan approved; final creative approved (AR + EN).", owner: "Marketing leadership", highlight: true },
+    { date: "June 5–6", action: "Campaign build, QA, pre-launch checklist across all platforms.", owner: "Strategist" },
+    { date: "June 7", action: "Campaign goes LIVE (Sunday).", owner: "Strategist", highlight: true },
     { date: "Weekly", action: "Snapshot delivered every Sunday during live window.", owner: "Strategist" },
-    { date: "June 3", action: "Monthly performance review (within 3 working days of close).", owner: "Strategist" },
-  ];
-
-  const eidPhases: { phase: string; window: string; angle: string; color: string }[] = [
-    { phase: "Pre-Eid Build-up", window: "Early–Mid May", angle: "People are buying cars for Eid trips and family visits. Push the finance offer hardest here — this is the peak buying intent window.", color: B },
-    { phase: "Eid al-Adha", window: "Late May", angle: "Sales offices on reduced hours, ad attention drops. Switch to family-warmth creative, soften the push, let the brand breathe.", color: A },
-    { phase: "Post-Eid (Optional)", window: "Early June", angle: "Retarget warm leads who paused during Eid. Tone: \"Eid is over. The offer isn't.\" Recover deferred conversions.", color: G },
+    { date: "July 3", action: "Monthly performance review (within 3 working days of close).", owner: "Strategist" },
   ];
 
   /* ═══════════ RENDER ═══════════ */
@@ -229,7 +202,7 @@ export default function MotionMotorsCampaign() {
             <img src="/logos/motion%20motors%20so.png" alt="Motion Motors × Soueast" className="h-20 md:h-24 mx-auto object-contain" />
           </div>
           <div className="mm-hero opacity-0 text-center mb-4">
-            <p className="text-[13px] font-bold " style={{ color: "rgba(0,0,0,0.3)" }}>April 26, 2026</p>
+            <p className="text-[13px] font-bold " style={{ color: "rgba(0,0,0,0.3)" }}>June 2, 2026</p>
           </div>
 
           <div className="mm-hero opacity-0 text-center mb-4">
@@ -240,40 +213,27 @@ export default function MotionMotorsCampaign() {
 
           <div className="mm-hero opacity-0 text-center mb-6">
             <p className=" text-lg md:text-xl" style={{ color: "rgba(0,0,0,0.5)" }}>
-              May 2026 finance-led acquisition push across Soueast lineup
+              June 2026 finance-led acquisition push across Soueast lineup
             </p>
             <p className="text-xl font-bold mt-2 heading" style={{ color: G }}>Motion Motors × Soueast</p>
           </div>
 
-          {/* From / To */}
-          <div className="mm-hero opacity-0 grid grid-cols-1 md:grid-cols-2 gap-4 mb-10 w-full max-w-xl">
-            <div className="rounded-[16px] p-5" style={{ background: "#fff", border: "1px solid #EBEBEB" }}>
-              <p className="text-[10px] font-bold  uppercase mb-2" style={{ color: G }}>Prepared By</p>
-              <p className="text-[14px] font-bold " style={{ color: D }}>Ahmed Ali</p>
-              <p className="text-[11px] " style={{ color: "rgba(0,0,0,0.4)" }}>Digital Strategist</p>
-              <p className="text-[11px] " style={{ color: "rgba(0,0,0,0.3)" }}>hello@ahmedali.online</p>
-            </div>
+          {/* Prepared By */}
+          <div className="mm-hero opacity-0 flex justify-center mb-10 w-full">
             <div className="rounded-[16px] p-5" style={{ background: "#fff", border: `2px solid ${G}`, boxShadow: `3px 3px 0px 0px ${D}` }}>
-              <p className="text-[10px] font-bold  uppercase mb-2" style={{ color: G }}>Issued To</p>
-              <p className="text-[14px] font-bold" style={{ color: D }}>Edgard Tabet</p>
-              <p className="text-[11px]" style={{ color: "rgba(0,0,0,0.5)" }}>Motion Motors × Soueast</p>
-              <p className="text-[11px]" style={{ color: "rgba(0,0,0,0.4)" }}>ANB Finance · Jeddah · May 1–31</p>
-              <p className="text-[11px]" style={{ color: "rgba(0,0,0,0.3)" }}>In response to the May 2026 brief</p>
-            </div>
-          </div>
-
-          {/* The Hook — finance number */}
-          <div className="mm-hero opacity-0 w-full max-w-2xl mb-10">
-            <div className="rounded-[16px] p-7 text-center" style={{ background: "#fff", border: `1px solid ${G}30` }}>
-              <p className="text-[12px] font-bold uppercase mb-7" style={{ color: "rgba(0,0,0,0.55)" }}>The Hook — Starting From</p>
-              <div className="flex items-baseline justify-center gap-3 mb-4">
-                <span className="text-[14px] font-bold" style={{ color: "rgba(0,0,0,0.4)" }}>SAR</span>
-                <span className="mm-price-num heading tabular-nums" style={{ fontSize: "clamp(60px, 12vw, 120px)", lineHeight: 1, color: D }}>0</span>
-                <span className="text-base md:text-lg font-bold " style={{ color: "rgba(0,0,0,0.5)" }}>/month</span>
-              </div>
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full" style={{ background: G, border: `2px solid ${D}`, boxShadow: `2px 2px 0px 0px ${D}` }}>
-                <Zap size={12} color={D} />
-                <span className="text-[11px] font-bold " style={{ color: D }}>0% DOWN PAYMENT</span>
+              <p className="text-[10px] font-bold uppercase mb-3 text-center" style={{ color: G }}>Prepared By</p>
+              <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
+                <div className="text-center">
+                  <p className="text-[14px] font-bold " style={{ color: D }}>Ahmed Ali</p>
+                  <p className="text-[11px] " style={{ color: "rgba(0,0,0,0.4)" }}>Head of Digital Product and Growth</p>
+                  <p className="text-[11px] " style={{ color: "rgba(0,0,0,0.3)" }}>ahmed.ali@emotiongrp.com</p>
+                </div>
+                <div className="hidden sm:block self-stretch w-px" style={{ background: "#EBEBEB" }} />
+                <div className="text-center">
+                  <p className="text-[14px] font-bold " style={{ color: D }}>Noman Shahid</p>
+                  <p className="text-[11px] " style={{ color: "rgba(0,0,0,0.4)" }}>Digital Marketing Specialist</p>
+                  <p className="text-[11px] " style={{ color: "rgba(0,0,0,0.3)" }}>noman.shahid@emotiongrp.com</p>
+                </div>
               </div>
             </div>
           </div>
@@ -283,8 +243,8 @@ export default function MotionMotorsCampaign() {
             <div className="flex items-stretch justify-center" style={{ background: "#fff", border: "1px solid #E8E8E8", borderRadius: 16, overflow: "hidden", boxShadow: "0 2px 16px rgba(0,0,0,0.04)" }}>
               {[
                 { n: "25K", l: "SAR Budget" },
-                { n: "5", l: "Channels" },
-                { n: "31", l: "Days Live" },
+                { n: "4", l: "Channels" },
+                { n: "24", l: "Days Live" },
                 { n: "4", l: "Models" },
               ].map((s, i) => (
                 <div key={s.l} className="flex-1 flex flex-col items-center justify-center py-5 px-2 relative" style={{ borderRight: i > 0 ? "1px solid #F0F0F0" : "none" }}>
@@ -302,7 +262,7 @@ export default function MotionMotorsCampaign() {
               <strong style={{ background: `${G}35`, color: D, padding: "1px 7px", borderRadius: 4 }}>Objective</strong>{" "}— Qualified leads and showroom visits in Jeddah for mid-income professionals and young families aged 25–45.
             </p>
             <p className="text-[12px]  mt-2" style={{ color: "rgba(0,0,0,0.5)" }}>
-              <strong>Go-live deadline:</strong> approved AR/EN visuals + finalized media plan by April 28
+              <strong>Go-live deadline:</strong> approved AR/EN visuals + finalized media plan by June 4
             </p>
           </div>
 
@@ -328,10 +288,10 @@ export default function MotionMotorsCampaign() {
 
           <div className="rounded-[20px] p-8 md:p-10 mb-8" style={{ background: "#fff", border: "1px solid #EBEBEB" }}>
             <p className="text-[14px]  leading-[2] mb-4" style={{ color: D }}>
-              The May 2026 campaign is a <strong style={{ background: `${P}25`, color: D, padding: "1px 7px", borderRadius: 4 }}>finance-led acquisition push</strong> across the Soueast lineup, anchored by an ANB monthly-installment offer starting from <strong style={{ background: `${A}30`, color: D, padding: "1px 7px", borderRadius: 4 }}>SAR 1,051/month with 0% down</strong>, and reinforced by a long-tail after-sales proposition.
+              The June 2026 campaign is a <strong style={{ background: `${P}25`, color: D, padding: "1px 7px", borderRadius: 4 }}>finance-led acquisition push</strong> across the Soueast lineup, anchored by an ANB monthly-installment offer starting from <strong style={{ background: `${A}30`, color: D, padding: "1px 7px", borderRadius: 4 }}>SAR 1,051/month with 0% down</strong>, and reinforced by a long-tail after-sales proposition.
             </p>
             <p className="text-[14px]  leading-[2]" style={{ color: "rgba(0,0,0,0.6)" }}>
-              The objective is qualified leads and showroom visits in Jeddah. Budget: SAR 25,000 across Meta, Snapchat, TikTok, X, and Google. Live window: <strong>May 1 → May 31, 2026</strong>. Go-live deadline: approved AR/EN visuals and a finalized media plan by April 28.
+              The objective is qualified leads and showroom visits in Jeddah. Budget: SAR 25,000 across Meta, Snapchat, TikTok, and Google. Live window: <strong>June 7 → June 30, 2026</strong>. Go-live deadline: approved AR/EN visuals and a finalized media plan by June 4.
             </p>
           </div>
 
@@ -353,7 +313,7 @@ export default function MotionMotorsCampaign() {
             <AlertCircle size={18} color={A} className="flex-shrink-0 mt-0.5" />
             <p className="text-[13px]  leading-relaxed" style={{ color: D }}>
               <strong style={{ color: A }}>Note: </strong>
-              This is a planning approach — not a finalized media plan. Final budget allocation per channel and per ad set will be set after I review April 2026 campaign performance (see Section 08).
+              This is a planning approach — not a finalized media plan. Final budget allocation per channel and per ad set will be set after I review May 2026 campaign performance.
             </p>
           </div>
         </div>
@@ -397,7 +357,7 @@ export default function MotionMotorsCampaign() {
           <div className="text-center mb-16">
             <p className="heading text-lg mb-3" style={{ color: G }}>Section 03</p>
             <h2 className="heading text-4xl md:text-5xl mb-5" style={{ color: "#fff" }}>Funnel Logic & <span style={{ color: G }}>Channel Approach</span></h2>
-            <p className="text-sm max-w-lg mx-auto " style={{ color: "rgba(255,255,255,0.6)" }}>Three funnel stages run in parallel — five channels, each with a distinct role.</p>
+            <p className="text-sm max-w-lg mx-auto " style={{ color: "rgba(255,255,255,0.6)" }}>Three funnel stages run in parallel — four channels, each with a distinct role and a clear priority.</p>
           </div>
 
           {/* Funnel stages */}
@@ -454,6 +414,33 @@ export default function MotionMotorsCampaign() {
               ))}
             </div>
           </div>
+
+          {/* Media Plan — platform focus (qualitative priority; exact % split locked after the May 2026 data review) */}
+          <div className="mt-16">
+            <h3 className="heading text-xl text-center mb-2" style={{ color: "#fff" }}>Media Plan — <span style={{ color: G }}>Platform Focus</span></h3>
+            <p className="text-[12px] text-center max-w-xl mx-auto mb-8" style={{ color: "rgba(255,255,255,0.5)" }}>Where the weight goes across the four channels. The exact budget split per channel is locked after the May 2026 data review.</p>
+            <div className="flex flex-col gap-3 mm-stagger">
+              {[
+                { tier: "Primary", emphasis: 4, name: "Meta", color: B, role: "Lead-gen backbone — carries the largest share of lead generation." },
+                { tier: "Core", emphasis: 3, name: "Snapchat", color: A, role: "Localized reach in Jeddah — the cheapest way to own the city." },
+                { tier: "Support", emphasis: 2, name: "TikTok", color: R, role: "Discovery & consideration — creator-style edits." },
+                { tier: "Support", emphasis: 2, name: "Google Ads", color: P, role: "High-intent capture — Search + YouTube." },
+              ].map((m) => (
+                <div key={m.name} className="mm-item rounded-[16px] p-5 flex items-center gap-4" style={{ background: "#fff", border: `1px solid ${m.color}25` }}>
+                  <span className="px-3 py-1.5 rounded-full text-[10px] font-bold flex-shrink-0" style={{ background: `${m.color}15`, color: m.color, minWidth: 78, textAlign: "center" }}>{m.tier}</span>
+                  <div className="flex-1 min-w-0">
+                    <h4 className="heading text-base" style={{ color: D }}>{m.name}</h4>
+                    <p className="text-[12px] leading-relaxed" style={{ color: "rgba(0,0,0,0.55)" }}>{m.role}</p>
+                  </div>
+                  <div className="flex gap-1 flex-shrink-0" title="Relative emphasis">
+                    {[0, 1, 2, 3].map((i) => (
+                      <span key={i} className="block rounded-full" style={{ width: 8, height: 8, background: i < m.emphasis ? m.color : "rgba(0,0,0,0.12)" }} />
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
@@ -464,6 +451,15 @@ export default function MotionMotorsCampaign() {
             <p className="heading text-lg mb-3" style={{ color: G }}>Section 04</p>
             <h2 className="heading text-4xl md:text-5xl mb-5">Creative <span style={{ color: G }}>Briefing</span></h2>
             <p className="text-sm max-w-lg mx-auto " style={{ color: "rgba(0,0,0,0.5)" }}>Four content pillars. Same priority order on every asset.</p>
+          </div>
+
+          {/* NOTE (Ahmed): Creative is NOT final — visuals, content, and captions are still being reviewed with Bashar & Joseph. Remove this banner once approved. */}
+          <div className="rounded-[16px] p-5 flex items-start gap-3 mb-10" style={{ background: `${A}0F`, border: `1.5px dashed ${A}` }}>
+            <AlertCircle size={18} color={A} className="flex-shrink-0 mt-0.5" />
+            <p className="text-[13px] leading-relaxed" style={{ color: D }}>
+              <strong style={{ color: A }}>Under review: </strong>
+              The visuals, content, and captions in this section are still being reviewed with <strong>Bashar</strong> and <strong>Joseph</strong> — not final yet.
+            </p>
           </div>
 
           <div className="flex flex-col gap-6 mb-10 mm-stagger">
@@ -514,43 +510,11 @@ export default function MotionMotorsCampaign() {
         </div>
       </section>
 
-      {/* ═══ 05 EID & SEASONAL PLAY ═══ */}
+      {/* ═══ 05 LEAD HANDLING ═══ */}
       <section id="section-05" className="mm-slide opacity-0" style={{ padding: "100px 24px", background: "#fff" }}>
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
-            <p className="heading text-lg mb-3" style={{ color: G }}>Section 05</p>
-            <h2 className="heading text-4xl md:text-5xl mb-5">Eid & <span style={{ color: G }}>Seasonal Play</span></h2>
-            <p className="text-sm max-w-2xl mx-auto" style={{ color: "rgba(0,0,0,0.5)" }}>The campaign runs through Eid al-Adha. The calendar is part of the brief — and the content adapts to it.</p>
-          </div>
-
-          <div className="rounded-[20px] p-6 mb-8" style={{ background: `${A}08`, border: `1px solid ${A}25` }}>
-            <p className="text-[14px] leading-relaxed" style={{ color: D }}>
-              <strong style={{ background: `${A}30`, color: D, padding: "1px 7px", borderRadius: 4 }}>Eid al-Adha lands in late May 2026</strong>{" "}— inside the live window. The campaign treats this as the content opportunity, not a blocker.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mm-stagger">
-            {eidPhases.map((p, i) => (
-              <div key={i} className="mm-item rounded-[20px] p-6" style={{ background: "#fff", border: `1px solid ${p.color}25` }}>
-                <div className="flex items-center gap-3 mb-3">
-                  <span className="w-9 h-9 rounded-xl flex items-center justify-center heading text-base" style={{ background: `${p.color}15`, color: p.color }}>{i + 1}</span>
-                  <div>
-                    <p className="heading text-base" style={{ color: D }}>{p.phase}</p>
-                    <p className="text-[10px] font-bold uppercase" style={{ color: p.color }}>{p.window}</p>
-                  </div>
-                </div>
-                <p className="text-[12.5px] leading-relaxed" style={{ color: "rgba(0,0,0,0.65)" }}>{p.angle}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══ 06 LEAD HANDLING ═══ */}
-      <section id="section-06" className="mm-slide opacity-0" style={{ padding: "100px 24px", background: "#fff" }}>
-        <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
-            <p className="heading text-lg mb-3" style={{ color: G }}>Section 06</p>
+            <p className="heading text-lg mb-3" style={{ color: G }}>Section 05</p>
             <h2 className="heading text-4xl md:text-5xl mb-5">Lead Handling & <span style={{ color: G }}>Conversion Path</span></h2>
             <p className="text-sm max-w-lg mx-auto " style={{ color: "rgba(0,0,0,0.5)" }}>From ad click to qualified lead in the CRM — no friction lost in between.</p>
           </div>
@@ -616,7 +580,7 @@ export default function MotionMotorsCampaign() {
                     "Hi, I'm interested in the Soueast offer (1,051 SAR/month, 0% down)."
                   </p>
                   <p className="text-[10px] font-mono mt-2" style={{ color: "rgba(0,0,0,0.4)" }}>
-                    Source: meta_may2026_conversion_s07
+                    Source: meta_jun2026_conversion_s07
                   </p>
                 </div>
               </div>
@@ -633,13 +597,59 @@ export default function MotionMotorsCampaign() {
         </div>
       </section>
 
-      {/* ═══ 07 MEASUREMENT ═══ */}
-      <section id="section-07" className="mm-slide opacity-0" style={{ padding: "100px 24px", background: D }}>
+      {/* ═══ 06 MEASUREMENT ═══ */}
+      <section id="section-06" className="mm-slide opacity-0" style={{ padding: "100px 24px", background: D }}>
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
-            <p className="heading text-lg mb-3" style={{ color: G }}>Section 07</p>
-            <h2 className="heading text-4xl md:text-5xl mb-5" style={{ color: "#fff" }}>Measurement & <span style={{ color: G }}>Reporting</span></h2>
-            <p className="text-sm max-w-lg mx-auto " style={{ color: "rgba(255,255,255,0.6)" }}>Three tiers I track. Three reports I deliver. Nothing in the middle.</p>
+            <p className="heading text-lg mb-3" style={{ color: G }}>Section 06</p>
+            <h2 className="heading text-4xl md:text-5xl mb-5" style={{ color: "#fff" }}>Projections, Targets & <span style={{ color: G }}>Reporting</span></h2>
+            <p className="text-sm max-w-2xl mx-auto " style={{ color: "rgba(255,255,255,0.6)" }}>What SAR 25,000 is projected to deliver in Jeddah — and how I&apos;ll measure it.</p>
+          </div>
+
+          {/* June Projection */}
+          <div className="mb-12">
+            <h3 className="heading text-xl text-center mb-2" style={{ color: "#fff" }}>Projected <span style={{ color: G }}>Results</span></h3>
+            <p className="text-[12px] text-center mb-6" style={{ color: "rgba(255,255,255,0.45)" }}>SAR 25,000 · June 7–30 · Jeddah · priority-weighted across the four channels</p>
+            <div className="rounded-[20px] p-5 md:p-6 overflow-x-auto mb-4" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)" }}>
+              <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 460 }}>
+                <thead>
+                  <tr style={{ borderBottom: "1px solid rgba(255,255,255,0.15)" }}>
+                    {["Channel", "Budget", "Proj. Leads"].map((h, i) => (
+                      <th key={h} style={{ textAlign: i === 0 ? "left" : "right", padding: "8px 12px", fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,0.45)", fontFamily: "var(--font-bricolage), sans-serif" }}>{h}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {projection.map((r) => (
+                    <tr key={r.name} style={{ borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
+                      <td style={{ padding: "11px 12px", fontSize: 13, fontWeight: 700, color: "#fff", fontFamily: "var(--font-bricolage), sans-serif" }}>
+                        {r.name} <span style={{ fontSize: 9, fontWeight: 700, color: r.color }}>{r.tier}</span>
+                      </td>
+                      <td style={{ padding: "11px 12px", textAlign: "right", fontSize: 13, color: "rgba(255,255,255,0.7)" }}>{r.budget}</td>
+                      <td style={{ padding: "11px 12px", textAlign: "right", fontSize: 14, fontWeight: 700, color: G }}>{r.leads}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+              <div className="rounded-[16px] p-5 text-center" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
+                <p className="text-[10px] font-bold uppercase mb-1" style={{ color: "rgba(255,255,255,0.5)" }}>Expected</p>
+                <p className="heading" style={{ fontSize: 30, color: "#fff", lineHeight: 1 }}>~510</p>
+                <p className="text-[11px] mt-1" style={{ color: "rgba(255,255,255,0.5)" }}>qualified leads</p>
+              </div>
+              <div className="rounded-[16px] p-5 text-center" style={{ background: G, border: `2px solid ${D}` }}>
+                <p className="text-[10px] font-bold uppercase mb-1" style={{ color: "rgba(0,0,0,0.5)" }}>Target</p>
+                <p className="heading" style={{ fontSize: 30, color: D, lineHeight: 1 }}>~560</p>
+                <p className="text-[11px] mt-1" style={{ color: "rgba(0,0,0,0.6)" }}>leads · CPL ≤ 45 SR</p>
+              </div>
+              <div className="rounded-[16px] p-5 text-center" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
+                <p className="text-[10px] font-bold uppercase mb-1" style={{ color: "rgba(255,255,255,0.5)" }}>Stretch</p>
+                <p className="heading" style={{ fontSize: 30, color: "#fff", lineHeight: 1 }}>~620</p>
+                <p className="text-[11px] mt-1" style={{ color: "rgba(255,255,255,0.5)" }}>with full optimization</p>
+              </div>
+            </div>
+            <p className="text-[10px] mt-4 text-center" style={{ color: "rgba(255,255,255,0.35)" }}>* Projected from prior-campaign performance and the optimized June setup — lead forms + click-to-WhatsApp and a Meta-led split. Targets lock after the pre-launch data review.</p>
           </div>
 
           {/* KPI Tiers */}
@@ -693,71 +703,13 @@ export default function MotionMotorsCampaign() {
         </div>
       </section>
 
-      {/* ═══ 08 ACCESS REQUIRED ═══ */}
-      <section id="section-08" className="mm-slide opacity-0" style={{ padding: "100px 24px", background: "#fff" }}>
+      {/* ═══ 07 OPEN QUESTIONS ═══ */}
+      <section id="section-07" className="mm-slide opacity-0" style={{ padding: "100px 24px", background: "#fff" }}>
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
-            <p className="heading text-lg mb-3" style={{ color: G }}>Section 08</p>
-            <h2 className="heading text-4xl md:text-5xl mb-5">Access & <span style={{ color: G }}>Information</span> Required</h2>
-            <p className="text-sm max-w-2xl mx-auto " style={{ color: "rgba(0,0,0,0.5)" }}>To finalize budget allocation per channel and commit to CPL targets, I need to review April 2026 before May 1.</p>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-8">
-            {/* Platforms */}
-            <div className="lg:col-span-2 rounded-[20px] p-7" style={{ background: "#fff", border: "1px solid #EBEBEB" }}>
-              <p className="heading text-lg mb-5" style={{ color: D }}>Platform Access</p>
-              <div className="flex flex-col gap-2 mm-stagger">
-                {platforms.map((p, i) => (
-                  <div key={p.name} className="mm-item rounded-[12px] p-3 flex items-center justify-between gap-3" style={{ background: "#FAFAFA", border: "1px solid #F0F0F0" }}>
-                    <div className="flex items-center gap-3 flex-1 min-w-0">
-                      <span className="w-7 h-7 rounded-lg flex items-center justify-center text-[10px] font-bold flex-shrink-0 heading" style={{ background: `${G}15`, color: D }}>{String(i + 1).padStart(2, "0")}</span>
-                      <div className="flex-1 min-w-0">
-                        <p className="font-bold text-[12.5px] " style={{ color: D }}>{p.name}</p>
-                        <p className="text-[10px] " style={{ color: "rgba(0,0,0,0.45)" }}>{p.purpose}</p>
-                      </div>
-                    </div>
-                    <span className="text-[9px] font-bold  px-2 py-1 rounded flex-shrink-0" style={{
-                      background: p.access === "Admin" ? `${R}12` : p.access === "Editor" ? `${B}12` : `${P}12`,
-                      color: p.access === "Admin" ? R : p.access === "Editor" ? B : P,
-                    }}>{p.access}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Performance Data */}
-            <div className="rounded-[20px] p-7" style={{ background: G, border: `2px solid ${D}`, boxShadow: `3px 3px 0px 0px ${D}` }}>
-              <p className="text-[10px] font-bold  uppercase  mb-2" style={{ color: "rgba(0,0,0,0.5)" }}>April 2026 Data</p>
-              <h4 className="heading text-lg mb-4" style={{ color: D }}>5 things I need.</h4>
-              <div className="flex flex-col gap-2.5">
-                {performanceData.map((d, i) => (
-                  <div key={i} className="flex items-start gap-2">
-                    <span className="text-[12px] font-bold flex-shrink-0 heading" style={{ color: D }}>{i + 1}.</span>
-                    <p className="text-[11.5px]  leading-relaxed" style={{ color: "rgba(0,0,0,0.7)" }}>{d}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Fallback note */}
-          <div className="rounded-[16px] p-5 flex items-start gap-3" style={{ background: `${A}08`, border: `1px solid ${A}25` }}>
-            <Lightbulb size={18} color={A} className="flex-shrink-0 mt-0.5" />
-            <p className="text-[13px]  leading-relaxed" style={{ color: D }}>
-              <strong style={{ color: A }}>Fallback: </strong>
-              If platform access can't be granted before April 28, share exported reports for the five points above. I can build the May plan from those numbers and request live access in the first week of May.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══ 09 OPEN QUESTIONS ═══ */}
-      <section id="section-09" className="mm-slide opacity-0" style={{ padding: "100px 24px", background: "#fff" }}>
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-16">
-            <p className="heading text-lg mb-3" style={{ color: G }}>Section 09</p>
+            <p className="heading text-lg mb-3" style={{ color: G }}>Section 07</p>
             <h2 className="heading text-4xl md:text-5xl mb-5">Open <span style={{ color: G }}>Questions</span> for Alignment</h2>
-            <p className="text-sm max-w-lg mx-auto " style={{ color: "rgba(0,0,0,0.5)" }}>Five things to lock down before May 1.</p>
+            <p className="text-sm max-w-lg mx-auto " style={{ color: "rgba(0,0,0,0.5)" }}>Five things to lock down before June 7.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mm-stagger">
@@ -786,13 +738,13 @@ export default function MotionMotorsCampaign() {
         </div>
       </section>
 
-      {/* ═══ 10 TIMELINE ═══ */}
-      <section id="section-10" className="mm-slide opacity-0" style={{ padding: "100px 24px", background: "#fff" }}>
+      {/* ═══ 08 TIMELINE ═══ */}
+      <section id="section-08" className="mm-slide opacity-0" style={{ padding: "100px 24px", background: "#fff" }}>
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
-            <p className="heading text-lg mb-3" style={{ color: G }}>Section 10</p>
+            <p className="heading text-lg mb-3" style={{ color: G }}>Section 08</p>
             <h2 className="heading text-4xl md:text-5xl mb-5">Next Steps & <span style={{ color: G }}>Timeline</span></h2>
-            <p className="text-sm max-w-lg mx-auto " style={{ color: "rgba(0,0,0,0.5)" }}>From today to live — six days of preparation, thirty-one days of optimization.</p>
+            <p className="text-sm max-w-lg mx-auto " style={{ color: "rgba(0,0,0,0.5)" }}>From today to live — five days of preparation, twenty-four days of optimization.</p>
           </div>
 
           <div className="overflow-x-auto rounded-[20px] border" style={{ borderColor: "#EBEBEB" }}>
@@ -821,35 +773,27 @@ export default function MotionMotorsCampaign() {
         </div>
       </section>
 
-      {/* ═══ 10 CLOSING ═══ */}
+      {/* ═══ CLOSING ═══ */}
       <section className="mm-slide opacity-0" style={{ padding: "80px 24px 60px", background: "#fff" }}>
         <div className="max-w-3xl mx-auto text-center">
           <div className="rounded-[24px] p-10 md:p-14 mb-8" style={{ background: "#fff", border: "1px solid #EBEBEB" }}>
-            <img src="/myphoto-profile.png" alt="Ahmed Ali" className="w-24 h-24 rounded-full object-cover mx-auto mb-6" style={{ border: `3px solid ${G}` }} />
-            <h3 className="heading text-3xl mb-4" style={{ color: D }}>Approach delivered.</h3>
-
-            <p className="text-[14px] mb-8 max-w-xl mx-auto leading-relaxed" style={{ color: "rgba(0,0,0,0.6)" }}>
-              WhatsApp me anytime — to walk through any section, align on the open questions, or share the April performance data. The plan locks the moment we close those.
-            </p>
-
-            <div className="w-full h-px mb-6" style={{ background: "#F0F0F0" }} />
-
+            <img src="/logos/motion%20motors%20so.png" alt="Motion Motors × Soueast" className="h-16 md:h-20 object-contain mx-auto mb-6" />
             <p className="text-[14px] font-bold " style={{ color: D }}>Ahmed Ali</p>
-            <p className="text-[12px] " style={{ color: G }}>Digital Strategist</p>
-            <p className="text-[12px]  mt-1" style={{ color: "rgba(0,0,0,0.4)" }}>hello@ahmedali.online | ahmedali.online</p>
+            <p className="text-[12px] " style={{ color: G }}>Head of Digital Product and Growth</p>
+            <p className="text-[12px]  mt-1" style={{ color: "rgba(0,0,0,0.4)" }}>ahmed.ali@emotiongrp.com | ahmedali.online</p>
 
             <div className="flex flex-wrap justify-center gap-3 mt-8">
               <a href="https://wa.me/201011648156" target="_blank" rel="noopener" className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold" style={{ background: G, color: D, border: `2px solid ${D}`, boxShadow: `3px 3px 0px 0px ${D}`, textDecoration: "none" }}>
                 <FaWhatsapp size={16} /> WhatsApp
               </a>
-              <a href="mailto:hello@ahmedali.online" className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold" style={{ background: "#fff", color: D, border: `2px solid ${D}`, boxShadow: `3px 3px 0px 0px ${D}`, textDecoration: "none" }}>
+              <a href="mailto:ahmed.ali@emotiongrp.com" className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold" style={{ background: "#fff", color: D, border: `2px solid ${D}`, boxShadow: `3px 3px 0px 0px ${D}`, textDecoration: "none" }}>
                 <Send size={14} /> Email
               </a>
             </div>
           </div>
 
           <p className="text-[11px] " style={{ color: "rgba(0,0,0,0.15)" }}>
-            &copy; {new Date().getFullYear()} Ahmed Ali. Motion Motors × Soueast · May 2026 Campaign Approach · Confidential.
+            &copy; {new Date().getFullYear()} Ahmed Ali. Motion Motors × Soueast · June 2026 Campaign Approach · Confidential.
           </p>
         </div>
       </section>
@@ -882,21 +826,17 @@ const NAV_ITEMS: { id: string; label: string; color: string; tourDesc: string }[
   { id: "section-02", label: "Strategic Approach", color: "#3B82F6",
     tourDesc: "The three principles that shape every channel choice and creative decision in this campaign." },
   { id: "section-03", label: "Funnel & Channels", color: "#8B5CF6",
-    tourDesc: "How the funnel splits across the five platforms and what each channel is buying us." },
+    tourDesc: "How the funnel splits across the four platforms and what each channel is buying us." },
   { id: "section-04", label: "Creative Briefing", color: "#F59E0B",
     tourDesc: "Four content pillars and the consistent hierarchy applied across every asset." },
-  { id: "section-05", label: "Eid & Seasonal Play", color: "#F97316",
-    tourDesc: "How the campaign reads the Eid calendar and turns it into a content opportunity instead of a blocker." },
-  { id: "section-06", label: "Lead Handling", color: "#10B981",
+  { id: "section-05", label: "Lead Handling", color: "#10B981",
     tourDesc: "From ad click to qualified lead in the CRM — the conversion path and the 30-minute SLA that protects it." },
-  { id: "section-07", label: "Measurement", color: "#0EA5E9",
-    tourDesc: "KPI tiers I'll track and the reporting cadence I'll deliver across the campaign window." },
-  { id: "section-08", label: "Access Required", color: "#EF4444",
-    tourDesc: "Platforms and the April 2026 performance data I need before April 28 to finalize the plan." },
-  { id: "section-09", label: "Open Questions", color: "#A855F7",
+  { id: "section-06", label: "Projections & KPIs", color: "#0EA5E9",
+    tourDesc: "Projected results for the SAR 25,000 budget, the KPI tiers I track, and the reporting cadence." },
+  { id: "section-07", label: "Open Questions", color: "#A855F7",
     tourDesc: "The handful of items I need answered to lock the plan and protect the launch date." },
-  { id: "section-10", label: "Timeline", color: "#0A0A0A",
-    tourDesc: "Day-by-day from today through May 1 launch and out to the monthly review on June 3." },
+  { id: "section-08", label: "Timeline", color: "#0A0A0A",
+    tourDesc: "Day-by-day from today through June 7 launch and out to the monthly review on July 3." },
 ];
 
 const DRAG_NOTE = {
@@ -1094,20 +1034,13 @@ function SectionNav() {
           touchAction: "none",
         }}
       >
-        {/* Top row: logo + Ahmed */}
-        <div className="flex items-center justify-between">
+        {/* Top row: logo */}
+        <div className="flex items-center justify-center">
           <img
             src="/logos/motion%20motors%20so.png"
             alt="Motion Motors × Soueast"
             className="object-contain pointer-events-none"
-            style={{ height: 36, maxWidth: 110, width: "auto" }}
-            draggable={false}
-          />
-          <img
-            src="/myphoto-profile.png"
-            alt="Ahmed Ali"
-            className="object-cover rounded-full pointer-events-none"
-            style={{ height: 32, width: 32, border: "2px solid #4FFFB0" }}
+            style={{ height: 36, maxWidth: 140, width: "auto" }}
             draggable={false}
           />
         </div>

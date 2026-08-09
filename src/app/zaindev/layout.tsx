@@ -1,3 +1,5 @@
+import "@/app/globals.css";
+import RootChrome from "@/components/RootChrome";
 export const metadata = {
   title: "تحليل وخطة تطوير — زين التنموية | Ahmed Ali",
   description: "تحليل شامل وخطة تطوير رقمي لشركة زين التنموية — تحليل، تطوير، AI، SEO",
@@ -19,6 +21,7 @@ export default function ZainDevLayout({ children }: { children: React.ReactNode 
       </head>
       <body className="antialiased" style={{ margin: 0 }}>
         {children}
+        <RootChrome />
       </body>
     </html>
   );

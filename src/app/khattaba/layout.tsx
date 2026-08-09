@@ -1,3 +1,5 @@
+import "@/app/globals.css";
+import RootChrome from "@/components/RootChrome";
 export const metadata = {
   title: "مسار العمل التفصيلي — منصة خطابة السعودية الأولى | Ahmed Ali",
   description:
@@ -21,6 +23,7 @@ export default function KhattabaLayout({ children }: { children: React.ReactNode
       </head>
       <body className="antialiased" style={{ margin: 0 }}>
         {children}
+        <RootChrome />
       </body>
     </html>
   );

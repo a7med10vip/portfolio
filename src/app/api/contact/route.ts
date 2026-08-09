@@ -145,7 +145,7 @@ function thankYouEmail({ name }: { name: string }) {
     <!-- Footer -->
     <div style="text-align:center;margin-top:28px;">
       <p style="margin:0 0 6px;font-size:13px;color:rgba(255,255,255,0.4);">Ahmed Ali</p>
-      <p style="margin:0 0 14px;font-size:12px;color:rgba(255,255,255,0.2);">Cairo, Egypt | hello@ahmedali.online</p>
+      <p style="margin:0 0 14px;font-size:12px;color:rgba(255,255,255,0.2);">Jeddah, Saudi Arabia | hello@ahmedali.online</p>
       <div>
         <a href="https://ahmedali.online" style="color:#4FFFB0;font-size:11px;font-weight:600;text-decoration:none;margin:0 8px;">ahmedali.online</a>
         <a href="https://linkedin.com/in/ahmed-alli" style="color:rgba(255,255,255,0.3);font-size:11px;font-weight:600;text-decoration:none;margin:0 8px;">LinkedIn</a>

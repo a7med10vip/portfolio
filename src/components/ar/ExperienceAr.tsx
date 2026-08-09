@@ -159,7 +159,7 @@ const experiences = [
     period: "2020 – الآن",
     type: "عمل حر",
     active: true,
-    color: "#4FFFB0",
+    color: "#CFF7EE",
     description: "أقدّم حلولاً رقمية شاملة عبر مصر والسعودية والإمارات وعُمان لعملاء في الرعاية الصحية والعقارات والضيافة والتجارة الإلكترونية.",
     achievements: [
       "الرعاية الصحية: منظومات رقمية كاملة لأم الحمام (الرياض)، مستشفى عبيد، الرقي الطبي، عيادة RM (مكة)",
@@ -261,17 +261,16 @@ export default function ExperienceAr() {
       ref={sectionRef}
       id="experience"
       className="relative overflow-hidden"
-      style={{ background: "#0A0A0A", padding: "100px 24px" }}
+      style={{ background: "#fff", padding: "100px 24px" }}
     >
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full opacity-[0.03]"
-        style={{ background: "radial-gradient(circle, #4FFFB0 0%, transparent 70%)" }}
-      />
+      {/* A mint radial at 3-4% opacity used to sit here — it never rendered
+          as anything. Removed, as on the English side. */}
 
       <div className="max-w-6xl mx-auto relative">
         {/* Header */}
         <div className="text-center mb-20">
-          <p className="ar-script text-xl md:text-2xl mb-3" style={{ color: "#4FFFB0" }}>المسيرة المهنية</p>
-          <h2 className="ar-heading text-3xl md:text-4xl" style={{ color: "#fff" }}>أين صنعت الأثر</h2>
+          <p className="ar-script text-xl md:text-2xl mb-3" style={{ color: "#004D5A" }}>المسيرة المهنية</p>
+          <h2 className="ar-heading text-3xl md:text-4xl" style={{ color: "#04323A" }}>أين صنعت الأثر</h2>
         </div>
 
         {/* Timeline */}
@@ -280,13 +279,13 @@ export default function ExperienceAr() {
           <div
             ref={lineRef}
             className="hidden md:block absolute right-1/2 translate-x-1/2 top-0 bottom-0 w-[2px] origin-top"
-            style={{ background: "linear-gradient(to bottom, #4FFFB0, rgba(79,255,176,0.1))" }}
+            style={{ background: "#004D5A" }}
           />
 
           {/* Mobile line */}
           <div
             className="md:hidden absolute right-5 top-0 bottom-0 w-[2px]"
-            style={{ background: "linear-gradient(to bottom, #4FFFB0, rgba(79,255,176,0.1))" }}
+            style={{ background: "#004D5A" }}
           />
 
           <div className="flex flex-col gap-12 md:gap-16">
@@ -307,16 +306,14 @@ export default function ExperienceAr() {
                         <div
                           className="w-5 h-5 rounded-full border-[3px] z-10 relative"
                           style={{
-                            background: exp.active ? "#4FFFB0" : "#0A0A0A",
-                            borderColor: "#4FFFB0",
-                            boxShadow: exp.active ? "0 0 20px rgba(79,255,176,0.5)" : "none",
+                            background: exp.active ? "#CFF7EE" : "#04323A",
+                            borderColor: "#CFF7EE",
+                            boxShadow: "none",
                           }}
                         />
-                        {exp.active && (
-                          <div className="absolute inset-0 w-5 h-5 rounded-full animate-ping opacity-30"
-                            style={{ background: "#4FFFB0" }}
-                          />
-                        )}
+                        {/* The active role used to carry a ping ring scaling
+                            out of the marker — the last piece of neon on the
+                            page. The filled marker already says "current". */}
                       </div>
                     </div>
 
@@ -330,9 +327,9 @@ export default function ExperienceAr() {
                       <div
                         className="w-4 h-4 rounded-full border-[2px]"
                         style={{
-                          background: exp.active ? "#4FFFB0" : "#0A0A0A",
-                          borderColor: "#4FFFB0",
-                          boxShadow: exp.active ? "0 0 15px rgba(79,255,176,0.4)" : "none",
+                          background: exp.active ? "#CFF7EE" : "#04323A",
+                          borderColor: "#CFF7EE",
+                          boxShadow: "none",
                         }}
                       />
                     </div>
@@ -347,14 +344,14 @@ export default function ExperienceAr() {
         {/* Key Clients Section */}
         <div className="mt-24 -mx-6 px-0">
           <div className="text-center mb-10 px-6">
-            <p className="ar-script text-base md:text-lg mb-3" style={{ color: "#4FFFB0" }}>موثوق من قبل</p>
-            <h3 className="ar-heading text-2xl md:text-3xl" style={{ color: "#fff" }}>أبرز العملاء</h3>
+            <p className="ar-script text-base md:text-lg mb-3" style={{ color: "#004D5A" }}>موثوق من قبل</p>
+            <h3 className="ar-heading text-2xl md:text-3xl" style={{ color: "#04323A" }}>أبرز العملاء</h3>
           </div>
 
           {/* Row 1 - moves left */}
           <div className="relative overflow-hidden mb-8" dir="ltr">
-            <div className="absolute left-0 top-0 bottom-0 w-28 z-10" style={{ background: "linear-gradient(to right, #0A0A0A, transparent)" }} />
-            <div className="absolute right-0 top-0 bottom-0 w-28 z-10" style={{ background: "linear-gradient(to left, #0A0A0A, transparent)" }} />
+            <div className="absolute left-0 top-0 bottom-0 w-28 z-10" style={{ background: "linear-gradient(to right, #fff, transparent)" }} />
+            <div className="absolute right-0 top-0 bottom-0 w-28 z-10" style={{ background: "linear-gradient(to left, #fff, transparent)" }} />
             <div dir="ltr" className="client-row-1-ar flex items-center gap-17" style={{ width: "max-content" }}>
               {[...keyClients.slice(0, 8), ...keyClients.slice(0, 8)].map((client, i) => (
                 <img
@@ -362,7 +359,7 @@ export default function ExperienceAr() {
                   src={client.logo}
                   alt={client.name}
                   className="object-contain flex-shrink-0 opacity-50 hover:opacity-100 transition-opacity duration-300"
-                  style={{ filter: client.name === "Chelsea FC" ? "none" : "brightness(0) invert(1)", height: "50px", width: "120px" }}
+                  style={{ filter: client.name === "Chelsea FC" ? "none" : "brightness(0)", opacity: client.name === "Chelsea FC" ? 0.85 : 0.4, height: "50px", width: "120px" }}
                 />
               ))}
             </div>
@@ -370,8 +367,8 @@ export default function ExperienceAr() {
 
           {/* Row 2 - moves right */}
           <div className="relative overflow-hidden" dir="ltr">
-            <div className="absolute left-0 top-0 bottom-0 w-28 z-10" style={{ background: "linear-gradient(to right, #0A0A0A, transparent)" }} />
-            <div className="absolute right-0 top-0 bottom-0 w-28 z-10" style={{ background: "linear-gradient(to left, #0A0A0A, transparent)" }} />
+            <div className="absolute left-0 top-0 bottom-0 w-28 z-10" style={{ background: "linear-gradient(to right, #fff, transparent)" }} />
+            <div className="absolute right-0 top-0 bottom-0 w-28 z-10" style={{ background: "linear-gradient(to left, #fff, transparent)" }} />
             <div dir="ltr" className="client-row-2-ar flex items-center gap-17" style={{ width: "max-content" }}>
               {[...keyClients.slice(8), ...keyClients.slice(8)].map((client, i) => (
                 <img
@@ -379,7 +376,7 @@ export default function ExperienceAr() {
                   src={client.logo}
                   alt={client.name}
                   className="object-contain flex-shrink-0 opacity-50 hover:opacity-100 transition-opacity duration-300"
-                  style={{ filter: client.name === "Chelsea FC" ? "none" : "brightness(0) invert(1)", height: "50px", width: "120px" }}
+                  style={{ filter: client.name === "Chelsea FC" ? "none" : "brightness(0)", opacity: client.name === "Chelsea FC" ? 0.85 : 0.4, height: "50px", width: "120px" }}
                 />
               ))}
             </div>
@@ -392,18 +389,18 @@ export default function ExperienceAr() {
 
 function ExperienceCardAr({ exp, variant }: { exp: typeof experiences[0]; variant: "white" | "green" }) {
   const isWhite = variant === "white";
-  const bg = isWhite ? "#fff" : "#4FFFB0";
-  const textColor = "#0A0A0A";
-  const subtleText = "#0A0A0A";
-  const achieveText = "#0A0A0A";
-  const badgeBg = isWhite ? "rgba(0,0,0,0.06)" : "rgba(0,0,0,0.1)";
-  const badgeBorder = isWhite ? "rgba(0,0,0,0.1)" : "rgba(0,0,0,0.15)";
+  const bg = isWhite ? "#fff" : "#CFF7EE";
+  const textColor = "#04323A";
+  const subtleText = "#04323A";
+  const achieveText = "#04323A";
+  const badgeBg = isWhite ? "rgba(4,50,58,0.06)" : "rgba(4,50,58,0.1)";
+  const badgeBorder = isWhite ? "rgba(4,50,58,0.1)" : "rgba(4,50,58,0.15)";
   const pillColor = exp.color;
 
   return (
     <div
       className="rounded-[20px] p-6 md:p-7 transition-all duration-300 group"
-      style={{ background: bg, border: "none" }}
+      style={{ background: bg, border: "2px solid #004D5A", boxShadow: "5px 5px 0px 0px #004D5A" }}
     >
       {/* Top row */}
       <div className="flex items-center gap-2 mb-3 flex-wrap">
@@ -420,10 +417,10 @@ function ExperienceCardAr({ exp, variant }: { exp: typeof experiences[0]; varian
 
       {/* Location + Period */}
       <div className="flex items-center gap-3 mb-4 flex-wrap">
-        <span className="ar-body flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full font-medium" style={{ background: isWhite ? `${pillColor}15` : "#fff", color: isWhite ? pillColor : "#0A0A0A", border: isWhite ? `1px solid ${pillColor}30` : "1px solid #e0e0e0" }}>
+        <span className="ar-body flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full font-medium" style={{ background: "#fff", color: "#04323A", border: "1.5px solid #004D5A" }}>
           <MapPin size={10} /> {exp.location}
         </span>
-        <span className="ar-body flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full font-medium" style={{ background: isWhite ? `${pillColor}15` : "#fff", color: isWhite ? pillColor : "#0A0A0A", border: isWhite ? `1px solid ${pillColor}30` : "1px solid #e0e0e0" }}>
+        <span className="ar-body flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full font-medium" style={{ background: "#fff", color: "#04323A", border: "1.5px solid #004D5A" }}>
           <Calendar size={10} /> {exp.period}
         </span>
       </div>
@@ -445,7 +442,7 @@ function ExperienceCardAr({ exp, variant }: { exp: typeof experiences[0]; varian
       <div className="flex items-center gap-3 flex-wrap mb-5">
         {exp.toolIcons.map((icon, j) => (
           <div key={j} className="flex flex-col items-center gap-1">
-            <div className="w-7 h-7 rounded-md flex items-center justify-center" style={{ background: "#fff", border: "1px solid #e0e0e0" }}>
+            <div className="w-7 h-7 rounded-md flex items-center justify-center" style={{ background: "#fff", border: "1px solid #004D5A" }}>
               <img src={icon} alt={exp.tools[j]} width={16} height={16} className="object-contain" />
             </div>
             <span className="text-[9px] font-medium" style={{ color: subtleText }}>{exp.tools[j]}</span>
@@ -454,7 +451,7 @@ function ExperienceCardAr({ exp, variant }: { exp: typeof experiences[0]; varian
       </div>
 
       {/* CTA Button */}
-      <a href="#contact" className="ar-body inline-flex items-center gap-2 h-10 px-6 rounded-full text-xs font-bold transition-all duration-200 hover:-translate-y-0.5" style={{ background: isWhite ? "#4FFFB0" : "#fff", color: "#0A0A0A", border: "2px solid #0A0A0A", boxShadow: "3px 3px 0px 0px #0A0A0A" }}>
+      <a href="#contact" className="ar-body inline-flex items-center gap-2 h-10 px-6 rounded-full text-xs font-bold" style={{ background: isWhite ? "#CFF7EE" : "#fff", color: "#04323A", border: "2px solid #04323A", boxShadow: "3px 3px 0px 0px #04323A" }}>
         لنتحدث <ArrowLeft size={13} />
       </a>
     </div>

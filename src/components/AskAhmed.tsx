@@ -29,7 +29,7 @@ function formatMessage(text: string) {
     .replace(/\*(.*?)\*/g, "<em>$1</em>")
     .replace(
       /(hello@ahmedali\.online)/g,
-      '<a href="mailto:$1" style="color:#0A0A0A;font-weight:700;text-decoration:underline">$1</a>'
+      '<a href="mailto:$1" style="color:#04323A;font-weight:700;text-decoration:underline">$1</a>'
     )
     .replace(/\n/g, "<br>")
     .replace(/(<br>)+$/g, "")
@@ -50,12 +50,12 @@ function ContactButtons() {
           padding: "8px 16px",
           borderRadius: "100px",
           background: "#25D366",
-          color: "#fff",
+          color: "#04323A",
           fontSize: "12px",
           fontWeight: 700,
           textDecoration: "none",
-          border: "2px solid #0A0A0A",
-          boxShadow: "2px 2px 0px 0px #0A0A0A",
+          border: "2px solid #004D5A",
+          boxShadow: "2px 2px 0px 0px #004D5A",
           transition: "all 0.2s",
         }}
       >
@@ -71,16 +71,16 @@ function ContactButtons() {
           padding: "8px 16px",
           borderRadius: "100px",
           background: "#fff",
-          color: "#0A0A0A",
+          color: "#04323A",
           fontSize: "12px",
           fontWeight: 700,
           textDecoration: "none",
-          border: "2px solid #0A0A0A",
-          boxShadow: "2px 2px 0px 0px #0A0A0A",
+          border: "2px solid #004D5A",
+          boxShadow: "2px 2px 0px 0px #004D5A",
           transition: "all 0.2s",
         }}
       >
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0A0A0A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#04323A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
         Email
       </a>
     </div>
@@ -206,6 +206,18 @@ export default function AskAhmed() {
     resetNudgeTimer();
   }, [resetNudgeTimer]);
 
+  /* Other launchers (the floating robot) open the chat by firing this event,
+     and mirror our open/closed state off the one we broadcast back. */
+  useEffect(() => {
+    const onExternalOpen = () => openChat();
+    window.addEventListener("askahmed:open", onExternalOpen);
+    return () => window.removeEventListener("askahmed:open", onExternalOpen);
+  }, [openChat]);
+
+  useEffect(() => {
+    window.dispatchEvent(new CustomEvent("askahmed:state", { detail: { open: isOpen } }));
+  }, [isOpen]);
+
   const sendMessage = async (text?: string) => {
     const msg = (text || input).trim();
     if (!msg || isTyping) return;
@@ -259,7 +271,7 @@ export default function AskAhmed() {
         borderRadius: "50%",
         objectFit: "cover",
         flexShrink: 0,
-        border: "2px solid #0A0A0A",
+        border: "2px solid #004D5A",
       }}
     />
   );
@@ -276,14 +288,14 @@ export default function AskAhmed() {
               onClick={openChat}
               style={{
                 background: "#fff",
-                border: "2px solid #0A0A0A",
-                boxShadow: "4px 4px 0px 0px #0A0A0A",
+                border: "2px solid #004D5A",
+                boxShadow: "4px 4px 0px 0px #004D5A",
                 borderRadius: "20px 20px 4px 20px",
                 padding: "14px 18px",
                 maxWidth: "260px",
                 fontSize: "13px",
                 lineHeight: 1.6,
-                color: "#0A0A0A",
+                color: "#04323A",
                 animation: "askahmed-float-in 0.4s cubic-bezier(0.34,1.56,0.64,1) forwards",
               }}
             >
@@ -307,9 +319,9 @@ export default function AskAhmed() {
               width: "60px",
               height: "60px",
               borderRadius: "50%",
-              background: "#4FFFB0",
-              border: "2px solid #0A0A0A",
-              boxShadow: "4px 4px 0px 0px #0A0A0A",
+              background: "#CFF7EE",
+              border: "2px solid #004D5A",
+              boxShadow: "4px 4px 0px 0px #004D5A",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -327,13 +339,13 @@ export default function AskAhmed() {
                   height: "22px",
                   background: "#EF4444",
                   borderRadius: "50%",
-                  border: "2px solid #0A0A0A",
+                  border: "2px solid #004D5A",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
                   fontSize: "11px",
                   fontWeight: 800,
-                  color: "#fff",
+                  color: "#04323A",
                   zIndex: 2,
                   animation: "askahmed-badge-pop 0.3s cubic-bezier(0.34,1.56,0.64,1)",
                 }}
@@ -351,11 +363,11 @@ export default function AskAhmed() {
                   height: "12px",
                   background: "#22C55E",
                   borderRadius: "50%",
-                  border: "2px solid #0A0A0A",
+                  border: "2px solid #004D5A",
                 }}
               />
             )}
-            <MessageCircle size={24} color="#0A0A0A" strokeWidth={2.5} />
+            <MessageCircle size={24} color="#04323A" strokeWidth={2.5} />
           </button>
         </div>
       )}
@@ -375,8 +387,8 @@ export default function AskAhmed() {
           height: "60px",
           borderRadius: "50%",
           background: "#25D366",
-          border: "2px solid #0A0A0A",
-          boxShadow: "-4px 4px 0px 0px #0A0A0A",
+          border: "2px solid #004D5A",
+          boxShadow: "-4px 4px 0px 0px #04323A",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -396,10 +408,10 @@ export default function AskAhmed() {
           height: "600px",
           maxHeight: "calc(100vh - 80px)",
           background: "#fff",
-          border: "2px solid #0A0A0A",
+          border: "2px solid #004D5A",
           borderRadius: "28px",
           overflow: "hidden",
-          boxShadow: "8px 8px 0px 0px #0A0A0A",
+          boxShadow: "8px 8px 0px 0px #004D5A",
           transform: isOpen ? "scale(1) translateY(0)" : "scale(0.9) translateY(20px)",
           opacity: isOpen ? 1 : 0,
           pointerEvents: isOpen ? "all" : "none",
@@ -410,8 +422,8 @@ export default function AskAhmed() {
         <div
           style={{
             padding: "16px 20px",
-            background: "#4FFFB0",
-            borderBottom: "2px solid #0A0A0A",
+            background: "#CFF7EE",
+            borderBottom: "2px solid #04323A",
             display: "flex",
             alignItems: "center",
             gap: "12px",
@@ -429,13 +441,13 @@ export default function AskAhmed() {
                 height: "12px",
                 background: "#22C55E",
                 borderRadius: "50%",
-                border: "2px solid #4FFFB0",
+                border: "2px solid #004D5A",
               }}
             />
           </div>
 
           <div style={{ flex: 1 }}>
-            <div style={{ fontFamily: "'TAN Headline'", fontWeight: 700, fontSize: "15px", color: "#0A0A0A", lineHeight: 1.2 }}>
+            <div style={{ fontFamily: "'TAN Headline'", fontWeight: 700, fontSize: "15px", color: "#04323A", lineHeight: 1.2 }}>
               Ask Ahmed
             </div>
             <div style={{ fontSize: "12px", color: "rgba(0,0,0,0.5)", marginTop: "2px" }}>
@@ -453,7 +465,7 @@ export default function AskAhmed() {
               borderRadius: "50%",
               background: "rgba(0,0,0,0.08)",
               border: "none",
-              color: "#0A0A0A",
+              color: "#04323A",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -519,16 +531,16 @@ export default function AskAhmed() {
                     lineHeight: 1.65,
                     ...(msg.role === "user"
                       ? {
-                          background: "#4FFFB0",
-                          color: "#0A0A0A",
+                          background: "#CFF7EE",
+                          color: "#04323A",
                           fontWeight: 500,
-                          border: "2px solid #0A0A0A",
-                          boxShadow: "3px 3px 0px 0px #0A0A0A",
+                          border: "2px solid #004D5A",
+                          boxShadow: "3px 3px 0px 0px #004D5A",
                           borderRadius: "18px 18px 4px 18px",
                         }
                       : {
                           background: "#fff",
-                          color: "#0A0A0A",
+                          color: "#04323A",
                           border: "1px solid #E4E4E7",
                           borderRadius: "18px 18px 18px 4px",
                         }),
@@ -594,9 +606,9 @@ export default function AskAhmed() {
                   whiteSpace: "nowrap",
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = "#0A0A0A";
-                  e.currentTarget.style.color = "#0A0A0A";
-                  e.currentTarget.style.boxShadow = "2px 2px 0px 0px #0A0A0A";
+                  e.currentTarget.style.borderColor = "#04323A";
+                  e.currentTarget.style.color = "#04323A";
+                  e.currentTarget.style.boxShadow = "2px 2px 0px 0px #04323A";
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.borderColor = "#E4E4E7";
@@ -618,10 +630,10 @@ export default function AskAhmed() {
               gap: "8px",
               alignItems: "center",
               background: "#fff",
-              border: "2px solid #0A0A0A",
+              border: "2px solid #004D5A",
               borderRadius: "100px",
               padding: "6px 6px 6px 18px",
-              boxShadow: "3px 3px 0px 0px #0A0A0A",
+              boxShadow: "3px 3px 0px 0px #004D5A",
             }}
           >
             <textarea
@@ -636,7 +648,7 @@ export default function AskAhmed() {
                 background: "none",
                 border: "none",
                 outline: "none",
-                color: "#0A0A0A",
+                color: "#04323A",
                 fontFamily: "inherit",
                 fontSize: "14px",
                 resize: "none",
@@ -654,7 +666,7 @@ export default function AskAhmed() {
                 width: "38px",
                 height: "38px",
                 borderRadius: "50%",
-                background: input.trim() && !isTyping ? "#4FFFB0" : "#F4F4F5",
+                background: input.trim() && !isTyping ? "#CFF7EE" : "#F4F4F5",
                 border: "none",
                 display: "flex",
                 alignItems: "center",
@@ -663,7 +675,7 @@ export default function AskAhmed() {
                 flexShrink: 0,
               }}
             >
-              <Send size={16} color={input.trim() && !isTyping ? "#0A0A0A" : "#A1A1AA"} />
+              <Send size={16} color={input.trim() && !isTyping ? "#04323A" : "#A1A1AA"} />
             </button>
           </div>
         </div>

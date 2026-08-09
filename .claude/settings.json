@@ -21,10 +21,38 @@
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3001/font-arabic/Thmanyahsans12_Regular-s.p.0c6166f3.woff2)",
       "Bash(curl -s http://localhost:3001/ar)",
       "Bash(grep -n \"text-3xl md:text-4xl\\\\|text-3xl md:text-5xl\\\\|text-2xl md:text-3xl\\\\|text-2xl md:text-4xl\" /Users/ahmedali/portifolio/src/components/ar/*.tsx)",
-      "Bash(grep -n \"ar-script text-\" /Users/ahmedali/portifolio/src/components/ar/*.tsx)"
+      "Bash(grep -n \"ar-script text-\" /Users/ahmedali/portifolio/src/components/ar/*.tsx)",
+      "Bash(node -e ' *)",
+      "Bash(curl -s -o /dev/null -w \"design page: %{http_code}\\\\n\" http://localhost:3001/khattaba/design)",
+      "Bash(curl -s -o /dev/null -w \"image: %{http_code}\\\\n\" http://localhost:3001/khattaba/hero-mobile.png)",
+      "Bash(node /Volumes/PortableSSD/portifolio/cut2.js)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3001/khattaba/design)",
+      "Bash(sips -g hasAlpha -g pixelWidth -g pixelHeight \"/Volumes/PortableSSD/-.png\")",
+      "Bash(sips -g pixelWidth -g pixelHeight public/khattaba/cta-couple.png)",
+      "Bash(curl -s -o /dev/null -w \"design: %{http_code}\\\\n\" http://localhost:3001/khattaba/design)",
+      "Bash(curl -s -o /dev/null -w \"home: %{http_code}\\\\n\" http://localhost:3001/khattaba)",
+      "Bash(curl -s -o /dev/null -w \"system: %{http_code}\\\\n\" http://localhost:3001/khattaba/design/system)",
+      "Bash(echo \"errs: $\\(npx tsc --noEmit -p tsconfig.json 2>&1)",
+      "Bash(perl -0pi -e 's{/\\\\* ─── Group 4 · Admin \\\\\\(13\\\\\\) ─── \\\\*/}{/* ─── Group 7 · لوحة التحكم \\(Admin\\) ─── */}' src/app/khattaba/design/_components/canvas/canvasLayout.ts)",
+      "Bash(perl -0pi -e 's{/\\\\* ─── Group 5 · Mobile-only \\\\\\(6\\\\\\) ─── \\\\*/}{/* ─── Group 8 · الجوال — حصري \\(Mobile-only\\) ─── */}' src/app/khattaba/design/_components/canvas/canvasLayout.ts)",
+      "Bash(perl -0pi -e 's{/\\\\* ─── Group 6 · Mobile App \\\\\\(mobile versions of web screens\\\\\\) ─── \\\\*/}{/* ─── Group 9 · تطبيق الجوال \\(Mobile App\\) ─── */}' src/app/khattaba/design/_components/canvas/canvasLayout.ts)",
+      "Bash(perl -0pi -e 's{/\\\\* ─── Group 6 · System \\\\\\(4\\\\\\) ─── \\\\*/}{/* ─── Group 10 · شاشات النظام \\(System\\) ─── */}' src/app/khattaba/design/_components/canvas/canvasLayout.ts)",
+      "Bash(pkill -f \"next start\")",
+      "Bash(grep -n \"btn\\\\|button\\\\|<a \\\\|<a$\\\\|cursor-pointer\\\\|hover\\\\|@keyframes\\\\|transition\\\\|<style\" src/app/mobadi/page.tsx)",
+      "Bash(mkdir -p /Volumes/PortableSSD/portifolio/public/logos/emotion/brands)",
+      "Bash(curl -sL \"https://upload.wikimedia.org/wikipedia/commons/4/44/BMW.svg\" -o bmw.svg)",
+      "Bash(curl -sL \"https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Honda.svg/500px-Honda.svg.png\" -o honda.png)",
+      "Bash(curl -sL \"https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Toyota_logo_%28Red%29.svg/960px-Toyota_logo_%28Red%29.svg.png\" -o toyota.png)",
+      "Bash(curl -sL \"https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Midea.svg/960px-Midea.svg.png\" -o midea.png)",
+      "Bash(kill 12852 12871)",
+      "Bash(sed -i '' 's/padding: \"120px 24px\"/padding: \"96px clamp\\(24px, 5vw, 64px\\)\"/g' src/app/emotion/page.tsx)",
+      "Bash(sed -i '' 's/padding: \"80px 24px\"/padding: \"72px clamp\\(24px, 5vw, 64px\\)\"/g' src/app/emotion/page.tsx)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3100/emotion)",
+      "Bash(mkdir -p /Volumes/PortableSSD/portifolio/public/font-loubag && cp /Users/ahmedali/show-motors/app/fonts/Loubag-Regular.ttf /Users/ahmedali/show-motors/app/fonts/Loubag-Medium.ttf /Users/ahmedali/show-motors/app/fonts/Loubag-Bold.ttf /Volumes/PortableSSD/portifolio/public/font-loubag/ && ls -lh /Volumes/PortableSSD/portifolio/public/font-loubag/; echo \"---how show-motors declares it---\"; grep -rn \"Loubag\\\\|loubag\" /Users/ahmedali/show-motors/app/*.tsx /Users/ahmedali/show-motors/app/**/*.tsx /Users/ahmedali/show-motors/app/*.ts 2>/dev/null | grep -i \"localFont\\\\|src:\\\\|font-loubag\\\\|Loubag\" | head)"
     ],
     "additionalDirectories": [
-      "/Users/ahmedali/portifolio/src/components"
+      "/Users/ahmedali/portifolio/src/components",
+      "/Users/ahmedali/show-motors/app/fonts"
     ]
   }
 }

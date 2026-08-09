@@ -1,8 +1,10 @@
+import "@/app/globals.css";
 import type { Metadata, Viewport } from "next";
 import { Inter, Bricolage_Grotesque, Instrument_Serif } from "next/font/google";
 import SmoothScroll from "@/components/SmoothScroll";
 import JsonLd from "@/components/JsonLd";
 import { GoogleTagManager, GoogleTagManagerNoScript, GoogleAnalytics, TikTokPixel } from "@/components/GoogleTracking";
+import RootChrome from "@/components/RootChrome";
 
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"], display: "swap" });
 
@@ -22,7 +24,7 @@ const instrument = Instrument_Serif({
 });
 
 export const viewport: Viewport = {
-  themeColor: "#4FFFB0",
+  themeColor: "#0F4D5A",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -34,7 +36,7 @@ export const metadata: Metadata = {
     template: "%s | Ahmed Ali",
   },
   description:
-    "Ahmed Ali is a Full-Stack Digital Strategist in Cairo, Egypt | expert in performance marketing, web & app development, SEO, and AI integration for clients across the MENA region.",
+    "Ahmed Ali is a Full-Stack Digital Strategist in Jeddah, Saudi Arabia | expert in performance marketing, web & app development, SEO, and AI integration for clients across the MENA region.",
   keywords: [
     "Ahmed Ali",
     "digital strategist",
@@ -78,8 +80,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: "https://ahmedali.online/myphoto-profile.png",
-        width: 1200,
-        height: 630,
+        width: 800,
+        height: 800,
         alt: "Ahmed Ali | Full-Stack Digital Strategist",
       },
     ],
@@ -102,9 +104,9 @@ export const metadata: Metadata = {
     google: "l5TuEErghNlb2N2rDWhDJJ1QgMUimz4p5eHmDfMu5ms",
   },
   other: {
-    "geo.region": "EG-C",
-    "geo.placename": "Cairo",
-    "geo.position": "30.0444;31.2357",
+    "geo.region": "SA-02",
+    "geo.placename": "Jeddah",
+    "geo.position": "21.4858;39.1925",
     "ICBM": "30.0444, 31.2357",
   },
 };
@@ -113,16 +115,21 @@ export default function EnLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${inter.variable} ${bricolage.variable} ${instrument.variable}`}>
       <head>
+        {/* The SVG is served first so any browser that supports it scales the
+            mark rather than upsampling a raster; the PNGs stay for the ones
+            that do not. */}
+        <link rel="icon" href="/brand/icon.svg" type="image/svg+xml" />
         <link rel="icon" href="/favicon.png" type="image/png" />
         <link rel="icon" href="/favicon-32x32.png" sizes="32x32" type="image/png" />
         <link rel="icon" href="/favicon-16x16.png" sizes="16x16" type="image/png" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <meta name="theme-color" content="#4FFFB0" />
-        <meta name="theme-color" content="#4FFFB0" media="(prefers-color-scheme: light)" />
-        <meta name="theme-color" content="#4FFFB0" media="(prefers-color-scheme: dark)" />
+        <link rel="mask-icon" href="/brand/icon.svg" color="#0F4D5A" />
+        <meta name="theme-color" content="#0F4D5A" />
+        <meta name="theme-color" content="#0F4D5A" media="(prefers-color-scheme: light)" />
+        <meta name="theme-color" content="#0F4D5A" media="(prefers-color-scheme: dark)" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        <meta name="msapplication-TileColor" content="#4FFFB0" />
+        <meta name="msapplication-TileColor" content="#0F4D5A" />
         <link rel="preconnect" href="https://cdn.simpleicons.org" />
         <link rel="dns-prefetch" href="https://cdn.simpleicons.org" />
         <JsonLd />
@@ -133,6 +140,7 @@ export default function EnLayout({ children }: { children: React.ReactNode }) {
       <body className="antialiased" suppressHydrationWarning>
         <GoogleTagManagerNoScript />
         <SmoothScroll>{children}</SmoothScroll>
+        <RootChrome />
       </body>
     </html>
   );

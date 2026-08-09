@@ -6,13 +6,13 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import MotionMotorsWebsiteNav from "@/components/MotionMotorsWebsiteNav";
 import {
-  ArrowDown, ArrowUpRight,
+  ArrowDown, ArrowRight,
   Car, Calendar, MapPin, Phone, Mail, MessageCircle,
   Globe, Languages, Smartphone, Cpu, ShieldCheck, Wrench,
   Banknote, Calculator, Target, Filter, Database, Server, Code2,
   FileText, Layers, Boxes, GitBranch, Network, Search,
   Sparkles, Heart, Briefcase, Eye, Compass,
-  CheckCircle2, BadgeCheck, Settings, BookOpen,
+  CheckCircle2, BadgeCheck, Settings, BookOpen, AlertCircle,
   PenTool, Palette, Type as TypeIcon,
   Lightbulb, Rocket, ArrowLeftRight, Play, Send,
   Image as ImageIcon, Clock,
@@ -80,7 +80,7 @@ export default function MotionMotorsWebsitePlan() {
 
   const headlineStats: { n: string; sub: string; color: string }[] = [
     { n: "11", sub: "Sitemap sections in the brief", color: G },
-    { n: "5", sub: "Soueast models in the lineup", color: B },
+    { n: "5", sub: "Models · S06/S06DM/S07/S08DM/S09", color: B },
     { n: "AR · EN", sub: "Bilingual at the root", color: A },
     { n: "1 month", sub: "Kickoff to launch", color: P },
   ];
@@ -90,8 +90,8 @@ export default function MotionMotorsWebsitePlan() {
       body: "About Us, Models, Offers, Safety & Technology, Aftersales, Careers, Store Locator, Book a Test Drive, Contact Us, WhatsApp Widget, Social Media Links — confirmed as the spine of the site." },
     { title: "Copy in AR + EN", meta: "Section-by-section", color: B, icon: Languages,
       body: "Native Arabic copy and English copy per section, ready to map directly into the new IA. No translation step required." },
-    { title: "S05 Sample Model", meta: "Universal template", color: A, icon: Car,
-      body: "Design language, smart cabin, intelligent tech, safety, comfort, engine, dimensions, colors, trims — this becomes the master template applied across S06/S07/S08/S09 and future models." },
+    { title: "Sample Model Template", meta: "Universal across the lineup", color: A, icon: Car,
+      body: "Design language, smart cabin, intelligent tech, safety, comfort, engine, dimensions, colors, trims — applied across the launch lineup: S06 · S06DM · S07 · S08DM · S09 and any future models added later." },
     { title: "Brand Context", meta: "Western region · Jeddah", color: P, icon: MapPin,
       body: "Motion Motors is the Soueast dealer for the Western region of Saudi Arabia. Jeddah is the primary showroom; expansion-ready IA assumed." },
   ];
@@ -161,13 +161,13 @@ export default function MotionMotorsWebsitePlan() {
     },
     {
       n: "02", parent: "Models", parentRoute: "/models", color: B, icon: Car,
-      purpose: "The catalog. The most-trafficked branch of the site. Built once as a template, scaled across S05 → S09 and future models.",
+      purpose: "The catalog. The most-trafficked branch of the site. Built once as a template, scaled across the launch lineup and any future models.",
       children: [
         { route: "/models", note: "Lineup grid — all available models with starting price + finance hook" },
-        { route: "/models/s05", note: "Model detail (template applies to all)" },
-        { route: "/models/s06", note: "Model detail" },
+        { route: "/models/s06", note: "Model detail (template applies to all)" },
+        { route: "/models/s06dm", note: "Model detail (S06 DM variant)" },
         { route: "/models/s07", note: "Model detail" },
-        { route: "/models/s08", note: "Model detail" },
+        { route: "/models/s08dm", note: "Model detail (S08 DM variant)" },
         { route: "/models/s09", note: "Model detail" },
         { route: "/models/compare", note: "Side-by-side spec compare — pick any two models" },
         { route: "/models/[slug]/brochure", note: "Brochure PDF download with email capture" },
@@ -178,9 +178,9 @@ export default function MotionMotorsWebsitePlan() {
       purpose: "The commercial layer. Where the price-hook lives. Each offer is its own page so it can be linked in ads and indexed in search.",
       children: [
         { route: "/offers", note: "All active offers index with filters (model, financing type, validity)" },
-        { route: "/offers/[slug]", note: "Offer detail — installment, down payment, tenure, eligibility, apply CTA" },
-        { route: "/offers/finance-calculator", note: "Interactive ANB-style installment calculator (see Section 09)" },
-        { route: "/offers/eligibility", note: "Who qualifies — income brackets, employment status, required documents" },
+        { route: "/offers/[slug]", note: "Offer detail — installment, down payment, tenure, apply CTA" },
+        { route: "/offers/finance-calculator", note: "Generic, bank-agnostic installment estimator (see Section 09)" },
+        { route: "/offers/reserve", note: "Online Reservation flow — pick model + trim + color + pay deposit" },
       ],
     },
     {
@@ -248,14 +248,23 @@ export default function MotionMotorsWebsitePlan() {
       n: "10", parent: "WhatsApp Widget", parentRoute: "site-wide", color: B, icon: MessageCircle,
       purpose: "Floating widget on every page. Pre-fills context (model / page) into the message so sales can route faster.",
       children: [
-        { route: "site-wide floating", note: "wa.me deep link → +966 50 014 1856 with page-context pre-fill" },
+        { route: "site-wide floating", note: "Deep link → 9200 (verified business line) with page-context pre-fill" },
       ],
     },
     {
-      n: "11", parent: "Social Media", parentRoute: "site-wide footer", color: A, icon: Sparkles,
+      n: "11", parent: "News & Press", parentRoute: "/news", color: G, icon: BookOpen,
+      purpose: "The newsroom — confirmed in-scope. Filterable index + per-article pages, AR + EN, editorial workflow in the CMS, scheduled publishing for time-bound announcements.",
+      children: [
+        { route: "/news", note: "News index — filter by category (press release / events / new arrivals)" },
+        { route: "/news/[slug]", note: "Article detail with author, date, hero image, related articles, social share" },
+        { route: "/news/category/[slug]", note: "Category landing — all articles filtered by topic" },
+      ],
+    },
+    {
+      n: "12", parent: "Social Media", parentRoute: "site-wide footer", color: A, icon: Sparkles,
       purpose: "Surfaced where it converts — footer + a dedicated /follow landing for paid social to point to.",
       children: [
-        { route: "site-wide footer", note: "Facebook · Instagram · X · TikTok · Snapchat · YouTube · Pinterest" },
+        { route: "site-wide footer", note: "Facebook · Instagram · X · TikTok · Snapchat · YouTube · LinkedIn" },
         { route: "/follow", note: "Single shareable landing — \"all our channels in one place\" (replaces the linktr.ee dependency)" },
       ],
     },
@@ -268,8 +277,8 @@ export default function MotionMotorsWebsitePlan() {
       tagline: "The site's storefront. Sell the brand and the offer in one scroll.",
       sections: [
         "Hero — rotating featured model + price/finance hook + primary CTAs (Test Drive · Quote)",
-        "Models lineup strip — visual rail across S05 → S09",
-        "Active offers strip — most current ANB offer + CTA",
+        "Models lineup strip — visual rail across the full lineup",
+        "Active offers strip — most current offer + CTA",
         "Safety & Technology rail — three tech proof points",
         "After-sales reassurance — 6yr / 10yr / 6yr trust badges",
         "Showroom locator teaser — Jeddah card + map",
@@ -288,7 +297,7 @@ export default function MotionMotorsWebsitePlan() {
         "Offer hero — headline figure + applicable models",
         "Inline finance calculator pre-filled with the offer's terms",
         "Eligibility checklist — who can apply",
-        "Apply CTA → lead form + ANB-aware language",
+        "Apply CTA → lead form (bank-agnostic copy)",
         "After-sales reassurance footer — never the price without the warranty",
       ],
     },
@@ -430,31 +439,35 @@ export default function MotionMotorsWebsitePlan() {
       body: "Lightweight inquiry attached to a specific model + trim. Pre-populated when launched from a model detail page. Routes to the sales team with the model context preserved.",
       fields: ["Full name", "Mobile (+966)", "Preferred model + trim", "Best time to contact"],
     },
-    { n: "03", name: "WhatsApp", color: A, icon: MessageCircle,
+    { n: "03", name: "WhatsApp · 9200", color: A, icon: MessageCircle,
       sla: "Real-time during business hours",
-      body: "Site-wide floating widget. Deep-links to wa.me with a pre-filled message that includes the page context (e.g., \"Hi Motion Motors — I'm on the S07 page and want to know about the May offer\"). Source attribution preserved for analytics.",
+      body: "Site-wide floating widget. Routes to the verified 9200 business line with a pre-filled message including the page context (e.g., \"I'm on the S07 page and want to know about the current offer\"). Source attribution preserved for analytics.",
       fields: ["No form — direct conversation", "Page + UTM context auto-attached"],
     },
     { n: "04", name: "Finance Pre-qualification", color: P, icon: Banknote,
       sla: "First contact within 1 business day",
-      body: "Entry-level qualification — captures income range, employment status, and required documents. Reduces the back-and-forth before the finance partner sees the lead. Hands off to ANB with consent.",
+      body: "Entry-level qualification — captures the basics so the sales team can route the lead to the right financing partner. Bank-agnostic; nothing is locked to any single provider at this stage.",
       fields: ["Full name", "Mobile (+966)", "Monthly income range", "Employment status", "Preferred model", "Consent to share with finance partner"],
+    },
+    { n: "05", name: "Online Reservation", color: R, icon: ShieldCheck,
+      sla: "Confirmation instantly · sales call within 1 business hour",
+      body: "Phase 1 e-Commerce. The customer picks model + trim + color, pays a refundable deposit (e.g., SAR 5,000) online to reserve the specific unit, and finalizes paperwork at the showroom. Inventory marked as held; refund policy explicit before checkout.",
+      fields: ["Full name", "ID / Iqama", "Mobile (+966)", "Model + trim + color", "Showroom for pickup", "Deposit payment (refundable)"],
     },
   ];
 
-  /* ═══ FINANCE CALCULATOR ═══ */
+  /* ═══ FINANCE CALCULATOR — generic, bank-agnostic ═══ */
 
   const financeInputs: { label: string; type: string; default: string; color: string }[] = [
     { label: "Model + Trim", type: "Dropdown", default: "S07 · Comfort", color: G },
     { label: "Down Payment", type: "Slider 0% – 30%", default: "0%", color: B },
     { label: "Tenure", type: "Slider 12 – 60 months", default: "60 months", color: A },
-    { label: "Insurance Bundle", type: "Toggle", default: "Included", color: P },
   ];
 
   const financeOutputs: { label: string; sample: string; color: string }[] = [
-    { label: "Estimated Monthly", sample: "SAR 1,051 / month", color: G },
-    { label: "Total Paid Over Term", sample: "SAR 63,060", color: B },
-    { label: "Apply for This Plan", sample: "→ Finance Pre-qualification form", color: A },
+    { label: "Estimated Monthly", sample: "SAR ~ / month", color: G },
+    { label: "Disclaimer", sample: "T&Cs apply — guidance only", color: A },
+    { label: "Next Step", sample: "→ Share details with sales", color: B },
   ];
 
   /* ═══ AFTER-SALES ═══ */
@@ -541,7 +554,7 @@ export default function MotionMotorsWebsitePlan() {
       items: [
         { tech: "WhatsApp Business API", fallbackIcon: MessageCircle, use: "Two-way conversation channel. Triggers post-purchase confirmations, delivery messages, service reminders, and routes inbound chats into the same lead record." },
         { tech: "SMS Gateway (Twilio / Unifonic)", fallbackIcon: Smartphone, use: "Instant transactional SMS for delivery confirmations, service reminders, and password / OTP for the owner account login. KSA-routed for delivery reliability." },
-        { tech: "ANB finance", fallbackIcon: Banknote, use: "Finance pre-qualification handed off via consented payload — exact integration depends on ANB's intake spec." },
+        { tech: "Finance partners (bank-agnostic)", fallbackIcon: Banknote, use: "Finance pre-qualification handed off via consented payload to whichever bank the sales team selects. No single bank hardcoded — flexible by season and offer." },
         { tech: "Resend", logo: "/logos/vertex/resend.svg", use: "Transactional email — booking confirmations, quote receipts, warranty cards, post-purchase journey." },
       ],
     },
@@ -597,8 +610,8 @@ export default function MotionMotorsWebsitePlan() {
       milestone: "Homepage and every model detail page live in AR and EN",
       outcomes: [
         "Homepage, About, Leadership, Journey, Community pages built",
-        "Models index + S05 detail page shipped as the universal template",
-        "S06 · S07 · S08 · S09 detail pages rolled from the template",
+        "Models index + first model detail page shipped as the universal template",
+        "S06 · S06DM · S07 · S08DM · S09 detail pages rolled from the template",
         "Showroom Jeddah page with map, hours, team, photography",
       ],
     },
@@ -627,19 +640,35 @@ export default function MotionMotorsWebsitePlan() {
 
   /* ═══ OPEN ITEMS ═══ */
 
-  const openItems: { n: string; topic: string; question: string; needed: string; color: string; icon: LucideIcon }[] = [
+  /* Items confirmed by leadership in the May 19 review round */
+  const confirmedItems: { n: string; topic: string; decision: string; color: string; icon: LucideIcon }[] = [
     { n: "01", topic: "Model lineup", color: G, icon: Car,
-      question: "Confirm launch lineup — S05 + S06 + S07 + S08 + S09?",
-      needed: "Final list, plus any models to flag as 'coming soon' vs. live at launch." },
-    { n: "02", topic: "ANB finance terms", color: B, icon: Banknote,
-      question: "Approved tariff sheet for the finance calculator.",
-      needed: "Per-model / per-tenure / per-down-payment installment table from the ANB partnership." },
+      decision: "Confirmed — S06 · S06DM · S07 · S08DM · S09 (S05 removed from the launch scope)." },
+    { n: "02", topic: "Finance approach", color: B, icon: Banknote,
+      decision: "Generic, bank-agnostic calculator. No fixed bank tariff, no insurance bundling, no commitment. T&Cs note shown under every result." },
     { n: "03", topic: "WhatsApp number", color: A, icon: MessageCircle,
-      question: "Dedicated business line or showroom number?",
-      needed: "Confirm number (+966 50 014 1856 in the brief — is this the production number?)." },
-    { n: "04", topic: "Press / news", color: P, icon: BookOpen,
-      question: "Newsroom / blog area — in or out?",
-      needed: "If in, who owns content cadence? If out, where do press updates live?" },
+      decision: "Confirmed — verified 9200 business line, in use across every WhatsApp touchpoint." },
+    { n: "04", topic: "News / Press", color: P, icon: BookOpen,
+      decision: "Opt-IN. /news index + per-article pages + editorial workflow in the CMS, AR + EN per article." },
+    { n: "05", topic: "Social footer", color: G, icon: Sparkles,
+      decision: "Pinterest removed, LinkedIn added. Final list: Facebook · Instagram · X · TikTok · Snapchat · YouTube · LinkedIn." },
+    { n: "06", topic: "Mobile-first UX", color: B, icon: Smartphone,
+      decision: "Audience-Aware Adaptive — mobile prioritizes conversion path for end customers, desktop prioritizes brand narrative for B2B / partners / press." },
+    { n: "07", topic: "Web architecture", color: A, icon: Code2,
+      decision: "Hybrid Rendering via Next.js 16 — SSG for marketing, SSR + ISR for models / offers, Client Components for interactivity, Server Actions for forms." },
+    { n: "08", topic: "Eligibility section", color: P, icon: FileText,
+      decision: "Removed. Sales team handles bank-specific eligibility during follow-up." },
+    { n: "09", topic: "e-Commerce", color: G, icon: ShieldCheck,
+      decision: "Phase 1: Option A — Online Reservation (deposit-to-hold). Options B (accessories shop) and C (full vehicle purchase) parked for Phase 2." },
+    { n: "10", topic: "Magnetic Layer", color: R, icon: Sparkles,
+      decision: "Outside the 4-week launch scope. Marked as Phase 2 / Optional. Working demo of one or two features can be arranged separately on request." },
+  ];
+
+  /* What is still pending — the only true open item after the May 19 review */
+  const stillPending: { n: string; topic: string; question: string; needed: string; color: string; icon: LucideIcon }[] = [
+    { n: "01", topic: "FSD sign-off (DMS layer)", color: B, icon: FileText,
+      question: "Functional Specification Document for the Owner Account + After-Sales DMS.",
+      needed: "Draft v0.1 is live at /motionmotors-website/fsd — 20 sections across 3 parts covering actors, data model, RLS, integrations, notifications, and per-feature flows. Under leadership review." },
   ];
 
   /* ═══ RENDER ═══ */
@@ -770,7 +799,7 @@ export default function MotionMotorsWebsitePlan() {
           <div className="mt-10 p-6 rounded-2xl" style={{ background: "#FAFAFA", border: "1px solid #F0F0F0" }}>
             <p className="text-[13px]" style={{ color: "rgba(0,0,0,0.55)", lineHeight: 1.65 }}>
               <span className="heading" style={{ color: D }}>Note · </span>
-              This plan expands on the brief without inventing scope. Where a decision is recommended rather than received (CMS choice, finance partner integration spec, owner area in/out), it is flagged in Section 15 — Open Items — for confirmation, not assumed.
+              This plan expands on the brief without inventing scope. Where a decision is recommended rather than received, it is flagged in Section 16 — Confirmed &amp; Open — for confirmation, not assumed.
             </p>
           </div>
         </div>
@@ -862,6 +891,59 @@ export default function MotionMotorsWebsitePlan() {
                 <p className="text-sm" style={{ color: p.dark ? "rgba(255,255,255,0.6)" : "rgba(0,0,0,0.6)", lineHeight: 1.65 }}>{p.body}</p>
               </div>
             ))}
+          </div>
+
+          {/* Mobile-First Conversion Path — audience-aware adaptive */}
+          <div className="mt-12">
+            <div className="text-center mb-8">
+              <p className="mb-2" style={{
+                color: G,
+                fontFamily: "var(--font-accent), 'Times New Roman', serif",
+                fontStyle: "italic",
+                fontWeight: 400,
+                fontSize: "clamp(18px, 1.8vw, 22px)",
+                letterSpacing: 0.2,
+              }}>An additional principle</p>
+              <h3 className="heading text-3xl md:text-4xl mb-3" style={{ color: "#fff", lineHeight: 1.3 }}>
+                Audience-Aware <span style={{ color: G }}>Adaptive</span> Design.
+              </h3>
+              <p className="text-sm max-w-2xl mx-auto" style={{ color: "rgba(255,255,255,0.55)" }}>
+                Same content, three viewports — but the visual hierarchy and interaction priority adapt to the audience using that screen. Not mobile-first by accident; mobile-first by design where it matters most.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-0 rounded-2xl overflow-hidden" style={{
+              border: "1px solid #222",
+              background: "#111",
+            }}>
+              {[
+                { icon: Smartphone, view: "Mobile", audience: "End customers", focus: "B2C discovery", priority: "Lead capture surfaced first — Test Drive · Quote · WhatsApp 9200 above the fold. Conversion is the design goal.", color: G },
+                { icon: Layers, view: "Tablet", audience: "Mixed traffic", focus: "Browsing", priority: "Balanced hierarchy — both the brand story and the conversion path are visible without scroll.", color: B },
+                { icon: Code2, view: "Desktop", audience: "Corporate, partners, press", focus: "B2B presentation", priority: "Brand narrative and rich media first — full-bleed visuals, editorial flow, showroom and dealer presentation tone.", color: A },
+              ].map((b, i) => (
+                <div key={b.view} style={{
+                  padding: "28px 24px",
+                  borderRight: i < 2 ? "1px solid #222" : "none",
+                  borderBottom: i < 2 ? "1px solid #222" : "none",
+                }}>
+                  <div className="flex items-center gap-3 mb-4">
+                    <div style={{
+                      width: 36, height: 36, borderRadius: 8,
+                      background: `${b.color}18`,
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                    }}>
+                      <b.icon size={16} style={{ color: b.color }} />
+                    </div>
+                    <div>
+                      <p className="heading text-[11px]" style={{ color: b.color, letterSpacing: 1 }}>{b.view.toUpperCase()}</p>
+                      <p className="text-[12px]" style={{ color: "rgba(255,255,255,0.5)" }}>{b.audience}</p>
+                    </div>
+                  </div>
+                  <p className="heading text-[11px] mb-2" style={{ color: "rgba(255,255,255,0.4)", letterSpacing: 0.5 }}>{b.focus.toUpperCase()}</p>
+                  <p className="text-[13px]" style={{ color: "rgba(255,255,255,0.78)", lineHeight: 1.6 }}>{b.priority}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -977,9 +1059,19 @@ export default function MotionMotorsWebsitePlan() {
       {/* ══════════ 06 — MAGNETIC LAYER ══════════ */}
       <section id="magnetic" className="mmw-slide opacity-0" style={{ padding: "110px 24px", background: "#fff", borderTop: "1px solid #F0F0F0" }}>
         <div className="container" style={{ maxWidth: 1200, margin: "0 auto" }}>
+          {/* Phase 2 banner */}
+          <div className="mb-8 mx-auto max-w-3xl text-center">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full" style={{
+              background: `${R}10`,
+              border: `1px dashed ${R}50`,
+            }}>
+              <span style={{ width: 6, height: 6, borderRadius: 3, background: R }} />
+              <span className="text-[11px]" style={{ color: R, fontWeight: 600, letterSpacing: 0.5 }}>PHASE 2 · OPTIONAL — OUTSIDE THE 4-WEEK LAUNCH SCOPE</span>
+            </div>
+          </div>
           <SectionHead
             eyebrow="06 — The Magnetic Layer"
-            subtitle="Twelve interactive moments that let a visitor live the car before they touch it. Grouped into three worlds — inside the cabin, around the metal, and beyond it."
+            subtitle="Twelve interactive moments that let a visitor live the car before they touch it. Grouped into three worlds — inside the cabin, around the metal, and beyond it. Presented here as a future enhancement; a working demo of one or two features can be arranged separately on request."
             color={R}
           >
             Step inside another <span style={{ color: R }}>world</span>.
@@ -1081,7 +1173,7 @@ export default function MotionMotorsWebsitePlan() {
         <div className="container" style={{ maxWidth: 1200, margin: "0 auto" }}>
           <SectionHead
             eyebrow="07 — The Model Page"
-            subtitle="The S05 sample in the brief is the universal template. Every block below applies, in order, to S05/S06/S07/S08/S09 and to any future model added to the lineup."
+            subtitle="The sample model in the brief is the universal template. Every block below applies, in order, to S06 · S06DM · S07 · S08DM · S09 and to any future model added to the lineup."
             color={B}
           >
             One template, every model.
@@ -1115,7 +1207,7 @@ export default function MotionMotorsWebsitePlan() {
           <div className="mt-10 p-6 rounded-2xl" style={{ background: "#FAFAFA", border: "1px solid #F0F0F0" }}>
             <p className="text-[13px]" style={{ color: "rgba(0,0,0,0.55)", lineHeight: 1.65 }}>
               <span className="heading" style={{ color: D }}>Sourced from the brief · </span>
-              All sample copy in the blocks above is drawn from the S05 sample model included in the website content document. New models follow the same structure with their own copy and assets.
+              All sample copy in the blocks above is drawn from the sample model included in the website content document. The launch lineup — S06 · S06DM · S07 · S08DM · S09 — follows the same structure with its own copy and assets per model.
             </p>
           </div>
         </div>
@@ -1126,7 +1218,7 @@ export default function MotionMotorsWebsitePlan() {
         <div className="container" style={{ maxWidth: 1200, margin: "0 auto" }}>
           <SectionHead
             eyebrow="08 — The Lead Engine"
-            subtitle="Four paths in, one CRM record out. The site does not let a visit end without offering a route to a conversation."
+            subtitle="Five paths in, one CRM record out. The site does not let a visit end without offering a route to a conversation — including the Phase 1 e-Commerce layer (Online Reservation)."
             color={G}
             light
           >
@@ -1191,10 +1283,10 @@ export default function MotionMotorsWebsitePlan() {
         <div className="container" style={{ maxWidth: 1200, margin: "0 auto" }}>
           <SectionHead
             eyebrow="09 — Finance Calculator"
-            subtitle="Interactive component on the homepage, on every offer detail page, and on every model detail page. Transparent math, ANB-aware, hands off to a pre-qualification form."
+            subtitle="A generic, bank-agnostic estimator. No fixed bank tariff, no insurance bundling, no commitment. The result is an indicative monthly figure for guidance only; the sales team handles the actual financing pathway with the customer."
             color={P}
           >
-            The price-hook, made interactive.
+            A generic, bank-agnostic <span style={{ color: P }}>estimator</span>.
           </SectionHead>
 
           <div className="grid md:grid-cols-2 gap-8">
@@ -1236,10 +1328,24 @@ export default function MotionMotorsWebsitePlan() {
             </div>
           </div>
 
-          <div className="mt-10 p-6 rounded-2xl" style={{ background: "#FAFAFA", border: "1px solid #F0F0F0" }}>
-            <p className="text-[13px]" style={{ color: "rgba(0,0,0,0.55)", lineHeight: 1.65 }}>
-              <span className="heading" style={{ color: D }}>Reference value · </span>
-              The example &ldquo;SAR 1,051 / month at 0% down for 60 months&rdquo; mirrors the May 2026 ANB offer in the campaign brief. Actual per-model figures are populated from the ANB tariff sheet — flagged as an open item in Section 15.
+          {/* T&Cs disclaimer — always visible under the result */}
+          <div className="mt-8 p-5 rounded-2xl flex items-start gap-3" style={{
+            background: `${A}10`,
+            border: `1px solid ${A}40`,
+          }}>
+            <AlertCircle size={18} style={{ color: A, marginTop: 2, flexShrink: 0 }} />
+            <div>
+              <p className="heading text-[11px] mb-1.5" style={{ color: A, letterSpacing: 0.5 }}>Always shown under the result</p>
+              <p className="text-[13px]" style={{ color: D, lineHeight: 1.6 }}>
+                Estimated values for guidance only. Actual rates, insurance, and terms depend on the financing partner and your eligibility. T&amp;Cs apply.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-6 p-6 rounded-2xl" style={{ background: "#FAFAFA", border: "1px solid #F0F0F0" }}>
+            <p className="text-[13px]" style={{ color: "rgba(0,0,0,0.6)", lineHeight: 1.65 }}>
+              <span className="heading" style={{ color: D }}>How it behaves · </span>
+              The calculator is intentionally bank-agnostic. It accepts price (or model + trim), down payment percentage, and tenure in months — and returns an indicative monthly figure. There is no insurance bundle, no fixed-interest claim, and no commitment. After calculating, the user is invited to share their details so the sales team can present the real options from the available financing partners.
             </p>
           </div>
         </div>
@@ -1348,6 +1454,55 @@ export default function MotionMotorsWebsitePlan() {
           >
             Stack & integrations.
           </SectionHead>
+
+          {/* Hybrid Rendering breakdown — answers the "SSR or SPA?" question */}
+          <div className="mb-12">
+            <div className="text-center mb-8">
+              <p className="mb-2" style={{
+                color: A,
+                fontFamily: "var(--font-accent), 'Times New Roman', serif",
+                fontStyle: "italic",
+                fontWeight: 400,
+                fontSize: "clamp(18px, 1.8vw, 22px)",
+              }}>Web architecture</p>
+              <h3 className="heading text-2xl md:text-3xl mb-2" style={{ color: D, lineHeight: 1.3 }}>
+                Hybrid Rendering <span style={{ color: A }}>via Next.js 16</span>.
+              </h3>
+              <p className="text-sm max-w-2xl mx-auto" style={{ color: "rgba(0,0,0,0.55)" }}>
+                Not SPA (SEO suffers). Not pure SSR (interactivity lags). Not pure SSG (no logged-in data). Each page type uses the rendering mode that fits it best — all in one codebase.
+              </p>
+            </div>
+
+            <div className="rounded-2xl overflow-hidden" style={{ border: "1px solid #EBEBEB", background: "#fff" }}>
+              {[
+                { type: "Marketing pages", examples: "Brand, About, Tech narrative", mode: "SSG", note: "Static at build time. Instant load, infinite cache.", color: G },
+                { type: "Model + Offer pages", examples: "/models/[slug], /offers/[slug]", mode: "SSR + ISR", note: "Server-rendered for SEO, revalidates every X minutes when content changes.", color: B },
+                { type: "Owner Dashboard", examples: "/account/*, /account/garage", mode: "Client (post-auth)", note: "Dynamic per user, behind login. No SEO needed.", color: P },
+                { type: "Calculator + Configurators", examples: "Finance, color picker, reservation flow", mode: "Client Components", note: "Real-time interactivity, runs in the browser.", color: A },
+                { type: "Forms + APIs", examples: "Quote, Test Drive, Reservation submit", mode: "Server Actions", note: "Server-side, secure, type-safe end-to-end.", color: R },
+              ].map((r, i) => (
+                <div key={r.type} className="grid grid-cols-12 gap-4 items-center" style={{
+                  padding: "18px 24px",
+                  borderTop: i > 0 ? "1px solid #F4F4F4" : "none",
+                }}>
+                  <div className="col-span-12 md:col-span-4">
+                    <p className="heading text-[14px] mb-0.5" style={{ color: D }}>{r.type}</p>
+                    <p className="text-[11px] font-mono" style={{ color: "rgba(0,0,0,0.45)" }}>{r.examples}</p>
+                  </div>
+                  <div className="col-span-12 md:col-span-3">
+                    <span className="inline-block px-3 py-1 rounded-full text-[11px] font-bold" style={{
+                      background: `${r.color}15`,
+                      color: r.color,
+                      border: `1px solid ${r.color}30`,
+                    }}>{r.mode}</span>
+                  </div>
+                  <div className="col-span-12 md:col-span-5">
+                    <p className="text-[12.5px]" style={{ color: "rgba(0,0,0,0.65)", lineHeight: 1.5 }}>{r.note}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
 
           <div className="mmw-stagger grid md:grid-cols-2 gap-6">
             {stack.map((s) => (
@@ -1538,6 +1693,67 @@ export default function MotionMotorsWebsitePlan() {
             ))}
           </div>
 
+          {/* Client-side deliverables table */}
+          <div className="mt-14">
+            <div className="text-center mb-6">
+              <p className="mb-2" style={{
+                color: A,
+                fontFamily: "var(--font-accent), 'Times New Roman', serif",
+                fontStyle: "italic",
+                fontWeight: 400,
+                fontSize: "clamp(18px, 1.8vw, 22px)",
+              }}>What the timeline depends on</p>
+              <h3 className="heading text-2xl md:text-3xl mb-2" style={{ color: D, lineHeight: 1.3 }}>
+                Client-side <span style={{ color: A }}>deliverables</span>.
+              </h3>
+              <p className="text-sm max-w-2xl mx-auto" style={{ color: "rgba(0,0,0,0.55)" }}>
+                The four-week launch only holds if approved content, translations, media assets, and feedback land on time. Each row below has an owner (Motion Motors) and a deadline relative to the week it unblocks.
+              </p>
+            </div>
+
+            <div className="rounded-2xl overflow-hidden" style={{ border: "1px solid #EBEBEB", background: "#fff" }}>
+              {[
+                { week: "Pre-W1", color: "#666", deliverable: "FSD sign-off (DMS layer)", owner: "Motion Motors PM + Tech lead", blocks: "All of Week 1 — Foundation" },
+                { week: "W1", color: G, deliverable: "Brand assets · final logo files, colors, fonts, photography guidelines", owner: "Motion Motors brand team", blocks: "Design system v1" },
+                { week: "W1", color: G, deliverable: "Domain access · motionmotors DNS + mailbox provisioning", owner: "Motion Motors IT", blocks: "CI/CD + email integrations" },
+                { week: "W2", color: B, deliverable: "Model copy (AR + EN) for S06 · S06DM · S07 · S08DM · S09", owner: "Motion Motors marketing", blocks: "Model detail pages" },
+                { week: "W2", color: B, deliverable: "Model photography pack · exterior + interior + 360° (Soueast Hub)", owner: "Motion Motors marketing", blocks: "Model galleries" },
+                { week: "W2", color: B, deliverable: "Showroom Jeddah content · address, hours, team photos, map embed", owner: "Showroom manager", blocks: "Showroom page" },
+                { week: "W3", color: A, deliverable: "Active offers copy + visual mock per offer", owner: "Motion Motors marketing", blocks: "Offers index + offer details" },
+                { week: "W3", color: A, deliverable: "CRM endpoint or webhook URL for lead forwarding", owner: "Motion Motors IT", blocks: "Lead Engine integration" },
+                { week: "W3", color: A, deliverable: "Reservation deposit policy + refund T&Cs", owner: "Motion Motors legal + sales", blocks: "Online Reservation flow" },
+                { week: "W4", color: P, deliverable: "Privacy Policy + Terms of Service final text (AR + EN)", owner: "Motion Motors legal", blocks: "SDAIA compliance pass" },
+                { week: "W4", color: P, deliverable: "QA sign-off on every page (AR + EN)", owner: "Motion Motors PM", blocks: "Launch" },
+              ].map((d, i) => (
+                <div key={i} className="grid grid-cols-12 gap-4 items-center" style={{
+                  padding: "16px 24px",
+                  borderTop: i > 0 ? "1px solid #F4F4F4" : "none",
+                }}>
+                  <div className="col-span-3 md:col-span-2">
+                    <span className="inline-block px-2.5 py-1 rounded-full text-[11px] font-bold" style={{
+                      background: `${d.color}15`,
+                      color: d.color,
+                      border: `1px solid ${d.color}30`,
+                    }}>{d.week}</span>
+                  </div>
+                  <div className="col-span-9 md:col-span-5">
+                    <p className="text-[13px]" style={{ color: D, lineHeight: 1.5 }}>{d.deliverable}</p>
+                  </div>
+                  <div className="col-span-6 md:col-span-3">
+                    <p className="text-[12px]" style={{ color: "rgba(0,0,0,0.55)" }}>
+                      <span style={{ color: d.color, fontWeight: 600 }}>Owner · </span>{d.owner}
+                    </p>
+                  </div>
+                  <div className="col-span-6 md:col-span-2 md:text-right">
+                    <p className="text-[11px]" style={{ color: "rgba(0,0,0,0.5)" }}>
+                      <span style={{ color: "rgba(0,0,0,0.35)" }}>Blocks · </span>{d.blocks}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
           {/* Closing pill */}
           <div className="mt-12 text-center">
             <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full" style={{
@@ -1557,54 +1773,178 @@ export default function MotionMotorsWebsitePlan() {
           <div className="mt-8 p-6 rounded-2xl" style={{ background: "#FAFAFA", border: "1px solid #F0F0F0" }}>
             <p className="text-[13px]" style={{ color: "rgba(0,0,0,0.6)", lineHeight: 1.65 }}>
               <span className="heading" style={{ color: D }}>Pace · </span>
-              A four-week build assumes assets and decisions land per the open items in Section 15. Where information is missing in Week 1, the related deliverable shifts to the next available slot. Launch moves only if open items 02, 03, or 04 (finance terms, photography, CRM destination) remain unresolved by end of Week 1.
+              A four-week build assumes the deliverables above land per the table. Where information is missing in Week 1, the related deliverable shifts to the next available slot. The single open item remaining — the FSD sign-off in Section 16 — must close before Week 1 starts.
             </p>
           </div>
         </div>
       </section>
 
-      {/* ══════════ 15 — OPEN ITEMS ══════════ */}
-      <section id="open" className="mmw-slide opacity-0" style={{ padding: "120px 24px", background: "#fff" }}>
+      {/* ══════════ 15 — SDAIA COMPLIANCE & PDPL ══════════ */}
+      <section id="compliance" className="mmw-slide opacity-0" style={{ padding: "120px 24px", background: "#FAFAFA", borderTop: "1px solid #F0F0F0" }}>
         <div className="container" style={{ maxWidth: 1200, margin: "0 auto" }}>
           <SectionHead
-            eyebrow="15 — Open Items"
-            subtitle="What we need from the Motion Motors team to lock the plan and kick off Week 1. Listed so nothing slips between the brief and the build."
-            color={B}
+            eyebrow="15 — SDAIA Compliance & PDPL"
+            subtitle="The site complies with the Saudi Personal Data Protection Law (PDPL) under SDAIA. Eight controls — built into the foundation, not bolted on at the end."
+            color={P}
           >
-            What we still need to confirm.
+            Built to comply with <span style={{ color: P }}>PDPL</span>.
           </SectionHead>
 
-          <div className="mmw-stagger grid md:grid-cols-2 gap-4">
-            {openItems.map((o) => (
-              <div key={o.n} className="mmw-item" style={{
+          <div className="mmw-stagger grid md:grid-cols-2 gap-5">
+            {[
+              { n: "01", title: "Cookie Consent Banner", icon: ShieldCheck, body: "Granular consent on first visit (Necessary · Analytics · Marketing). User can revisit and change their choices any time from a persistent footer link.", color: G },
+              { n: "02", title: "Privacy Policy (AR + EN)", icon: BookOpen, body: "Full bilingual policy in plain language. Accessible from every page footer. Last-updated timestamp visible to users.", color: B },
+              { n: "03", title: "Granular Form Consent", icon: CheckCircle2, body: "Every form has separate consents — one required for processing the request, one optional per marketing channel (SMS, WhatsApp, Email). Never bundled.", color: A },
+              { n: "04", title: "Data Subject Rights", icon: BadgeCheck, body: "In the owner account: Access (download my data), Rectification (edit my profile), Erasure (delete my account), Withdraw consent (opt out of marketing).", color: P },
+              { n: "05", title: "Data Residency · KSA / GCC", icon: MapPin, body: "All customer data stored on infrastructure in KSA or nearest GCC region. No transfer outside the region without explicit consent and a legal basis.", color: G },
+              { n: "06", title: "Consent Audit Log", icon: FileText, body: "Every consent action stamped with timestamp + IP + user agent. Retrievable on regulator request. Immutable record on the back-end.", color: B },
+              { n: "07", title: "Data Breach Notification", icon: AlertCircle, body: "Internal process to notify SDAIA within 72 hours of a confirmed breach, plus affected users via SMS + Email. Pre-drafted templates ready.", color: R },
+              { n: "08", title: "Marketing Lists · Opt-In Only", icon: Send, body: "No pre-checked boxes. No opt-out by default. Every SMS / WhatsApp / Email includes a one-tap unsubscribe link tied to the consent log.", color: A },
+            ].map((c) => (
+              <div key={c.n} className="mmw-item" style={{
                 background: "#fff",
                 border: "1px solid #EBEBEB",
                 borderRadius: 16,
-                padding: 24,
+                padding: 22,
               }}>
                 <div className="flex items-start gap-4">
                   <div style={{
-                    width: 36, height: 36, borderRadius: 8,
-                    background: `${o.color}15`,
+                    width: 40, height: 40, borderRadius: 10,
+                    background: `${c.color}15`,
                     display: "flex", alignItems: "center", justifyContent: "center",
                     flexShrink: 0,
                   }}>
-                    <o.icon size={16} style={{ color: o.color }} />
+                    <c.icon size={18} style={{ color: c.color }} />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-baseline gap-3 mb-1">
-                      <span className="heading text-[10px]" style={{ color: o.color, letterSpacing: 0.5 }}>{o.n}</span>
-                      <h3 className="heading text-[14px]" style={{ color: D }}>{o.topic}</h3>
+                    <div className="flex items-baseline gap-3 mb-1.5">
+                      <span className="heading text-[10px]" style={{ color: c.color, letterSpacing: 0.5 }}>{c.n}</span>
+                      <h4 className="heading text-[14px]" style={{ color: D }}>{c.title}</h4>
                     </div>
-                    <p className="text-[13px] mb-2" style={{ color: D, lineHeight: 1.55 }}>{o.question}</p>
-                    <p className="text-[12px]" style={{ color: "rgba(0,0,0,0.5)", lineHeight: 1.55 }}>
-                      <span style={{ color: o.color }}>Needed · </span>
-                      {o.needed}
-                    </p>
+                    <p className="text-[12.5px]" style={{ color: "rgba(0,0,0,0.6)", lineHeight: 1.6 }}>{c.body}</p>
                   </div>
                 </div>
               </div>
             ))}
+          </div>
+
+          <div className="mt-10 p-6 rounded-2xl" style={{ background: `${P}08`, border: `1px solid ${P}25` }}>
+            <p className="text-[13px]" style={{ color: "rgba(0,0,0,0.65)", lineHeight: 1.65 }}>
+              <span className="heading" style={{ color: P }}>Out of scope here · </span>
+              SDAIA Data Protection Officer (DPO) appointment, formal ROPA documentation, and any third-party data processor agreements (DPAs) sit with our legal team. The website provides the technical foundation that supports those obligations; the formal artefacts remain owned by legal.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════ 16 — CONFIRMED + OPEN ══════════ */}
+      <section id="open" className="mmw-slide opacity-0" style={{ padding: "120px 24px", background: "#fff" }}>
+        <div className="container" style={{ maxWidth: 1200, margin: "0 auto" }}>
+          <SectionHead
+            eyebrow="16 — Confirmed & Open"
+            subtitle="A status snapshot after the leadership review round on May 19. Most of what was open in the first draft is now locked. One item remains — the FSD for the DMS layer."
+            color={B}
+          >
+            What is locked, what is still <span style={{ color: G }}>open</span>.
+          </SectionHead>
+
+          {/* CONFIRMED ITEMS */}
+          <div className="mb-12">
+            <div className="flex items-baseline justify-between pb-3 mb-6" style={{ borderBottom: "1px solid #EBEBEB" }}>
+              <div className="flex items-baseline gap-3">
+                <span style={{ display: "inline-block", width: 24, height: 3, background: G, transform: "translateY(-3px)" }} />
+                <h3 className="heading text-lg" style={{ color: D }}>Confirmed by leadership</h3>
+              </div>
+              <span className="text-[11px] font-mono" style={{ color: "rgba(0,0,0,0.4)" }}>{confirmedItems.length} items · locked</span>
+            </div>
+
+            <div className="mmw-stagger grid md:grid-cols-2 gap-4">
+              {confirmedItems.map((o) => (
+                <div key={o.n} className="mmw-item" style={{
+                  background: "#fff",
+                  border: "1px solid #EBEBEB",
+                  borderRadius: 16,
+                  padding: 22,
+                }}>
+                  <div className="flex items-start gap-4">
+                    <div style={{
+                      width: 36, height: 36, borderRadius: 8,
+                      background: `${o.color}15`,
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                      flexShrink: 0,
+                    }}>
+                      <o.icon size={16} style={{ color: o.color }} />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-3 mb-1.5">
+                        <span className="heading text-[10px]" style={{ color: o.color, letterSpacing: 0.5 }}>{o.n}</span>
+                        <h4 className="heading text-[14px]" style={{ color: D }}>{o.topic}</h4>
+                        <CheckCircle2 size={13} style={{ color: G, marginLeft: "auto" }} />
+                      </div>
+                      <p className="text-[12.5px]" style={{ color: "rgba(0,0,0,0.65)", lineHeight: 1.55 }}>{o.decision}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* STILL PENDING */}
+          <div>
+            <div className="flex items-baseline justify-between pb-3 mb-6" style={{ borderBottom: "1px solid #EBEBEB" }}>
+              <div className="flex items-baseline gap-3">
+                <span style={{ display: "inline-block", width: 24, height: 3, background: B, transform: "translateY(-3px)" }} />
+                <h3 className="heading text-lg" style={{ color: D }}>Still open</h3>
+              </div>
+              <span className="text-[11px] font-mono" style={{ color: "rgba(0,0,0,0.4)" }}>{stillPending.length} item · pending</span>
+            </div>
+
+            <div className="mmw-stagger grid md:grid-cols-1 gap-4">
+              {stillPending.map((o) => (
+                <div key={o.n} className="mmw-item" style={{
+                  background: "#fff",
+                  border: `2px solid ${o.color}25`,
+                  borderRadius: 16,
+                  padding: 24,
+                  boxShadow: `4px 4px 0px 0px ${o.color}15`,
+                }}>
+                  <div className="flex items-start gap-4">
+                    <div style={{
+                      width: 44, height: 44, borderRadius: 10,
+                      background: `${o.color}15`,
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                      flexShrink: 0,
+                    }}>
+                      <o.icon size={18} style={{ color: o.color }} />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-baseline gap-3 mb-1.5">
+                        <span className="heading text-[11px]" style={{ color: o.color, letterSpacing: 0.5 }}>OPEN · {o.n}</span>
+                        <h4 className="heading text-base" style={{ color: D }}>{o.topic}</h4>
+                      </div>
+                      <p className="text-[14px] mb-2" style={{ color: D, lineHeight: 1.55 }}>{o.question}</p>
+                      <p className="text-[12.5px] mb-4" style={{ color: "rgba(0,0,0,0.55)", lineHeight: 1.6 }}>
+                        <span style={{ color: o.color, fontWeight: 600 }}>What it covers · </span>
+                        {o.needed}
+                      </p>
+                      <a href="/motionmotors-website/fsd" className="inline-flex items-center gap-2 px-4 py-2 rounded-full no-underline" style={{
+                        background: o.color,
+                        color: "#fff",
+                        fontSize: 12,
+                        fontWeight: 700,
+                        boxShadow: `3px 3px 0px 0px ${D}`,
+                        border: `2px solid ${D}`,
+                        transition: "transform 200ms",
+                      }}>
+                        <FileText size={13} />
+                        <span>Open the FSD · v0.1 Draft</span>
+                        <ArrowRight size={13} />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
 
           <div className="mt-12 p-10 rounded-2xl text-center" style={{ background: D, color: "#fff" }}>
@@ -1627,9 +1967,9 @@ export default function MotionMotorsWebsitePlan() {
               />
             </div>
 
-            <h3 className="heading text-2xl md:text-3xl mb-3" style={{ color: "#fff", lineHeight: 1.3 }}>Take your time with it.</h3>
+            <h3 className="heading text-2xl md:text-3xl mb-3" style={{ color: "#fff", lineHeight: 1.3 }}>Ready to kick off.</h3>
             <p className="text-sm mb-8 max-w-2xl mx-auto" style={{ color: "rgba(255,255,255,0.65)", lineHeight: 1.7 }}>
-              Read through every section carefully. Anything that feels off, anything missing, anything you would frame differently — share comments and I will revise. Once the IA in Section 04 is approved and the four open items are confirmed, Week 1 — Foundation — can start the same week.
+              The IA in Section 04 and the open items in Section 16 are the gates before Week 1 starts. Comments and questions land directly to me — happy to walk through any section internally before we move.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-[12px]" style={{ color: "rgba(255,255,255,0.5)" }}>
               <span>
@@ -1649,7 +1989,7 @@ export default function MotionMotorsWebsitePlan() {
       <footer style={{ padding: "40px 24px", background: D, borderTop: "1px solid #222", color: "rgba(255,255,255,0.4)" }}>
         <div className="container flex flex-wrap items-center justify-between gap-4 text-[11px]" style={{ maxWidth: 1200, margin: "0 auto" }}>
           <span>Motion Motors × Soueast · Website Plan</span>
-          <span>Prepared by Ahmed Ali · Head of Digital &amp; Growth Lead</span>
+          <span>Ahmed Ali · Head of Digital &amp; Growth Lead</span>
           <span>End of document</span>
         </div>
       </footer>

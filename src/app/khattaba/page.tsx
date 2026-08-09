@@ -17,7 +17,7 @@ import {
   BookOpen, HeartCrack, Baby, Pill, Gavel, Car, Briefcase, Award,
   Banknote, ChefHat, Hourglass,
   type LucideIcon,
-} from "lucide-react";
+} from "@/app/khattaba/design/_components/icons";
 import ArabicTailProcessor from "@/components/ArabicTailProcessor";
 import KhattabaSectionNav from "@/components/KhattabaSectionNav";
 import KhattabaChat from "@/components/KhattabaChat";

@@ -17,8 +17,8 @@ const NAV_ITEMS: { id: string; label: string; color: string; tourDesc: string }[
     tourDesc: "The eleven sitemap items expanded into a real information architecture — over thirty-five routes across the bilingual site." },
   { id: "templates", label: "Templates", color: "#30c280",
     tourDesc: "Six reusable page templates so the site can scale to dozens of pages without re-engaging design." },
-  { id: "magnetic", label: "Magnetic Layer", color: "#B85454",
-    tourDesc: "Twelve interactive moments that let a visitor live the car before they touch it — grouped into three worlds." },
+  { id: "magnetic", label: "Magnetic · Phase 2", color: "#B85454",
+    tourDesc: "Twelve interactive moments that let a visitor live the car before they touch it — grouped into three worlds. Marked as Phase 2 / Optional; outside the 4-week launch scope." },
   { id: "model", label: "Model Page", color: "#4271B8",
     tourDesc: "The S05 sample applied universally — twelve blocks per model that scale to S06, S07, S08, S09 and beyond." },
   { id: "leads", label: "Lead Engine", color: "#C4823B",
@@ -35,8 +35,10 @@ const NAV_ITEMS: { id: string; label: string; color: string; tourDesc: string }[
     tourDesc: "Four pillars that translate the Motion Motors logo into a web design language: type, color, motif, photography." },
   { id: "phases", label: "Calendar", color: "#30c280",
     tourDesc: "The launch calendar — four weekly sprints, one milestone per week, from kickoff to live in a month." },
-  { id: "open", label: "Open Items", color: "#4271B8",
-    tourDesc: "Ten items needed from the Motion Motors team to lock the plan and kick off Week 1." },
+  { id: "compliance", label: "SDAIA · PDPL", color: "#735AAB",
+    tourDesc: "Saudi Personal Data Protection Law compliance — consent management, data subject rights, residency, audit log, breach plan." },
+  { id: "open", label: "Confirmed & Open", color: "#4271B8",
+    tourDesc: "What is locked after the May 19 client review, and the one item still pending — the FSD for the DMS layer." },
 ];
 
 const DRAG_NOTE = {

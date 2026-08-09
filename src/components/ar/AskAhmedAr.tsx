@@ -29,7 +29,7 @@ function formatMessage(text: string) {
     .replace(/\*(.*?)\*/g, "<em>$1</em>")
     .replace(
       /(hello@ahmedali\.online)/g,
-      '<a href="mailto:$1" style="color:#0A0A0A;font-weight:700;text-decoration:underline">$1</a>'
+      '<a href="mailto:$1" style="color:#04323A;font-weight:700;text-decoration:underline">$1</a>'
     )
     .replace(/\n/g, "<br>")
     .replace(/(<br>)+$/g, "")
@@ -54,8 +54,8 @@ function ContactButtons() {
           fontSize: "12px",
           fontWeight: 700,
           textDecoration: "none",
-          border: "2px solid #0A0A0A",
-          boxShadow: "2px 2px 0px 0px #0A0A0A",
+          border: "2px solid #04323A",
+          boxShadow: "2px 2px 0px 0px #04323A",
           transition: "all 0.2s",
         }}
       >
@@ -71,16 +71,16 @@ function ContactButtons() {
           padding: "8px 16px",
           borderRadius: "100px",
           background: "#fff",
-          color: "#0A0A0A",
+          color: "#04323A",
           fontSize: "12px",
           fontWeight: 700,
           textDecoration: "none",
-          border: "2px solid #0A0A0A",
-          boxShadow: "2px 2px 0px 0px #0A0A0A",
+          border: "2px solid #04323A",
+          boxShadow: "2px 2px 0px 0px #04323A",
           transition: "all 0.2s",
         }}
       >
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0A0A0A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#04323A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
         البريد
       </a>
     </div>
@@ -260,7 +260,7 @@ export default function AskAhmedAr() {
         borderRadius: "50%",
         objectFit: "cover",
         flexShrink: 0,
-        border: "2px solid #0A0A0A",
+        border: "2px solid #04323A",
       }}
     />
   );
@@ -277,14 +277,14 @@ export default function AskAhmedAr() {
               onClick={openChat}
               style={{
                 background: "#fff",
-                border: "2px solid #0A0A0A",
-                boxShadow: "-4px 4px 0px 0px #0A0A0A",
+                border: "2px solid #04323A",
+                boxShadow: "-4px 4px 0px 0px #04323A",
                 borderRadius: "20px 20px 20px 4px",
                 padding: "14px 18px",
                 maxWidth: "260px",
                 fontSize: "13px",
                 lineHeight: 1.6,
-                color: "#0A0A0A",
+                color: "#04323A",
                 direction: "rtl",
                 animation: "askahmedar-float-in 0.4s cubic-bezier(0.34,1.56,0.64,1) forwards",
               }}
@@ -308,9 +308,9 @@ export default function AskAhmedAr() {
               width: "60px",
               height: "60px",
               borderRadius: "50%",
-              background: "#4FFFB0",
-              border: "2px solid #0A0A0A",
-              boxShadow: "-4px 4px 0px 0px #0A0A0A",
+              background: "#CFF7EE",
+              border: "2px solid #04323A",
+              boxShadow: "-4px 4px 0px 0px #04323A",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -328,7 +328,7 @@ export default function AskAhmedAr() {
                   height: "22px",
                   background: "#EF4444",
                   borderRadius: "50%",
-                  border: "2px solid #0A0A0A",
+                  border: "2px solid #04323A",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -352,11 +352,11 @@ export default function AskAhmedAr() {
                   height: "12px",
                   background: "#22C55E",
                   borderRadius: "50%",
-                  border: "2px solid #0A0A0A",
+                  border: "2px solid #04323A",
                 }}
               />
             )}
-            <MessageCircle size={24} color="#0A0A0A" strokeWidth={2.5} />
+            <MessageCircle size={24} color="#04323A" strokeWidth={2.5} />
           </button>
         </div>
       )}
@@ -376,8 +376,8 @@ export default function AskAhmedAr() {
           height: "60px",
           borderRadius: "50%",
           background: "#25D366",
-          border: "2px solid #0A0A0A",
-          boxShadow: "-4px 4px 0px 0px #0A0A0A",
+          border: "2px solid #04323A",
+          boxShadow: "-4px 4px 0px 0px #04323A",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -397,10 +397,10 @@ export default function AskAhmedAr() {
           height: "600px",
           maxHeight: "calc(100vh - 80px)",
           background: "#fff",
-          border: "2px solid #0A0A0A",
+          border: "2px solid #04323A",
           borderRadius: "28px",
           overflow: "hidden",
-          boxShadow: "8px 8px 0px 0px #0A0A0A",
+          boxShadow: "8px 8px 0px 0px #04323A",
           fontFamily: "'Ahmed Sans', sans-serif",
           direction: "rtl",
           transform: isOpen ? "scale(1) translateY(0)" : "scale(0.9) translateY(20px)",
@@ -413,8 +413,8 @@ export default function AskAhmedAr() {
         <div
           style={{
             padding: "16px 20px",
-            background: "#4FFFB0",
-            borderBottom: "2px solid #0A0A0A",
+            background: "#CFF7EE",
+            borderBottom: "2px solid #04323A",
             display: "flex",
             alignItems: "center",
             gap: "12px",
@@ -433,16 +433,16 @@ export default function AskAhmedAr() {
                 height: "12px",
                 background: "#22C55E",
                 borderRadius: "50%",
-                border: "2px solid #4FFFB0",
+                border: "2px solid #CFF7EE",
               }}
             />
           </div>
 
           <div style={{ flex: 1 }}>
-            <div style={{ fontFamily: "'Ahmed Serif Display', serif", fontWeight: 700, fontSize: "15px", color: "#0A0A0A", lineHeight: 1.2 }}>
+            <div style={{ fontFamily: "'Ahmed Serif Display', serif", fontWeight: 700, fontSize: "15px", color: "#04323A", lineHeight: 1.2 }}>
               اسأل أحمد
             </div>
-            <div style={{ fontSize: "12px", color: "rgba(0,0,0,0.5)", marginTop: "2px" }}>
+            <div style={{ fontSize: "12px", color: "rgba(4,50,58,0.5)", marginTop: "2px" }}>
               متصل · يرد فوراً
             </div>
           </div>
@@ -455,9 +455,9 @@ export default function AskAhmedAr() {
               width: "32px",
               height: "32px",
               borderRadius: "50%",
-              background: "rgba(0,0,0,0.08)",
+              background: "rgba(4,50,58,0.08)",
               border: "none",
-              color: "#0A0A0A",
+              color: "#04323A",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -526,16 +526,16 @@ export default function AskAhmedAr() {
                     textAlign: "right",
                     ...(msg.role === "user"
                       ? {
-                          background: "#4FFFB0",
-                          color: "#0A0A0A",
+                          background: "#CFF7EE",
+                          color: "#04323A",
                           fontWeight: 500,
-                          border: "2px solid #0A0A0A",
-                          boxShadow: "-3px 3px 0px 0px #0A0A0A",
+                          border: "2px solid #04323A",
+                          boxShadow: "-3px 3px 0px 0px #04323A",
                           borderRadius: "18px 18px 18px 4px",
                         }
                       : {
                           background: "#fff",
-                          color: "#0A0A0A",
+                          color: "#04323A",
                           border: "1px solid #E4E4E7",
                           borderRadius: "18px 18px 4px 18px",
                         }),
@@ -601,9 +601,9 @@ export default function AskAhmedAr() {
                   whiteSpace: "nowrap",
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = "#0A0A0A";
-                  e.currentTarget.style.color = "#0A0A0A";
-                  e.currentTarget.style.boxShadow = "-2px 2px 0px 0px #0A0A0A";
+                  e.currentTarget.style.borderColor = "#04323A";
+                  e.currentTarget.style.color = "#04323A";
+                  e.currentTarget.style.boxShadow = "-2px 2px 0px 0px #04323A";
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.borderColor = "#E4E4E7";
@@ -625,10 +625,10 @@ export default function AskAhmedAr() {
               gap: "8px",
               alignItems: "center",
               background: "#fff",
-              border: "2px solid #0A0A0A",
+              border: "2px solid #04323A",
               borderRadius: "100px",
               padding: "6px 18px 6px 6px",
-              boxShadow: "-3px 3px 0px 0px #0A0A0A",
+              boxShadow: "-3px 3px 0px 0px #04323A",
               direction: "rtl",
             }}
           >
@@ -644,7 +644,7 @@ export default function AskAhmedAr() {
                 background: "none",
                 border: "none",
                 outline: "none",
-                color: "#0A0A0A",
+                color: "#04323A",
                 fontFamily: "inherit",
                 fontSize: "14px",
                 resize: "none",
@@ -664,7 +664,7 @@ export default function AskAhmedAr() {
                 width: "38px",
                 height: "38px",
                 borderRadius: "50%",
-                background: input.trim() && !isTyping ? "#4FFFB0" : "#F4F4F5",
+                background: input.trim() && !isTyping ? "#CFF7EE" : "#F4F4F5",
                 border: "none",
                 display: "flex",
                 alignItems: "center",
@@ -673,7 +673,7 @@ export default function AskAhmedAr() {
                 flexShrink: 0,
               }}
             >
-              <Send size={16} color={input.trim() && !isTyping ? "#0A0A0A" : "#A1A1AA"} style={{ transform: "scaleX(-1)" }} />
+              <Send size={16} color={input.trim() && !isTyping ? "#04323A" : "#A1A1AA"} style={{ transform: "scaleX(-1)" }} />
             </button>
           </div>
         </div>

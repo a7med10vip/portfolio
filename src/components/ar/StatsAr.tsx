@@ -3,15 +3,24 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Calendar, Users, Globe2, DollarSign } from "lucide-react";
+import { FaCalendarDays, FaUsers, FaEarthAmericas, FaSackDollar } from "react-icons/fa6";
 
 gsap.registerPlugin(ScrollTrigger);
 
+/* Same named ramp as every section. */
+const INK = "#04323A";
+const TEAL = "#004D5A";
+const MUTED = "#4E717A";
+const MINT = "#CFF7EE";
+const WASH = "#F4FBF9";
+
+/* Font Awesome solids rather than thin strokes — the filled marks hold their
+   own against the 2px retro outline. */
 const stats = [
-  { value: 5, suffix: "+", label: "سنوات خبرة", prefix: "", icon: Calendar, description: "عبر 4 أسواق" },
-  { value: 3000, suffix: "+", label: "حضور فعاليات", prefix: "", icon: Users, description: "في مؤتمرات حية" },
-  { value: 4, suffix: "", label: "أسواق نشطة", prefix: "", icon: Globe2, description: "مصر · قطر · السعودية · الإمارات" },
-  { value: 15, suffix: "K+", label: "ميزانية إعلانية", prefix: "$", icon: DollarSign, description: "إنفاق شهري" },
+  { value: 5,    suffix: "+",  prefix: "",  label: "سنوات خبرة",     description: "عبر 4 أسواق",                    Icon: FaCalendarDays },
+  { value: 3000, suffix: "+",  prefix: "",  label: "حضور فعاليات",   description: "في مؤتمرات حية",                 Icon: FaUsers },
+  { value: 4,    suffix: "",   prefix: "",  label: "أسواق نشطة",     description: "مصر · قطر · السعودية · الإمارات", Icon: FaEarthAmericas },
+  { value: 15,   suffix: "K+", prefix: "$", label: "ميزانية إعلانية", description: "إنفاق شهري",                     Icon: FaSackDollar },
 ];
 
 export default function StatsAr() {
@@ -23,53 +32,30 @@ export default function StatsAr() {
       if (!counters) return;
 
       counters.forEach((el, i) => {
-        const target = stats[i].value;
+        const { value: target, prefix, suffix } = stats[i];
         const obj = { val: 0 };
 
         gsap.to(obj, {
           val: target,
-          duration: 2.5,
+          duration: 2.2,
           ease: "power2.out",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 80%",
-          },
+          scrollTrigger: { trigger: sectionRef.current, start: "top 80%", once: true },
           onUpdate: () => {
-            const display = target >= 100 ? Math.round(obj.val).toLocaleString() : Math.round(obj.val);
-            el.textContent = `${stats[i].prefix}${display}${stats[i].suffix}`;
+            el.textContent = `${prefix}${Math.round(obj.val).toLocaleString("en-US")}${suffix}`;
           },
         });
       });
 
       gsap.fromTo(
         ".stat-card-ar",
-        { y: 60, opacity: 0, scale: 0.9 },
+        { y: 46, opacity: 0 },
         {
           y: 0,
           opacity: 1,
-          scale: 1,
-          duration: 0.8,
-          stagger: 0.12,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 80%",
-          },
-        }
-      );
-
-      gsap.fromTo(
-        ".stat-ring-fill-ar",
-        { strokeDashoffset: 251 },
-        {
-          strokeDashoffset: 50,
-          duration: 2.5,
-          stagger: 0.15,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 80%",
-          },
+          duration: 0.7,
+          stagger: 0.1,
+          ease: "back.out(1.4)",
+          scrollTrigger: { trigger: sectionRef.current, start: "top 80%", once: true },
         }
       );
     }, sectionRef);
@@ -80,103 +66,64 @@ export default function StatsAr() {
     <section
       ref={sectionRef}
       className="relative overflow-hidden"
-      style={{ background: "#0A0A0A", padding: "100px 24px" }}
+      style={{ background: "#fff", padding: "100px 24px" }}
     >
-      {/* Background grid pattern */}
-      <div className="absolute inset-0 opacity-[0.03]" style={{
-        backgroundImage: "radial-gradient(circle, #fff 1px, transparent 1px)",
-        backgroundSize: "40px 40px",
-      }} />
+      {/* The dot grid that used to sit here was white dots at 3% opacity on a
+          near-white ground — it rendered as nothing. */}
 
       <div className="max-w-6xl mx-auto relative">
-        {/* Section header */}
         <div className="text-center mb-16">
-          <h2 className="ar-heading text-3xl md:text-4xl" style={{ color: "#fff" }}>أثر يُثبت بالأرقام</h2>
+          <p className="ar-script text-xl md:text-2xl mb-3" style={{ color: TEAL }}>الأثر</p>
+          <h2 className="ar-heading text-3xl md:text-4xl" style={{ color: INK }}>أثر يُثبت بالأرقام</h2>
         </div>
 
-        {/* Stats grid */}
+        {/* Stamp cards: retro outline and hard shadow, alternating mint and
+            wash. No progress rings — the old ones animated every card to the
+            identical arc, implying a proportion these figures do not have. */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
-          {stats.map(({ label, prefix, suffix, icon: Icon, description }, i) => (
+          {stats.map(({ label, prefix, suffix, description, Icon }, i) => (
             <div
-              key={i}
-              className="stat-card-ar opacity-0 relative group"
+              key={label}
+              className="stat-card-ar opacity-0 rounded-[20px] p-6 md:p-8 flex flex-col items-center text-center"
+              style={{
+                background: i % 2 === 0 ? MINT : WASH,
+                border: `2px solid ${TEAL}`,
+                boxShadow: `5px 5px 0px 0px ${TEAL}`,
+              }}
             >
-              {/* Animated gradient border */}
               <div
-                className="absolute -inset-[1px] rounded-[24px] overflow-hidden opacity-60 group-hover:opacity-100 transition-opacity duration-500"
+                className="w-12 h-12 rounded-[13px] flex items-center justify-center mb-5"
+                style={{ background: "#fff", border: `2px solid ${TEAL}` }}
               >
-                <div
-                  className="absolute inset-[-50%] w-[200%] h-[200%]"
-                  style={{
-                    background: "conic-gradient(from 0deg, #4FFFB0, #0A0A0A, #4FFFB0, #0A0A0A, #4FFFB0)",
-                    animation: `spinBorderAr ${6 + i}s linear infinite`,
-                    transformOrigin: "center center",
-                  }}
-                />
+                <Icon size={19} style={{ color: TEAL }} />
               </div>
 
-              {/* Card content */}
+              {/* The figure stays Latin-numeral and LTR: "$15K+" reverses into
+                  nonsense when an RTL run gets hold of the prefix. */}
               <div
-                className="relative rounded-[24px] p-6 md:p-10 flex flex-col items-center text-center h-full overflow-hidden"
-                style={{ background: "#111" }}
+                className="stat-num-ar heading"
+                dir="ltr"
+                style={{
+                  color: INK,
+                  fontSize: "clamp(1.9rem, 4vw, 2.7rem)",
+                  lineHeight: 1.1,
+                  letterSpacing: "-0.02em",
+                  fontVariantNumeric: "tabular-nums",
+                }}
               >
-                {/* Ring + Icon */}
-                <div className="relative w-16 h-16 mb-8">
-                  <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 88 88">
-                    <circle cx="44" cy="44" r="40" fill="none" stroke="#1a1a1a" strokeWidth="3" />
-                    <circle
-                      className="stat-ring-fill-ar"
-                      cx="44" cy="44" r="40"
-                      fill="none"
-                      stroke="#4FFFB0"
-                      strokeWidth="3"
-                      strokeLinecap="round"
-                      strokeDasharray="251"
-                      strokeDashoffset="251"
-                    />
-                  </svg>
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <Icon size={22} style={{ color: "#4FFFB0" }} />
-                  </div>
-                </div>
-
-                {/* Number */}
-                <div
-                  className="stat-num-ar ar-heading font-bold mb-3"
-                  style={{
-                    fontSize: "clamp(2rem, 4.5vw, 3rem)",
-                    background: "linear-gradient(135deg, #fff 0%, #4FFFB0 100%)",
-                    WebkitBackgroundClip: "text",
-                    backgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    lineHeight: 1.6,
-                    paddingTop: "0.2em",
-                  }}
-                >
-                  {prefix}0{suffix}
-                </div>
-
-                {/* Label */}
-                <p className="ar-body text-sm font-semibold mb-1" style={{ color: "#fff" }}>
-                  {label}
-                </p>
-
-                {/* Description */}
-                <p className="ar-body text-[11px]" style={{ color: "rgba(255,255,255,0.35)" }}>
-                  {description}
-                </p>
+                {prefix}0{suffix}
               </div>
+
+              <p className="ar-body text-sm font-bold mt-3" style={{ color: INK }}>
+                {label}
+              </p>
+              <p className="ar-body text-[11px] mt-1" style={{ color: i % 2 === 0 ? "rgba(4,50,58,0.62)" : MUTED }}>
+                {description}
+              </p>
             </div>
           ))}
         </div>
       </div>
-
-      <style>{`
-        @keyframes spinBorderAr {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
-      `}</style>
     </section>
   );
 }

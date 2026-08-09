@@ -6,6 +6,20 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
+/* One named ramp for the whole section. The previous version reached for
+   rgba(0,77,90,…) at eight different alphas — 0.03, 0.05, 0.08, 0.12, 0.25,
+   0.3, 0.5, 0.7 — which is why nothing lined up: three of those were so faint
+   they rendered as nothing at all, and the rest were arbitrary. */
+const INK = "#04323A";    // step titles
+const TEAL = "#004D5A";   // numbers, rules, outlines, the timeline
+const MUTED = "#4E717A";  // body copy — a real colour, not ink at 66%
+const MINT = "#CFF7EE";   // fills
+const WASH = "#F4FBF9";   // pill grounds and the row hover
+const LINE = "rgba(0,77,90,0.12)"; // the one rule colour in the section
+
+/* Shared with the Services chips — same angles, same retro treatment. */
+const CHIP_TILTS = [-3, 2.2, -1.4, 3, -2.4];
+
 const steps = [
   {
     num: "01",
@@ -115,24 +129,26 @@ export default function HowIWork() {
         );
       });
 
-      // Pills slide in
+      /* Chips slide in and land on their tilt. The rotation has to be part of
+         the tween: GSAP writes the whole `transform`, so animating x alone
+         would erase the inline rotate the chip was rendered with. */
       gsap.utils.toArray<HTMLElement>(".hiw-pills").forEach((el) => {
-        gsap.fromTo(
-          el.children,
-          { x: -20, opacity: 0 },
-          {
-            x: 0,
-            opacity: 1,
-            duration: 0.5,
-            stagger: 0.08,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: el,
-              start: "top 88%",
-              once: true,
-            },
-          }
-        );
+        gsap.utils.toArray<HTMLElement>(el.children as HTMLCollectionOf<HTMLElement>).forEach((chip, ci) => {
+          const rest = Number(chip.dataset.tilt ?? 0);
+          gsap.fromTo(
+            chip,
+            { x: -20, opacity: 0, rotate: 0 },
+            {
+              x: 0,
+              opacity: 1,
+              rotate: rest,
+              duration: 0.5,
+              delay: ci * 0.08,
+              ease: "power3.out",
+              scrollTrigger: { trigger: el, start: "top 88%", once: true },
+            }
+          );
+        });
       });
     }, sectionRef);
 
@@ -144,52 +160,36 @@ export default function HowIWork() {
       ref={sectionRef}
       id="how-i-work"
       className="relative overflow-hidden"
-      style={{ background: "#0A0A0A", padding: "100px 24px" }}
+      style={{ background: "#fff", padding: "100px 24px" }}
     >
-      {/* Subtle dot grid background */}
-      <div
-        className="absolute inset-0 opacity-[0.03]"
-        style={{
-          backgroundImage: "radial-gradient(circle, #fff 1px, transparent 1px)",
-          backgroundSize: "40px 40px",
-        }}
-      />
-
-      {/* Top glow */}
-      <div
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] rounded-full opacity-[0.04]"
-        style={{ background: "radial-gradient(circle, #4FFFB0 0%, transparent 70%)" }}
-      />
+      {/* The dot grid (white dots at 3%) and the top glow (mint at 4%) that
+          used to sit here rendered as literally nothing — dropped rather than
+          left in as decoration that never arrives. */}
 
       <div className="max-w-5xl mx-auto relative">
         {/* Header */}
         <div className="hiw-header opacity-0 text-center mb-20">
-          <p className="script text-xl md:text-2xl mb-3" style={{ color: "#4FFFB0" }}>
+          <p className="script text-xl md:text-2xl mb-3" style={{ color: TEAL }}>
             Approach
           </p>
-          <h2 className="heading text-3xl md:text-5xl" style={{ color: "#fff" }}>
+          <h2 className="heading text-3xl md:text-5xl" style={{ color: INK }}>
             How I Work
           </h2>
         </div>
 
         {/* Steps container */}
         <div className="relative">
-          {/* Vertical green line - background track */}
+          {/* Timeline track, then the fill that grows on scroll. Both are the
+              same 2px the retro outlines use, so the rail reads as part of the
+              same drawing rather than a hairline from another system. */}
           <div
             className="hidden md:block absolute top-0 bottom-0 w-[2px]"
-            style={{
-              left: "156px",
-              background: "rgba(79,255,176,0.06)",
-            }}
+            style={{ left: "156px", background: LINE }}
           />
-          {/* Vertical green line - animated fill */}
           <div
             ref={lineRef}
             className="hidden md:block absolute top-0 bottom-0 w-[2px] origin-top"
-            style={{
-              left: "156px",
-              background: "linear-gradient(to bottom, #4FFFB0, rgba(79,255,176,0.15))",
-            }}
+            style={{ left: "156px", background: TEAL }}
           />
 
           {/* Steps */}
@@ -202,55 +202,33 @@ export default function HowIWork() {
                 <div
                   className="grid grid-cols-1 md:grid-cols-[160px_1fr] gap-6 md:gap-12 items-start py-12 md:py-16 relative"
                   style={{
-                    borderBottom:
-                      i < steps.length - 1
-                        ? "1px solid rgba(255,255,255,0.06)"
-                        : "none",
+                    borderBottom: i < steps.length - 1 ? `1px solid ${LINE}` : "none",
                   }}
                 >
-                  {/* Hover glow behind row */}
-                  <div
-                    className="absolute -inset-x-6 inset-y-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-                    style={{ background: "radial-gradient(ellipse at 20% 50%, rgba(79,255,176,0.03), transparent 70%)" }}
-                  />
 
                   {/* Left: Large number */}
                   <div className="relative z-10">
                     <div className="hiw-num flex items-center gap-4 md:flex-col md:items-start md:gap-2">
+                      {/* Solid teal. The old gradient faded the digits to 25%
+                          opacity at the baseline, which read as a rendering
+                          fault rather than a effect. */}
                       <span
                         className="heading text-6xl md:text-[88px]"
-                        style={{
-                          background: "linear-gradient(180deg, #4FFFB0 0%, rgba(79,255,176,0.4) 100%)",
-                          WebkitBackgroundClip: "text",
-                          backgroundClip: "text",
-                          WebkitTextFillColor: "transparent",
-                          lineHeight: 1.3,
-                        }}
+                        style={{ color: TEAL, lineHeight: 1.3 }}
                       >
                         {step.num}
                       </span>
-                      {/* Green dot on the line with pulse */}
+                      {/* Timeline marker: a mint disc with a 2px teal outline,
+                          matching the retro chips. The previous marker was a
+                          pale mint dot wearing a 12px teal glow — the neon the
+                          rest of the site avoids. */}
                       <div
                         className="hidden md:block absolute"
-                        style={{
-                          left: "150px",
-                          top: "28px",
-                        }}
+                        style={{ left: "149px", top: "27px" }}
                       >
                         <div
-                          className="w-3 h-3 rounded-full relative"
-                          style={{
-                            background: "#4FFFB0",
-                            boxShadow: "0 0 12px rgba(79,255,176,0.5)",
-                          }}
-                        />
-                        <div
-                          className="absolute inset-0 w-3 h-3 rounded-full animate-ping"
-                          style={{
-                            background: "#4FFFB0",
-                            opacity: 0.2,
-                            animationDuration: `${3 + i}s`,
-                          }}
+                          className="w-3.5 h-3.5 rounded-full"
+                          style={{ background: MINT, border: `2px solid ${TEAL}` }}
                         />
                       </div>
                     </div>
@@ -259,34 +237,41 @@ export default function HowIWork() {
                   {/* Right: Content */}
                   <div className="relative z-10">
                     <h3
-                      className="heading text-2xl md:text-4xl mb-2 transition-colors duration-300 group-hover:text-[#4FFFB0]"
-                      style={{ color: "#fff" }}
+                      className="heading text-2xl md:text-4xl mb-2 transition-colors duration-300 group-hover:text-[#004D5A]"
+                      style={{ color: INK }}
                     >
                       {step.title}
                     </h3>
                     <p
                       className="text-xs font-semibold uppercase tracking-wider mb-5"
-                      style={{ color: "rgba(79,255,176,0.6)" }}
+                      style={{ color: TEAL }}
                     >
                       {step.subtitle}
                     </p>
                     <p
-                      className="text-sm md:text-base leading-relaxed mb-6 max-w-xl"
-                      style={{ color: "rgba(255,255,255,0.55)" }}
+                      className="text-sm md:text-base leading-relaxed mb-7 max-w-xl"
+                      style={{ color: MUTED }}
                     >
                       {step.desc}
                     </p>
 
-                    {/* Highlights as pills */}
-                    <div className="hiw-pills flex flex-wrap gap-2">
-                      {step.highlights.map((h) => (
+                    {/* Retro highlight chips — same outline, hard shadow and
+                        tilt as the Services tool chips, so both sections read
+                        as one system. Tilts cycle from a fixed list rather
+                        than Math.random(), which would differ between the
+                        server and client render and break hydration. */}
+                    <div className="hiw-pills flex flex-wrap gap-3">
+                      {step.highlights.map((h, hi) => (
                         <span
                           key={h}
-                          className="px-4 py-2 rounded-full text-[11px] font-bold transition-all duration-300 hover:bg-[rgba(79,255,176,0.15)] hover:border-[rgba(79,255,176,0.3)]"
+                          className="hiw-chip px-4 py-2 rounded-full text-[11px] font-bold"
+                          data-tilt={CHIP_TILTS[hi % CHIP_TILTS.length]}
                           style={{
-                            background: "rgba(79,255,176,0.06)",
-                            color: "#4FFFB0",
-                            border: "1px solid rgba(79,255,176,0.12)",
+                            background: hi % 2 === 0 ? MINT : WASH,
+                            color: INK,
+                            border: `1.5px solid ${TEAL}`,
+                            boxShadow: `2px 2px 0px 0px ${TEAL}`,
+                            transform: `rotate(${CHIP_TILTS[hi % CHIP_TILTS.length]}deg)`,
                           }}
                         >
                           {h}
@@ -300,6 +285,7 @@ export default function HowIWork() {
           </div>
         </div>
       </div>
+
     </section>
   );
 }

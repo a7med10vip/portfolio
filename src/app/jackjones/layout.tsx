@@ -1,3 +1,5 @@
+import "@/app/globals.css";
+import RootChrome from "@/components/RootChrome";
 export const metadata = {
   title: "عرض فني — تحسين متجر Jack & Jones الرياض | Ahmed Ali",
   description: "عرض فني متكامل لتحسين البنية والسيو والسرعة والتجربة لمتجر Jack & Jones الرياض (jackjonesriyadh.com)",
@@ -20,6 +22,7 @@ export default function JackJonesLayout({ children }: { children: React.ReactNod
       </head>
       <body className="antialiased" style={{ margin: 0 }}>
         {children}
+        <RootChrome />
       </body>
     </html>
   );

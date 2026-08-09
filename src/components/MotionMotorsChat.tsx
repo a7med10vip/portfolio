@@ -12,10 +12,10 @@ type Message = {
 
 const QUICK_REPLIES = [
   "Walk me through the strategy",
-  "Why these five channels?",
-  "How does the Eid play work?",
+  "Why these four channels?",
+  "When does the campaign go live?",
   "What's the 30-min SLA?",
-  "What do you need before April 28?",
+  "What do you need before June 4?",
   "Show me the timeline",
 ];
 
@@ -45,11 +45,6 @@ function injectPlatformLogos(html: string) {
       `<span inject-mark="1" style="display:inline-flex;align-items:center;gap:4px;vertical-align:baseline"><img src="${p.logo}" alt="${p.name}" style="width:14px;height:14px;border-radius:3px;object-fit:contain;display:inline-block;vertical-align:middle"/>$1</span>`
     );
   }
-  // Standalone X (Twitter)
-  html = html.replace(
-    /(^|\s|>)X(?=[\s.,;:!?)\]<])/g,
-    `$1<span style="display:inline-flex;align-items:center;gap:4px;vertical-align:baseline"><img src="/platforms/x.webp" alt="X" style="width:14px;height:14px;border-radius:3px;object-fit:contain;display:inline-block;vertical-align:middle"/>X</span>`
-  );
   // Clean inject markers
   return html.replace(/ inject-mark="1"/g, "");
 }
@@ -155,7 +150,7 @@ export default function MotionMotorsChat() {
         setMessages([
           {
             role: "assistant",
-            content: "Hey 👋 I'm Ahmed. Want to walk through any part of the May 2026 approach — strategy, channels, creative, the Eid play, or the timeline?",
+            content: "Hey 👋 I'm Ahmed. Want to walk through any part of the June 2026 approach — strategy, channels, creative, or the timeline?",
           },
         ]);
         playNotification();
@@ -370,7 +365,7 @@ export default function MotionMotorsChat() {
               Ask Ahmed
             </div>
             <div style={{ fontSize: "11px", color: "rgba(0,0,0,0.55)", marginTop: "2px" }}>
-              About the May 2026 Campaign Approach
+              About the June 2026 Campaign Approach
             </div>
           </div>
 

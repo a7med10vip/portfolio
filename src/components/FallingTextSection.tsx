@@ -3,46 +3,80 @@
 import { useEffect, useRef, useState } from "react";
 import Matter from "matter-js";
 
+/* Every pill carries its platform's official brand colour, and `fg` is picked
+   per pill for contrast against it — the old list hard-coded the same dark ink
+   on all of them, so TikTok, Vercel and GitHub had near-black labels on
+   near-black fills. `icon` is a simple-icons slug (or a local path for the
+   multicolour marks); the icon is fetched in the pill's own `fg` so the mark
+   and the label always match. */
+const INK = "#04323A";   // site ink, for light fills
+const SNOW = "#FFFFFF";  // for dark and saturated fills
+
+/* Non-platform chips use the site palette rather than a brand colour: mint for
+   the things Ahmed sells, a faint ink wash for the supporting skills. */
+const MINT = "#CFF7EE";
+const WASH = "rgba(0,77,90,0.08)";
+const WASH_INK = "rgba(4,50,58,0.68)";
+
 const pills = [
-  { label: "Google Ads", bg: "#34A853", color: "#fff", icon: "https://cdn.simpleicons.org/googleads/ffffff" },
-  { label: "Meta Ads", bg: "#0081FB", color: "#fff", icon: "https://cdn.simpleicons.org/meta/ffffff" },
-  { label: "TikTok", bg: "#000", color: "#fff", icon: "https://cdn.simpleicons.org/tiktok/ffffff" },
-  { label: "Instagram", bg: "#E4405F", color: "#fff", icon: "https://cdn.simpleicons.org/instagram/ffffff" },
-  { label: "SEO", bg: "#4FFFB0", color: "#0A0A0A", icon: "" },
-  { label: "React", bg: "#222", color: "#61DAFB", icon: "https://cdn.simpleicons.org/react/61DAFB" },
-  { label: "Flutter", bg: "#02569B", color: "#fff", icon: "https://cdn.simpleicons.org/flutter/ffffff" },
-  { label: "Next.js", bg: "#fff", color: "#000", icon: "https://cdn.simpleicons.org/nextdotjs/000000" },
-  { label: "Firebase", bg: "#FFCA28", color: "#0A0A0A", icon: "https://cdn.simpleicons.org/firebase/000000" },
-  { label: "AI", bg: "#4FFFB0", color: "#0A0A0A", icon: "/ext/openai.png" },
-  { label: "WordPress", bg: "#21759B", color: "#fff", icon: "https://cdn.simpleicons.org/wordpress/ffffff" },
-  { label: "Supabase", bg: "#3FCF8E", color: "#fff", icon: "https://cdn.simpleicons.org/supabase/ffffff" },
-  { label: "LinkedIn", bg: "#0A66C2", color: "#fff", icon: "/ext/linkedin-icon.png" },
-  { label: "Snapchat", bg: "#FFFC00", color: "#000", icon: "https://cdn.simpleicons.org/snapchat/000000" },
-  { label: "Analytics", bg: "rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.5)", icon: "https://cdn.simpleicons.org/googleanalytics/ffffff" },
-  { label: "Strategy", bg: "rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.5)", icon: "" },
-  { label: "Automation", bg: "rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.5)", icon: "" },
-  { label: "Performance", bg: "rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.5)", icon: "" },
-  { label: "Development", bg: "#4FFFB0", color: "#0A0A0A", icon: "" },
-  { label: "Branding", bg: "rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.5)", icon: "" },
-  { label: "Facebook", bg: "#1877F2", color: "#fff", icon: "https://cdn.simpleicons.org/facebook/ffffff" },
-  { label: "TypeScript", bg: "#3178C6", color: "#fff", icon: "https://cdn.simpleicons.org/typescript/ffffff" },
-  { label: "Tailwind", bg: "#06B6D4", color: "#fff", icon: "https://cdn.simpleicons.org/tailwindcss/ffffff" },
-  { label: "Google", bg: "#fff", color: "#000", icon: "/ext/google.svg" },
-  { label: "Zapier", bg: "#FF4A00", color: "#fff", icon: "https://cdn.simpleicons.org/zapier/ffffff" },
-  { label: "Figma", bg: "#F24E1E", color: "#fff", icon: "https://cdn.simpleicons.org/figma/ffffff" },
-  { label: "Slack", bg: "#4A154B", color: "#fff", icon: "https://cdn.simpleicons.org/slack/ffffff" },
-  { label: "GitHub", bg: "#222", color: "#fff", icon: "https://cdn.simpleicons.org/github/ffffff" },
-  { label: "Notion", bg: "#fff", color: "#000", icon: "https://cdn.simpleicons.org/notion/000000" },
-  { label: "Vercel", bg: "#000", color: "#fff", icon: "https://cdn.simpleicons.org/vercel/ffffff" },
-  { label: "Stripe", bg: "#635BFF", color: "#fff", icon: "https://cdn.simpleicons.org/stripe/ffffff" },
-  { label: "Shopify", bg: "#96BF48", color: "#fff", icon: "https://cdn.simpleicons.org/shopify/ffffff" },
-  { label: "Twitter/X", bg: "#000", color: "#fff", icon: "https://cdn.simpleicons.org/x/ffffff" },
-  { label: "YouTube", bg: "#FF0000", color: "#fff", icon: "https://cdn.simpleicons.org/youtube/ffffff" },
-  { label: "WhatsApp", bg: "#25D366", color: "#fff", icon: "https://cdn.simpleicons.org/whatsapp/ffffff" },
-  { label: "Growth", bg: "#4FFFB0", color: "#0A0A0A", icon: "" },
-  { label: "UX Design", bg: "rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.5)", icon: "" },
-  { label: "Conversion", bg: "rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.5)", icon: "" },
+  // Paid media
+  { label: "Google Ads", bg: "#34A853", fg: SNOW, icon: "googleads" },
+  { label: "Meta Ads", bg: "#0081FB", fg: SNOW, icon: "meta" },
+  { label: "TikTok", bg: "#1A1A1A", fg: SNOW, icon: "tiktok" },
+  { label: "Snapchat", bg: "#FFE94D", fg: "#1A1A1A", icon: "snapchat" },
+  { label: "Analytics", bg: "#E37400", fg: SNOW, icon: "googleanalytics" },
+
+  // Social
+  { label: "Instagram", bg: "#E4405F", fg: SNOW, icon: "instagram" },
+  { label: "Facebook", bg: "#1877F2", fg: SNOW, icon: "facebook" },
+  { label: "LinkedIn", bg: "#0A66C2", fg: SNOW, icon: "linkedin" },
+  { label: "YouTube", bg: "#FF0000", fg: SNOW, icon: "youtube" },
+  { label: "WhatsApp", bg: "#25D366", fg: SNOW, icon: "whatsapp" },
+  { label: "Twitter/X", bg: "#1A1A1A", fg: SNOW, icon: "x" },
+
+  // Stack
+  { label: "React", bg: "#61DAFB", fg: INK, icon: "react" },
+  { label: "Next.js", bg: "#1A1A1A", fg: SNOW, icon: "nextdotjs" },
+  { label: "TypeScript", bg: "#3178C6", fg: SNOW, icon: "typescript" },
+  { label: "Tailwind", bg: "#06B6D4", fg: SNOW, icon: "tailwindcss" },
+  { label: "Flutter", bg: "#0175C2", fg: SNOW, icon: "flutter" },
+  { label: "Firebase", bg: "#FFCA28", fg: "#1A1A1A", icon: "firebase" },
+  { label: "Supabase", bg: "#3FCF8E", fg: INK, icon: "supabase" },
+  { label: "WordPress", bg: "#21759B", fg: SNOW, icon: "wordpress" },
+  { label: "Vercel", bg: "#1A1A1A", fg: SNOW, icon: "vercel" },
+  { label: "GitHub", bg: "#1A1A1A", fg: SNOW, icon: "github" },
+
+  // Tools
+  { label: "Figma", bg: "#F24E1E", fg: SNOW, icon: "figma" },
+  { label: "Slack", bg: "#4A154B", fg: SNOW, icon: "slack" },
+  { label: "Notion", bg: "#FFFFFF", fg: "#1A1A1A", icon: "notion" },
+  { label: "Zapier", bg: "#FF4A00", fg: SNOW, icon: "zapier" },
+  { label: "Stripe", bg: "#635BFF", fg: SNOW, icon: "stripe" },
+  { label: "Shopify", bg: "#7AB55C", fg: SNOW, icon: "shopify" },
+  { label: "Google", bg: "#FFFFFF", fg: "#1A1A1A", icon: "/ext/google.svg" },
+
+  // What Ahmed sells
+  { label: "SEO", bg: MINT, fg: INK, icon: "" },
+  { label: "AI", bg: MINT, fg: INK, icon: "openai" },
+  { label: "Development", bg: MINT, fg: INK, icon: "" },
+  { label: "Growth", bg: MINT, fg: INK, icon: "" },
+
+  // Supporting skills
+  { label: "Strategy", bg: WASH, fg: WASH_INK, icon: "" },
+  { label: "Automation", bg: WASH, fg: WASH_INK, icon: "" },
+  { label: "Performance", bg: WASH, fg: WASH_INK, icon: "" },
+  { label: "Branding", bg: WASH, fg: WASH_INK, icon: "" },
+  { label: "UX Design", bg: WASH, fg: WASH_INK, icon: "" },
+  { label: "Conversion", bg: WASH, fg: WASH_INK, icon: "" },
 ];
+
+/* simple-icons serves a mark in any hex, so the icon inherits the pill's `fg`
+   instead of being pinned to white or black in the URL. */
+function iconUrl(icon: string, fg: string) {
+  if (!icon) return "";
+  if (icon.startsWith("/")) return icon;
+  return `https://cdn.simpleicons.org/${icon}/${fg.replace("#", "")}`;
+}
 
 export default function FallingTextSection() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -86,11 +120,14 @@ export default function FallingTextSection() {
 
     pills.forEach((pill, i) => {
       const el = document.createElement("div");
-      el.style.cssText = `position:absolute;left:0;top:0;z-index:10;pointer-events:auto;cursor:grab;user-select:none;display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border-radius:9999px;font-size:1rem;font-weight:600;white-space:nowrap;background:${pill.bg};color:${pill.color};box-shadow:0 2px 8px rgba(0,0,0,0.2);will-change:transform;backface-visibility:hidden;-webkit-backface-visibility:hidden;`;
+      /* The hairline reads as an edge on the white and mint fills, and
+         disappears into the dark ones — one rule covers both. */
+      el.style.cssText = `position:absolute;left:0;top:0;z-index:10;pointer-events:auto;cursor:grab;user-select:none;display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border-radius:9999px;font-size:1rem;font-weight:600;white-space:nowrap;background:${pill.bg};color:${pill.fg};border:1px solid rgba(4,50,58,0.10);will-change:transform;backface-visibility:hidden;-webkit-backface-visibility:hidden;`;
 
-      if (pill.icon) {
+      const src = iconUrl(pill.icon, pill.fg);
+      if (src) {
         const img = document.createElement("img");
-        img.src = pill.icon;
+        img.src = src;
         img.alt = "";
         img.style.cssText = "width:18px;height:18px;flex-shrink:0;";
         el.appendChild(img);
@@ -163,14 +200,14 @@ export default function FallingTextSection() {
   }, [started]);
 
   return (
-    <div style={{ background: "#0A0A0A", position: "relative" }}>
+    <div style={{ background: "#fff", position: "relative" }}>
       {/* Shiny heading */}
-      <div className="flex items-center justify-center gap-4 md:gap-6" style={{ paddingTop: "60px", paddingBottom: "16px" }}>
+      <div className="flex flex-wrap items-center justify-center gap-3 md:gap-6 px-5" style={{ paddingTop: "60px", paddingBottom: "16px" }}>
         <span
           style={{
-            fontSize: "clamp(4rem, 11vw, 9.5rem)",
+            fontSize: "clamp(2.5rem, 11vw, 9.5rem)",
             lineHeight: 1,
-            backgroundImage: "linear-gradient(90deg, #444 0%, #999 40%, #fff 50%, #999 60%, #444 100%)",
+            backgroundImage: "linear-gradient(90deg, #004D5A 0%, #00A99B 40%, #6FD8C4 50%, #00A99B 60%, #004D5A 100%)",
             backgroundSize: "400% 100%",
             WebkitBackgroundClip: "text",
             backgroundClip: "text",
@@ -183,9 +220,9 @@ export default function FallingTextSection() {
         <h2
           className="heading text-center"
           style={{
-            fontSize: "clamp(4rem, 11vw, 9.5rem)",
+            fontSize: "clamp(2.5rem, 11vw, 9.5rem)",
             letterSpacing: "-2px",
-            backgroundImage: "linear-gradient(90deg, #444 0%, #999 40%, #fff 50%, #999 60%, #444 100%)",
+            backgroundImage: "linear-gradient(90deg, #004D5A 0%, #00A99B 40%, #6FD8C4 50%, #00A99B 60%, #004D5A 100%)",
             backgroundSize: "400% 100%",
             WebkitBackgroundClip: "text",
             backgroundClip: "text",

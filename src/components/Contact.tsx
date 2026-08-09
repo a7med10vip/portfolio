@@ -4,8 +4,18 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Mail, Phone, Linkedin, MessageCircle, Send, MapPin, ArrowRight } from "lucide-react";
+/* eslint-disable @next/next/no-img-element */
 
 gsap.registerPlugin(ScrollTrigger);
+
+/* Same named ramp as every other section. */
+const INK = "#04323A";
+const TEAL = "#004D5A";
+const MUTED = "#4E717A";
+const MINT = "#CFF7EE";
+const WASH = "#F4FBF9";
+/* Semantic only — this is the one hue on the page that means "that failed". */
+const DANGER = "#C2123A";
 
 const contactMethods = [
   {
@@ -13,14 +23,14 @@ const contactMethods = [
     label: "Email",
     value: "hello@ahmedali.online",
     href: "mailto:hello@ahmedali.online",
-    color: "#4FFFB0",
+    color: "#004D5A",
   },
   {
     icon: Phone,
     label: "Phone",
     value: "+20 101 164 8156",
     href: "tel:+201011648156",
-    color: "#4FFFB0",
+    color: "#004D5A",
   },
   {
     icon: MessageCircle,
@@ -88,19 +98,17 @@ export default function Contact() {
       ref={sectionRef}
       id="contact"
       className="relative overflow-hidden"
-      style={{ background: "#0A0A0A", padding: "100px 24px" }}
+      style={{ background: "#fff", padding: "100px 24px" }}
     >
-      {/* Background glow */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] rounded-full opacity-[0.04]"
-        style={{ background: "radial-gradient(circle, #4FFFB0 0%, transparent 70%)" }}
-      />
+      {/* A mint radial at 4% opacity used to sit here — it never rendered
+          as anything, on this ground or any other. */}
 
       <div className="max-w-6xl mx-auto relative">
         {/* Header */}
         <div className="ct-anim opacity-0 text-center mb-16">
-          <p className="script text-xl md:text-2xl mb-3" style={{ color: "#4FFFB0" }}>Get in Touch</p>
-          <h2 className="heading text-3xl md:text-5xl mb-4" style={{ color: "#fff" }}>Let&apos;s Work Together</h2>
-          <p className="text-base max-w-xl mx-auto" style={{ color: "rgba(255,255,255,0.5)" }}>
+          <p className="script text-xl md:text-2xl mb-3" style={{ color: TEAL }}>Get in Touch</p>
+          <h2 className="heading text-3xl md:text-5xl mb-4" style={{ color: INK }}>Let&apos;s Work Together</h2>
+          <p className="text-base max-w-xl mx-auto" style={{ color: MUTED }}>
             Have a project in mind? Let&apos;s turn your vision into reality.
           </p>
         </div>
@@ -109,17 +117,17 @@ export default function Contact() {
           {/* Left - Contact info (2 cols) */}
           <div className="lg:col-span-2 flex flex-col gap-5">
             {/* Location card */}
-            <div className="ct-anim opacity-0 rounded-[20px] p-6" style={{ background: "#4FFFB0" }}>
+            <div className="ct-anim opacity-0 rounded-[20px] p-6" style={{ background: MINT, border: `2px solid ${TEAL}`, boxShadow: `5px 5px 0px 0px ${TEAL}` }}>
               <div className="flex items-center gap-3 mb-3">
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "#fff", border: "1px solid #e0e0e0" }}>
-                  <MapPin size={18} color="#0A0A0A" />
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "#fff", border: `1.5px solid ${TEAL}` }}>
+                  <MapPin size={18} color={TEAL} />
                 </div>
                 <div>
-                  <p className="text-xs font-semibold" style={{ color: "rgba(0,0,0,0.5)" }}>Based in</p>
-                  <p className="text-sm font-bold" style={{ color: "#0A0A0A" }}>Cairo, Egypt</p>
+                  <p className="text-xs font-semibold" style={{ color: "rgba(4,50,58,0.70)" }}>Based in</p>
+                  <p className="text-sm font-bold" style={{ color: INK }}>Jeddah, Saudi Arabia</p>
                 </div>
               </div>
-              <p className="text-xs" style={{ color: "rgba(0,0,0,0.5)" }}>Available for remote work across MENA & worldwide</p>
+              <p className="text-xs" style={{ color: "rgba(4,50,58,0.70)" }}>Available for remote work across MENA & worldwide</p>
             </div>
 
             {/* Contact methods */}
@@ -129,10 +137,10 @@ export default function Contact() {
                 href={method.href}
                 target={method.href.startsWith("http") ? "_blank" : undefined}
                 rel={method.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                className="ct-anim opacity-0 rounded-[20px] p-5 flex items-center gap-4 group transition-all duration-300 hover:-translate-y-0.5"
-                style={{ background: "#fff" }}
+                className="ct-anim opacity-0 rounded-[20px] p-5 flex items-center gap-4"
+                style={{ background: WASH, border: `2px solid ${TEAL}`, boxShadow: `5px 5px 0px 0px ${TEAL}` }}
               >
-                <div className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: `${method.color}15`, border: `1px solid ${method.color}30` }}>
+                <div className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: "#fff", border: `1.5px solid ${TEAL}` }}>
                   {method.customIcon ? (
                     <img src={method.customIcon} alt="" width={22} height={22} className="object-contain" />
                   ) : (
@@ -140,109 +148,109 @@ export default function Contact() {
                   )}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-[10px] font-semibold uppercase tracking-wider mb-0.5" style={{ color: "rgba(0,0,0,0.4)" }}>{method.label}</p>
-                  <p className="text-sm font-bold truncate" style={{ color: "#0A0A0A" }}>{method.value}</p>
+                  <p className="text-[10px] font-semibold uppercase tracking-wider mb-0.5" style={{ color: MUTED }}>{method.label}</p>
+                  <p className="text-sm font-bold truncate" style={{ color: INK }}>{method.value}</p>
                 </div>
-                <ArrowRight size={16} className="flex-shrink-0 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" style={{ color: "#0A0A0A" }} />
+                <ArrowRight size={16} className="flex-shrink-0" style={{ color: TEAL }} />
               </a>
             ))}
           </div>
 
           {/* Right - Form (3 cols) */}
-          <div className="lg:col-span-3 ct-anim opacity-0">
-            <div className="rounded-[24px] p-8 md:p-10" style={{ background: "#fff" }}>
-              <h3 className="heading text-2xl md:text-3xl mb-2" style={{ color: "#0A0A0A", lineHeight: 1.5 }}>Send a Message</h3>
-              <p className="text-sm mb-8" style={{ color: "rgba(0,0,0,0.45)" }}>I&apos;ll get back to you within 24 hours.</p>
+          <div className="lg:col-span-3 ct-anim opacity-0 flex">
+            <div className="rounded-[20px] p-6 md:p-8 w-full flex flex-col" style={{ background: WASH, border: `2px solid ${TEAL}`, boxShadow: `6px 6px 0px 0px ${TEAL}` }}>
+              <h3 className="heading text-2xl mb-1.5" style={{ color: INK, lineHeight: 1.35 }}>Send a Message</h3>
+              <p className="text-sm mb-6" style={{ color: MUTED }}>I&apos;ll get back to you within 24 hours.</p>
 
-              <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <form onSubmit={handleSubmit} className="flex flex-col gap-4 flex-1">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-bold mb-2" style={{ color: "#0A0A0A" }}>Name</label>
+                    <label className="block text-xs font-bold mb-2" style={{ color: INK }}>Name</label>
                     <input
                       name="name"
                       type="text"
                       required
                       placeholder="Your name"
-                      className="w-full h-12 px-4 rounded-xl text-sm outline-none transition-all duration-200"
-                      style={{ background: "#f7f7f7", border: "2px solid #e8e8e8", color: "#0A0A0A" }}
-                      onFocus={(e) => { e.target.style.borderColor = "#4FFFB0"; }}
-                      onBlur={(e) => { e.target.style.borderColor = "#e8e8e8"; }}
+                      className="w-full h-11 px-4 rounded-xl text-sm outline-none transition-all duration-200"
+                      style={{ background: "#fff", border: `2px solid ${TEAL}`, color: INK }}
+                      onFocus={(e) => { e.target.style.boxShadow = `3px 3px 0px 0px ${TEAL}`; }}
+                      onBlur={(e) => { e.target.style.boxShadow = "none"; }}
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-bold mb-2" style={{ color: "#0A0A0A" }}>Email</label>
+                    <label className="block text-xs font-bold mb-2" style={{ color: INK }}>Email</label>
                     <input
                       name="email"
                       type="email"
                       required
                       placeholder="your@email.com"
-                      className="w-full h-12 px-4 rounded-xl text-sm outline-none transition-all duration-200"
-                      style={{ background: "#f7f7f7", border: "2px solid #e8e8e8", color: "#0A0A0A" }}
-                      onFocus={(e) => { e.target.style.borderColor = "#4FFFB0"; }}
-                      onBlur={(e) => { e.target.style.borderColor = "#e8e8e8"; }}
+                      className="w-full h-11 px-4 rounded-xl text-sm outline-none transition-all duration-200"
+                      style={{ background: "#fff", border: `2px solid ${TEAL}`, color: INK }}
+                      onFocus={(e) => { e.target.style.boxShadow = `3px 3px 0px 0px ${TEAL}`; }}
+                      onBlur={(e) => { e.target.style.boxShadow = "none"; }}
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold mb-2" style={{ color: "#0A0A0A" }}>Subject</label>
+                  <label className="block text-xs font-bold mb-2" style={{ color: INK }}>Subject</label>
                   <input
                     name="subject"
                     type="text"
                     placeholder="What's this about?"
-                    className="w-full h-12 px-4 rounded-xl text-sm outline-none transition-all duration-200"
-                    style={{ background: "#f7f7f7", border: "2px solid #e8e8e8", color: "#0A0A0A" }}
-                    onFocus={(e) => { e.target.style.borderColor = "#4FFFB0"; }}
-                    onBlur={(e) => { e.target.style.borderColor = "#e8e8e8"; }}
+                    className="w-full h-11 px-4 rounded-xl text-sm outline-none transition-all duration-200"
+                    style={{ background: "#fff", border: `2px solid ${TEAL}`, color: INK }}
+                    onFocus={(e) => { e.target.style.boxShadow = `3px 3px 0px 0px ${TEAL}`; }}
+                    onBlur={(e) => { e.target.style.boxShadow = "none"; }}
                   />
                 </div>
 
-                <div>
-                  <label className="block text-xs font-bold mb-2" style={{ color: "#0A0A0A" }}>Message</label>
+                <div className="flex flex-col flex-1 min-h-0">
+                  <label className="block text-xs font-bold mb-2" style={{ color: INK }}>Message</label>
                   <textarea
                     name="message"
                     required
-                    rows={5}
+                    rows={3}
                     placeholder="Tell me about your project, goals, and timeline..."
-                    className="w-full px-4 py-3 rounded-xl text-sm outline-none transition-all duration-200 resize-none"
-                    style={{ background: "#f7f7f7", border: "2px solid #e8e8e8", color: "#0A0A0A" }}
-                    onFocus={(e) => { e.target.style.borderColor = "#4FFFB0"; }}
-                    onBlur={(e) => { e.target.style.borderColor = "#e8e8e8"; }}
+                    className="w-full flex-1 min-h-[80px] px-4 py-3 rounded-xl text-sm outline-none transition-all duration-200 resize-none"
+                    style={{ background: "#fff", border: `2px solid ${TEAL}`, color: INK }}
+                    onFocus={(e) => { e.target.style.boxShadow = `3px 3px 0px 0px ${TEAL}`; }}
+                    onBlur={(e) => { e.target.style.boxShadow = "none"; }}
                   />
                 </div>
 
                 {formState === "sent" ? (
-                  <div className="flex items-center justify-center gap-2 h-14 rounded-full text-base font-bold" style={{ background: "#4FFFB0", color: "#0A0A0A" }}>
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10l4 4 8-8" stroke="#0A0A0A" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  <div className="flex items-center justify-center gap-2 h-12 rounded-full text-base font-bold" style={{ background: MINT, color: INK, border: `2px solid ${TEAL}` }}>
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10l4 4 8-8" stroke="#04323A" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                     Message Sent! Check your inbox.
                   </div>
                 ) : formState === "error" ? (
                   <div className="text-center">
                     <button
                       type="submit"
-                      className="inline-flex items-center justify-center gap-3 h-14 w-full rounded-full text-base font-bold transition-all duration-200 hover:-translate-y-0.5 cursor-pointer"
-                      style={{ background: "#ff4d4d", color: "#fff", border: "2px solid #0A0A0A", boxShadow: "5px 5px 0px 0px #0A0A0A" }}
+                      className="inline-flex items-center justify-center gap-3 h-12 w-full rounded-full text-base font-bold cursor-pointer"
+                      style={{ background: "#fff", color: DANGER, border: `2px solid ${DANGER}`, boxShadow: `5px 5px 0px 0px ${DANGER}` }}
                     >
                       <Send size={16} />
                       Try Again
                     </button>
-                    <p className="text-xs mt-2" style={{ color: "rgba(0,0,0,0.4)" }}>Something went wrong. Please try again.</p>
+                    <p className="text-xs mt-2" style={{ color: DANGER }}>Something went wrong. Please try again.</p>
                   </div>
                 ) : (
                   <button
                     type="submit"
                     disabled={formState === "sending"}
-                    className="inline-flex items-center justify-center gap-3 h-14 w-full rounded-full text-base font-bold transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed"
+                    className="inline-flex items-center justify-center gap-3 h-12 w-full rounded-full text-base font-bold cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed"
                     style={{
-                      background: "#4FFFB0",
-                      color: "#0A0A0A",
-                      border: "2px solid #0A0A0A",
-                      boxShadow: "5px 5px 0px 0px #0A0A0A",
+                      background: MINT,
+                      color: INK,
+                      border: `2px solid ${TEAL}`,
+                      boxShadow: `5px 5px 0px 0px ${TEAL}`,
                     }}
                   >
                     {formState === "sending" ? (
                       <>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ animation: "spin 1s linear infinite" }}><circle cx="8" cy="8" r="6" stroke="#0A0A0A" strokeWidth="2" strokeDasharray="28" strokeDashoffset="8" strokeLinecap="round"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ animation: "spin 1s linear infinite" }}><circle cx="8" cy="8" r="6" stroke="#04323A" strokeWidth="2" strokeDasharray="28" strokeDashoffset="8" strokeLinecap="round"/></svg>
                         Sending...
                       </>
                     ) : (

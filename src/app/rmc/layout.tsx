@@ -1,3 +1,5 @@
+import "@/app/globals.css";
+import RootChrome from "@/components/RootChrome";
 export const metadata = {
   title: "خطة السيو والذكاء الاصطناعي — مجمع الرقي الطبي | Ahmed Ali",
   description: "خطة شاملة للسيو والظهور في الذكاء الاصطناعي والشات بوت لمجمع الرقي العام الطبي في مكة المكرمة.",
@@ -20,6 +22,7 @@ export default function RMCLayout({ children }: { children: React.ReactNode }) {
       </head>
       <body className="antialiased" style={{ margin: 0 }}>
         {children}
+        <RootChrome />
       </body>
     </html>
   );

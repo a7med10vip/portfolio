@@ -8,41 +8,66 @@ import { ExternalLink, CheckCircle, Clock, GraduationCap } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const certifications = [
+/* Same named ramp as Services, How I Work, Projects, Stats and Experience. */
+const INK = "#04323A";
+const TEAL = "#004D5A";
+const MUTED = "#4E717A";
+const MINT = "#CFF7EE";
+const WASH = "#F4FBF9";
+/* Semantic, not decorative — this is the only non-palette hue on the card and
+   it means one thing: not finished yet. */
+const PENDING = "#B77500";
+
+/* Declaring the union up front keeps the "in-progress" branch reachable now
+   that every entry is completed — with `as const` on each literal, TypeScript
+   narrowed `status` to just "completed" and rejected the comparison. `badge`
+   being optional here is also what removes the two `as any` casts the card
+   used to need to read it. */
+type CertItem = {
+  title: string;
+  issuer: string;
+  issuerLogo: string;
+  status: "completed" | "in-progress";
+  issued: string;
+  expires: string | null;
+  credentialId: string | null;
+  credentialUrl: string | null;
+  description: string;
+  badge?: string;
+};
+
+const certifications: CertItem[] = [
   {
     title: "Google Analytics 4 (GA4) Certification",
     issuer: "Google Digital Academy (Skillshop)",
     issuerLogo: "/ext/google-analytics.png",
-    status: "completed" as const,
+    status: "completed",
     issued: "Jan 2026",
     expires: "Jan 2027",
     credentialId: "173041626",
     credentialUrl: "https://skillshop.credential.net/6e74a492-3eaa-4c04-aa6b-0b43914de8c2#acc.KSvTF42P",
-    color: "#E37400",
     description: "Certified in Google Analytics 4. Event-based tracking, reporting, audience building, and data-driven attribution.",
   },
   {
     title: "AI-Powered Shopping Ads Certification",
     issuer: "Google Digital Academy (Skillshop)",
     issuerLogo: "/ext/google.svg",
-    status: "completed" as const,
+    status: "completed",
     issued: "Jul 2025",
     expires: "Jul 2026",
     credentialId: "156676960",
     credentialUrl: "https://skillshop.credential.net/5e70d36f-60e4-491f-a217-536b8fbb169d#acc.twOHon6z",
-    color: "#34A853",
     description: "Certified in AI-powered Performance Max and Shopping campaigns. Feed optimization, bidding strategies, and automation.",
   },
   {
     title: "AI for Business Professionals",
     issuer: "HP LIFE",
     issuerLogo: "/ext/hp-logo.svg",
-    status: "completed" as const,
+    status: "completed",
     issued: "Jan 2026",
     expires: null,
     credentialId: "9f360f1d-56e2-42aa-8947-6f6ebd2a0224",
     credentialUrl: "https://www.life-global.org/certificate/9f360f1d-56e2-42aa-8947-6f6ebd2a0224",
-    color: "#0096D6",
     badge: "Ambassador Badge Holder",
     description: "AI integration in business operations. Prompt engineering, AI tools evaluation, and strategic implementation for enterprises.",
   },
@@ -50,14 +75,16 @@ const certifications = [
     title: "Google Data Analytics Professional Certificate",
     issuer: "Google / Coursera",
     issuerLogo: "/ext/coursera.png",
-    status: "in-progress" as const,
+    status: "completed",
     issued: "Mar 2026",
     expires: null,
+    /* Left null deliberately — I don't have the real credential ID or
+       Coursera verify link, and inventing either would put a fabricated
+       record on the page. Send them over and the ID pill and the Verify
+       button light up automatically. */
     credentialId: null,
     credentialUrl: null,
-    color: "#4285F4",
-    progress: 0,
-    description: "Professional certificate in data analytics. Data cleaning, SQL, R, Tableau, and data visualization. 6-month program starting March 2026.",
+    description: "Professional certificate in data analytics. Data cleaning, SQL, R, Tableau, and data visualization.",
   },
 ];
 
@@ -76,14 +103,8 @@ export default function Certifications() {
         );
       });
 
-      // Animate progress bar
-      gsap.fromTo(".progress-fill",
-        { width: "0%" },
-        {
-          width: "0%", duration: 1.5, ease: "power2.out",
-          scrollTrigger: { trigger: ".progress-fill", start: "top 88%" },
-        }
-      );
+      /* The progress-bar tween that used to sit here animated width from "0%"
+         to "0%" — a 1.5s no-op with its own ScrollTrigger. */
     }, sectionRef);
     return () => ctx.revert();
   }, []);
@@ -93,94 +114,94 @@ export default function Certifications() {
       ref={sectionRef}
       id="certifications"
       className="relative overflow-hidden"
-      style={{ background: "#0A0A0A", padding: "100px 24px" }}
+      style={{ background: "#fff", padding: "100px 24px" }}
     >
       <div className="max-w-6xl mx-auto relative">
         {/* Header */}
         <div className="text-center mb-16">
-          <p className="script text-xl md:text-2xl mb-3" style={{ color: "#4FFFB0" }}>Credentials</p>
-          <h2 className="heading text-3xl md:text-5xl" style={{ color: "#fff" }}>Certifications</h2>
+          <p className="script text-xl md:text-2xl mb-3" style={{ color: TEAL }}>Credentials</p>
+          <h2 className="heading text-3xl md:text-5xl" style={{ color: INK }}>Certifications</h2>
         </div>
 
         {/* Cards grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {certifications.map((cert, i) => {
             const isInProgress = cert.status === "in-progress";
-            const variant = i % 2 === 0 ? "white" : "green";
-            const bg = variant === "white" ? "#fff" : "#4FFFB0";
+            const isMint = i % 2 !== 0;
+            const bg = isMint ? MINT : WASH;
+            const muted = isMint ? "rgba(4,50,58,0.70)" : MUTED;
 
             return (
               <div
                 key={i}
-                className={`cert-card opacity-0 rounded-[24px] p-7 md:p-8 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 ${i === certifications.length - 1 && certifications.length % 2 !== 0 ? "md:col-span-2 md:max-w-[calc(50%-10px)] md:mx-auto" : ""}`}
-                style={{ background: bg, minHeight: "320px" }}
+                className={`cert-card opacity-0 rounded-[20px] p-7 md:p-8 flex flex-col justify-between ${i === certifications.length - 1 && certifications.length % 2 !== 0 ? "md:col-span-2 md:max-w-[calc(50%-12px)] md:mx-auto" : ""}`}
+                style={{ background: bg, border: `2px solid ${TEAL}`, boxShadow: `5px 5px 0px 0px ${TEAL}`, minHeight: "320px" }}
               >
                 {/* Top section */}
                 <div>
                   {/* Issuer row */}
                   <div className="flex items-center justify-between mb-5">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "#fff", border: "1px solid #e0e0e0" }}>
+                      <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "#fff", border: `1.5px solid ${TEAL}` }}>
                         <img src={cert.issuerLogo} alt={cert.issuer} width={22} height={22} className="object-contain" />
                       </div>
                       <div>
-                        <p className="text-xs font-semibold" style={{ color: "#0A0A0A" }}>{cert.issuer}</p>
+                        <p className="text-xs font-bold" style={{ color: INK }}>{cert.issuer}</p>
                         {cert.expires && (
-                          <p className="text-[10px]" style={{ color: "rgba(0,0,0,0.4)" }}>Valid until {cert.expires}</p>
+                          <p className="text-[10px]" style={{ color: muted }}>Valid until {cert.expires}</p>
                         )}
                       </div>
                     </div>
 
-                    {/* Status */}
-                    <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full" style={{ background: "#fff", border: "1px solid #e0e0e0" }}>
-                      {isInProgress ? <Clock size={11} color="#CC8800" /> : <CheckCircle size={11} color="#0A0A0A" />}
-                      <span className="text-[10px] font-bold" style={{ color: isInProgress ? "#CC8800" : "#0A0A0A" }}>
-                        {isInProgress ? "In Progress" : "Verified"}
+                    {/* Status. "Verified" is reserved for the certificates that
+                        actually carry a credential link — the rest say
+                        "Completed", which is the claim we can stand behind. */}
+                    <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full" style={{ background: "#fff", border: `1.5px solid ${isInProgress ? PENDING : TEAL}` }}>
+                      {isInProgress ? <Clock size={11} color={PENDING} /> : <CheckCircle size={11} color={TEAL} />}
+                      <span className="text-[10px] font-bold" style={{ color: isInProgress ? PENDING : INK }}>
+                        {isInProgress ? "In Progress" : cert.credentialUrl ? "Verified" : "Completed"}
                       </span>
                     </div>
                   </div>
 
                   {/* Title */}
-                  <h3 className="heading text-xl md:text-2xl mb-3" style={{ color: "#0A0A0A", lineHeight: 1.5 }}>{cert.title}</h3>
+                  <h3 className="heading text-xl md:text-2xl mb-3" style={{ color: INK, lineHeight: 1.35 }}>{cert.title}</h3>
 
                   {/* Badge if exists */}
-                  {(cert as any).badge && (
-                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full mb-3" style={{ background: "rgba(0,0,0,0.08)", border: "1px solid rgba(0,0,0,0.1)" }}>
+                  {cert.badge && (
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full mb-3" style={{ background: "#fff", border: `1.5px solid ${TEAL}` }}>
                       <span className="text-sm">🏅</span>
-                      <span className="text-[11px] font-bold" style={{ color: "#0A0A0A" }}>{(cert as any).badge}</span>
+                      <span className="text-[11px] font-bold" style={{ color: INK }}>{cert.badge}</span>
                     </div>
                   )}
 
                   {/* Description */}
-                  <p className="text-sm leading-relaxed mb-4" style={{ color: "rgba(0,0,0,0.6)" }}>{cert.description}</p>
+                  <p className="text-sm leading-relaxed mb-4" style={{ color: muted }}>{cert.description}</p>
 
                   {/* Progress bar for in-progress */}
                   {isInProgress && (
                     <div className="mb-5">
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-[10px] font-bold" style={{ color: "#0A0A0A" }}>Starting March 2026</span>
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: "#fff", border: "1px solid #e0e0e0", color: "#CC8800" }}>0%</span>
-                      </div>
-                      <div className="w-full h-2 rounded-full overflow-hidden" style={{ background: "rgba(0,0,0,0.1)" }}>
-                        <div className="progress-fill h-full rounded-full" style={{ width: "0%", background: "#CC8800" }} />
-                      </div>
-                      <div className="flex items-center gap-2 flex-wrap mt-3">
-                        <span className="inline-block text-[10px] px-2.5 py-1 rounded-full font-medium" style={{ background: "#fff", border: "1px solid #e0e0e0", color: "#0A0A0A" }}>6-month professional program</span>
-                        <span className="inline-flex items-center gap-1.5 text-[11px] px-2.5 py-1 rounded-full font-medium" style={{ background: "#fff", border: "1px solid #e0e0e0", color: "#0A0A0A" }}>
-                          <GraduationCap size={11} /> Issued {cert.issued}
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="inline-block text-[10px] px-2.5 py-1 rounded-full font-semibold" style={{ background: "#fff", border: `1.5px solid ${PENDING}`, color: PENDING }}>6-month professional program</span>
+                        <span className="inline-flex items-center gap-1.5 text-[11px] px-2.5 py-1 rounded-full font-semibold" style={{ background: "#fff", border: `1.5px solid ${TEAL}`, color: INK }}>
+                          <GraduationCap size={11} /> Started {cert.issued}
                         </span>
                       </div>
                     </div>
                   )}
 
-                  {/* Credential ID + Issued date */}
+                  {/* Credential ID + Issued date. Both pills used to be tinted
+                      with a per-certificate `color` — four issuer hues
+                      (#E37400, #34A853, #0096D6, #4285F4) fighting each other
+                      across four cards. The issuer logo already carries the
+                      brand; the pills now match every other chip on the site. */}
                   {!isInProgress && <div className="flex items-center gap-2 flex-wrap mb-3">
                     {cert.credentialId && (
-                      <span className="inline-block text-[10px] font-mono px-2.5 py-1 rounded-full" style={{ background: variant === "white" ? `${cert.color}12` : "#fff", border: variant === "white" ? `1px solid ${cert.color}30` : "1px solid #e0e0e0", color: variant === "white" ? cert.color : "#0A0A0A" }}>
+                      <span className="inline-block text-[10px] font-mono px-2.5 py-1 rounded-full" style={{ background: "#fff", border: `1.5px solid ${TEAL}`, color: INK }}>
                         ID: {cert.credentialId}
                       </span>
                     )}
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-medium" style={{ background: variant === "green" ? "#fff" : `${cert.color}15`, border: variant === "green" ? "1px solid #e0e0e0" : `1px solid ${cert.color}30`, color: variant === "green" ? "#0A0A0A" : cert.color }}>
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold" style={{ background: "#fff", border: `1.5px solid ${TEAL}`, color: INK }}>
                       <GraduationCap size={11} /> Issued {cert.issued}
                     </span>
                   </div>}
@@ -192,12 +213,12 @@ export default function Certifications() {
                     href={cert.credentialUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 h-10 px-6 rounded-full text-xs font-bold transition-all duration-200 hover:-translate-y-0.5 w-fit"
+                    className="inline-flex items-center gap-2 h-10 px-6 rounded-full text-xs font-bold w-fit"
                     style={{
-                      background: variant === "white" ? "#4FFFB0" : "#fff",
-                      color: "#0A0A0A",
-                      border: "2px solid #0A0A0A",
-                      boxShadow: "3px 3px 0px 0px #0A0A0A",
+                      background: isMint ? "#fff" : MINT,
+                      color: INK,
+                      border: `2px solid ${TEAL}`,
+                      boxShadow: `3px 3px 0px 0px ${TEAL}`,
                     }}
                   >
                     Verify Credential <ExternalLink size={12} />

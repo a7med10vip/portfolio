@@ -8,8 +8,8 @@ const personSchema = {
   telephone: '+201011648156',
   address: {
     '@type': 'PostalAddress',
-    addressLocality: 'Cairo',
-    addressCountry: 'EG',
+    addressLocality: 'Jeddah',
+    addressCountry: 'SA',
   },
   sameAs: [
     'https://www.linkedin.com/in/ahmedalii/',
@@ -76,7 +76,7 @@ const faqSchema = {
       name: 'Where is Ahmed Ali based?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Cairo, Egypt, with experience across Qatar, Saudi Arabia, and UAE.',
+        text: 'Jeddah, Saudi Arabia, with experience across Egypt, Qatar, and the UAE.',
       },
     },
     {

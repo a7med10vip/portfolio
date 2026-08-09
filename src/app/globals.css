@@ -1,9 +1,106 @@
 @import "tailwindcss";
 
+/* Calibri — shipped so the web deck and the exported .pptx render identically */
+@font-face {
+  font-family: 'Calibri';
+  src: url('/font-calibri/calibril.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: block;
+}
+@font-face {
+  font-family: 'Calibri';
+  src: url('/font-calibri/calibrili.ttf') format('truetype');
+  font-weight: 300;
+  font-style: italic;
+  font-display: block;
+}
+@font-face {
+  font-family: 'Calibri';
+  src: url('/font-calibri/Calibri.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+}
+@font-face {
+  font-family: 'Calibri';
+  src: url('/font-calibri/Calibrii.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: block;
+}
+@font-face {
+  font-family: 'Calibri';
+  src: url('/font-calibri/Calibrib.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: block;
+}
+@font-face {
+  font-family: 'Calibri';
+  src: url('/font-calibri/Calibriz.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: block;
+}
+
+/* Cambria — Calibri's Office-native serif companion. Carries the display type. */
+@font-face {
+  font-family: 'Cambria';
+  src: url('/font-cambria/Cambria.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+}
+@font-face {
+  font-family: 'Cambria';
+  src: url('/font-cambria/Cambriai.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: block;
+}
+@font-face {
+  font-family: 'Cambria';
+  src: url('/font-cambria/Cambriab.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: block;
+}
+@font-face {
+  font-family: 'Cambria';
+  src: url('/font-cambria/Cambriaz.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: block;
+}
+
 @font-face {
   font-family: 'TAN Headline';
   src: url('/fonts/TANHEADLINE-Regular.ttf') format('truetype');
   font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Loubag — Emotion proposal display headings */
+@font-face {
+  font-family: 'Loubag';
+  src: url('/font-loubag/Loubag-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Loubag';
+  src: url('/font-loubag/Loubag-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Loubag';
+  src: url('/font-loubag/Loubag-Bold.ttf') format('truetype');
+  font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
@@ -110,8 +207,8 @@
 @theme inline {
   --color-bg: #FFFFFF;
   --color-fg: #0F0F0F;
-  --color-accent: #FF4D00;
-  --color-accent-light: #FFF0EB;
+  --color-accent: #004D5A;
+  --color-accent-light: #CFF7EE;
   --color-muted: #71717A;
   --color-border: #E4E4E7;
   --color-surface: #FAFAFA;
@@ -125,26 +222,26 @@ body { background: #fff; color: #0F0F0F; font-family: var(--font-sans), system-u
 .ar-rtl .heading { font-family: 'Ahmed Serif Display', serif !important; letter-spacing: 0 !important; }
 .ar-rtl .script { font-family: 'Ahmed Serif Text', serif !important; letter-spacing: 0 !important; font-style: normal !important; }
 .ar-rtl .pill, .ar-rtl .btn, .ar-rtl .tag { font-family: 'Ahmed Sans', sans-serif !important; letter-spacing: 0 !important; }
-::selection { background: #FF4D0022; }
+::selection { background: #004D5A22; }
 ::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-thumb { background: #4FFFB0; border-radius: 100px; }
-::-webkit-scrollbar-thumb:hover { background: #3de69e; }
+::-webkit-scrollbar-thumb { background: #004D5A; border-radius: 100px; }
+::-webkit-scrollbar-thumb:hover { background: #00707F; }
 ::-webkit-scrollbar-track { background: transparent; }
 
 .container { max-width: 1280px; margin: 0 auto; padding: 0 28px; }
 
 /* Accent utilities */
-.text-accent { color: #FF4D00; }
-.bg-accent { background: #FF4D00; }
-.bg-accent-light { background: #FFF0EB; }
-.border-accent { border-color: #FF4D00; }
+.text-accent { color: #004D5A; }
+.bg-accent { background: #004D5A; }
+.bg-accent-light { background: #CFF7EE; }
+.border-accent { border-color: #004D5A; }
 
 /* Headings */
 .heading { font-family: 'TAN Headline', var(--font-heading); font-weight: 400; color: #0F0F0F; line-height: 1.4; letter-spacing: -0.01em; }
 
 /* Gradient heading */
 .heading-gradient {
-  background: linear-gradient(135deg, #4FFFB0 0%, #ffffff 100%);
+  background: linear-gradient(135deg, #004D5A 0%, #00A99B 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -172,7 +269,7 @@ body { background: #fff; color: #0F0F0F; font-family: var(--font-sans), system-u
   display: inline-flex; align-items: center; gap: 6px;
   padding: 6px 16px; border-radius: 100px;
   font-size: 12px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
-  background: #FFF0EB; color: #FF4D00; border: 1px solid #FFDACB;
+  background: #CFF7EE; color: #004D5A; border: 1px solid #A9EBDC;
 }
 
 .tag {
@@ -187,10 +284,20 @@ body { background: #fff; color: #0F0F0F; font-family: var(--font-sans), system-u
   font-weight: 700; font-size: 15px;
   transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
-.btn-fill { background: #FF4D00; color: #fff; }
-.btn-fill:hover { background: #E64500; transform: translateY(-2px); box-shadow: 0 12px 32px rgba(255,77,0,0.25); }
+.btn-fill { background: #004D5A; color: #fff; }
+.btn-fill:hover { background: #00707F; transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0,77,90,0.25); }
 .btn-ghost { border: 2px solid #E4E4E7; color: #0F0F0F; background: #fff; }
-.btn-ghost:hover { border-color: #FF4D00; color: #FF4D00; }
+.btn-ghost:hover { border-color: #004D5A; color: #004D5A; }
+
+/* Hero composition */
+.hs-anim { opacity: 0; }
+@media (prefers-reduced-motion: reduce) { .hs-anim { opacity: 1 !important; } }
+.rt-center > span { justify-content: center; }
+@keyframes hero-dash { to { stroke-dashoffset: -44; } }
+@keyframes hero-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50% { transform: scale(2.4); opacity: 0; }
+}
 
 /* Marquee */
 @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }

@@ -8,8 +8,8 @@ export default function manifest(): MetadataRoute.Manifest {
       'Full-Stack Digital Strategist | performance marketing, product development, and AI integration across Egypt, Qatar, Saudi Arabia & UAE.',
     start_url: '/',
     display: 'standalone',
-    background_color: '#0A0A0A',
-    theme_color: '#4FFFB0',
+    background_color: '#0F4D5A',
+    theme_color: '#0F4D5A',
     icons: [
       {
         src: '/favicon.png',

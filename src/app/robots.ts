@@ -13,6 +13,7 @@ export default function robots(): MetadataRoute.Robots {
           '/zaindev',
           '/mobadi',
           '/rmc',
+          '/rmc-ads',
           '/jackjones',
           '/motionmotors',
         ],
