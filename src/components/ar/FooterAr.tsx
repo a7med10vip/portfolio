@@ -37,7 +37,7 @@ export default function FooterAr() {
   return (
     /* Arabic mirror of the ticket-stub footer: a mint head carrying the ask, a
        perforated edge, and a white stub carrying the details. */
-    <footer className="relative" style={{ background: "#fff", padding: "40px 24px 0" }}>
+    <footer className="relative" style={{ background: "#0A0A0A", padding: "40px 24px 0" }}>
       <div className="ticket-ar max-w-[1400px] mx-auto rounded-[22px] overflow-hidden"
         style={{ background: MINT, border: `2px solid ${TEAL}`, boxShadow: `7px 7px 0px 0px ${TEAL}` }}>
 
@@ -149,10 +149,10 @@ export default function FooterAr() {
       </div>
 
       <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row items-center justify-between gap-2 px-1 py-6">
-        <p className="ar-body text-xs" style={{ color: MUTED }}>
+        <p className="ar-body text-xs" style={{ color: "rgba(207,247,238,0.55)" }}>
           &copy; {new Date().getFullYear()} أحمد علي. جميع الحقوق محفوظة.
         </p>
-        <p className="ar-body text-xs" style={{ color: MUTED }}>
+        <p className="ar-body text-xs" style={{ color: "rgba(207,247,238,0.55)" }}>
           تصميم وتطوير أحمد علي
         </p>
       </div>
@@ -170,7 +170,7 @@ export default function FooterAr() {
           width: 26px;
           height: 26px;
           border-radius: 50%;
-          background: #fff;
+          background: #0A0A0A;
           border: 2px solid ${TEAL};
         }
         .ticket-perf-ar::before { left: -15px; clip-path: inset(0 0 0 50%); }

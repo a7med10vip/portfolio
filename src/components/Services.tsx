@@ -82,21 +82,32 @@ const services: ServiceItem[] = [
   },
 ];
 
-/* Retro outline and shadow are the same ink on both fills — that consistency
-   is what makes the six read as one set of stickers rather than six cards. */
-const OUTLINE = "#004D5A";
+/* The outline is per-variant now. On the dark ground the two fills are a
+   bright mint sticker and a black one, and a single ink outline would have
+   disappeared into the black card entirely. */
+const INK = "#04323A";
+const MINT = "#CFF7EE";
 
 /* Chips get the same retro outline and hard shadow as the cards, tilted so a
    row of them reads as scattered stickers rather than a tidy tag list. The
    angles cycle from a fixed list rather than Math.random() — random tilts
    would differ between the server render and the client and break hydration. */
 const CHIP_TILTS = [-3, 2.2, -1.4, 3, -2.4];
-/* On a white section the `paper` cards would vanish into the ground, so they
-   take the pale wash instead — the outline still does the separating, but the
-   fill keeps the two variants distinguishable. */
-const fills: Record<Fill, { bg: string; body: string; chipBg: string }> = {
-  mint:  { bg: "#CFF7EE", body: "rgba(4,50,58,0.70)", chipBg: "#FFFFFF" },
-  paper: { bg: "#F4FBF9", body: "#4E717A",            chipBg: "#FFFFFF" },
+/* Two fills that genuinely differ: a bright mint sticker and a black one.
+   On the old white ground the pair was mint and near-white, which read as one
+   fill with a rounding error. Each variant carries its own outline, type and
+   chip colours so both stay legible. */
+const fills: Record<Fill, {
+  bg: string; title: string; body: string; outline: string; chipBg: string; chipFg: string; icon: string;
+}> = {
+  mint: {
+    bg: MINT, title: INK, body: "rgba(4,50,58,0.70)",
+    outline: "#004D5A", chipBg: "#FFFFFF", chipFg: INK, icon: "#004D5A",
+  },
+  paper: {
+    bg: "#FFFFFF", title: INK, body: "#4E717A",
+    outline: "#004D5A", chipBg: MINT, chipFg: INK, icon: "#004D5A",
+  },
 };
 
 function ServiceSticker({ service }: { service: ServiceItem }) {
@@ -108,22 +119,22 @@ function ServiceSticker({ service }: { service: ServiceItem }) {
       data-rotate={service.rotate}
       style={{
         background: f.bg,
-        border: `2px solid ${OUTLINE}`,
-        boxShadow: `6px 6px 0px 0px ${OUTLINE}`,
+        border: `2px solid ${f.outline}`,
+
         zIndex: service.z,
       }}
     >
       <div className="flex flex-col h-full">
         <div
           className="rounded-[13px] flex items-center justify-center mb-5 w-12 h-12"
-          style={{ background: f.chipBg, border: `2px solid ${OUTLINE}` }}
+          style={{ background: f.chipBg, border: `2px solid ${f.outline}` }}
         >
-          <service.Icon size={21} strokeWidth={1.9} style={{ color: OUTLINE }} />
+          <service.Icon size={21} strokeWidth={1.9} style={{ color: f.icon }} />
         </div>
 
         <h3
           className="heading mb-3"
-          style={{ color: "#04323A", fontSize: "1.35rem", lineHeight: 1.22, letterSpacing: "-0.01em" }}
+          style={{ color: f.title, fontSize: "1.35rem", lineHeight: 1.22, letterSpacing: "-0.01em" }}
         >
           {service.title}
         </h3>
@@ -139,9 +150,9 @@ function ServiceSticker({ service }: { service: ServiceItem }) {
               className="service-chip rounded-full font-bold"
               style={{
                 background: f.chipBg,
-                color: "#04323A",
-                border: `1.5px solid ${OUTLINE}`,
-                boxShadow: `2px 2px 0px 0px ${OUTLINE}`,
+                color: f.chipFg,
+                border: `1.5px solid ${f.outline}`,
+
                 transform: `rotate(${CHIP_TILTS[i % CHIP_TILTS.length]}deg)`,
                 fontSize: "0.6875rem",
                 padding: "5px 12px",
@@ -191,10 +202,10 @@ export default function Services() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="services" style={{ background: "#fff", padding: "100px 0 120px" }}>
+    <section ref={sectionRef} id="services" style={{ background: "#0A0A0A", padding: "100px 0 120px" }}>
       <div className="services-header text-center px-6 mb-14 opacity-0">
-        <p className="script text-xl md:text-2xl mb-3" style={{ color: "#004D5A" }}>Services</p>
-        <h2 className="heading text-3xl md:text-4xl" style={{ color: "#04323A" }}>What I Do Best</h2>
+        <p className="script text-xl md:text-2xl mb-3" style={{ color: MINT }}>Services</p>
+        <h2 className="heading text-3xl md:text-4xl" style={{ color: "#fff" }}>What I Do Best</h2>
       </div>
 
       {/* 12-column bed. Width comes from the span, the dropped look from the

@@ -40,7 +40,7 @@ export default function Footer() {
        white stub carrying the details — the same torn-ticket device as the
        stats strip. The footer sits on white like the rest of the page; the
        ticket itself is the coloured object. */
-    <footer className="relative" style={{ background: "#fff", padding: "40px 24px 0" }}>
+    <footer className="relative" style={{ background: "#0A0A0A", padding: "40px 24px 0" }}>
       <div className="ticket max-w-[1400px] mx-auto rounded-[22px] overflow-hidden"
         style={{ background: MINT, border: `2px solid ${TEAL}`, boxShadow: `7px 7px 0px 0px ${TEAL}` }}>
 
@@ -166,10 +166,10 @@ export default function Footer() {
 
       {/* Legal sits outside the ticket, on the page ground */}
       <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row items-center justify-between gap-2 px-1 py-6">
-        <p className="text-xs" style={{ color: MUTED }}>
+        <p className="text-xs" style={{ color: "rgba(207,247,238,0.55)" }}>
           &copy; {new Date().getFullYear()} Ahmed Ali. All rights reserved.
         </p>
-        <p className="text-xs" style={{ color: MUTED }}>
+        <p className="text-xs" style={{ color: "rgba(207,247,238,0.55)" }}>
           Designed &amp; Developed by Ahmed Ali
         </p>
       </div>
@@ -187,7 +187,7 @@ export default function Footer() {
           width: 26px;
           height: 26px;
           border-radius: 50%;
-          background: #fff;
+          background: #0A0A0A;
           border: 2px solid ${TEAL};
         }
         /* Each notch keeps only its inner half — the outer half would sit

@@ -38,12 +38,12 @@ export function middleware(request: NextRequest) {
 
   // Pages that need Gemini Live voice call (mic + WebSocket to Google)
   const isLiveVoicePage = pathname.startsWith('/motionmotors')
+  /* The site-wide assistant offers a voice call from any page, so the mic can
+     no longer be gated to one route. Still same-origin only. */
 
   response.headers.set(
     'Permissions-Policy',
-    isLiveVoicePage
-      ? 'microphone=(self), autoplay=(self), camera=(), geolocation=()'
-      : 'camera=(), microphone=(), geolocation=()'
+    'microphone=(self), autoplay=(self), camera=(), geolocation=()'
   )
   response.headers.set(
     'Strict-Transport-Security',
@@ -53,12 +53,15 @@ export function middleware(request: NextRequest) {
     'Content-Security-Policy',
     [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://analytics.tiktok.com",
+      /* `blob:` is what lets the ElevenLabs client register its audio worklet.
+         Chrome loads AudioWorklet modules under script-src, not worker-src, so
+         having worker-src blob: alone was not enough. */
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' blob: https://www.googletagmanager.com https://www.google-analytics.com https://analytics.tiktok.com https://va.vercel-scripts.com https://www.clarity.ms https://*.clarity.ms",
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       "font-src 'self' https://fonts.gstatic.com data:",
-      "img-src 'self' https://cdn.simpleicons.org https://*.githubusercontent.com https://www.googletagmanager.com https://www.google-analytics.com https://analytics.tiktok.com https://*.tiktok.com https://buluejioiybbphtzccbh.supabase.co data: blob:",
+      "img-src 'self' https://cdn.simpleicons.org https://*.githubusercontent.com https://www.googletagmanager.com https://www.google-analytics.com https://analytics.tiktok.com https://*.tiktok.com https://buluejioiybbphtzccbh.supabase.co https://*.clarity.ms https://c.bing.com data: blob:",
       // For motionmotors voice call: also allow Gemini Live WebSocket + audio worklet blob:
-      `connect-src 'self' https://api.lanyard.rest wss://api.lanyard.rest https://fonts.googleapis.com https://fonts.gstatic.com https://www.googletagmanager.com https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://buluejioiybbphtzccbh.supabase.co https://analytics.tiktok.com https://*.tiktok.com${isLiveVoicePage ? ' https://generativelanguage.googleapis.com wss://generativelanguage.googleapis.com' : ''}`,
+      `connect-src 'self' https://api.lanyard.rest wss://api.lanyard.rest https://fonts.googleapis.com https://fonts.gstatic.com https://www.googletagmanager.com https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://buluejioiybbphtzccbh.supabase.co https://analytics.tiktok.com https://*.tiktok.com https://api.elevenlabs.io wss://api.elevenlabs.io https://api.us.elevenlabs.io wss://api.us.elevenlabs.io https://va.vercel-scripts.com https://vitals.vercel-insights.com https://*.clarity.ms${isLiveVoicePage ? ' https://generativelanguage.googleapis.com wss://generativelanguage.googleapis.com' : ''}`,
       `media-src 'self' blob:${isLiveVoicePage ? ' data:' : ''}`,
       "worker-src 'self' blob:",
       "frame-src https://www.googletagmanager.com",

@@ -1,5 +1,6 @@
 import Preloader from "@/components/Preloader";
 import Navbar from "@/components/Navbar";
+import HeroClassic from "@/components/HeroClassic";
 import Hero from "@/components/Hero";
 import MarqueeBand from "@/components/MarqueeBand";
 import AboutSection from "@/components/AboutSection";
@@ -13,7 +14,6 @@ import Certifications from "@/components/Certifications";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import AskAhmed from "@/components/AskAhmed";
-import RobotBuddy from "@/components/RobotBuddy";
 
 export default function Home() {
   return (
@@ -21,6 +21,7 @@ export default function Home() {
       <Preloader />
       <Navbar />
       <main>
+        <HeroClassic />
         <Hero />
         <MarqueeBand />
         <AboutSection />
@@ -35,7 +36,6 @@ export default function Home() {
       </main>
       <Footer />
       <AskAhmed />
-      <RobotBuddy />
     </>
   );
 }

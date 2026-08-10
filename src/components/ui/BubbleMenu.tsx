@@ -3,20 +3,25 @@
 import { useState, useEffect, useRef } from "react";
 import gsap from "gsap";
 import { MINT, NAV_LINKS as navLinks, TEAL } from "./brand";
+import { Download } from "lucide-react";
 
 /* eslint-disable @next/next/no-img-element */
 
 /* Three floating capsules rather than one bar — the same block logic the hero
    is built from. Each pod is its own surface, so they can breathe apart. */
+/* At rest the pods are solid white — they sit over the dark hero, and a
+   translucent pod there just picked up the ground and went muddy. Once the
+   page scrolls they turn to glass: content passing underneath is what makes
+   the blur legible, and at the top there is nothing to blur. */
 const pod = (scrolled: boolean) =>
   ({
-    background: scrolled ? "rgba(255,255,255,0.94)" : "rgba(255,255,255,0.80)",
-    backdropFilter: "blur(20px)",
-    WebkitBackdropFilter: "blur(20px)",
-    border: "1px solid rgba(0,0,0,0.07)",
-    boxShadow: scrolled ? "0 6px 28px rgba(0,0,0,0.12)" : "0 3px 20px rgba(0,0,0,0.07)",
+    background: scrolled ? "rgba(255,255,255,0.58)" : "#fff",
+    backdropFilter: scrolled ? "blur(24px) saturate(180%)" : "none",
+    WebkitBackdropFilter: scrolled ? "blur(24px) saturate(180%)" : "none",
+    border: scrolled ? "1px solid rgba(255,255,255,0.55)" : "1px solid rgba(0,0,0,0.07)",
+    boxShadow: scrolled ? "0 8px 32px rgba(4,50,58,0.16)" : "0 4px 22px rgba(0,0,0,0.10)",
     borderRadius: 9999,
-    transition: "background 0.4s, box-shadow 0.4s",
+    transition: "background 0.4s, box-shadow 0.4s, backdrop-filter 0.4s, border-color 0.4s",
   }) as const;
 
 export default function BubbleMenu() {
@@ -85,6 +90,22 @@ export default function BubbleMenu() {
 
   return (
     <>
+
+      <style>{`
+        @keyframes hdr-wave {
+          0%, 60%, 100% { transform: rotate(0deg); }
+          10% { transform: rotate(14deg); }
+          20% { transform: rotate(-8deg); }
+          30% { transform: rotate(14deg); }
+          40% { transform: rotate(-4deg); }
+          50% { transform: rotate(10deg); }
+        }
+        .hdr-wave { animation: hdr-wave 2.4s ease-in-out infinite; }
+        /* the hand rests while the pointer is on the button — the press is the
+           message at that point, not the greeting */
+        .hdr-cta:hover .hdr-wave { animation-play-state: paused; }
+        @media (prefers-reduced-motion: reduce) { .hdr-wave { animation: none; } }
+      `}</style>
       <div className="fixed top-5 left-0 right-0 z-[100] flex justify-center pointer-events-none px-4">
         <div
           ref={navRef}
@@ -149,7 +170,7 @@ export default function BubbleMenu() {
                   onMouseEnter={(e) => {
                     if (!isActive) {
                       e.currentTarget.style.color = "#0A0A0A";
-                      e.currentTarget.style.background = "rgba(0,0,0,0.045)";
+                      e.currentTarget.style.background = MINT;
                     }
                   }}
                   onMouseLeave={(e) => {
@@ -184,11 +205,29 @@ export default function BubbleMenu() {
               AR
             </a>
 
+            {/* Secondary to "Let's Talk": outlined, no hard shadow, and the
+                label collapses to "CV" below xl so the three pods still fit a
+                1024px laptop. */}
+            <a
+              href="/Ahmed-Ali-CV.pdf"
+              download
+              className="inline-flex items-center gap-2 h-11 px-4 rounded-full text-[14px] font-bold transition-transform duration-200 hover:-translate-y-0.5"
+              style={{ background: "#fff", color: TEAL, border: `2px solid ${TEAL}` }}
+              title="Download CV"
+            >
+              <Download size={15} />
+              <span className="hidden xl:inline">Download CV</span>
+              <span className="xl:hidden">CV</span>
+            </a>
+
             <a
               href="#contact"
-              className="inline-flex items-center h-11 px-6 rounded-full text-[15px] font-bold transition-transform duration-200 hover:-translate-y-0.5"
+              className="hdr-cta inline-flex items-center gap-2 h-11 px-6 rounded-full text-[15px] font-bold transition-transform duration-200 hover:-translate-y-0.5"
               style={{ background: MINT, color: TEAL, border: `2px solid ${TEAL}`, boxShadow: `3px 3px 0px 0px ${TEAL}` }}
             >
+              {/* the wave only plays on hover — a hand waving forever in the
+                  corner of every screen is a distraction, not a greeting */}
+              <span className="hdr-wave inline-block" aria-hidden style={{ transformOrigin: "70% 80%" }}>👋</span>
               Let&apos;s Talk
             </a>
           </div>
@@ -223,6 +262,17 @@ export default function BubbleMenu() {
                 style={{ background: MINT, color: "#0A0A0A", opacity: 0, border: "2px solid #0A0A0A", boxShadow: "4px 4px 0px 0px #0A0A0A" }}
               >
                 Let&apos;s Talk
+              </a>
+              {/* pod 3 is desktop-only, so the CV needs its own place here */}
+              <a
+                href="/Ahmed-Ali-CV.pdf"
+                download
+                onClick={closeMobile}
+                className="mob-link inline-flex items-center justify-center gap-2 h-11 rounded-full text-sm font-bold mt-2"
+                style={{ background: "transparent", color: MINT, opacity: 0, border: `2px solid ${MINT}` }}
+              >
+                <Download size={15} />
+                Download CV
               </a>
               <a
                 href="/ar"

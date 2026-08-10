@@ -1,5 +1,7 @@
 "use client";
 
+import "@fortawesome/fontawesome-free/css/all.min.css";
+
 import { useEffect, useRef, useState } from "react";
 import Matter from "matter-js";
 
@@ -15,8 +17,8 @@ const SNOW = "#FFFFFF";  // for dark and saturated fills
 /* Non-platform chips use the site palette rather than a brand colour: mint for
    the things Ahmed sells, a faint ink wash for the supporting skills. */
 const MINT = "#CFF7EE";
-const WASH = "rgba(0,77,90,0.08)";
-const WASH_INK = "rgba(4,50,58,0.68)";
+const WASH = "rgba(207,247,238,0.14)";
+const WASH_INK = "rgba(207,247,238,0.92)";
 
 const pills = [
   // Paid media
@@ -29,7 +31,7 @@ const pills = [
   // Social
   { label: "Instagram", bg: "#E4405F", fg: SNOW, icon: "instagram" },
   { label: "Facebook", bg: "#1877F2", fg: SNOW, icon: "facebook" },
-  { label: "LinkedIn", bg: "#0A66C2", fg: SNOW, icon: "linkedin" },
+  { label: "LinkedIn", bg: "#FFFFFF", fg: "#0A66C2", icon: "/icons/linkedin.png" },
   { label: "YouTube", bg: "#FF0000", fg: SNOW, icon: "youtube" },
   { label: "WhatsApp", bg: "#25D366", fg: SNOW, icon: "whatsapp" },
   { label: "Twitter/X", bg: "#1A1A1A", fg: SNOW, icon: "x" },
@@ -48,7 +50,7 @@ const pills = [
 
   // Tools
   { label: "Figma", bg: "#F24E1E", fg: SNOW, icon: "figma" },
-  { label: "Slack", bg: "#4A154B", fg: SNOW, icon: "slack" },
+  { label: "Slack", bg: "#4A154B", fg: SNOW, icon: "fa-brands fa-slack" },
   { label: "Notion", bg: "#FFFFFF", fg: "#1A1A1A", icon: "notion" },
   { label: "Zapier", bg: "#FF4A00", fg: SNOW, icon: "zapier" },
   { label: "Stripe", bg: "#635BFF", fg: SNOW, icon: "stripe" },
@@ -57,7 +59,7 @@ const pills = [
 
   // What Ahmed sells
   { label: "SEO", bg: MINT, fg: INK, icon: "" },
-  { label: "AI", bg: MINT, fg: INK, icon: "openai" },
+  { label: "AI", bg: MINT, fg: INK, icon: "/icons/openai-ink.png" },
   { label: "Development", bg: MINT, fg: INK, icon: "" },
   { label: "Growth", bg: MINT, fg: INK, icon: "" },
 
@@ -122,15 +124,26 @@ export default function FallingTextSection() {
       const el = document.createElement("div");
       /* The hairline reads as an edge on the white and mint fills, and
          disappears into the dark ones — one rule covers both. */
-      el.style.cssText = `position:absolute;left:0;top:0;z-index:10;pointer-events:auto;cursor:grab;user-select:none;display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border-radius:9999px;font-size:1rem;font-weight:600;white-space:nowrap;background:${pill.bg};color:${pill.fg};border:1px solid rgba(4,50,58,0.10);will-change:transform;backface-visibility:hidden;-webkit-backface-visibility:hidden;`;
+      el.style.cssText = `position:absolute;left:0;top:0;z-index:10;pointer-events:auto;cursor:grab;user-select:none;display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border-radius:9999px;font-size:1rem;font-weight:600;white-space:nowrap;background:${pill.bg};color:${pill.fg};border:1px solid rgba(207,247,238,0.18);will-change:transform;backface-visibility:hidden;-webkit-backface-visibility:hidden;`;
 
-      const src = iconUrl(pill.icon, pill.fg);
-      if (src) {
-        const img = document.createElement("img");
-        img.src = src;
-        img.alt = "";
-        img.style.cssText = "width:18px;height:18px;flex-shrink:0;";
-        el.appendChild(img);
+      /* Three simple-icons slugs were withdrawn on trademark requests and
+         404'd. Marks now come from three places: the CDN, a local file, or a
+         Font Awesome glyph — whichever the brand still has. */
+      if (pill.icon.startsWith("fa-")) {
+        const ico = document.createElement("i");
+        ico.className = pill.icon;
+        ico.setAttribute("aria-hidden", "true");
+        ico.style.cssText = `font-size:16px;line-height:1;flex-shrink:0;color:${pill.fg};`;
+        el.appendChild(ico);
+      } else {
+        const src = iconUrl(pill.icon, pill.fg);
+        if (src) {
+          const img = document.createElement("img");
+          img.src = src;
+          img.alt = "";
+          img.style.cssText = "width:18px;height:18px;flex-shrink:0;";
+          el.appendChild(img);
+        }
       }
 
       const txt = document.createElement("span");
@@ -200,15 +213,15 @@ export default function FallingTextSection() {
   }, [started]);
 
   return (
-    <div style={{ background: "#fff", position: "relative" }}>
+    <div style={{ background: "#0A0A0A", position: "relative" }}>
       {/* Shiny heading */}
       <div className="flex flex-wrap items-center justify-center gap-3 md:gap-6 px-5" style={{ paddingTop: "60px", paddingBottom: "16px" }}>
         <span
           style={{
             fontSize: "clamp(2.5rem, 11vw, 9.5rem)",
             lineHeight: 1,
-            backgroundImage: "linear-gradient(90deg, #004D5A 0%, #00A99B 40%, #6FD8C4 50%, #00A99B 60%, #004D5A 100%)",
-            backgroundSize: "400% 100%",
+            backgroundImage: "linear-gradient(100deg, #FFFFFF 0%, #FFFFFF 38%, #CFF7EE 45%, #6FD8C4 50%, #CFF7EE 55%, #FFFFFF 62%, #FFFFFF 100%)",
+            backgroundSize: "260% 100%",
             WebkitBackgroundClip: "text",
             backgroundClip: "text",
             WebkitTextFillColor: "transparent",
@@ -222,8 +235,8 @@ export default function FallingTextSection() {
           style={{
             fontSize: "clamp(2.5rem, 11vw, 9.5rem)",
             letterSpacing: "-2px",
-            backgroundImage: "linear-gradient(90deg, #004D5A 0%, #00A99B 40%, #6FD8C4 50%, #00A99B 60%, #004D5A 100%)",
-            backgroundSize: "400% 100%",
+            backgroundImage: "linear-gradient(100deg, #FFFFFF 0%, #FFFFFF 38%, #CFF7EE 45%, #6FD8C4 50%, #CFF7EE 55%, #FFFFFF 62%, #FFFFFF 100%)",
+            backgroundSize: "260% 100%",
             WebkitBackgroundClip: "text",
             backgroundClip: "text",
             WebkitTextFillColor: "transparent",

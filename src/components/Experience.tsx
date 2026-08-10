@@ -17,6 +17,33 @@ const WASH = "#F4FBF9";
 
 const experiences = [
   {
+    role: "Digital Product & Growth Lead",
+    company: "Emotion Group · Motion Motors",
+    location: "Jeddah, Saudi Arabia",
+    flag: "🇸🇦",
+    period: "May 2026 – Present",
+    type: "Full-time",
+    active: true,
+    description: "Leading digital product and growth for Motion Motors — the official SOUEAST dealer for Saudi Arabia's Western Region — and for Emotion Group. Strategy, campaigns, and the platforms behind them.",
+    achievements: [
+      "Directed the website structure and build for Motion Motors and the Emotion Group growth plan, from information architecture through launch",
+      "Built the Motion Motors × SOUEAST campaign approach for the ANB finance offers across Jeddah and the Western Region",
+      "Set the new-media and social strategy for SOUEAST in the Western Region — channel mix, content, and launch calendar",
+      "Ran the paid programme across Google Ads, Meta, and TikTok with GA4 and GTM tracking behind it",
+    ],
+    tools: ["Strategy", "Google Ads", "Meta Ads", "TikTok Ads", "GA4", "GTM", "Next.js", "SEO"],
+    toolIcons: [
+      "/ext/trello.svg",
+      "/ext/google-ads-icon.png",
+      "https://cdn.simpleicons.org/meta/0081FB",
+      "https://cdn.simpleicons.org/tiktok/000000",
+      "/ext/google-analytics.png",
+      "/ext/gtm.svg",
+      "/ext/nextjs.svg",
+      "/ext/semrush.png",
+    ],
+  },
+  {
     role: "Digital Marketing Executive",
     company: "Elite Marketing Services",
     location: "Doha, Qatar",
@@ -242,7 +269,7 @@ export default function Experience() {
       ref={sectionRef}
       id="experience"
       className="relative overflow-hidden"
-      style={{ background: "#fff", padding: "100px 24px" }}
+      style={{ background: "#0A0A0A", padding: "100px 24px" }}
     >
       {/* A mint radial at 3% opacity used to sit here — invisible on any
           ground, and doubly so on white. Removed rather than left as
@@ -251,8 +278,8 @@ export default function Experience() {
       <div className="max-w-6xl mx-auto relative">
         {/* Header */}
         <div className="text-center mb-20">
-          <p className="script text-xl md:text-2xl mb-3" style={{ color: TEAL }}>Career Path</p>
-          <h2 className="heading text-3xl md:text-5xl" style={{ color: INK }}>Where I&apos;ve Made Impact</h2>
+          <p className="script text-xl md:text-2xl mb-3" style={{ color: MINT }}>Career Path</p>
+          <h2 className="heading text-3xl md:text-5xl" style={{ color: "#fff" }}>Where I&apos;ve Made Impact</h2>
         </div>
 
         {/* Timeline */}
@@ -261,13 +288,13 @@ export default function Experience() {
           <div
             ref={lineRef}
             className="hidden md:block absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-[2px] origin-top"
-            style={{ background: TEAL }}
+            style={{ background: "rgba(207,247,238,0.22)" }}
           />
 
           {/* Mobile line */}
           <div
             className="md:hidden absolute left-5 top-0 bottom-0 w-[2px]"
-            style={{ background: TEAL }}
+            style={{ background: MINT }}
           />
 
           <div className="flex flex-col gap-12 md:gap-16">
@@ -288,8 +315,8 @@ export default function Experience() {
                         <div
                           className="w-5 h-5 rounded-full border-[3px] z-10 relative"
                           style={{
-                            background: exp.active ? TEAL : MINT,
-                            borderColor: TEAL,
+                            background: exp.active ? MINT : "#0A0A0A",
+                            borderColor: MINT,
                             boxShadow: "none",
                           }}
                         />
@@ -309,8 +336,8 @@ export default function Experience() {
                       <div
                         className="w-4 h-4 rounded-full border-[2px]"
                         style={{
-                          background: exp.active ? TEAL : MINT,
-                          borderColor: TEAL,
+                          background: exp.active ? MINT : "#0A0A0A",
+                          borderColor: MINT,
                           boxShadow: "none",
                         }}
                       />
@@ -326,14 +353,14 @@ export default function Experience() {
         {/* Key Clients Section */}
         <div className="mt-24 -mx-6 px-0">
           <div className="text-center mb-10 px-6">
-            <p className="script text-xl md:text-2xl mb-3" style={{ color: TEAL }}>Trusted By</p>
-            <h3 className="heading text-2xl md:text-3xl" style={{ color: INK }}>Key Client Highlights</h3>
+            <p className="script text-xl md:text-2xl mb-3" style={{ color: MINT }}>Trusted By</p>
+            <h3 className="heading text-2xl md:text-3xl" style={{ color: "#fff" }}>Key Client Highlights</h3>
           </div>
 
           {/* Row 1 - moves left */}
           <div className="relative overflow-hidden mb-8">
-            <div className="absolute left-0 top-0 bottom-0 w-28 z-10" style={{ background: "linear-gradient(to right, #fff, transparent)" }} />
-            <div className="absolute right-0 top-0 bottom-0 w-28 z-10" style={{ background: "linear-gradient(to left, #fff, transparent)" }} />
+            <div className="absolute left-0 top-0 bottom-0 w-28 z-10" style={{ background: "linear-gradient(to right, #0A0A0A, transparent)" }} />
+            <div className="absolute right-0 top-0 bottom-0 w-28 z-10" style={{ background: "linear-gradient(to left, #0A0A0A, transparent)" }} />
             <div className="client-row-1 flex items-center gap-17" style={{ width: "max-content" }}>
               {[...keyClients.slice(0, 8), ...keyClients.slice(0, 8)].map((client, i) => (
                 <img
@@ -341,7 +368,7 @@ export default function Experience() {
                   src={(client as any).logo}
                   alt={client.name}
                   className="object-contain flex-shrink-0 opacity-50 hover:opacity-100 transition-opacity duration-300"
-                  style={{ filter: client.name === "Chelsea FC" ? "none" : "brightness(0)", opacity: client.name === "Chelsea FC" ? 0.85 : 0.4, height: "50px", width: "120px" }}
+                  style={{ filter: client.name === "Chelsea FC" ? "none" : "brightness(0) invert(1)", opacity: client.name === "Chelsea FC" ? 0.9 : 0.7, height: "50px", width: "120px" }}
                 />
               ))}
             </div>
@@ -349,8 +376,8 @@ export default function Experience() {
 
           {/* Row 2 - moves right */}
           <div className="relative overflow-hidden">
-            <div className="absolute left-0 top-0 bottom-0 w-28 z-10" style={{ background: "linear-gradient(to right, #fff, transparent)" }} />
-            <div className="absolute right-0 top-0 bottom-0 w-28 z-10" style={{ background: "linear-gradient(to left, #fff, transparent)" }} />
+            <div className="absolute left-0 top-0 bottom-0 w-28 z-10" style={{ background: "linear-gradient(to right, #0A0A0A, transparent)" }} />
+            <div className="absolute right-0 top-0 bottom-0 w-28 z-10" style={{ background: "linear-gradient(to left, #0A0A0A, transparent)" }} />
             <div className="client-row-2 flex items-center gap-17" style={{ width: "max-content" }}>
               {[...keyClients.slice(8), ...keyClients.slice(8)].map((client, i) => (
                 <img
@@ -358,7 +385,7 @@ export default function Experience() {
                   src={(client as any).logo}
                   alt={client.name}
                   className="object-contain flex-shrink-0 opacity-50 hover:opacity-100 transition-opacity duration-300"
-                  style={{ filter: client.name === "Chelsea FC" ? "none" : "brightness(0)", opacity: client.name === "Chelsea FC" ? 0.85 : 0.4, height: "50px", width: "120px" }}
+                  style={{ filter: client.name === "Chelsea FC" ? "none" : "brightness(0) invert(1)", opacity: client.name === "Chelsea FC" ? 0.9 : 0.7, height: "50px", width: "120px" }}
                 />
               ))}
             </div>
@@ -382,7 +409,7 @@ function ExperienceCard({ exp, variant }: { exp: typeof experiences[0]; variant:
   return (
     <div
       className="rounded-[20px] p-6 md:p-7"
-      style={{ background: bg, border: `2px solid ${TEAL}`, boxShadow: `5px 5px 0px 0px ${TEAL}` }}
+      style={{ background: bg, border: `2px solid ${TEAL}` }}
     >
       {/* Top row */}
       <div className="flex items-center gap-2 mb-3 flex-wrap">

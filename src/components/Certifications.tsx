@@ -114,13 +114,13 @@ export default function Certifications() {
       ref={sectionRef}
       id="certifications"
       className="relative overflow-hidden"
-      style={{ background: "#fff", padding: "100px 24px" }}
+      style={{ background: "#0A0A0A", padding: "100px 24px" }}
     >
       <div className="max-w-6xl mx-auto relative">
         {/* Header */}
         <div className="text-center mb-16">
-          <p className="script text-xl md:text-2xl mb-3" style={{ color: TEAL }}>Credentials</p>
-          <h2 className="heading text-3xl md:text-5xl" style={{ color: INK }}>Certifications</h2>
+          <p className="script text-xl md:text-2xl mb-3" style={{ color: MINT }}>Credentials</p>
+          <h2 className="heading text-3xl md:text-5xl" style={{ color: "#fff" }}>Certifications</h2>
         </div>
 
         {/* Cards grid */}
@@ -135,7 +135,7 @@ export default function Certifications() {
               <div
                 key={i}
                 className={`cert-card opacity-0 rounded-[20px] p-7 md:p-8 flex flex-col justify-between ${i === certifications.length - 1 && certifications.length % 2 !== 0 ? "md:col-span-2 md:max-w-[calc(50%-12px)] md:mx-auto" : ""}`}
-                style={{ background: bg, border: `2px solid ${TEAL}`, boxShadow: `5px 5px 0px 0px ${TEAL}`, minHeight: "320px" }}
+                style={{ background: bg, border: `2px solid ${TEAL}`, minHeight: "320px" }}
               >
                 {/* Top section */}
                 <div>
@@ -218,7 +218,7 @@ export default function Certifications() {
                       background: isMint ? "#fff" : MINT,
                       color: INK,
                       border: `2px solid ${TEAL}`,
-                      boxShadow: `3px 3px 0px 0px ${TEAL}`,
+
                     }}
                   >
                     Verify Credential <ExternalLink size={12} />

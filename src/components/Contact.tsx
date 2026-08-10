@@ -98,7 +98,7 @@ export default function Contact() {
       ref={sectionRef}
       id="contact"
       className="relative overflow-hidden"
-      style={{ background: "#fff", padding: "100px 24px" }}
+      style={{ background: "#0A0A0A", padding: "100px 24px" }}
     >
       {/* A mint radial at 4% opacity used to sit here — it never rendered
           as anything, on this ground or any other. */}
@@ -106,9 +106,9 @@ export default function Contact() {
       <div className="max-w-6xl mx-auto relative">
         {/* Header */}
         <div className="ct-anim opacity-0 text-center mb-16">
-          <p className="script text-xl md:text-2xl mb-3" style={{ color: TEAL }}>Get in Touch</p>
-          <h2 className="heading text-3xl md:text-5xl mb-4" style={{ color: INK }}>Let&apos;s Work Together</h2>
-          <p className="text-base max-w-xl mx-auto" style={{ color: MUTED }}>
+          <p className="script text-xl md:text-2xl mb-3" style={{ color: MINT }}>Get in Touch</p>
+          <h2 className="heading text-3xl md:text-5xl mb-4" style={{ color: "#fff" }}>Let&apos;s Work Together</h2>
+          <p className="text-base max-w-xl mx-auto" style={{ color: "rgba(207,247,238,0.78)" }}>
             Have a project in mind? Let&apos;s turn your vision into reality.
           </p>
         </div>
@@ -117,7 +117,7 @@ export default function Contact() {
           {/* Left - Contact info (2 cols) */}
           <div className="lg:col-span-2 flex flex-col gap-5">
             {/* Location card */}
-            <div className="ct-anim opacity-0 rounded-[20px] p-6" style={{ background: MINT, border: `2px solid ${TEAL}`, boxShadow: `5px 5px 0px 0px ${TEAL}` }}>
+            <div className="ct-anim opacity-0 rounded-[20px] p-6" style={{ background: MINT, border: `2px solid ${TEAL}` }}>
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "#fff", border: `1.5px solid ${TEAL}` }}>
                   <MapPin size={18} color={TEAL} />
@@ -138,7 +138,7 @@ export default function Contact() {
                 target={method.href.startsWith("http") ? "_blank" : undefined}
                 rel={method.href.startsWith("http") ? "noopener noreferrer" : undefined}
                 className="ct-anim opacity-0 rounded-[20px] p-5 flex items-center gap-4"
-                style={{ background: WASH, border: `2px solid ${TEAL}`, boxShadow: `5px 5px 0px 0px ${TEAL}` }}
+                style={{ background: WASH, border: `2px solid ${TEAL}` }}
               >
                 <div className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: "#fff", border: `1.5px solid ${TEAL}` }}>
                   {method.customIcon ? (
@@ -158,7 +158,7 @@ export default function Contact() {
 
           {/* Right - Form (3 cols) */}
           <div className="lg:col-span-3 ct-anim opacity-0 flex">
-            <div className="rounded-[20px] p-6 md:p-8 w-full flex flex-col" style={{ background: WASH, border: `2px solid ${TEAL}`, boxShadow: `6px 6px 0px 0px ${TEAL}` }}>
+            <div className="rounded-[20px] p-6 md:p-8 w-full flex flex-col" style={{ background: WASH, border: `2px solid ${TEAL}` }}>
               <h3 className="heading text-2xl mb-1.5" style={{ color: INK, lineHeight: 1.35 }}>Send a Message</h3>
               <p className="text-sm mb-6" style={{ color: MUTED }}>I&apos;ll get back to you within 24 hours.</p>
 

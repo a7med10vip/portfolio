@@ -4,6 +4,9 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ExternalLink, CheckCircle, Clock, GraduationCap } from "lucide-react";
+
+/* the section eyebrows now sit on a dark ground */
+const MINT = "#CFF7EE";
 /* eslint-disable @next/next/no-img-element */
 
 gsap.registerPlugin(ScrollTrigger);
@@ -97,13 +100,13 @@ export default function CertificationsAr() {
       ref={sectionRef}
       id="certifications"
       className="relative overflow-hidden"
-      style={{ background: "#fff", padding: "100px 24px" }}
+      style={{ background: "#0A0A0A", padding: "100px 24px" }}
     >
       <div className="max-w-6xl mx-auto relative">
         {/* Header */}
         <div className="text-center mb-16">
-          <p className="ar-script text-xl md:text-2xl mb-3" style={{ color: "#004D5A" }}>الاعتمادات</p>
-          <h2 className="ar-heading text-3xl md:text-4xl" style={{ color: "#04323A" }}>الشهادات المهنية</h2>
+          <p className="ar-script text-xl md:text-2xl mb-3" style={{ color: MINT }}>الاعتمادات</p>
+          <h2 className="ar-heading text-3xl md:text-4xl" style={{ color: "#fff" }}>الشهادات المهنية</h2>
         </div>
 
         {/* Cards grid */}
@@ -117,7 +120,7 @@ export default function CertificationsAr() {
               <div
                 key={i}
                 className={`cert-card-ar opacity-0 rounded-[24px] p-7 md:p-8 flex flex-col justify-between ${i === certifications.length - 1 && certifications.length % 2 !== 0 ? "md:col-span-2 md:max-w-[calc(50%-10px)] md:mx-auto" : ""}`}
-                style={{ background: bg, border: "2px solid #004D5A", boxShadow: "5px 5px 0px 0px #004D5A", minHeight: "320px" }}
+                style={{ background: bg, border: "2px solid #004D5A", minHeight: "320px" }}
               >
                 {/* Top section */}
                 <div>
@@ -193,7 +196,7 @@ export default function CertificationsAr() {
                     style={{
                       background: variant === "white" ? "#CFF7EE" : "#fff",
                       border: "2px solid #04323A",
-                      boxShadow: "3px 3px 0px 0px #04323A",
+
                     }}
                   >
                     تحقق من الشهادة <ExternalLink size={12} />

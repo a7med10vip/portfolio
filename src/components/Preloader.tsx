@@ -2,7 +2,7 @@
 
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
-import { DISPLAY, INK, MINT, TEAL } from "./ui/brand";
+import { DISPLAY, MINT, NIGHT } from "./ui/brand";
 import Ico, { STARS } from "./ui/Ico";
 
 /* Three marquees fill the screen and run, then tear off sideways — each in the
@@ -13,11 +13,15 @@ type Row = { dir: "l" | "r"; words: string[]; background: string; color: string 
 
 /* Flat fills, not gradients — the hero pill and the marquee band are flat now
    too, and three gradients stacked full-screen was the loudest thing on the
-   site before the site had even appeared. */
+   site before the site had even appeared.
+
+   The teal/mint set belonged to the light build. Black with one mint band
+   through the middle is what the visitor lands on a beat later, so the
+   preloader now resolves into the page instead of cutting away from it. */
 const BANDS = [
-  { dir: "l" as const, background: TEAL, color: "#fff" },
-  { dir: "r" as const, background: MINT, color: INK },
-  { dir: "l" as const, background: INK, color: MINT },
+  { dir: "l" as const, background: NIGHT, color: MINT },
+  { dir: "r" as const, background: MINT, color: NIGHT },
+  { dir: "l" as const, background: NIGHT, color: MINT },
 ];
 
 /* The Arabic site translates its terminology throughout — its own marquee band
@@ -73,8 +77,8 @@ export default function Preloader({ lang = "en" }: { lang?: "en" | "ar" }) {
          first frame — that's what kills the white flash — and the marquee
          scroll is already the motion. The timeline only has to get them off. */
 
-      /* they cover the viewport edge to edge, so losing the white behind them
-         is invisible — and it's what turns the exit into a reveal */
+      /* they cover the viewport edge to edge, so losing the ground behind
+         them is invisible — and it's what turns the exit into a reveal */
       tl.set(el, { background: "transparent" }, 1.55);
 
       /* out — each row keeps its own direction, accelerating away */
@@ -109,7 +113,7 @@ export default function Preloader({ lang = "en" }: { lang?: "en" | "ar" }) {
        translate runs the wrong way and each strip empties out mid-loop,
        leaving a blank tail. The words still shape correctly — bidi handles
        each phrase internally, only the order of the spans is pinned. */
-    <div dir="ltr" ref={root} className="fixed inset-0 z-[10000] overflow-hidden flex flex-col" style={{ background: "#fff" }}>
+    <div dir="ltr" ref={root} className="fixed inset-0 z-[10000] overflow-hidden flex flex-col" style={{ background: NIGHT }}>
       <style>{`
         @keyframes pl-l { from { transform: translate3d(0,0,0) } to { transform: translate3d(-33.3333%,0,0) } }
         @keyframes pl-r { from { transform: translate3d(-33.3333%,0,0) } to { transform: translate3d(0,0,0) } }

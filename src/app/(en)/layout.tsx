@@ -137,7 +137,7 @@ export default function EnLayout({ children }: { children: React.ReactNode }) {
         <GoogleAnalytics />
         <TikTokPixel />
       </head>
-      <body className="antialiased" suppressHydrationWarning>
+      <body className="antialiased" style={{ background: "#0A0A0A" }} suppressHydrationWarning>
         <GoogleTagManagerNoScript />
         <SmoothScroll>{children}</SmoothScroll>
         <RootChrome />

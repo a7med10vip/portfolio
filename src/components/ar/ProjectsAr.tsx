@@ -220,11 +220,11 @@ export default function ProjectsAr() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="projects" style={{ background: "#fff", padding: "100px 0" }}>
+    <section ref={sectionRef} id="projects" style={{ background: "#0A0A0A", padding: "100px 0" }}>
       <div className="max-w-[1400px] mx-auto px-6">
         <div className="proj-header-ar opacity-0 text-center mb-14">
-          <p className="ar-script text-xl md:text-2xl mb-3" style={{ color: "#004D5A" }}>التأثيــر</p>
-          <h2 className="ar-heading text-3xl md:text-4xl" style={{ color: "#04323A" }}>المشاريـــع المميــزة</h2>
+          <p className="ar-script text-xl md:text-2xl mb-3" style={{ color: "#CFF7EE" }}>التأثيــر</p>
+          <h2 className="ar-heading text-3xl md:text-4xl" style={{ color: "#fff" }}>المشاريـــع المميــزة</h2>
         </div>
 
         <div
@@ -236,12 +236,18 @@ export default function ProjectsAr() {
           {projects.map((project, i) => {
             const isEven = i % 2 === 0;
             const isGreen = i % 2 === 0;
-            const cardBg = isGreen ? MINT : WASH;
+            /* Mirror of the English set: a bright mint card alternating with
+               a lifted dark one. Everything drawn on the card follows the
+               same flag so nothing is left ink-on-ink. */
+            const cardBg = isGreen ? MINT : "#FFFFFF";
             const cardText = "#04323A";
-            const cardMuted = isGreen ? "rgba(4,50,58,0.5)" : "rgba(4,50,58,0.45)";
+            const cardMuted = isGreen ? "rgba(4,50,58,0.62)" : "#4E717A";
+            const cardLine = TEAL;
+            const chipBg = isGreen ? "#fff" : MINT;
+            const chipMark = "#04323A";
             const flag = countryFlags[project.country];
             return (
-              <div key={project.title} className="proj-item-ar opacity-0 rounded-[28px] overflow-hidden lg:absolute lg:inset-0 lg:opacity-100" style={{ background: cardBg, border: `2px solid ${TEAL}`, boxShadow: `6px 6px 0px 0px ${TEAL}` }}>
+              <div key={project.title} className="proj-item-ar opacity-0 rounded-[28px] overflow-hidden lg:absolute lg:inset-0 lg:opacity-100" style={{ background: cardBg, border: `2px solid ${cardLine}` }}>
                 <div className={`flex flex-col h-full ${isEven ? "lg:flex-row-reverse" : "lg:flex-row"}`} style={{ minHeight: "500px" }}>
                   <div className="flex-shrink-0 relative overflow-hidden lg:h-full" style={{ background: "#04323A" }}>
                     {project.image && <img src={project.image} alt={project.title} className="block w-full h-auto lg:w-auto lg:h-full" />}
@@ -258,8 +264,8 @@ export default function ProjectsAr() {
                       <p className="text-sm leading-relaxed mb-6 ar-body" style={{ color: cardMuted }}>{project.desc}</p>
                       <div className="flex flex-wrap gap-2 mb-6">
                         {project.results.map(r => (
-                          <div key={r} className="flex items-center gap-2 px-3 py-2 rounded-xl" style={{ background: "#fff", border: `1.5px solid ${TEAL}`, boxShadow: `2px 2px 0px 0px ${TEAL}` }}>
-                            <div className="w-1.5 h-1.5 rounded-full" style={{ background: isGreen ? "#04323A" : "#CFF7EE" }} />
+                          <div key={r} className="flex items-center gap-2 px-3 py-2 rounded-xl" style={{ background: chipBg, border: `1.5px solid ${cardLine}` }}>
+                            <div className="w-1.5 h-1.5 rounded-full" style={{ background: chipMark }} />
                             <span className="text-xs font-medium ar-body" style={{ color: cardText }}>{r}</span>
                           </div>
                         ))}
@@ -269,8 +275,8 @@ export default function ProjectsAr() {
                           const tool = toolLogos[tag];
                           return (
                             <div key={tag} className="flex flex-col items-center gap-1.5">
-                              <div className="w-9 h-9 rounded-lg flex items-center justify-center" style={{ background: "#fff", border: `1.5px solid ${TEAL}` }}>
-                                {tool ? <img src={tool.icon} alt={tag} width={20} height={20} /> : <span className="text-xs font-bold" style={{ color: "#CFF7EE" }}>{tag[0]}</span>}
+                              <div className="w-9 h-9 rounded-lg flex items-center justify-center" style={{ background: chipBg, border: `1.5px solid ${cardLine}` }}>
+                                {tool ? <img src={tool.icon} alt={tag} width={20} height={20} /> : <span className="text-xs font-bold" style={{ color: chipMark }}>{tag[0]}</span>}
                               </div>
                               <span className="text-[10px] font-medium" style={{ color: cardText }}>{tag}</span>
                             </div>

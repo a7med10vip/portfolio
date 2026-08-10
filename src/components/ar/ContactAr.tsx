@@ -5,6 +5,9 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Mail, Phone, Linkedin, MessageCircle, Send, MapPin, ArrowLeft } from "lucide-react";
 
+/* the section eyebrows now sit on a dark ground */
+const MINT = "#CFF7EE";
+
 gsap.registerPlugin(ScrollTrigger);
 
 const contactMethods = [
@@ -88,7 +91,7 @@ export default function ContactAr() {
       ref={sectionRef}
       id="contact"
       className="relative overflow-hidden"
-      style={{ background: "#fff", padding: "100px 24px" }}
+      style={{ background: "#0A0A0A", padding: "100px 24px" }}
     >
       {/* Background glow */}
       {/* A mint radial at 3-4% opacity used to sit here — it never rendered
@@ -97,9 +100,9 @@ export default function ContactAr() {
       <div className="max-w-6xl mx-auto relative">
         {/* Header */}
         <div className="ct-anim-ar opacity-0 text-center mb-16">
-          <p className="ar-script text-xl md:text-2xl mb-3" style={{ color: "#004D5A" }}>تواصل</p>
-          <h2 className="ar-heading text-3xl md:text-4xl mb-4" style={{ color: "#04323A" }}>لنعمل معاً</h2>
-          <p className="ar-body text-base max-w-xl mx-auto" style={{ color: "#4E717A" }}>
+          <p className="ar-script text-xl md:text-2xl mb-3" style={{ color: MINT }}>تواصل</p>
+          <h2 className="ar-heading text-3xl md:text-4xl mb-4" style={{ color: "#fff" }}>لنعمل معاً</h2>
+          <p className="ar-body text-base max-w-xl mx-auto" style={{ color: "rgba(207,247,238,0.78)" }}>
             لديك مشروع في ذهنك؟ دعنا نحوّل رؤيتك إلى واقع.
           </p>
         </div>
@@ -108,7 +111,7 @@ export default function ContactAr() {
           {/* Right - Contact info (2 cols) - in RTL this appears on the right */}
           <div className="lg:col-span-2 flex flex-col gap-5">
             {/* Location card */}
-            <div className="ct-anim-ar opacity-0 rounded-[20px] p-6" style={{ background: "#CFF7EE", border: "2px solid #004D5A", boxShadow: "5px 5px 0px 0px #004D5A" }}>
+            <div className="ct-anim-ar opacity-0 rounded-[20px] p-6" style={{ background: "#CFF7EE", border: "2px solid #004D5A" }}>
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "#fff", border: "1.5px solid #004D5A" }}>
                   <MapPin size={18} color="#004D5A" />
@@ -129,7 +132,7 @@ export default function ContactAr() {
                 target={method.href.startsWith("http") ? "_blank" : undefined}
                 rel={method.href.startsWith("http") ? "noopener noreferrer" : undefined}
                 className="ct-anim-ar opacity-0 rounded-[20px] p-5 flex items-center gap-4"
-                style={{ background: "#F4FBF9", border: "2px solid #004D5A", boxShadow: "5px 5px 0px 0px #004D5A" }}
+                style={{ background: "#F4FBF9", border: "2px solid #004D5A" }}
               >
                 <div className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: "#fff", border: "1.5px solid #004D5A" }}>
                   {method.customIcon ? (
@@ -149,7 +152,7 @@ export default function ContactAr() {
 
           {/* Left - Form (3 cols) - in RTL this appears on the left */}
           <div className="lg:col-span-3 ct-anim-ar opacity-0 flex">
-            <div className="rounded-[20px] p-6 md:p-8 w-full flex flex-col" style={{ background: "#F4FBF9", border: "2px solid #004D5A", boxShadow: "6px 6px 0px 0px #004D5A" }}>
+            <div className="rounded-[20px] p-6 md:p-8 w-full flex flex-col" style={{ background: "#F4FBF9", border: "2px solid #004D5A" }}>
               <h3 className="ar-heading text-2xl md:text-3xl mb-2" style={{ color: "#04323A", lineHeight: 1.5 }}>أرسل رسالة</h3>
               <p className="ar-body text-sm mb-8" style={{ color: "rgba(4,50,58,0.45)" }}>سأعود إليك خلال 24 ساعة.</p>
 

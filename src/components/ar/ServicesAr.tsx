@@ -70,12 +70,23 @@ const services: ServiceItem[] = [
   },
 ];
 
-const OUTLINE = "#004D5A";
+const INK = "#04323A";
+const MINT = "#CFF7EE";
 const CHIP_TILTS = [-3, 2.2, -1.4, 3, -2.4];
 
-const fills: Record<Fill, { bg: string; body: string; chipBg: string }> = {
-  mint:  { bg: "#CFF7EE", body: "rgba(4,50,58,0.70)", chipBg: "#FFFFFF" },
-  paper: { bg: "#F4FBF9", body: "#4E717A",            chipBg: "#FFFFFF" },
+/* Mirror of the English set: a bright mint sticker and a black one, each
+   carrying its own outline, type and chip colours. */
+const fills: Record<Fill, {
+  bg: string; title: string; body: string; outline: string; chipBg: string; chipFg: string; icon: string;
+}> = {
+  mint: {
+    bg: MINT, title: INK, body: "rgba(4,50,58,0.70)",
+    outline: "#004D5A", chipBg: "#FFFFFF", chipFg: INK, icon: "#004D5A",
+  },
+  paper: {
+    bg: "#FFFFFF", title: INK, body: "#4E717A",
+    outline: "#004D5A", chipBg: MINT, chipFg: INK, icon: "#004D5A",
+  },
 };
 
 function ServiceSticker({ service }: { service: ServiceItem }) {
@@ -87,22 +98,22 @@ function ServiceSticker({ service }: { service: ServiceItem }) {
       data-rotate={service.rotate}
       style={{
         background: f.bg,
-        border: `2px solid ${OUTLINE}`,
-        boxShadow: `6px 6px 0px 0px ${OUTLINE}`,
+        border: `2px solid ${f.outline}`,
+
         zIndex: service.z,
       }}
     >
       <div className="flex flex-col h-full">
         <div
           className="rounded-[13px] flex items-center justify-center mb-5 w-12 h-12"
-          style={{ background: f.chipBg, border: `2px solid ${OUTLINE}` }}
+          style={{ background: f.chipBg, border: `2px solid ${f.outline}` }}
         >
-          <service.Icon size={21} strokeWidth={1.9} style={{ color: OUTLINE }} />
+          <service.Icon size={21} strokeWidth={1.9} style={{ color: f.icon }} />
         </div>
 
         {/* Arabic needs looser leading than the Latin build — 1.22 on the
             heading and 1.68 on the body clipped the descenders here. */}
-        <h3 className="ar-heading mb-3" style={{ color: "#04323A", fontSize: "1.35rem", lineHeight: 1.5 }}>
+        <h3 className="ar-heading mb-3" style={{ color: f.title, fontSize: "1.35rem", lineHeight: 1.5 }}>
           {service.title}
         </h3>
 
@@ -117,9 +128,9 @@ function ServiceSticker({ service }: { service: ServiceItem }) {
               className="ar-body rounded-full font-bold"
               style={{
                 background: f.chipBg,
-                color: "#04323A",
-                border: `1.5px solid ${OUTLINE}`,
-                boxShadow: `2px 2px 0px 0px ${OUTLINE}`,
+                color: f.chipFg,
+                border: `1.5px solid ${f.outline}`,
+
                 transform: `rotate(${CHIP_TILTS[i % CHIP_TILTS.length]}deg)`,
                 fontSize: "0.75rem",
                 padding: "5px 12px",
@@ -167,10 +178,10 @@ export default function ServicesAr() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="services" style={{ background: "#fff", padding: "100px 0 120px" }}>
+    <section ref={sectionRef} id="services" style={{ background: "#0A0A0A", padding: "100px 0 120px" }}>
       <div className="services-header-ar text-center px-6 mb-14 opacity-0">
-        <p className="ar-script text-xl md:text-2xl mb-3" style={{ color: OUTLINE }}>الخدمات</p>
-        <h2 className="ar-heading text-3xl md:text-4xl" style={{ color: "#04323A" }}>خبرات تصنع الفارق</h2>
+        <p className="ar-script text-xl md:text-2xl mb-3" style={{ color: MINT }}>الخدمات</p>
+        <h2 className="ar-heading text-3xl md:text-4xl" style={{ color: "#fff" }}>خبرات تصنع الفارق</h2>
       </div>
 
       <div className="max-w-6xl mx-auto px-5 md:px-6">

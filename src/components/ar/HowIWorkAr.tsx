@@ -7,12 +7,12 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 /* Same named ramp as the English section. */
-const INK = "#04323A";
-const TEAL = "#004D5A";
-const MUTED = "#4E717A";
-const MINT = "#CFF7EE";
-const WASH = "#F4FBF9";
-const LINE = "rgba(0,77,90,0.12)";
+const INK = "#FFFFFF";    // step titles, on the dark ground
+const TEAL = "#CFF7EE";   // numbers, rules, outlines, the timeline
+const MUTED = "rgba(207,247,238,0.72)";  // body copy
+const MINT = "#CFF7EE";   // bright chip fill
+const WASH = "rgba(207,247,238,0.10)";   // the dim chip fill
+const LINE = "rgba(207,247,238,0.16)"; // the one rule colour in the section
 
 /* Shared with the Services chips — same angles, same retro treatment. */
 const CHIP_TILTS = [-3, 2.2, -1.4, 3, -2.4];
@@ -151,7 +151,7 @@ export default function HowIWorkAr() {
       ref={sectionRef}
       id="how-i-work"
       className="relative overflow-hidden"
-      style={{ background: "#fff", padding: "100px 24px" }}
+      style={{ background: "#0A0A0A", padding: "100px 24px" }}
       dir="rtl"
     >
       {/* The dot grid (white dots at 3%) and the top glow (mint at 4%) that
@@ -268,9 +268,9 @@ export default function HowIWorkAr() {
                           data-tilt={CHIP_TILTS[hi % CHIP_TILTS.length]}
                           style={{
                             background: hi % 2 === 0 ? MINT : WASH,
-                            color: INK,
+                            color: hi % 2 === 0 ? "#04323A" : MINT,
                             border: `1.5px solid ${TEAL}`,
-                            boxShadow: `2px 2px 0px 0px ${TEAL}`,
+
                             transform: `rotate(${CHIP_TILTS[hi % CHIP_TILTS.length]}deg)`,
                           }}
                         >

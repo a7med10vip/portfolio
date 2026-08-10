@@ -3,6 +3,8 @@
 export const INK = "#04323A";
 export const TEAL = "#004D5A";
 export const MINT = "#CFF7EE";
+/* the ground of the dark sections: hero, marquee, about, built different, stats */
+export const NIGHT = "#0A0A0A";
 
 export const DISPLAY = "'TAN Headline', var(--font-heading), system-ui, sans-serif";
 

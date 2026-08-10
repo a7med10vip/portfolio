@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import RotatingText from "./ui/RotatingText";
+
 /* eslint-disable @next/next/no-img-element */
 
 /* ------------------------------------------------------------------
@@ -25,7 +26,6 @@ const DISPLAY = "'TAN Headline', var(--font-heading), system-ui, sans-serif";
 
 /* Flat teal, not the five-stop gradient it used to be — the marquee band it
    sits above is flat now too, and the two read as one language this way. */
-const G_PILL = "#004D5A";
 /* Flat mint, not the two-stop gradient it used to be — the pill and the
    marquee band beside it are flat now too. */
 const G_BADGE = MINT;
@@ -55,16 +55,26 @@ const clients = [
   { name: "Geely", src: "/logos/geely.png", h: 54 },
 ];
 
+/* The hero runs dark. Everything below it was white, so the page opened with
+   no floor: the reader met the loudest content on the lightest ground and had
+   nothing to anchor against. Inverting it costs no colour — the same five
+   tokens, reassigned. NIGHT is the ground, MINT carries the bands the ground
+   used to carry, and the pills keep their white. */
+const NIGHT = "#0A0A0A";
+/* dimmed body copy and hairlines on the dark ground */
+const ON_NIGHT = "#fff";
+
+
 /* x, y, diameter, colour — the confetti of small dots framing the art */
 const confetti: [number, number, number, string][] = [
-  [92, 604, 20, TEAL],
-  [120, 650, 11, TEAL_MID],
-  [44, 734, 32, TEAL_SOFT],
-  [150, 782, 14, TEAL],
+  [92, 604, 20, MINT],
+  [120, 650, 11, TEAL_SOFT],
+  [44, 734, 32, TEAL_MID],
+  [150, 782, 14, MINT],
   [1466, 722, 30, TEAL_MID],
-  [1500, 686, 14, TEAL],
+  [1500, 686, 14, MINT],
   [1392, 780, 12, TEAL_SOFT],
-  [1246, 760, 12, TEAL],
+  [1246, 760, 12, MINT],
 ];
 
 /* Four rows of equal height, separated by one uniform gap, so the whole
@@ -206,14 +216,14 @@ export default function Hero() {
   return (
     <section
       ref={root}
-      id="top"
-      className="relative overflow-hidden bg-white"
-      style={{ minHeight: "100svh" }}
+      className="relative overflow-hidden"
+      style={{ minHeight: "100svh", background: NIGHT }}
     >
+
       {/* ============================== DESKTOP STAGE ============================== */}
       <div
-        className="hidden lg:flex items-center justify-center w-full"
-        style={{ minHeight: "100svh", paddingTop: "70px" }}
+        className="hidden lg:flex items-center justify-center w-full relative z-10"
+        style={{ minHeight: "100svh" }}
       >
         <div
           data-stage="1"
@@ -242,7 +252,7 @@ export default function Hero() {
               width: u(BAND1_R - BAND1_L),
               height: u(148),
               borderRadius: u(74),
-              background: TEAL,
+              background: MINT,
               transformOrigin: "left center",
             }}
           />
@@ -255,7 +265,7 @@ export default function Hero() {
               padding: `0 ${u(58)}`,
               borderRadius: u(74),
               background: "#fff",
-              border: `${u(3)} solid ${TEAL}`,
+              border: `${u(3)} solid ${INK}`,
               boxShadow: `0 ${u(10)} ${u(30)} rgba(0,77,90,0.10)`,
             }}
           >
@@ -272,7 +282,7 @@ export default function Hero() {
                 height: u(c.d),
                 borderRadius: "50%",
                 background: "#fff",
-                border: `${u(5)} solid ${TEAL}`,
+                border: `${u(5)} solid ${INK}`,
                 boxShadow: `0 ${u(12)} ${u(28)} rgba(4,50,58,0.18)`,
               }}
             >
@@ -297,14 +307,14 @@ export default function Hero() {
               height: u(148),
               padding: `0 ${u(130)}`,
               borderRadius: u(74),
-              background: G_PILL,
-              boxShadow: `0 ${u(14)} ${u(34)} rgba(0,77,90,0.26)`,
+              background: "#fff",
+              boxShadow: `0 ${u(14)} ${u(34)} rgba(0,0,0,0.34)`,
             }}
           >
             {/* flex, not baseline: RotatingText's root is an overflow-hidden
                 inline-block, so its baseline is its bottom edge and baseline
                 alignment would ride the word up out of the pill's centre */}
-            <span className="rt-center flex items-center justify-center" style={{ ...pillType, color: "#fff" }}>
+            <span className="rt-center flex items-center justify-center" style={{ ...pillType, color: INK }}>
               <RotatingText
                 texts={ROTATING}
                 mainClassName="rt-center overflow-hidden"
@@ -341,7 +351,7 @@ export default function Hero() {
                 height: u(160),
                 borderRadius: "50%",
                 background: "#fff",
-                border: `${u(5)} solid ${TEAL}`,
+                border: `${u(5)} solid ${INK}`,
                 boxShadow: `0 ${u(14)} ${u(34)} rgba(4,50,58,0.15)`,
               }}
             >
@@ -444,7 +454,7 @@ export default function Hero() {
               width: u(1144),
               height: u(148),
               borderRadius: u(74),
-              background: TEAL,
+              background: MINT,
               transformOrigin: "left center",
             }}
           />
@@ -457,7 +467,7 @@ export default function Hero() {
               height: u(172),
               borderRadius: "50%",
               background: G_BADGE,
-              border: `${u(5)} solid ${TEAL}`,
+              border: `${u(5)} solid ${INK}`,
               boxShadow: `0 ${u(16)} ${u(36)} rgba(0,77,90,0.22)`,
             }}
           >
@@ -484,7 +494,7 @@ export default function Hero() {
               padding: `0 ${u(54)}`,
               borderRadius: u(74),
               background: "#fff",
-              border: `${u(3)} solid ${TEAL}`,
+              border: `${u(3)} solid ${INK}`,
               boxShadow: `0 ${u(10)} ${u(30)} rgba(0,77,90,0.10)`,
             }}
           >
@@ -501,8 +511,8 @@ export default function Hero() {
               top: u(CY3 - 14),
               width: u(28),
               height: u(28),
-              background: TEAL,
-              border: `${u(6)} solid ${MINT}`,
+              background: MINT,
+              border: `${u(6)} solid ${INK}`,
             }}
           />
           <svg
@@ -513,7 +523,7 @@ export default function Hero() {
           >
             <path
               d="M234 12 H340 Q360 12 360 32 V176 Q360 196 340 196 H196"
-              stroke={TEAL}
+              stroke={MINT}
               strokeWidth="3"
               strokeLinecap="round"
               strokeDasharray="2 9"
@@ -521,7 +531,7 @@ export default function Hero() {
             />
             <path
               d="M210 187 L194 196 L210 205"
-              stroke={TEAL}
+              stroke={MINT}
               strokeWidth="3"
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -537,7 +547,7 @@ export default function Hero() {
               width: u(640),
               height: u(148),
               borderRadius: u(74),
-              background: TEAL,
+              background: MINT,
               transformOrigin: "left center",
             }}
           />
@@ -552,7 +562,7 @@ export default function Hero() {
                 height: u(c.d),
                 borderRadius: "50%",
                 background: "#fff",
-                border: `${u(5)} solid ${TEAL}`,
+                border: `${u(5)} solid ${INK}`,
                 boxShadow: `0 ${u(12)} ${u(28)} rgba(4,50,58,0.18)`,
               }}
             >
@@ -577,11 +587,11 @@ export default function Hero() {
               width: u(430),
               fontSize: u(18),
               lineHeight: 1.7,
-              color: MUTED,
+              color: ON_NIGHT,
             }}
           >
             Performance marketing, product development and AI integration —
-            <span style={{ color: INK, fontWeight: 700 }}> 5+ years </span>shipping
+            <span style={{ color: "#fff", fontWeight: 700 }}> 5+ years </span>shipping
             growth across Egypt, Qatar, Saudi Arabia &amp; the UAE.
           </p>
 
@@ -601,8 +611,8 @@ export default function Hero() {
                   width: "auto",
                   maxWidth: u(150),
                   objectFit: "contain",
-                  filter: c.keepColor ? "none" : "brightness(0)",
-                  opacity: c.keepColor ? 0.8 : 0.36,
+                  filter: c.keepColor ? "none" : "brightness(0) invert(1)",
+                  opacity: c.keepColor ? 0.9 : 0.72,
                 }}
               />
             ))}
@@ -611,11 +621,11 @@ export default function Hero() {
       </div>
 
       {/* ============================== MOBILE / TABLET ============================== */}
-      <div className="lg:hidden relative px-5 sm:px-8 pt-28 pb-14">
-        <span className="hs-anim hs-dot absolute rounded-full" style={{ left: 14, top: 150, width: 14, height: 14, background: TEAL }} />
+      <div className="lg:hidden relative z-10 px-5 sm:px-8 pt-28 pb-14">
+        <span className="hs-anim hs-dot absolute rounded-full" style={{ left: 14, top: 150, width: 14, height: 14, background: MINT }} />
         <span className="hs-anim hs-dot absolute rounded-full" style={{ right: 18, top: 118, width: 10, height: 10, background: TEAL_MID }} />
         <span className="hs-anim hs-dot absolute rounded-full" style={{ left: 20, bottom: 56, width: 20, height: 20, background: TEAL_MID }} />
-        <span className="hs-anim hs-dot absolute rounded-full" style={{ right: 26, bottom: 230, width: 16, height: 16, background: TEAL }} />
+        <span className="hs-anim hs-dot absolute rounded-full" style={{ right: 26, bottom: 230, width: 16, height: 16, background: MINT }} />
 
         <div className="relative max-w-[560px] mx-auto">
           {/* availability bubble */}
@@ -637,7 +647,7 @@ export default function Hero() {
           <div className="space-y-3 mb-8">
             <div
               className="hs-anim hs-pill inline-flex items-center rounded-full px-6 py-3.5 bg-white"
-              style={{ border: `2px solid ${TEAL}`, boxShadow: "0 8px 22px rgba(0,77,90,0.10)" }}
+              style={{ border: `2px solid ${INK}`, boxShadow: "0 8px 22px rgba(0,0,0,0.22)" }}
             >
               <span
                 style={{ fontFamily: DISPLAY, fontWeight: 700, fontSize: "clamp(26px,6.4vw,40px)", lineHeight: 1.3, color: INK }}
@@ -649,11 +659,11 @@ export default function Hero() {
             <div className="flex items-center gap-3 ml-5 sm:ml-8">
               <div
                 className="hs-anim hs-pill inline-flex items-center justify-center rounded-full px-7 py-3.5"
-                style={{ background: G_PILL, boxShadow: "0 10px 26px rgba(0,77,90,0.26)" }}
+                style={{ background: "#fff", boxShadow: "0 10px 26px rgba(0,0,0,0.34)" }}
               >
                 <span
                   className="rt-center flex items-center justify-center"
-                  style={{ fontFamily: DISPLAY, fontWeight: 700, fontSize: "clamp(30px,8vw,46px)", lineHeight: 1.5, color: "#fff" }}
+                  style={{ fontFamily: DISPLAY, fontWeight: 700, fontSize: "clamp(30px,8vw,46px)", lineHeight: 1.5, color: INK }}
                 >
                   <RotatingText texts={ROTATING} mainClassName="rt-center overflow-hidden" rotationInterval={2400} />
                 </span>
@@ -669,7 +679,7 @@ export default function Hero() {
             <div className="flex items-center gap-3">
               <span
                 className="hs-anim hs-badge shrink-0 flex items-center justify-center rounded-full"
-                style={{ width: 58, height: 58, background: G_BADGE, border: `3px solid ${TEAL}`, boxShadow: "0 10px 24px rgba(0,77,90,0.18)" }}
+                style={{ width: 58, height: 58, background: G_BADGE, border: `3px solid ${INK}`, boxShadow: "0 10px 24px rgba(0,0,0,0.24)" }}
               >
                 <svg viewBox="0 0 48 48" fill="none" style={{ width: 28, height: 28 }}>
                   <circle cx="24" cy="24" r="17" stroke="#fff" strokeWidth="2.4" opacity="0.55" />
@@ -681,7 +691,7 @@ export default function Hero() {
               </span>
               <div
                 className="hs-anim hs-pill inline-flex items-center rounded-full px-5 py-3.5 bg-white"
-                style={{ border: `2px solid ${TEAL}`, boxShadow: "0 8px 22px rgba(0,77,90,0.10)" }}
+                style={{ border: `2px solid ${INK}`, boxShadow: "0 8px 22px rgba(0,0,0,0.22)" }}
               >
                 <span
                   style={{ fontFamily: DISPLAY, fontWeight: 700, fontSize: "clamp(26px,6.6vw,40px)", lineHeight: 1.3, color: INK }}
@@ -700,7 +710,7 @@ export default function Hero() {
             <span className="relative flex items-center justify-center rounded-full -ml-2" style={{ width: 62, height: 62, background: MINT, border: "3px solid #fff" }}>
               <span className="absolute rounded-full" style={{ width: 34, height: 34, border: "3px solid #fff" }} />
             </span>
-            <span className="relative flex items-center justify-center rounded-full -ml-2" style={{ width: 62, height: 62, background: "#fff", border: `3px solid ${TEAL}` }}>
+            <span className="relative flex items-center justify-center rounded-full -ml-2" style={{ width: 62, height: 62, background: "#fff", border: `3px solid ${INK}` }}>
               <svg viewBox="0 0 64 64" fill="none" style={{ width: 34, height: 34 }}>
                 <path d="M8 50C22 50 20 14 34 14C46 14 44 42 56 42" stroke={TEAL} strokeWidth="3.5" strokeLinecap="round" />
                 <circle cx="56" cy="42" r="5" fill={TEAL} />
@@ -709,9 +719,9 @@ export default function Hero() {
           </div>
 
           {/* copy */}
-          <p className="hs-anim hs-side text-[15px] leading-[1.75] mb-10" style={{ color: MUTED }}>
+          <p className="hs-anim hs-side text-[15px] leading-[1.75] mb-10" style={{ color: ON_NIGHT }}>
             Performance marketing, product development and AI integration —
-            <span style={{ color: INK, fontWeight: 700 }}> 5+ years </span>shipping growth
+            <span style={{ color: "#fff", fontWeight: 700 }}> 5+ years </span>shipping growth
             across Egypt, Qatar, Saudi Arabia &amp; the UAE.
           </p>
 
@@ -727,8 +737,8 @@ export default function Hero() {
                   width: "auto",
                   maxWidth: 110,
                   objectFit: "contain",
-                  filter: c.keepColor ? "none" : "brightness(0)",
-                  opacity: c.keepColor ? 0.8 : 0.36,
+                  filter: c.keepColor ? "none" : "brightness(0) invert(1)",
+                  opacity: c.keepColor ? 0.9 : 0.72,
                 }}
               />
             ))}

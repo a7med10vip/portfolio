@@ -1,5 +1,6 @@
 import Preloader from "@/components/Preloader";
 import NavbarAr from "@/components/ar/NavbarAr";
+import HeroClassicAr from "@/components/ar/HeroClassicAr";
 import HeroAr from "@/components/ar/HeroAr";
 import MarqueeBandAr from "@/components/ar/MarqueeBandAr";
 import AboutSectionAr from "@/components/ar/AboutSectionAr";
@@ -20,6 +21,7 @@ export default function HomeAr() {
       <Preloader lang="ar" />
       <NavbarAr />
       <main>
+        <HeroClassicAr />
         <HeroAr />
         <MarqueeBandAr />
         <AboutSectionAr />

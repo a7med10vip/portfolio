@@ -23,7 +23,7 @@ const badge = (bg: string): React.CSSProperties => ({
   background: bg,
   color: INK,
   border: `1.5px solid ${TEAL}`,
-  boxShadow: `2px 2px 0px 0px ${TEAL}`,
+
 });
 
 /* ── Tool logos with brand colors ── */
@@ -270,12 +270,12 @@ export default function Projects() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="projects" style={{ background: "#fff", padding: "100px 0" }}>
+    <section ref={sectionRef} id="projects" style={{ background: "#0A0A0A", padding: "100px 0" }}>
       <div className="max-w-[1400px] mx-auto px-6">
         {/* Header */}
         <div className="proj-header opacity-0 text-center mb-14">
-          <p className="script text-xl md:text-2xl mb-3" style={{ color: TEAL }}>Impact</p>
-          <h2 className="heading text-3xl md:text-4xl" style={{ color: INK }}>Featured Projects</h2>
+          <p className="script text-xl md:text-2xl mb-3" style={{ color: MINT }}>Impact</p>
+          <h2 className="heading text-3xl md:text-4xl" style={{ color: "#fff" }}>Featured Projects</h2>
         </div>
 
         {/* Projects deck. On desktop the outer block reserves the scroll the
@@ -291,9 +291,17 @@ export default function Projects() {
             /* One flag drove both the side the image sits on and the card's
                fill; they were the same expression written twice. */
             const isMint = i % 2 === 0;
-            const cardBg = isMint ? MINT : WASH;
+            /* On the black ground the old mint/wash pair collapsed — wash is
+               a near-white and read as one fill with mint. The alternation is
+               now bright-mint against a lifted dark surface, and everything
+               drawn on the card follows the same flag. */
+            const isMint2 = isMint;
+            const cardBg = isMint2 ? MINT : "#FFFFFF";
             const cardText = INK;
-            const cardMuted = isMint ? "rgba(4,50,58,0.70)" : MUTED;
+            const cardMuted = isMint2 ? "rgba(4,50,58,0.70)" : MUTED;
+            const cardLine = TEAL;
+            const chipBg = isMint2 ? "#fff" : MINT;
+            const chipMark = TEAL;
             const flag = countryFlags[project.country];
             return (
               <div
@@ -301,8 +309,8 @@ export default function Projects() {
                 className="proj-item opacity-0 rounded-[28px] overflow-hidden lg:absolute lg:inset-0 lg:opacity-100"
                 style={{
                   background: cardBg,
-                  border: `2px solid ${TEAL}`,
-                  boxShadow: `6px 6px 0px 0px ${TEAL}`,
+                  border: `2px solid ${cardLine}`,
+
                 }}
               >
                 <div className={`flex flex-col h-full ${isMint ? "lg:flex-row" : "lg:flex-row-reverse"}`} style={{ minHeight: "500px" }}>
@@ -367,9 +375,9 @@ export default function Projects() {
                           <div
                             key={r}
                             className="flex items-center gap-2 px-3 py-2 rounded-xl"
-                            style={{ background: "#fff", border: `1.5px solid ${TEAL}`, boxShadow: `2px 2px 0px 0px ${TEAL}` }}
+                            style={{ background: chipBg, border: `1.5px solid ${cardLine}` }}
                           >
-                            <div className="w-1.5 h-1.5 rounded-full" style={{ background: TEAL }} />
+                            <div className="w-1.5 h-1.5 rounded-full" style={{ background: chipMark }} />
                             <span className="text-xs font-semibold" style={{ color: cardText }}>{r}</span>
                           </div>
                         ))}
@@ -382,11 +390,11 @@ export default function Projects() {
                           const tool = toolLogos[tag];
                           return (
                             <div key={tag} className="flex flex-col items-center gap-1.5">
-                              <div className="w-9 h-9 rounded-lg flex items-center justify-center" style={{ background: "#fff", border: `1.5px solid ${TEAL}` }}>
+                              <div className="w-9 h-9 rounded-lg flex items-center justify-center" style={{ background: chipBg, border: `1.5px solid ${cardLine}` }}>
                                 {tool ? (
                                   <img src={tool.icon} alt={tag} width={20} height={20} />
                                 ) : (
-                                  <span className="text-xs font-bold" style={{ color: TEAL }}>{tag[0]}</span>
+                                  <span className="text-xs font-bold" style={{ color: chipMark }}>{tag[0]}</span>
                                 )}
                               </div>
                               <span className="text-[10px] font-semibold" style={{ color: cardText }}>{tag}</span>

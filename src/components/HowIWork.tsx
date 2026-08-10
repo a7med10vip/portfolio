@@ -10,12 +10,12 @@ gsap.registerPlugin(ScrollTrigger);
    rgba(0,77,90,…) at eight different alphas — 0.03, 0.05, 0.08, 0.12, 0.25,
    0.3, 0.5, 0.7 — which is why nothing lined up: three of those were so faint
    they rendered as nothing at all, and the rest were arbitrary. */
-const INK = "#04323A";    // step titles
-const TEAL = "#004D5A";   // numbers, rules, outlines, the timeline
-const MUTED = "#4E717A";  // body copy — a real colour, not ink at 66%
-const MINT = "#CFF7EE";   // fills
-const WASH = "#F4FBF9";   // pill grounds and the row hover
-const LINE = "rgba(0,77,90,0.12)"; // the one rule colour in the section
+const INK = "#FFFFFF";    // step titles, on the dark ground
+const TEAL = "#CFF7EE";   // numbers, rules, outlines, the timeline
+const MUTED = "rgba(207,247,238,0.72)";  // body copy
+const MINT = "#CFF7EE";   // bright chip fill
+const WASH = "rgba(207,247,238,0.10)";   // the dim chip fill
+const LINE = "rgba(207,247,238,0.16)"; // the one rule colour in the section
 
 /* Shared with the Services chips — same angles, same retro treatment. */
 const CHIP_TILTS = [-3, 2.2, -1.4, 3, -2.4];
@@ -160,7 +160,7 @@ export default function HowIWork() {
       ref={sectionRef}
       id="how-i-work"
       className="relative overflow-hidden"
-      style={{ background: "#fff", padding: "100px 24px" }}
+      style={{ background: "#0A0A0A", padding: "100px 24px" }}
     >
       {/* The dot grid (white dots at 3%) and the top glow (mint at 4%) that
           used to sit here rendered as literally nothing — dropped rather than
@@ -237,7 +237,7 @@ export default function HowIWork() {
                   {/* Right: Content */}
                   <div className="relative z-10">
                     <h3
-                      className="heading text-2xl md:text-4xl mb-2 transition-colors duration-300 group-hover:text-[#004D5A]"
+                      className="heading text-2xl md:text-4xl mb-2 transition-colors duration-300 group-hover:text-[#CFF7EE]"
                       style={{ color: INK }}
                     >
                       {step.title}
@@ -268,9 +268,9 @@ export default function HowIWork() {
                           data-tilt={CHIP_TILTS[hi % CHIP_TILTS.length]}
                           style={{
                             background: hi % 2 === 0 ? MINT : WASH,
-                            color: INK,
+                            color: hi % 2 === 0 ? "#04323A" : MINT,
                             border: `1.5px solid ${TEAL}`,
-                            boxShadow: `2px 2px 0px 0px ${TEAL}`,
+
                             transform: `rotate(${CHIP_TILTS[hi % CHIP_TILTS.length]}deg)`,
                           }}
                         >

@@ -11,8 +11,8 @@ import Matter from "matter-js";
 const INK = "#04323A";
 const SNOW = "#FFFFFF";
 const MINT = "#CFF7EE";
-const WASH = "rgba(0,77,90,0.08)";
-const WASH_INK = "rgba(4,50,58,0.68)";
+const WASH = "rgba(207,247,238,0.14)";
+const WASH_INK = "rgba(207,247,238,0.92)";
 
 const pills = [
   // Paid media
@@ -25,7 +25,7 @@ const pills = [
   // Social
   { label: "إنستغرام", bg: "#E4405F", fg: SNOW, icon: "instagram" },
   { label: "فيسبوك", bg: "#1877F2", fg: SNOW, icon: "facebook" },
-  { label: "لينكدإن", bg: "#0A66C2", fg: SNOW, icon: "linkedin" },
+  { label: "لينكدإن", bg: "#FFFFFF", fg: "#0A66C2", icon: "/icons/linkedin.png" },
   { label: "يوتيوب", bg: "#FF0000", fg: SNOW, icon: "youtube" },
   { label: "واتساب", bg: "#25D366", fg: SNOW, icon: "whatsapp" },
 
@@ -49,7 +49,7 @@ const pills = [
 
   // What Ahmed sells
   { label: "تحسين محركات البحث", bg: MINT, fg: INK, icon: "" },
-  { label: "الذكاء الاصطناعي", bg: MINT, fg: INK, icon: "openai" },
+  { label: "الذكاء الاصطناعي", bg: MINT, fg: INK, icon: "/icons/openai-ink.png" },
   { label: "التطوير", bg: MINT, fg: INK, icon: "" },
   { label: "النمو", bg: MINT, fg: INK, icon: "" },
 
@@ -108,7 +108,7 @@ export default function FallingTextSectionAr() {
 
     pills.forEach((pill, i) => {
       const el = document.createElement("div");
-      el.style.cssText = `position:absolute;left:0;top:0;z-index:10;pointer-events:auto;cursor:grab;user-select:none;display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border-radius:9999px;font-size:1rem;font-weight:600;white-space:nowrap;background:${pill.bg};color:${pill.fg};border:1px solid rgba(4,50,58,0.10);will-change:transform;backface-visibility:hidden;-webkit-backface-visibility:hidden;font-family:'Ahmed Sans',sans-serif;`;
+      el.style.cssText = `position:absolute;left:0;top:0;z-index:10;pointer-events:auto;cursor:grab;user-select:none;display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border-radius:9999px;font-size:1rem;font-weight:600;white-space:nowrap;background:${pill.bg};color:${pill.fg};border:1px solid rgba(207,247,238,0.18);will-change:transform;backface-visibility:hidden;-webkit-backface-visibility:hidden;font-family:'Ahmed Sans',sans-serif;`;
 
       const src = iconUrl(pill.icon, pill.fg);
       if (src) {
@@ -177,15 +177,15 @@ export default function FallingTextSectionAr() {
   }, [started]);
 
   return (
-    <div style={{ background: "#fff", position: "relative" }}>
+    <div style={{ background: "#0A0A0A", position: "relative" }}>
       <div className="flex flex-wrap items-center justify-center gap-3 md:gap-6 px-5" style={{ paddingTop: "60px", paddingBottom: "16px" }}>
         <h2
           className="ar-heading text-center"
           style={{
             fontSize: "clamp(2.5rem, 11vw, 9.5rem)",
             letterSpacing: "-2px",
-            backgroundImage: "linear-gradient(90deg, #004D5A 0%, #00A99B 40%, #6FD8C4 50%, #00A99B 60%, #004D5A 100%)",
-            backgroundSize: "400% 100%",
+            backgroundImage: "linear-gradient(100deg, #FFFFFF 0%, #FFFFFF 38%, #CFF7EE 45%, #6FD8C4 50%, #CFF7EE 55%, #FFFFFF 62%, #FFFFFF 100%)",
+            backgroundSize: "260% 100%",
             WebkitBackgroundClip: "text",
             backgroundClip: "text",
             WebkitTextFillColor: "transparent",
@@ -198,8 +198,8 @@ export default function FallingTextSectionAr() {
           style={{
             fontSize: "clamp(2.5rem, 11vw, 9.5rem)",
             lineHeight: 1,
-            backgroundImage: "linear-gradient(90deg, #004D5A 0%, #00A99B 40%, #6FD8C4 50%, #00A99B 60%, #004D5A 100%)",
-            backgroundSize: "400% 100%",
+            backgroundImage: "linear-gradient(100deg, #FFFFFF 0%, #FFFFFF 38%, #CFF7EE 45%, #6FD8C4 50%, #CFF7EE 55%, #FFFFFF 62%, #FFFFFF 100%)",
+            backgroundSize: "260% 100%",
             WebkitBackgroundClip: "text",
             backgroundClip: "text",
             WebkitTextFillColor: "transparent",

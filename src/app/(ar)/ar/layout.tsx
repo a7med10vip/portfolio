@@ -112,7 +112,7 @@ export default function ArLayout({ children }: { children: React.ReactNode }) {
         <GoogleAnalytics />
         <TikTokPixel />
       </head>
-      <body className="ar-rtl" style={{ fontFamily: "'Ahmed Sans', sans-serif", direction: "rtl" }} suppressHydrationWarning>
+      <body className="ar-rtl" style={{ background: "#0A0A0A", fontFamily: "'Ahmed Sans', sans-serif", direction: "rtl" }} suppressHydrationWarning>
         <GoogleTagManagerNoScript />
         <SmoothScroll>
           <ArabicTailProcessor>{children}</ArabicTailProcessor>

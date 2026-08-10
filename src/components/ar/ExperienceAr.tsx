@@ -4,6 +4,9 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { MapPin, Calendar, TrendingUp, ArrowLeft } from "lucide-react";
+
+/* the section eyebrows now sit on a dark ground */
+const MINT = "#CFF7EE";
 /* eslint-disable @next/next/no-img-element */
 
 gsap.registerPlugin(ScrollTrigger);
@@ -24,6 +27,34 @@ type Experience = {
 };
 
 const experiences = [
+  {
+    role: "قائد المنتج الرقمي والنمو",
+    company: "Emotion Group · Motion Motors",
+    location: "جدة، السعودية",
+    flag: "🇸🇦",
+    period: "مايو 2026 – حتى الآن",
+    type: "دوام كامل",
+    active: true,
+    color: "#004D5A",
+    description: "أقود المنتج الرقمي والنمو لدى موشن موتورز، الوكيل الرسمي لسوإيست في المنطقة الغربية بالسعودية، ولدى إيموشن جروب. الاستراتيجية والحملات والمنصات التي تقف خلفها.",
+    achievements: [
+      "قدت بنية موقع موشن موتورز وخطة بنائه، وخطة النمو لإيموشن جروب، من هندسة المعلومات حتى الإطلاق",
+      "بنيت منهج حملة موشن موتورز × سوإيست لعروض التمويل من بنك ANB في جدة والمنطقة الغربية",
+      "وضعت استراتيجية الميديا الجديدة والتواصل الاجتماعي لسوإيست في المنطقة الغربية: مزيج القنوات والمحتوى وتقويم الإطلاق",
+      "أدرت المنظومة الإعلانية عبر إعلانات جوجل وميتا وتيك توك مع بنية تتبع كاملة على تحليلات جوجل وإدارة العلامات",
+    ],
+    tools: ["الاستراتيجية", "إعلانات جوجل", "إعلانات ميتا", "إعلانات تيك توك", "تحليلات جوجل", "إدارة العلامات", "تطوير الويب", "تحسين محركات البحث"],
+    toolIcons: [
+      "/ext/trello.svg",
+      "/ext/google-ads-icon.png",
+      "https://cdn.simpleicons.org/meta/0081FB",
+      "https://cdn.simpleicons.org/tiktok/000000",
+      "/ext/google-analytics.png",
+      "/ext/gtm.svg",
+      "/ext/nextjs.svg",
+      "/ext/semrush.png",
+    ],
+  },
   {
     role: "مسؤول تسويق رقمي",
     company: "Elite Marketing Services",
@@ -261,7 +292,7 @@ export default function ExperienceAr() {
       ref={sectionRef}
       id="experience"
       className="relative overflow-hidden"
-      style={{ background: "#fff", padding: "100px 24px" }}
+      style={{ background: "#0A0A0A", padding: "100px 24px" }}
     >
       {/* A mint radial at 3-4% opacity used to sit here — it never rendered
           as anything. Removed, as on the English side. */}
@@ -269,8 +300,8 @@ export default function ExperienceAr() {
       <div className="max-w-6xl mx-auto relative">
         {/* Header */}
         <div className="text-center mb-20">
-          <p className="ar-script text-xl md:text-2xl mb-3" style={{ color: "#004D5A" }}>المسيرة المهنية</p>
-          <h2 className="ar-heading text-3xl md:text-4xl" style={{ color: "#04323A" }}>أين صنعت الأثر</h2>
+          <p className="ar-script text-xl md:text-2xl mb-3" style={{ color: MINT }}>المسيرة المهنية</p>
+          <h2 className="ar-heading text-3xl md:text-4xl" style={{ color: "#fff" }}>أين صنعت الأثر</h2>
         </div>
 
         {/* Timeline */}
@@ -279,7 +310,7 @@ export default function ExperienceAr() {
           <div
             ref={lineRef}
             className="hidden md:block absolute right-1/2 translate-x-1/2 top-0 bottom-0 w-[2px] origin-top"
-            style={{ background: "#004D5A" }}
+            style={{ background: "rgba(207,247,238,0.22)" }}
           />
 
           {/* Mobile line */}
@@ -306,7 +337,7 @@ export default function ExperienceAr() {
                         <div
                           className="w-5 h-5 rounded-full border-[3px] z-10 relative"
                           style={{
-                            background: exp.active ? "#CFF7EE" : "#04323A",
+                            background: exp.active ? "#CFF7EE" : "#0A0A0A",
                             borderColor: "#CFF7EE",
                             boxShadow: "none",
                           }}
@@ -327,7 +358,7 @@ export default function ExperienceAr() {
                       <div
                         className="w-4 h-4 rounded-full border-[2px]"
                         style={{
-                          background: exp.active ? "#CFF7EE" : "#04323A",
+                          background: exp.active ? "#CFF7EE" : "#0A0A0A",
                           borderColor: "#CFF7EE",
                           boxShadow: "none",
                         }}
@@ -344,14 +375,14 @@ export default function ExperienceAr() {
         {/* Key Clients Section */}
         <div className="mt-24 -mx-6 px-0">
           <div className="text-center mb-10 px-6">
-            <p className="ar-script text-base md:text-lg mb-3" style={{ color: "#004D5A" }}>موثوق من قبل</p>
-            <h3 className="ar-heading text-2xl md:text-3xl" style={{ color: "#04323A" }}>أبرز العملاء</h3>
+            <p className="ar-script text-base md:text-lg mb-3" style={{ color: MINT }}>موثوق من قبل</p>
+            <h3 className="ar-heading text-2xl md:text-3xl" style={{ color: "#fff" }}>أبرز العملاء</h3>
           </div>
 
           {/* Row 1 - moves left */}
           <div className="relative overflow-hidden mb-8" dir="ltr">
-            <div className="absolute left-0 top-0 bottom-0 w-28 z-10" style={{ background: "linear-gradient(to right, #fff, transparent)" }} />
-            <div className="absolute right-0 top-0 bottom-0 w-28 z-10" style={{ background: "linear-gradient(to left, #fff, transparent)" }} />
+            <div className="absolute left-0 top-0 bottom-0 w-28 z-10" style={{ background: "linear-gradient(to right, #0A0A0A, transparent)" }} />
+            <div className="absolute right-0 top-0 bottom-0 w-28 z-10" style={{ background: "linear-gradient(to left, #0A0A0A, transparent)" }} />
             <div dir="ltr" className="client-row-1-ar flex items-center gap-17" style={{ width: "max-content" }}>
               {[...keyClients.slice(0, 8), ...keyClients.slice(0, 8)].map((client, i) => (
                 <img
@@ -359,7 +390,7 @@ export default function ExperienceAr() {
                   src={client.logo}
                   alt={client.name}
                   className="object-contain flex-shrink-0 opacity-50 hover:opacity-100 transition-opacity duration-300"
-                  style={{ filter: client.name === "Chelsea FC" ? "none" : "brightness(0)", opacity: client.name === "Chelsea FC" ? 0.85 : 0.4, height: "50px", width: "120px" }}
+                  style={{ filter: client.name === "Chelsea FC" ? "none" : "brightness(0) invert(1)", opacity: client.name === "Chelsea FC" ? 0.9 : 0.7, height: "50px", width: "120px" }}
                 />
               ))}
             </div>
@@ -367,8 +398,8 @@ export default function ExperienceAr() {
 
           {/* Row 2 - moves right */}
           <div className="relative overflow-hidden" dir="ltr">
-            <div className="absolute left-0 top-0 bottom-0 w-28 z-10" style={{ background: "linear-gradient(to right, #fff, transparent)" }} />
-            <div className="absolute right-0 top-0 bottom-0 w-28 z-10" style={{ background: "linear-gradient(to left, #fff, transparent)" }} />
+            <div className="absolute left-0 top-0 bottom-0 w-28 z-10" style={{ background: "linear-gradient(to right, #0A0A0A, transparent)" }} />
+            <div className="absolute right-0 top-0 bottom-0 w-28 z-10" style={{ background: "linear-gradient(to left, #0A0A0A, transparent)" }} />
             <div dir="ltr" className="client-row-2-ar flex items-center gap-17" style={{ width: "max-content" }}>
               {[...keyClients.slice(8), ...keyClients.slice(8)].map((client, i) => (
                 <img
@@ -376,7 +407,7 @@ export default function ExperienceAr() {
                   src={client.logo}
                   alt={client.name}
                   className="object-contain flex-shrink-0 opacity-50 hover:opacity-100 transition-opacity duration-300"
-                  style={{ filter: client.name === "Chelsea FC" ? "none" : "brightness(0)", opacity: client.name === "Chelsea FC" ? 0.85 : 0.4, height: "50px", width: "120px" }}
+                  style={{ filter: client.name === "Chelsea FC" ? "none" : "brightness(0) invert(1)", opacity: client.name === "Chelsea FC" ? 0.9 : 0.7, height: "50px", width: "120px" }}
                 />
               ))}
             </div>
@@ -395,12 +426,11 @@ function ExperienceCardAr({ exp, variant }: { exp: typeof experiences[0]; varian
   const achieveText = "#04323A";
   const badgeBg = isWhite ? "rgba(4,50,58,0.06)" : "rgba(4,50,58,0.1)";
   const badgeBorder = isWhite ? "rgba(4,50,58,0.1)" : "rgba(4,50,58,0.15)";
-  const pillColor = exp.color;
 
   return (
     <div
       className="rounded-[20px] p-6 md:p-7 transition-all duration-300 group"
-      style={{ background: bg, border: "2px solid #004D5A", boxShadow: "5px 5px 0px 0px #004D5A" }}
+      style={{ background: bg, border: "2px solid #004D5A" }}
     >
       {/* Top row */}
       <div className="flex items-center gap-2 mb-3 flex-wrap">

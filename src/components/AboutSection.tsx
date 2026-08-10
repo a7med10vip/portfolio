@@ -51,13 +51,13 @@ export default function AboutSection() {
   }, []);
 
   return (
-    <section ref={ref} id="about" className="relative overflow-hidden" style={{ background: "#fff", padding: "110px 0" }}>
+    <section ref={ref} id="about" className="relative overflow-hidden" style={{ background: "#0A0A0A", padding: "110px 0" }}>
       <div className="max-w-6xl mx-auto px-6 relative" style={{ minHeight: "650px" }}>
 
         {/* Floating pills */}
         {floatingPills.map((pill, i) => (
           <div key={i} className="float-pill absolute hidden lg:flex items-center gap-2 px-5 py-2.5 rounded-full cursor-default opacity-0"
-            style={{ background: pill.tint, color: pill.fg, top: pill.top, left: pill.left, right: pill.right, transform: `rotate(${pill.rotate}deg)`, zIndex: 5 } as React.CSSProperties}>
+            style={{ background: pill.tint, color: pill.fg, top: pill.top, left: pill.left, right: pill.right, /* the near-black tints (TikTok) sat invisible on the black ground; the hairline does nothing to the bright ones */ border: "1px solid rgba(255,255,255,0.16)", transform: `rotate(${pill.rotate}deg)`, zIndex: 5 } as React.CSSProperties}>
             <pill.icon size={18} />
             <span className="text-sm font-semibold">{pill.label}</span>
           </div>
@@ -67,12 +67,12 @@ export default function AboutSection() {
         <div className="relative z-10 flex flex-col items-center text-center">
           {/* Header */}
           <div className="about-anim opacity-0 mb-10">
-            <p className="script text-xl md:text-2xl mb-3" style={{ color: "#004D5A" }}>About Me</p>
-            <h2 className="heading text-3xl md:text-4xl" style={{ color: "#04323A" }}>Full-Service Digital Solutions</h2>
+            <p className="script text-xl md:text-2xl mb-3" style={{ color: "#CFF7EE" }}>About Me</p>
+            <h2 className="heading text-3xl md:text-4xl" style={{ color: "#fff" }}>Full-Service Digital Solutions</h2>
           </div>
 
           {/* Card */}
-          <div className="about-anim opacity-0 w-full max-w-[320px] rounded-[32px] overflow-hidden mb-10" style={{ background: "#fff", border: "2px solid #004D5A", boxShadow: "6px 6px 0px 0px #004D5A" }}>
+          <div className="about-anim opacity-0 w-full max-w-[320px] rounded-[32px] overflow-hidden mb-10" style={{ background: "#fff", border: "2px solid #CFF7EE" }}>
 
             {/* Photo */}
             <div className="relative">
@@ -123,7 +123,7 @@ export default function AboutSection() {
           </div>
 
           {/* Description */}
-          <p className="about-anim opacity-0 text-base md:text-lg leading-relaxed max-w-lg" style={{ color: "rgba(4,50,58,0.72)" }}>
+          <p className="about-anim opacity-0 text-base md:text-lg leading-relaxed max-w-lg" style={{ color: "#fff" }}>
             I build complete digital products, and I make them grow. From the first line of strategy to the last line of code, everything ships under one roof.
           </p>
         </div>
