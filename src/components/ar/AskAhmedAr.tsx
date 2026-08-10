@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
-import { MessageCircle, X, Send } from "lucide-react";
+import { MessageCircle, X, Send, Phone, PhoneOff, Loader2, ArrowRight, Sparkles, AudioLines, Languages } from "lucide-react";
 /* eslint-disable @next/next/no-img-element */
 
 type Message = {
@@ -120,6 +120,37 @@ function playNotification() {
   } catch { /* silent fail */ }
 }
 
+/* Ahmed's own avatar set — the people behind the projects, not stock faces. */
+const CLIENT_AVATARS = [
+  "/avatars/avatar-1.webp",
+  "/avatars/avatar-2.webp",
+  "/avatars/avatar-3.webp",
+  "/avatars/avatar-4.webp",
+  "/avatars/avatar-5.webp",
+];
+
+/* What the assistant can do. Deliberately not three cards: the two buttons
+   above already carry the outline-and-shadow treatment, and repeating it made
+   five identical boxes where only two were pressable. One ink panel holds all
+   three and anchors the screen. */
+const HOME_FEATURES = [
+  {
+    Icon: Sparkles,
+    title: "اسأل عن أي شيء",
+    desc: "الخدمات والمشاريع والخبرات والتوفر — إجابات فورية.",
+  },
+  {
+    Icon: AudioLines,
+    title: "مكالمة صوتية مباشرة",
+    desc: "تحدث مع مساعد صوتي لحظي. بالإنجليزية، بلا انتظار.",
+  },
+  {
+    Icon: Languages,
+    title: "بالعربية أو الإنجليزية",
+    desc: "اكتب بأي لغة والرد يأتيك بنفس اللغة.",
+  },
+];
+
 const NUDGE_MESSAGES = [
   "ما زلت هنا إن احتجت أي شيء, لا تتردد في السؤال!",
   "هل لديك أسئلة عن أعمالي؟ يسعدني المساعدة.",
@@ -137,6 +168,12 @@ export default function AskAhmedAr() {
   const [hasWelcomed, setHasWelcomed] = useState(false);
   const [unreadCount, setUnreadCount] = useState(0);
   const [previewMsg, setPreviewMsg] = useState("");
+  /* Opens on a home screen rather than an empty thread — a blank chat asks the
+     visitor to think of a question before they know what can be answered. */
+  const [view, setView] = useState<"home" | "chat">("home");
+  const [myAvatar, setMyAvatar] = useState(CLIENT_AVATARS[0]);
+  const [callState, setCallState] = useState<"idle" | "connecting" | "live" | "error">("idle");
+  const callRef = useRef<{ endSession: () => Promise<void> } | null>(null);
   const messagesRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const nudgeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -144,6 +181,53 @@ export default function AskAhmedAr() {
   const isOpenRef = useRef(false);
 
   // Keep ref in sync
+  const endCall = useCallback(async () => {
+    try {
+      await callRef.current?.endSession();
+    } catch {
+      /* already closed */
+    }
+    callRef.current = null;
+    setCallState("idle");
+  }, []);
+
+  const startCall = useCallback(async () => {
+    if (callState === "connecting" || callState === "live") {
+      await endCall();
+      return;
+    }
+    setCallState("connecting");
+    try {
+      await navigator.mediaDevices.getUserMedia({ audio: true });
+      const res = await fetch("/api/assistant/call", { method: "POST" });
+      if (!res.ok) throw new Error(`call setup ${res.status}`);
+      const { signedUrl } = await res.json();
+      if (!signedUrl) throw new Error("no signed url");
+
+      const { Conversation } = await import("@elevenlabs/client");
+      const conv = await Conversation.startSession({
+        signedUrl,
+        onConnect: () => setCallState("live"),
+        onDisconnect: () => { callRef.current = null; setCallState("idle"); },
+        onError: () => { callRef.current = null; setCallState("error"); },
+      });
+      callRef.current = conv as unknown as { endSession: () => Promise<void> };
+    } catch (err) {
+      console.error("[voice] could not start call:", err);
+      callRef.current = null;
+      setCallState("error");
+    }
+  }, [callState, endCall]);
+
+  /* Picked after mount: Math.random() during render would hand the server and
+     the client different faces and break hydration. */
+  useEffect(() => {
+    setMyAvatar(CLIENT_AVATARS[Math.floor(Math.random() * CLIENT_AVATARS.length)]);
+  }, []);
+
+  /* A call must never outlive the widget. */
+  useEffect(() => () => { void callRef.current?.endSession(); }, []);
+
   useEffect(() => { isOpenRef.current = isOpen; }, [isOpen]);
 
   // Show greeting bubble after 4s
@@ -182,6 +266,7 @@ export default function AskAhmedAr() {
 
   const openChat = useCallback(() => {
     setIsOpen(true);
+    setView("home");
     setShowGreeting(false);
     setUnreadCount(0);
     setPreviewMsg("");
@@ -439,6 +524,16 @@ export default function AskAhmedAr() {
           </div>
 
           <div style={{ flex: 1 }}>
+            {view === "chat" && (
+              <button
+                onClick={() => setView("home")}
+                aria-label="رجوع"
+                className="cursor-pointer"
+                style={{ background: "none", border: "none", padding: 0, marginBottom: "2px", display: "flex", color: "#004D5A" }}
+              >
+                <ArrowRight size={16} />
+              </button>
+            )}
             <div style={{ fontFamily: "'Ahmed Serif Display', serif", fontWeight: 700, fontSize: "15px", color: "#04323A", lineHeight: 1.2 }}>
               اسأل أحمد
             </div>
@@ -468,7 +563,121 @@ export default function AskAhmedAr() {
           </button>
         </div>
 
-        {/* Messages */}
+        {/* Home — the first thing the visitor sees */}
+        {view === "home" && (
+          <div style={{ flex: 1, overflowY: "auto", padding: "22px 20px 18px" }}>
+            <div style={{ textAlign: "center", marginBottom: "20px" }}>
+              <div style={{ display: "flex", justifyContent: "center", marginBottom: "14px" }}>
+                {CLIENT_AVATARS.map((src, i) => (
+                  <img
+                    key={src}
+                    src={src}
+                    alt=""
+                    style={{
+                      width: 52, height: 52, borderRadius: "50%", objectFit: "cover",
+                      border: "2px solid #004D5A", background: "#fff",
+                      marginRight: i === 0 ? 0 : -16,
+                      position: "relative", zIndex: CLIENT_AVATARS.length - i,
+                    }}
+                  />
+                ))}
+              </div>
+              <div className="ar-heading" style={{ fontSize: "20px", color: "#04323A", lineHeight: 1.5 }}>
+                أهلاً، أنا أحمد
+              </div>
+              <div className="ar-body" style={{ fontSize: "13px", color: "#4E717A", marginTop: "4px" }}>
+                استراتيجي رقمي شامل · جدة
+              </div>
+            </div>
+
+            {/* Primary action */}
+            <button
+              onClick={() => setView("chat")}
+              className="cursor-pointer ar-body"
+              style={{
+                width: "100%", textAlign: "right", padding: "14px 16px", borderRadius: "16px",
+                background: "#CFF7EE", border: "2px solid #004D5A",
+                boxShadow: "3px 3px 0px 0px #004D5A", marginBottom: "10px",
+                display: "flex", alignItems: "center", gap: "12px",
+              }}
+            >
+              <MessageCircle size={20} color="#004D5A" style={{ flexShrink: 0 }} />
+              <span style={{ flex: 1 }}>
+                <span style={{ display: "block", fontWeight: 700, fontSize: "14px", color: "#04323A" }}>
+                  ابدأ محادثة
+                </span>
+                <span style={{ display: "block", fontSize: "12px", color: "rgba(4,50,58,0.65)", marginTop: "1px" }}>
+                  إجابات فورية، بلغتك
+                </span>
+              </span>
+            </button>
+
+            {/* Secondary action */}
+            <button
+              onClick={startCall}
+              className="cursor-pointer ar-body"
+              style={{
+                width: "100%", textAlign: "right", padding: "14px 16px", borderRadius: "16px",
+                background: "#fff", border: "2px solid #004D5A", marginBottom: "18px",
+                display: "flex", alignItems: "center", gap: "12px",
+              }}
+            >
+              {callState === "connecting"
+                ? <Loader2 size={20} color="#004D5A" className="animate-spin" style={{ flexShrink: 0 }} />
+                : callState === "live"
+                ? <PhoneOff size={20} color="#004D5A" style={{ flexShrink: 0 }} />
+                : <Phone size={20} color="#004D5A" style={{ flexShrink: 0 }} />}
+              <span style={{ flex: 1 }}>
+                <span style={{ display: "block", fontWeight: 700, fontSize: "14px", color: "#04323A" }}>
+                  {callState === "live" ? "إنهاء المكالمة" : "مكالمة صوتية"}
+                </span>
+                <span style={{ display: "block", fontSize: "12px", color: "#4E717A", marginTop: "1px" }}>
+                  {callState === "connecting" ? "جارٍ الاتصال…"
+                    : callState === "live" ? "على الخط — تفضل بالحديث"
+                    : callState === "error" ? "اسمح بالميكروفون وحاول مجدداً"
+                    : "تحدث لحظياً · بالإنجليزية"}
+                </span>
+              </span>
+            </button>
+
+            {/* One ink panel, three rows */}
+            <div style={{
+              display: "flex", flexDirection: "column", gap: "13px",
+              padding: "18px 16px 20px", borderRadius: "18px", background: "#04323A",
+            }}>
+              {HOME_FEATURES.map(({ Icon, title, desc }, i) => (
+                <div
+                  key={title}
+                  style={{
+                    display: "flex", gap: "12px", alignItems: "flex-start",
+                    paddingTop: i === 0 ? 0 : "13px",
+                    borderTop: i === 0 ? "none" : "1px solid rgba(207,247,238,0.18)",
+                  }}
+                >
+                  <span style={{
+                    width: 30, height: 30, borderRadius: "50%", flexShrink: 0,
+                    background: "#CFF7EE",
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                  }}>
+                    <Icon size={15} color="#04323A" strokeWidth={2.2} />
+                  </span>
+                  <div style={{ paddingTop: "3px" }}>
+                    <div className="ar-body" style={{ fontWeight: 700, fontSize: "13px", color: "#fff", lineHeight: 1.5 }}>
+                      {title}
+                    </div>
+                    <div className="ar-body" style={{ fontSize: "11.5px", color: "rgba(207,247,238,0.75)", lineHeight: 1.8, marginTop: "2px" }}>
+                      {desc}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Messages, quick replies and the composer travel together */}
+        {view === "chat" && (
+        <>
         <div
           ref={messagesRef}
           style={{
@@ -495,25 +704,19 @@ export default function AskAhmedAr() {
               {msg.role === "assistant" ? (
                 <div style={{ marginTop: "2px" }}><AhmedAvatar size={28} /></div>
               ) : (
-                <div
+                <img
+                  src={myAvatar}
+                  alt=""
                   style={{
                     width: "28px",
                     height: "28px",
                     borderRadius: "50%",
-                    background: "#E4E4E7",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontSize: "10px",
-                    fontWeight: 700,
-                    color: "#52525B",
+                    objectFit: "cover",
                     flexShrink: 0,
                     marginTop: "2px",
-                    border: "1px solid #D1D5DB",
+                    border: "2px solid #004D5A",
                   }}
-                >
-                  أنت
-                </div>
+                />
               )}
 
               <div style={{ maxWidth: "78%" }}>
@@ -677,6 +880,8 @@ export default function AskAhmedAr() {
             </button>
           </div>
         </div>
+        </>
+        )}
       </div>
 
       <style>{`

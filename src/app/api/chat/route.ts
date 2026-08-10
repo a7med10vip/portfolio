@@ -1,5 +1,6 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { NextRequest, NextResponse } from "next/server";
+import { ASSISTANT_KNOWLEDGE } from "@/lib/assistant-knowledge";
 
 const SYSTEM_PROMPT = `You are Ahmed Ali's AI assistant on his portfolio site ahmedali.online.
 You speak AS Ahmed in first person. You ARE Ahmed.
@@ -104,7 +105,9 @@ export async function POST(req: NextRequest) {
 
     const model = genAI.getGenerativeModel({
       model: "gemini-2.5-flash",
-      systemInstruction: SYSTEM_PROMPT,
+      /* Persona above, facts below. The knowledge base is shared with the
+         voice call so the two can no longer drift apart. */
+      systemInstruction: `${SYSTEM_PROMPT}\n\n=== FACTS (your only source of truth) ===\n${ASSISTANT_KNOWLEDGE}`,
     });
 
     const rawHistory = messages.slice(0, -1).map((m: { role: string; content: string }) => ({

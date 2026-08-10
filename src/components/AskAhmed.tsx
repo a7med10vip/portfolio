@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
-import { MessageCircle, X, Send } from "lucide-react";
+import { MessageCircle, X, Send, Phone, PhoneOff, Loader2, ArrowLeft, Sparkles, AudioLines, Languages } from "lucide-react";
 /* eslint-disable @next/next/no-img-element */
 
 type Message = {
@@ -120,6 +120,41 @@ function playNotification() {
   } catch { /* silent fail */ }
 }
 
+/* Ahmed's own avatar set. Shown as an overlapping cluster on the home
+   screen — the people behind the projects, not stock faces. */
+const CLIENT_AVATARS = [
+  "/avatars/avatar-1.webp",
+  "/avatars/avatar-2.webp",
+  "/avatars/avatar-3.webp",
+  "/avatars/avatar-4.webp",
+  "/avatars/avatar-5.webp",
+];
+
+/* What the assistant can do. Deliberately NOT cards: the two buttons above
+   already carry the outline-and-hard-shadow treatment, and repeating it here
+   made five identical boxes where only two of them were pressable. These are
+   information, so they get an icon and a hairline and nothing else. */
+const HOME_FEATURES = [
+  {
+    Icon: Sparkles,
+    title: "Ask anything",
+    desc: "Services, projects, experience and availability — answered instantly.",
+    tint: "#CFF7EE",
+  },
+  {
+    Icon: AudioLines,
+    title: "Live voice call",
+    desc: "Talk to a real-time voice agent. English, no waiting.",
+    tint: "#CFF7EE",
+  },
+  {
+    Icon: Languages,
+    title: "Arabic or English",
+    desc: "Type in either and it replies in the same language.",
+    tint: "#CFF7EE",
+  },
+];
+
 const NUDGE_MESSAGES = [
   "Still here if you need anything, feel free to ask!",
   "Got any questions about my work? I'm happy to help.",
@@ -137,6 +172,18 @@ export default function AskAhmed() {
   const [hasWelcomed, setHasWelcomed] = useState(false);
   const [unreadCount, setUnreadCount] = useState(0);
   const [previewMsg, setPreviewMsg] = useState("");
+  /* Live voice call. `call` is the ElevenLabs session; it is kept in a ref
+     because ending it must not depend on a re-render having happened. */
+  /* The panel opens on a home screen rather than dropping straight into an
+     empty thread — a blank chat asks the visitor to think of a question before
+     they know what the assistant can answer. */
+  const [view, setView] = useState<"home" | "chat">("home");
+  /* The visitor gets one of Ahmed's five avatars, picked once per session.
+     Chosen in an effect rather than at render: Math.random() during render
+     would give the server and the client different faces and break hydration. */
+  const [myAvatar, setMyAvatar] = useState(CLIENT_AVATARS[0]);
+  const [callState, setCallState] = useState<"idle" | "connecting" | "live" | "error">("idle");
+  const callRef = useRef<{ endSession: () => Promise<void> } | null>(null);
   const messagesRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const nudgeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -144,6 +191,58 @@ export default function AskAhmed() {
   const isOpenRef = useRef(false);
 
   // Keep ref in sync
+  const endCall = useCallback(async () => {
+    try {
+      await callRef.current?.endSession();
+    } catch {
+      /* already closed */
+    }
+    callRef.current = null;
+    setCallState("idle");
+  }, []);
+
+  const startCall = useCallback(async () => {
+    if (callState === "connecting" || callState === "live") {
+      await endCall();
+      return;
+    }
+    setCallState("connecting");
+    try {
+      /* Ask for the mic first: if the visitor declines, there is no point
+         spending a signed URL, and the browser prompt is clearer here than
+         mid-connection. */
+      await navigator.mediaDevices.getUserMedia({ audio: true });
+
+      const res = await fetch("/api/assistant/call", { method: "POST" });
+      if (!res.ok) throw new Error(`call setup ${res.status}`);
+      const { signedUrl } = await res.json();
+      if (!signedUrl) throw new Error("no signed url");
+
+      /* Imported on demand so the client bundle stays out of first paint. */
+      const { Conversation } = await import("@elevenlabs/client");
+      const conv = await Conversation.startSession({
+        signedUrl,
+        onConnect: () => setCallState("live"),
+        onDisconnect: () => {
+          callRef.current = null;
+          setCallState("idle");
+        },
+        onError: () => {
+          callRef.current = null;
+          setCallState("error");
+        },
+      });
+      callRef.current = conv as unknown as { endSession: () => Promise<void> };
+    } catch (err) {
+      console.error("[voice] could not start call:", err);
+      callRef.current = null;
+      setCallState("error");
+    }
+  }, [callState, endCall]);
+
+  /* A call must never outlive the widget. */
+  useEffect(() => () => { void callRef.current?.endSession(); }, []);
+
   useEffect(() => { isOpenRef.current = isOpen; }, [isOpen]);
 
   // Show greeting bubble after 4s
@@ -182,6 +281,7 @@ export default function AskAhmed() {
 
   const openChat = useCallback(() => {
     setIsOpen(true);
+    setView("home");
     setShowGreeting(false);
     setUnreadCount(0);
     setPreviewMsg("");
@@ -447,13 +547,59 @@ export default function AskAhmed() {
           </div>
 
           <div style={{ flex: 1 }}>
-            <div style={{ fontFamily: "'TAN Headline'", fontWeight: 700, fontSize: "15px", color: "#04323A", lineHeight: 1.2 }}>
+            <div style={{ fontFamily: "'TAN Headline'", fontWeight: 700, fontSize: "15px", color: "#04323A", lineHeight: 1.2, display: "flex", alignItems: "center", gap: "6px" }}>
+              {view === "chat" && (
+                <button
+                  onClick={() => setView("home")}
+                  aria-label="Back"
+                  className="cursor-pointer"
+                  style={{ background: "none", border: "none", padding: 0, display: "flex", color: "#004D5A" }}
+                >
+                  <ArrowLeft size={16} />
+                </button>
+              )}
               Ask Ahmed
             </div>
             <div style={{ fontSize: "12px", color: "rgba(0,0,0,0.5)", marginTop: "2px" }}>
-              Online · replies instantly
+              {callState === "live"
+                ? "On a call · speak now"
+                : callState === "connecting"
+                ? "Connecting the call…"
+                : callState === "error"
+                ? "Call failed · allow the mic and retry"
+                : "Online · replies instantly"}
             </div>
           </div>
+
+          {/* Live voice call. Mint while idle, ink while connected, so the
+              state reads without needing the label. */}
+          <button
+            onClick={startCall}
+            aria-label={callState === "live" ? "End the call" : "Start a voice call"}
+            title={callState === "live" ? "End the call" : "Talk to the assistant"}
+            className="cursor-pointer"
+            style={{
+              width: "32px",
+              height: "32px",
+              borderRadius: "50%",
+              marginRight: "6px",
+              background: callState === "live" ? "#04323A" : "#CFF7EE",
+              color: callState === "live" ? "#CFF7EE" : "#004D5A",
+              border: "2px solid #004D5A",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexShrink: 0,
+            }}
+          >
+            {callState === "connecting" ? (
+              <Loader2 size={15} className="animate-spin" />
+            ) : callState === "live" ? (
+              <PhoneOff size={15} />
+            ) : (
+              <Phone size={15} />
+            )}
+          </button>
 
           <button
             onClick={closeChat}
@@ -476,7 +622,128 @@ export default function AskAhmed() {
           </button>
         </div>
 
-        {/* Messages */}
+        {/* Home — the first thing the visitor sees */}
+        {view === "home" && (
+          <div style={{ flex: 1, overflowY: "auto", padding: "22px 20px 16px" }}>
+            <div style={{ textAlign: "center", marginBottom: "20px" }}>
+              {/* The people, not the portrait — an overlapping cluster reads as
+                  "a practice with clients" where a single headshot reads as
+                  one freelancer. */}
+              <div style={{ display: "flex", justifyContent: "center", marginBottom: "14px" }}>
+                {CLIENT_AVATARS.map((src, i) => (
+                  <img
+                    key={src}
+                    src={src}
+                    alt=""
+                    style={{
+                      width: 52, height: 52, borderRadius: "50%", objectFit: "cover",
+                      border: "2px solid #004D5A", background: "#fff",
+                      marginLeft: i === 0 ? 0 : -16,
+                      position: "relative", zIndex: CLIENT_AVATARS.length - i,
+                    }}
+                  />
+                ))}
+              </div>
+              <div style={{ fontFamily: "'TAN Headline'", fontSize: "20px", color: "#04323A", lineHeight: 1.3 }}>
+                Hi, I&apos;m Ahmed
+              </div>
+              <div style={{ fontSize: "13px", color: "#4E717A", marginTop: "4px" }}>
+                Full-Stack Digital Strategist · Jeddah
+              </div>
+            </div>
+
+            {/* Primary action */}
+            <button
+              onClick={() => setView("chat")}
+              className="cursor-pointer"
+              style={{
+                width: "100%", textAlign: "left", padding: "14px 16px", borderRadius: "16px",
+                background: "#CFF7EE", border: "2px solid #004D5A",
+                boxShadow: "3px 3px 0px 0px #004D5A", marginBottom: "10px",
+                display: "flex", alignItems: "center", gap: "12px",
+              }}
+            >
+              <MessageCircle size={20} color="#004D5A" style={{ flexShrink: 0 }} />
+              <span style={{ flex: 1 }}>
+                <span style={{ display: "block", fontWeight: 700, fontSize: "14px", color: "#04323A" }}>
+                  Start a conversation
+                </span>
+                <span style={{ display: "block", fontSize: "12px", color: "rgba(4,50,58,0.65)", marginTop: "1px" }}>
+                  Instant answers, in your language
+                </span>
+              </span>
+            </button>
+
+            {/* Secondary action — same row treatment, lighter fill */}
+            <button
+              onClick={startCall}
+              className="cursor-pointer"
+              style={{
+                width: "100%", textAlign: "left", padding: "14px 16px", borderRadius: "16px",
+                background: "#fff", border: "2px solid #004D5A", marginBottom: "20px",
+                display: "flex", alignItems: "center", gap: "12px",
+              }}
+            >
+              {callState === "connecting"
+                ? <Loader2 size={20} color="#004D5A" className="animate-spin" style={{ flexShrink: 0 }} />
+                : <Phone size={20} color="#004D5A" style={{ flexShrink: 0 }} />}
+              <span style={{ flex: 1 }}>
+                <span style={{ display: "block", fontWeight: 700, fontSize: "14px", color: "#04323A" }}>
+                  {callState === "live" ? "End the call" : "Voice call"}
+                </span>
+                <span style={{ display: "block", fontSize: "12px", color: "#4E717A", marginTop: "1px" }}>
+                  {callState === "connecting" ? "Connecting…"
+                    : callState === "live" ? "On a call — speak now"
+                    : callState === "error" ? "Allow the microphone and try again"
+                    : "Talk in real time · English"}
+                </span>
+              </span>
+            </button>
+
+            {/* What it can do — one panel holding three rows, not three panels.
+                An ink ground gives the panel the weight it was missing and
+                anchors the screen: everything else here is white or mint, so
+                the eye lands on this block first and reads it as one thing. */}
+            <div style={{
+              display: "flex", flexDirection: "column", gap: "13px",
+              marginBottom: "4px", padding: "18px 16px 20px",
+              borderRadius: "18px", background: "#04323A",
+            }}>
+              {HOME_FEATURES.map(({ Icon, title, desc, tint }, i) => (
+                <div
+                  key={title}
+                  style={{
+                    display: "flex", gap: "12px", alignItems: "flex-start",
+                    paddingTop: i === 0 ? 0 : "12px",
+                    borderTop: i === 0 ? "none" : "1px solid rgba(207,247,238,0.18)",
+                  }}
+                >
+                  {/* The disc is the only colour here — filled mint, or ink
+                      for the middle one so the row is not three of a kind. */}
+                  <span style={{
+                    width: 30, height: 30, borderRadius: "50%", flexShrink: 0,
+                    background: tint,
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                  }}>
+                    <Icon size={15} color="#04323A" strokeWidth={2.2} />
+                  </span>
+                  <div style={{ paddingTop: "3px" }}>
+                    <div style={{ fontWeight: 700, fontSize: "13px", color: "#fff", lineHeight: 1.3 }}>
+                      {title}
+                    </div>
+                    <div style={{ fontSize: "11.5px", color: "rgba(207,247,238,0.75)", lineHeight: 1.55, marginTop: "2px" }}>
+                      {desc}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Messages, quick replies and the composer travel together */}
+        {view === "chat" && (
+        <>
         <div
           ref={messagesRef}
           style={{
@@ -502,25 +769,19 @@ export default function AskAhmed() {
               {msg.role === "assistant" ? (
                 <div style={{ marginTop: "2px" }}><AhmedAvatar size={28} /></div>
               ) : (
-                <div
+                <img
+                  src={myAvatar}
+                  alt=""
                   style={{
                     width: "28px",
                     height: "28px",
                     borderRadius: "50%",
-                    background: "#E4E4E7",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontSize: "10px",
-                    fontWeight: 700,
-                    color: "#52525B",
+                    objectFit: "cover",
                     flexShrink: 0,
                     marginTop: "2px",
-                    border: "1px solid #D1D5DB",
+                    border: "2px solid #004D5A",
                   }}
-                >
-                  You
-                </div>
+                />
               )}
 
               <div style={{ maxWidth: "78%" }}>
@@ -679,6 +940,8 @@ export default function AskAhmed() {
             </button>
           </div>
         </div>
+        </>
+        )}
       </div>
 
       <style>{`
