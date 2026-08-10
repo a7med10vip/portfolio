@@ -9,22 +9,21 @@ import dynamic from "next/dynamic";
 const Aurora = dynamic(() => import("../ui/Aurora"), { ssr: false });
 const Antigravity = dynamic(() => import("../ui/Antigravity"), { ssr: false });
 
-type LogoItem = {
-  name: string;
-  src: string;
-  size?: string;
-  noFilter?: boolean;
-};
+type LogoItem = { name: string; src: string; fill?: boolean; k?: number };
 
-const logos = [
-  { name: "Ooredoo", src: "/logos/ooredoo.png" },
-  { name: "QNB", src: "/logos/qnb.png" },
-  { name: "Amazon", src: "/logos/amazon.svg" },
-  { name: "BinGhatti", src: "/logos/binghatti.png" },
-  { name: "CarTech", src: "/logos/cartech.png" },
-  { name: "Saudia", src: "/ext/saudia.svg", size: "65px" },
-  { name: "Chelsea", src: "/logos/chelsea.png", noFilter: true, size: "52px" },
-] satisfies LogoItem[];
+/* The platform marks that used to live as circular badges in the stage
+   section. They stay in discs rather than being laid flat on the ground: the
+   TikTok mark is 62% pure black and vanishes on it, and the Google and ChatGPT
+   files carry no alpha, so flat they would read as white boxes. */
+const logos: LogoItem[] = [
+  { name: "Google", src: "/logos/google-logo.png", k: 0.62 },
+  { name: "Google Cloud", src: "/logos/google-cloud.png", k: 0.62 },
+  { name: "Google Analytics", src: "/ext/google-analytics.png", k: 0.52 },
+  { name: "TikTok", src: "/logos/tiktok-logo.png", k: 0.6 },
+  { name: "ChatGPT", src: "/logos/chatgpt.jpg", fill: true },
+  { name: "Google Gemini", src: "/logos/gemini.png", k: 0.62 },
+  { name: "React", src: "/logos/react-logo.png", k: 0.62 },
+];
 
 export default function HeroClassicAr() {
   const ref = useRef<HTMLElement>(null);
@@ -94,18 +93,28 @@ export default function HeroClassicAr() {
           <div className="h-anim opacity-0 mb-12">
             <div className="relative inline-flex items-center gap-2 px-5 py-2 rounded-full mb-5" style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.08)" }}>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z" fill="#CFF7EE"/></svg>
-              <span className="ar-body text-xs font-semibold tracking-wide" style={{ color: "rgba(255,255,255,0.7)" }}>موثوق من قبل</span>
+              <span className="ar-body text-xs font-semibold tracking-wide" style={{ color: "rgba(255,255,255,0.7)" }}>أعمل على</span>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z" fill="#CFF7EE"/></svg>
             </div>
-            <div className="flex flex-wrap justify-center items-center gap-x-10 gap-y-5">
+            <div className="flex flex-wrap justify-center items-center gap-4 md:gap-5">
               {logos.map((logo) => (
-                <img
+                <span
                   key={logo.name}
-                  src={logo.src}
-                  alt={logo.name}
-                  className="hover:opacity-80 transition-opacity duration-300 object-contain"
-                  style={{ height: logo.size || "32px", width: "auto", maxWidth: "120px", filter: logo.noFilter ? "none" : "brightness(0) invert(1)", opacity: 1 }}
-                />
+                  title={logo.name}
+                  className="flex items-center justify-center rounded-full overflow-hidden transition-transform duration-300 hover:-translate-y-1"
+                  style={{ width: 56, height: 56, background: "#fff", border: "2px solid #0A0A0A" }}
+                >
+                  <img
+                    src={logo.src}
+                    alt={logo.name}
+                    className="object-contain"
+                    style={
+                      logo.fill
+                        ? { width: "100%", height: "100%", objectFit: "cover" }
+                        : { width: `${56 * (logo.k ?? 0.55)}px`, height: `${56 * (logo.k ?? 0.55)}px` }
+                    }
+                  />
+                </span>
               ))}
             </div>
           </div>

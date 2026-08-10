@@ -1,7 +1,6 @@
 import Preloader from "@/components/Preloader";
 import Navbar from "@/components/Navbar";
 import HeroClassic from "@/components/HeroClassic";
-import Hero from "@/components/Hero";
 import MarqueeBand from "@/components/MarqueeBand";
 import AboutSection from "@/components/AboutSection";
 import FallingTextSection from "@/components/FallingTextSection";
@@ -22,7 +21,6 @@ export default function Home() {
       <Navbar />
       <main>
         <HeroClassic />
-        <Hero />
         <MarqueeBand />
         <AboutSection />
         <FallingTextSection />
