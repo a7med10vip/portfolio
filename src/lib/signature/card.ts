@@ -9,15 +9,61 @@ export const CARD = {
   height: 200,
   /** vertical cut, between the divider and the text column */
   splitX: 232,
-  /** horizontal cuts bracketing each contact line */
-  rows: [0, 103, 122, 138, 156, 200],
   radius: 14,
   /** cards ship at 2x */
   retina: 2,
 } as const;
 
-export const SLICES = ["left", "r1", "r2", "r3", "r4", "r5"] as const;
-export type Slice = (typeof SLICES)[number];
+/* The social marks continue the contact block's rhythm: its icons sit 15.19pt
+   apart, so the next row down lands at 158. Each mark is centred in its own
+   cell, and the cells start at 243 so the first mark's ink lines up with the
+   246.5 left edge the name, title and contact icons share. */
+export const SOCIAL_ROW = {
+  top: 150,
+  bottom: 168,
+  centreY: 158,
+  /** ink height of each mark */
+  size: 9,
+  firstCellX: 243,
+  cell: 16,
+} as const;
+
+export function socialCellX(index: number) {
+  return SOCIAL_ROW.firstCellX + index * SOCIAL_ROW.cell;
+}
+
+/** A cut of the card. Each one becomes an <img>, and the ones that carry a link
+    are why the card is sliced at all. */
+export type SliceDef = { key: string; x: number; y: number; w: number; h: number };
+
+const RIGHT = CARD.width - CARD.splitX;
+const SOCIAL_END = socialCellX(4);
+
+export const SLICE_DEFS: SliceDef[] = [
+  { key: "left", x: 0, y: 0, w: CARD.splitX, h: CARD.height },
+  { key: "r1", x: CARD.splitX, y: 0, w: RIGHT, h: 103 },
+  { key: "r2", x: CARD.splitX, y: 103, w: RIGHT, h: 17 },
+  { key: "r3", x: CARD.splitX, y: 120, w: RIGHT, h: 15 },
+  { key: "r4", x: CARD.splitX, y: 135, w: RIGHT, h: 15 },
+  // the social row, cut into one cell per mark so each can carry its own link
+  { key: "s0", x: CARD.splitX, y: SOCIAL_ROW.top, w: SOCIAL_ROW.firstCellX - CARD.splitX, h: 18 },
+  ...[0, 1, 2, 3].map((i) => ({
+    key: `s${i + 1}`,
+    x: socialCellX(i),
+    y: SOCIAL_ROW.top,
+    w: SOCIAL_ROW.cell,
+    h: 18,
+  })),
+  { key: "s5", x: SOCIAL_END, y: SOCIAL_ROW.top, w: CARD.width - SOCIAL_END, h: 18 },
+  { key: "r6", x: CARD.splitX, y: SOCIAL_ROW.bottom, w: RIGHT, h: CARD.height - SOCIAL_ROW.bottom },
+];
+
+export const SLICES = SLICE_DEFS.map((s) => s.key);
+export type Slice = string;
+
+export function sliceDef(key: string) {
+  return SLICE_DEFS.find((s) => s.key === key);
+}
 
 /** Text colour in the artwork: 0.973 0.976 0.988 */
 export const INK = "#F8F9FC";
@@ -80,12 +126,9 @@ export const FIELD_MAX = 90;
 
 /** Size of one slice in CSS pixels. */
 export function sliceSize(slice: Slice) {
-  if (slice === "left") return { width: CARD.splitX, height: CARD.height };
-  const row = Number(slice.slice(1));
-  return {
-    width: CARD.width - CARD.splitX,
-    height: CARD.rows[row] - CARD.rows[row - 1],
-  };
+  const def = sliceDef(slice);
+  if (!def) throw new Error(`unknown slice: ${slice}`);
+  return { width: def.w, height: def.h };
 }
 
 /* ---- payload codec -------------------------------------------------------

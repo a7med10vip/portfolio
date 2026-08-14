@@ -2,13 +2,13 @@
 """Build the shared background plate for Emotion Group email signatures.
 
 Run once (or whenever the source artwork changes). It takes the Illustrator PDF,
-strips the five pieces of per-person text out of its content stream, renders what
-is left at 4x, then paints the city line back on — that line is the same for
-everyone, so baking it in keeps make-signatures.py free of any Helvetica
-dependency.
+strips the per-person text out of its content stream, renders what is left at 4x,
+then paints the city line back on — that line is the same for everyone, so baking
+it in keeps the request-time renderer free of any Helvetica dependency.
 
 What survives in the plate: the wave art, the emotion Group logo, the divider,
-the three contact icons, "Let Your Brand Talk", and "emotiongrp.com".
+the three contact icons, and "Let Your Brand Talk". Everything else is drawn per
+card by src/lib/signature/render.ts.
 
     python3 scripts/signature/build-plate.py
 
@@ -25,13 +25,15 @@ from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 
 HERE = Path(__file__).parent
+ROOT = HERE.parent.parent
 SOURCE_PDF = Path.home() / "Downloads" / "E.Signature.Templates.Emotion.pdf"
-PLATE = HERE / "plate.png"
+# The renderer reads it straight from here — one copy, no syncing.
+PLATE = ROOT / "src" / "lib" / "signature" / "assets" / "plate.png"
 
 SCALE = 4  # plate is rendered at 4x the 600x200pt artwork
 DPI = 72 * SCALE
 
-# Text drawn per person — stripped here, redrawn by make-signatures.py.
+# Text drawn per card — stripped here, redrawn by src/lib/signature/render.ts.
 STRIP = [
     b"(AHMED ALI)Tj",
     b"(Head of Digital Product & Growth)Tj",
@@ -154,7 +156,7 @@ def main():
         sys.exit(f"unexpected render size {img.size}")
 
     draw_cities(img).save(PLATE)
-    print(f"wrote {PLATE.relative_to(Path.cwd())} ({img.size[0]}x{img.size[1]})")
+    print(f"wrote {PLATE} ({img.size[0]}x{img.size[1]})")
 
 
 if __name__ == "__main__":

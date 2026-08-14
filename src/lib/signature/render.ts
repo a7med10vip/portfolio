@@ -22,9 +22,12 @@ import {
   type LineKey,
   type Person,
   type Slice,
+  SOCIAL_ROW,
   WEBSITE_LABEL,
-  sliceSize,
+  sliceDef,
+  socialCellX,
 } from "./card";
+import { type SocialIcon, SOCIALS } from "./social";
 
 /** The plate is 4x the 600x200pt artwork; text is composited at that scale and
     the result is resized down, which supersamples the glyph edges. */
@@ -101,13 +104,27 @@ function linePath(fonts: Fonts, key: LineKey, text: string) {
     .toPathData(2);
 }
 
+/** One social mark, scaled by its measured ink box so all four read the same
+    size, and centred in its cell. */
+function socialPath(icon: SocialIcon, index: number) {
+  const [x0, y0, x1, y1] = icon.box;
+  const scale = ((SOCIAL_ROW.size * icon.optical) / (y1 - y0)) * SCALE;
+  const tx = (socialCellX(index) + SOCIAL_ROW.cell / 2) * SCALE - (x0 + (x1 - x0) / 2) * scale;
+  const ty = SOCIAL_ROW.centreY * SCALE - (y0 + (y1 - y0) / 2) * scale;
+
+  return (
+    `<path d="${icon.path}" fill="${INK}" ` +
+    `transform="translate(${tx.toFixed(2)} ${ty.toFixed(2)}) scale(${scale.toFixed(5)})"/>`
+  );
+}
+
 /** The whole 2x card, corners already cut into the alpha. */
 async function buildCard(person: Person) {
   const [fonts, plate] = await Promise.all([loadFonts(), loadPlate()]);
 
-  const lines = cardLines(person);
-  const paths = lines
+  const paths = cardLines(person)
     .map(([key, text]) => `<path d="${linePath(fonts, key, text)}" fill="${INK}"/>`)
+    .concat(SOCIALS.map(socialPath))
     .join("");
 
   const w = CARD.width * SCALE;
@@ -161,17 +178,16 @@ function cardFor(key: string, person: Person) {
 }
 
 export async function renderSlice(key: string, person: Person, slice: Slice) {
-  const card = await cardFor(key, person);
-  const { width, height } = sliceSize(slice);
-  const left = slice === "left" ? 0 : CARD.splitX * CARD.retina;
-  const top = slice === "left" ? 0 : CARD.rows[Number(slice.slice(1)) - 1] * CARD.retina;
+  const def = sliceDef(slice);
+  if (!def) throw new Error(`unknown slice: ${slice}`);
 
+  const card = await cardFor(key, person);
   return sharp(card)
     .extract({
-      left,
-      top,
-      width: width * CARD.retina,
-      height: height * CARD.retina,
+      left: def.x * CARD.retina,
+      top: def.y * CARD.retina,
+      width: def.w * CARD.retina,
+      height: def.h * CARD.retina,
     })
     .png()
     .toBuffer();
