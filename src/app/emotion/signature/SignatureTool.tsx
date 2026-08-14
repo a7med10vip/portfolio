@@ -248,7 +248,7 @@ export default function SignatureTool() {
 
           <ol className="mt-5 text-sm space-y-2" style={{ color: INK }}>
             <li>
-              <strong>1.</strong> Fill in your details, then hit <em>Copy signature</em>.
+              <strong>1.</strong> Fill in your details, then hit <strong>Copy signature</strong>.
             </li>
             <li>
               <strong>2.</strong> Gmail: Settings → See all settings → Signature → paste.

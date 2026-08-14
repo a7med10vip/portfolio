@@ -38,6 +38,11 @@ STRIP = [
     b"(+20 10 11648156)Tj",
     b"(ahmed.ali@emotiongrp.com)Tj",
     b"(Jeddah.Beirut.Riyadh)Tj",  # redrawn below, with Egypt appended
+    # The website line is the same for everyone, but it comes out too: the
+    # artwork spaces its contact lines 16.04pt apart while the icons beside them
+    # sit 15.19pt apart, so the text drifts lower on each row. Redrawing all
+    # three lets each one be centred on its own icon.
+    b"(emotiongrp.com)Tj",
 ]
 
 # The city line, lifted from the source: Helvetica 10pt, 0.471 grey, baseline at

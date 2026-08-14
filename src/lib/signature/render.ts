@@ -15,7 +15,16 @@ import path from "node:path";
 import { type Font, parse as parseFont } from "opentype.js";
 import sharp from "sharp";
 
-import { CARD, INK, LINES, type LineKey, type Person, type Slice, sliceSize } from "./card";
+import {
+  CARD,
+  INK,
+  LINES,
+  type LineKey,
+  type Person,
+  type Slice,
+  WEBSITE_LABEL,
+  sliceSize,
+} from "./card";
 
 /** The plate is 4x the 600x200pt artwork; text is composited at that scale and
     the result is resized down, which supersamples the glyph edges. */
@@ -51,17 +60,23 @@ function toArrayBuffer(buf: Buffer) {
   return buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength) as ArrayBuffer;
 }
 
+/** Every line the card paints, in draw order. */
+function cardLines(person: Person): Array<[LineKey, string]> {
+  return [
+    ["name", person.name.toUpperCase()],
+    ["title", person.title],
+    ["phone", person.phone],
+    ["email", person.email],
+    ["website", WEBSITE_LABEL],
+  ];
+}
+
 /** Characters the artwork's font can't draw — Arabic, say, which would come out
     as empty boxes. Better to refuse than to render something broken. */
 export async function unsupportedCharacters(person: Person) {
   const fonts = await loadFonts();
   const missing = new Set<string>();
-  const lines: Array<[LineKey, string]> = [
-    ["name", person.name.toUpperCase()],
-    ["title", person.title],
-    ["phone", person.phone],
-    ["email", person.email],
-  ];
+  const lines = cardLines(person);
   for (const [key, text] of lines) {
     const font = fonts[LINES[key].weight];
     for (const char of text) {
@@ -90,12 +105,7 @@ function linePath(fonts: Fonts, key: LineKey, text: string) {
 async function buildCard(person: Person) {
   const [fonts, plate] = await Promise.all([loadFonts(), loadPlate()]);
 
-  const lines: Array<[LineKey, string]> = [
-    ["name", person.name.toUpperCase()],
-    ["title", person.title],
-    ["phone", person.phone],
-    ["email", person.email],
-  ];
+  const lines = cardLines(person);
   const paths = lines
     .map(([key, text]) => `<path d="${linePath(fonts, key, text)}" fill="${INK}"/>`)
     .join("");

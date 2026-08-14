@@ -42,14 +42,38 @@ FONTS = {
     "medium": HERE / "fonts" / "Poppins-Medium.ttf",
 }
 
-# Every position below is lifted straight from the source PDF's text operators,
+# Name and title keep the positions the source PDF's text operators gave them,
 # converted to a top-left origin. right_limit is where a line must stop; longer
 # text is scaled down to fit rather than running into the wave art.
+#
+# The contact lines are set against their icons instead. The artwork spaces the
+# three lines 16.04pt apart while the icons beside them sit 15.19pt apart, so by
+# the third row the text sat 2pt below its icon; it also started each line at a
+# different x (258.50 / 261.50 / 262.00). Here they share one left edge and each
+# baseline puts the cap-height centre of the text on the centre of its icon.
+ICON_CENTRES = {"phone": 112.375, "email": 127.625, "website": 142.75}
+CONTACT_SIZE = 8
+CAP_HEIGHT = 0.697  # Poppins, 697/1000 em
+CONTACT_X = 261.85
+WEBSITE_LABEL = "emotiongrp.com"
+
+
+def _contact(line):
+    return {
+        "font": "medium",
+        "size": CONTACT_SIZE,
+        "x": CONTACT_X,
+        "baseline": ICON_CENTRES[line] + CAP_HEIGHT * CONTACT_SIZE / 2,
+        "right_limit": 585,
+    }
+
+
 LINES = {
     "name":  {"font": "bold",   "size": 48, "x": 246.6772, "baseline": 69.9746, "right_limit": 580},
     "title": {"font": "medium", "size": 12, "x": 246.6777, "baseline": 91.3770, "right_limit": 585},
-    "phone": {"font": "medium", "size": 8,  "x": 259.6628, "baseline": 115.915, "right_limit": 585},
-    "email": {"font": "medium", "size": 8,  "x": 261.4308, "baseline": 131.955, "right_limit": 585},
+    "phone": _contact("phone"),
+    "email": _contact("email"),
+    "website": _contact("website"),
 }
 
 # Card geometry: the vertical cut sits between the divider and the text column,
@@ -109,7 +133,12 @@ def render_card(person):
 
     fitted = {}
     for key, spec in LINES.items():
-        text = person["name"].upper() if key == "name" else person[key]
+        if key == "name":
+            text = person["name"].upper()
+        elif key == "website":
+            text = WEBSITE_LABEL
+        else:
+            text = person[key]
         size, _ = draw_line(draw, text, spec)
         if round(size, 2) != spec["size"]:
             fitted[key] = round(size, 2)
@@ -239,9 +268,10 @@ def check(people):
     ref = HERE / "reference-ahmed.png"
     if not ref.exists():
         sys.exit(f"no reference to compare against: {ref}")
-    # Only the text column: the left block carries the city line, which now says
-    # Egypt and so is meant to differ from the original artwork.
-    box = (SPLIT_X * RETINA, 0, 600 * RETINA, 200 * RETINA)
+    # Only the name and title: the left block carries the city line, which now
+    # says Egypt, and the contact lines have been re-aligned to their icons —
+    # both are meant to differ from the original artwork.
+    box = (SPLIT_X * RETINA, 0, 600 * RETINA, 100 * RETINA)
     diff = ImageChops.difference(art.crop(box), Image.open(ref).convert("RGB").crop(box))
     box = diff.getbbox()
     if box is None:

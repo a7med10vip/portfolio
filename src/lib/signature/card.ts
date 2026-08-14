@@ -22,9 +22,29 @@ export type Slice = (typeof SLICES)[number];
 /** Text colour in the artwork: 0.973 0.976 0.988 */
 export const INK = "#F8F9FC";
 
-export type LineKey = "name" | "title" | "phone" | "email";
+export type LineKey = "name" | "title" | "phone" | "email" | "website";
 
-/** Positions straight out of the PDF's text operators, on a top-left origin.
+/* The contact lines are set against their icons rather than against the
+   artwork's own text positions. The source spaces the three lines 16.04pt apart
+   while the icons beside them sit 15.19pt apart, so by the third row the text
+   sat 2pt below its icon; it also started each line at a different x (258.50 /
+   261.50 / 262.00). Here every line shares one left edge and each baseline puts
+   the cap-height centre of the text on the centre of its icon. */
+const ICON_CENTRES = { phone: 112.375, email: 127.625, website: 142.75 };
+const CONTACT_SIZE = 8;
+/** Poppins cap height, 697/1000 em. */
+const CAP_HEIGHT = 0.697;
+const CONTACT_X = 261.85;
+
+const contact = (line: keyof typeof ICON_CENTRES) => ({
+  weight: "medium" as const,
+  size: CONTACT_SIZE,
+  x: CONTACT_X,
+  baseline: ICON_CENTRES[line] + (CAP_HEIGHT * CONTACT_SIZE) / 2,
+  rightLimit: 585,
+});
+
+/** Name and title keep the positions the PDF's text operators gave them.
     `rightLimit` is where a line has to stop — longer text scales down rather
     than running into the wave art. */
 export const LINES: Record<
@@ -33,9 +53,13 @@ export const LINES: Record<
 > = {
   name: { weight: "bold", size: 48, x: 246.6772, baseline: 69.9746, rightLimit: 580 },
   title: { weight: "medium", size: 12, x: 246.6777, baseline: 91.377, rightLimit: 585 },
-  phone: { weight: "medium", size: 8, x: 259.6628, baseline: 115.915, rightLimit: 585 },
-  email: { weight: "medium", size: 8, x: 261.4308, baseline: 131.955, rightLimit: 585 },
+  phone: contact("phone"),
+  email: contact("email"),
+  website: contact("website"),
 };
+
+/** Same on every card — the site, not the person. */
+export const WEBSITE_LABEL = "emotiongrp.com";
 
 export const WEBSITE = "https://emotiongrp.com";
 
