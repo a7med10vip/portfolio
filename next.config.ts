@@ -3,6 +3,11 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   eslint: { ignoreDuringBuilds: true },
   typescript: { ignoreBuildErrors: true },
+  // The signature renderer reads its plate and fonts off disk at request time,
+  // and file tracing can't see through the path join to find them.
+  outputFileTracingIncludes: {
+    "/api/signature/img": ["./src/lib/signature/assets/**"],
+  },
   async headers() {
     return [
       {

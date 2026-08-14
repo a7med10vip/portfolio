@@ -221,6 +221,7 @@ def build_index(people):
 </style>
 <h1>Email signatures — {len(people)} {"person" if len(people) == 1 else "people"}</h1>
 <p>Open a card, select all (Cmd+A), copy, and paste into the signature box in Gmail or Outlook.</p>
+<p>Not on this list? Build your own at <a href="/emotion/signature">the signature builder</a>.</p>
 <ol>
 {cards}
 </ol>
