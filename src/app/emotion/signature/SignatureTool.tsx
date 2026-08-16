@@ -21,10 +21,12 @@ const FIELDS: Array<{
   type: string;
   hint?: string;
 }> = [
-  { key: "name", label: "Full name", placeholder: "Edgard Tabet", type: "text", hint: "Shown in capitals, the way the artwork sets it" },
-  { key: "title", label: "Job title", placeholder: "Head of Digital Product & Growth", type: "text" },
-  { key: "phone", label: "Phone", placeholder: "+20 10 11648156", type: "tel" },
-  { key: "email", label: "Email", placeholder: "name@emotiongrp.com", type: "email" },
+  // Placeholders stay generic: they show the shape of each field without
+  // putting a real colleague's name or number in front of everyone.
+  { key: "name", label: "Full name", placeholder: "Your full name", type: "text", hint: "Shown in capitals, the way the artwork sets it" },
+  { key: "title", label: "Job title", placeholder: "Your job title", type: "text" },
+  { key: "phone", label: "Phone", placeholder: "+20 10 12345678", type: "tel" },
+  { key: "email", label: "Email", placeholder: "you@emotiongrp.com", type: "email" },
 ];
 
 const EMPTY: Person = { name: "", title: "", phone: "", email: "" };
