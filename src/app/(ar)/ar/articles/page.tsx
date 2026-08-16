@@ -14,7 +14,7 @@ const MUTED = "#4E717A";
 export const metadata: Metadata = {
   title: "مقالات — دراسات حالة وملاحظات من الشغل | أحمد علي",
   description:
-    "دراسات حالة من شغل حقيقي، أدلة عملية، وملاحظات عن الاستراتيجية الرقمية في المنطقة — بقلم أحمد علي، قائد المنتج الرقمي والنمو في جدة.",
+    "دراسات حالة من شغل حقيقي، أدلة عملية، وملاحظات عن الشغل الرقمي في المنطقة — أحمد علي، قائد المنتج الرقمي والنمو في جدة.",
   alternates: {
     canonical: "https://ahmedali.online/ar/articles",
     languages: { en: "https://ahmedali.online/articles" },
@@ -34,7 +34,7 @@ export default function ArticlesIndexAr() {
               مقالات
             </h1>
             <p className="text-base md:text-lg" style={{ color: MUTED, lineHeight: 1.8 }}>
-              دراسات حالة من شغل اتنفّذ فعلاً، أدلة تستاهل تتكتب، وشوية آراء عن طريقة تنظيم الشغل الرقمي.
+              دراسات حالة من شغل اتعمل فعلاً، أدلة تستاهل الوقت اللي هتقراها فيه، وشوية كلام عن طريقة تنظيم الشغل الرقمي.
             </p>
           </div>
 
