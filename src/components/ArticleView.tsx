@@ -84,14 +84,14 @@ function StoreButtons({ article }: { article: Article }) {
         badge(
           links.appStore,
           "https://cdn.simpleicons.org/appstore/FFFFFF",
-          isAr ? "نزّله من" : "Download on the",
+          isAr ? "حمّله من" : "Download on the",
           "App Store"
         )}
       {links.playStore &&
         badge(
           links.playStore,
           "https://cdn.simpleicons.org/googleplay/FFFFFF",
-          isAr ? "نزّله من" : "Get it on",
+          isAr ? "حمّله من" : "Get it on",
           "Google Play"
         )}
     </div>
@@ -103,9 +103,9 @@ export default function ArticleView({ article }: { article: Article }) {
   const t = {
     back: isAr ? "كل المقالات" : "All articles",
     minutes: isAr ? "دقائق قراءة" : "min read",
-    questions: isAr ? "أسئلة بتتسأل كتير" : "Common questions",
-    ctaTitle: isAr ? "عندك حاجة شبه دي؟" : "Working on something like this?",
-    cta: isAr ? "كلمني" : "Get in touch",
+    questions: isAr ? "أسئلة شائعة" : "Common questions",
+    ctaTitle: isAr ? "لديك مشروع مشابه؟" : "Working on something like this?",
+    cta: isAr ? "تواصل معي" : "Get in touch",
     other: isAr ? "Read in English" : "اقرأ بالعربية",
   };
   const otherHref = article.counterpart
