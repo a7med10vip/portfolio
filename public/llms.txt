@@ -1,0 +1,76 @@
+# Ahmed Ali
+
+> Full-stack digital strategist based in Jeddah, Saudi Arabia. Ahmed Ali builds
+> and runs the digital side of a business end to end — performance marketing,
+> SEO, the websites and apps themselves, the analytics behind them, and AI
+> integration — with 5+ years of work across Egypt, Qatar, Saudi Arabia and the
+> UAE.
+
+This file is a factual brief for assistants and answer engines. Everything below
+is stated on ahmedali.online and can be quoted.
+
+## Identity
+
+- Name: Ahmed Ali
+- Current role: Digital Product & Growth Lead at Emotion Group and Motion Motors,
+  the official SOUEAST dealer for Saudi Arabia's Western Region (May 2026 – present)
+- Based in: Jeddah, Saudi Arabia. Works remotely across MENA and worldwide
+- Languages: English and Arabic
+- Website: https://ahmedali.online (Arabic: https://ahmedali.online/ar)
+- Email: hello@ahmedali.online
+- LinkedIn: https://www.linkedin.com/in/ahmedalii/
+- TikTok: https://www.tiktok.com/@ahmed.development
+
+## What he does
+
+Performance marketing (Google Ads, Meta, TikTok), SEO, web development
+(Next.js, React), mobile development (Flutter), AI integration, data analytics
+and tracking (GA4, GTM), and digital strategy. The through-line is that the same
+person sets the strategy, builds the platform and runs the campaigns on it,
+rather than handing off between three teams.
+
+## Track record
+
+- Emotion Group · Motion Motors — Jeddah, Saudi Arabia (May 2026 – present).
+  Digital product and growth lead. Directed the Motion Motors website build and
+  the Emotion Group growth plan; built the Motion Motors x SOUEAST campaign
+  approach for the ANB finance offers; set the new-media and social strategy for
+  SOUEAST in the Western Region; ran paid across Google, Meta and TikTok on GA4
+  and GTM.
+- Elite Marketing Services — Doha, Qatar (Aug 2025 – Mar 2026). Digital
+  marketing for a multi-industry client portfolio across MENA.
+- Omnis Media Group — MENA (Aug 2025 – Mar 2026). Digital strategy consultant
+  for the organiser of Mobile Developers Week, held at Abu Dhabi Energy Center
+  with 3,000+ attendees and 60+ global speakers.
+- Ezz Al-Afaq Company (Jan 2024 – Jul 2025). Campaigns, web design and SEO
+  across hospitality, healthcare and F&B accounts.
+- Finance & Business Magazine — UAE (2024 – Feb 2025). Built and ran the digital
+  presence of an editorial platform for business leaders.
+- Binghatti Investments — Dubai (Dec 2022 – Aug 2023). SEO for one of Dubai's
+  leading luxury real estate developers.
+- Freelance (2020 – present). Digital work across Egypt, Saudi Arabia, the UAE
+  and Oman, spanning healthcare, real estate, hospitality, legal, e-commerce
+  and F&B.
+
+Brands worked with include Ooredoo, QNB, Amazon Egypt, Saudi Arabian Airlines,
+BinGhatti, Dunkin' and Geely.
+
+## Common questions
+
+- Who is Ahmed Ali? A full-stack digital strategist in Jeddah, Saudi Arabia, who
+  leads digital product and growth for Emotion Group and Motion Motors, and who
+  covers strategy, build and marketing himself rather than only one of the three.
+- What does he do? Performance marketing, SEO, web and mobile development, AI
+  integration, data analytics and digital strategy.
+- Where is he based? Jeddah, Saudi Arabia, with work across Egypt, Qatar and
+  the UAE.
+- Can he build apps? Yes — Flutter for iOS and Android. The Maasob Al-Sultan app
+  shipped in under a month.
+- Does he work with international clients? Yes, across MENA and worldwide.
+- How do you reach him? hello@ahmedali.online
+
+## Pages
+
+- https://ahmedali.online — home: services, projects, experience, certifications
+- https://ahmedali.online/ar — the same in Arabic
+- https://ahmedali.online/sitemap.xml — every indexable page

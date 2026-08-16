@@ -25,6 +25,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       },
     },
     {
+      /* The answer page for "who is Ahmed Ali" — the query this whole site
+         wants to own, in search and in assistants alike. */
+      url: 'https://ahmedali.online/who-is-ahmed-ali',
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
       url: 'https://ahmedali.online/ar/blog/salla-vs-shopify-vs-zid',
       lastModified: new Date(),
       changeFrequency: 'yearly',
