@@ -97,6 +97,12 @@ export default function RotatingText({
   }, []);
 
   return (
+    /* The clipping this needs for the roll animation lives on an inner layer,
+       never on this element. An inline-block whose overflow is hidden aligns by
+       its bottom margin edge instead of by the baseline of the text inside it,
+       which floated the word roughly 23px above the line it belongs to. Left
+       visible, this box takes its baseline from the spacer below, and the word
+       sits on the same line as the words either side of it. */
     <motion.span
       className={`relative inline-block align-baseline ${mainClassName}`.trim()}
       style={{ perspective: 1200 }}
@@ -105,11 +111,16 @@ export default function RotatingText({
       transition={widthTransition}
       aria-live="polite"
     >
-      {/* zero-width, in-flow: contributes the line box height only */}
+      {/* Zero-width and in-flow: it contributes the line box the container
+          takes its height and, crucially, its baseline from. Its overflow stays
+          visible — hiding it would make this a formatting context of its own,
+          the container would see no in-flow line box, and an inline-block
+          without one falls back to aligning by its bottom edge. It paints
+          nothing either way, being visibility:hidden at zero width. */}
       <span
         aria-hidden
         className="invisible pointer-events-none select-none whitespace-nowrap"
-        style={{ display: "block", width: 0, overflow: "hidden" }}
+        style={{ display: "block", width: 0 }}
       >
         {widestText}
       </span>
@@ -124,23 +135,27 @@ export default function RotatingText({
         {texts[index]}
       </span>
 
-      <AnimatePresence initial={false} mode="sync">
-        <motion.span
-          key={texts[index]}
-          initial={initial}
-          animate={animate}
-          exit={exit}
-          transition={transition}
-          className="absolute inset-0 inline-flex items-center justify-center whitespace-nowrap"
-          style={{
-            transformOrigin: "50% 100%",
-            backfaceVisibility: "hidden",
-            WebkitBackfaceVisibility: "hidden",
-          }}
-        >
-          {texts[index]}
-        </motion.span>
-      </AnimatePresence>
+      {/* out of flow, so clipping the words as they roll cannot disturb the
+          baseline of the box above */}
+      <span className="absolute inset-0 overflow-hidden">
+        <AnimatePresence initial={false} mode="sync">
+          <motion.span
+            key={texts[index]}
+            initial={initial}
+            animate={animate}
+            exit={exit}
+            transition={transition}
+            className="absolute inset-0 inline-flex items-center justify-center whitespace-nowrap"
+            style={{
+              transformOrigin: "50% 100%",
+              backfaceVisibility: "hidden",
+              WebkitBackfaceVisibility: "hidden",
+            }}
+          >
+            {texts[index]}
+          </motion.span>
+        </AnimatePresence>
+      </span>
     </motion.span>
   );
 }

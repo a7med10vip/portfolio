@@ -13,6 +13,7 @@ const personSchema = {
   },
   sameAs: [
     'https://www.linkedin.com/in/ahmedalii/',
+    'https://www.tiktok.com/@ahmed.development',
     'https://wa.me/201011648156',
   ],
   knowsAbout: [

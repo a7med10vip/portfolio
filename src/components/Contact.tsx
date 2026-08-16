@@ -47,6 +47,16 @@ const contactMethods = [
     href: "https://linkedin.com/in/ahmed-alli",
     color: "#0A66C2",
   },
+  {
+    /* lucide has no TikTok mark, so this one comes from the same icon CDN the
+       WhatsApp card already uses. */
+    icon: MessageCircle,
+    label: "TikTok",
+    value: "@ahmed.development",
+    href: "https://www.tiktok.com/@ahmed.development",
+    color: "#010101",
+    customIcon: "https://cdn.simpleicons.org/tiktok/010101",
+  },
 ];
 
 export default function Contact() {

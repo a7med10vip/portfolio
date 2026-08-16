@@ -20,7 +20,7 @@ const logos: LogoItem[] = [
   { name: "Amazon", src: "/logos/amazon.svg", h: 28 },
   { name: "BinGhatti", src: "/logos/binghatti.png", h: 42 },
   { name: "Dunkin'", src: "/logos/dunkin.png", h: 30 },
-  { name: "Geely", src: "/logos/geely.png", h: 54 },
+  { name: "Geely", src: "/logos/geely.png", h: 46 },
 ];
 
 export default function HeroClassic() {
@@ -68,7 +68,7 @@ export default function HeroClassic() {
               <span className="inline-block">
                 <RotatingText
                   texts={["products", "strategies", "solutions", "growth"]}
-                  mainClassName="inline-block overflow-hidden text-[#CFF7EE]"
+                  mainClassName="inline-block text-[#CFF7EE]"
                   rotationInterval={2500}
                 />
               </span>

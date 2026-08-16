@@ -12,6 +12,7 @@ const MINT = "#CFF7EE";
 
 const socials = [
   { label: "LinkedIn", href: "https://linkedin.com/in/ahmed-alli", iconClass: "fa-brands fa-linkedin-in" },
+  { label: "TikTok", href: "https://www.tiktok.com/@ahmed.development", iconClass: "fa-brands fa-tiktok" },
   { label: "WhatsApp", href: "https://wa.me/201011648156", iconClass: "fa-brands fa-whatsapp" },
   { label: "Email", href: "mailto:hello@ahmedali.online", iconClass: "fa-solid fa-envelope" },
 ];
