@@ -12,6 +12,7 @@ import {
   type Person,
   type Slice,
   encodePerson,
+  px,
   sliceSize,
 } from "./card";
 import { SOCIALS } from "./social";
@@ -38,7 +39,9 @@ export function sliceUrls(origin: string, person: Person) {
 export function buildSignatureHtml(person: Person, origin: string) {
   const token = encodePerson(person);
   const tel = `tel:${person.phone.replace(/[^\d+]/g, "")}`;
-  const rightWidth = CARD.width - CARD.splitX;
+  const cardWidth = px(CARD.width);
+  const leftWidth = px(CARD.splitX);
+  const rightWidth = cardWidth - leftWidth;
 
   const img = (slice: Slice, alt: string) => {
     const { width, height } = sliceSize(slice);
@@ -82,9 +85,9 @@ export function buildSignatureHtml(person: Person, origin: string) {
     .map((row) => `        <tr>\n          ${cell(row)}\n        </tr>`)
     .join("\n");
 
-  return `<table cellpadding="0" cellspacing="0" border="0" role="presentation" width="${CARD.width}" style="border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;width:${CARD.width}px;max-width:${CARD.width}px;background-color:transparent;">
+  return `<table cellpadding="0" cellspacing="0" border="0" role="presentation" width="${cardWidth}" style="border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;width:${cardWidth}px;max-width:${cardWidth}px;background-color:transparent;">
   <tr>
-    <td width="${CARD.splitX}" valign="top" style="padding:0;font-size:0;line-height:0;border:0;">${link(
+    <td width="${leftWidth}" valign="top" style="padding:0;font-size:0;line-height:0;border:0;">${link(
       WEBSITE,
       img("left", "emotion Group — Let Your Brand Talk — Jeddah.Beirut.Riyadh.Egypt")
     )}</td>

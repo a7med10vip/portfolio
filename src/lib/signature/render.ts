@@ -25,7 +25,7 @@ import {
   SOCIAL_ROW,
   WEBSITE_LABEL,
   sliceDef,
-  socialCellX,
+  socialIconCentreX,
 } from "./card";
 import { type SocialIcon, SOCIALS } from "./social";
 
@@ -109,7 +109,7 @@ function linePath(fonts: Fonts, key: LineKey, text: string) {
 function socialPath(icon: SocialIcon, index: number) {
   const [x0, y0, x1, y1] = icon.box;
   const scale = ((SOCIAL_ROW.size * icon.optical) / (y1 - y0)) * SCALE;
-  const tx = (socialCellX(index) + SOCIAL_ROW.cell / 2) * SCALE - (x0 + (x1 - x0) / 2) * scale;
+  const tx = socialIconCentreX(index) * SCALE - (x0 + (x1 - x0) / 2) * scale;
   const ty = SOCIAL_ROW.centreY * SCALE - (y0 + (y1 - y0) / 2) * scale;
 
   return (

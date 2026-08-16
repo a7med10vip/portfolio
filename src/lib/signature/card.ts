@@ -14,22 +14,41 @@ export const CARD = {
   retina: 2,
 } as const;
 
+/* The card is drawn at 600x200 and shipped a little smaller. 7/8 is chosen so
+   that every cut below — all of which fall on multiples of 8 — stays a whole
+   number of pixels once scaled: the slices tile exactly, with no seam and no
+   row scaled differently from its neighbour. Change this and the cuts together,
+   or not at all. */
+export const DISPLAY = 7 / 8;
+
+/** A card measurement in the pixels the signature actually ships at. */
+export function px(value: number) {
+  return Math.round(value * DISPLAY);
+}
+
 /* The social marks continue the contact block's rhythm: its icons sit 15.19pt
-   apart, so the next row down lands at 158. Each mark is centred in its own
-   cell, and the cells start at 243 so the first mark's ink lines up with the
-   246.5 left edge the name, title and contact icons share. */
+   apart, so the next row down lands at 158. Each mark is centred on a 16pt
+   pitch starting at 251, which puts the first mark's ink on the 246.5 left edge
+   that the name, title and contact icons share. The cells they sit in are
+   offset from that rhythm, so the cuts can stay on multiples of 8. */
 export const SOCIAL_ROW = {
-  top: 150,
+  top: 152,
   bottom: 168,
   centreY: 158,
   /** ink height of each mark */
   size: 9,
-  firstCellX: 243,
+  firstCellX: 240,
   cell: 16,
+  iconLeft: 246.5,
 } as const;
 
 export function socialCellX(index: number) {
   return SOCIAL_ROW.firstCellX + index * SOCIAL_ROW.cell;
+}
+
+/** Where a mark's ink is centred — on the 16pt pitch, not in its cell. */
+export function socialIconCentreX(index: number) {
+  return SOCIAL_ROW.iconLeft + SOCIAL_ROW.size / 2 + index * SOCIAL_ROW.cell;
 }
 
 /** A cut of the card. Each one becomes an <img>, and the ones that carry a link
@@ -38,23 +57,24 @@ export type SliceDef = { key: string; x: number; y: number; w: number; h: number
 
 const RIGHT = CARD.width - CARD.splitX;
 const SOCIAL_END = socialCellX(4);
+const SOCIAL_H = SOCIAL_ROW.bottom - SOCIAL_ROW.top;
 
 export const SLICE_DEFS: SliceDef[] = [
   { key: "left", x: 0, y: 0, w: CARD.splitX, h: CARD.height },
-  { key: "r1", x: CARD.splitX, y: 0, w: RIGHT, h: 103 },
-  { key: "r2", x: CARD.splitX, y: 103, w: RIGHT, h: 17 },
-  { key: "r3", x: CARD.splitX, y: 120, w: RIGHT, h: 15 },
-  { key: "r4", x: CARD.splitX, y: 135, w: RIGHT, h: 15 },
+  { key: "r1", x: CARD.splitX, y: 0, w: RIGHT, h: 104 },
+  { key: "r2", x: CARD.splitX, y: 104, w: RIGHT, h: 16 },
+  { key: "r3", x: CARD.splitX, y: 120, w: RIGHT, h: 16 },
+  { key: "r4", x: CARD.splitX, y: 136, w: RIGHT, h: 16 },
   // the social row, cut into one cell per mark so each can carry its own link
-  { key: "s0", x: CARD.splitX, y: SOCIAL_ROW.top, w: SOCIAL_ROW.firstCellX - CARD.splitX, h: 18 },
+  { key: "s0", x: CARD.splitX, y: SOCIAL_ROW.top, w: SOCIAL_ROW.firstCellX - CARD.splitX, h: SOCIAL_H },
   ...[0, 1, 2, 3].map((i) => ({
     key: `s${i + 1}`,
     x: socialCellX(i),
     y: SOCIAL_ROW.top,
     w: SOCIAL_ROW.cell,
-    h: 18,
+    h: SOCIAL_H,
   })),
-  { key: "s5", x: SOCIAL_END, y: SOCIAL_ROW.top, w: CARD.width - SOCIAL_END, h: 18 },
+  { key: "s5", x: SOCIAL_END, y: SOCIAL_ROW.top, w: CARD.width - SOCIAL_END, h: SOCIAL_H },
   { key: "r6", x: CARD.splitX, y: SOCIAL_ROW.bottom, w: RIGHT, h: CARD.height - SOCIAL_ROW.bottom },
 ];
 
@@ -124,11 +144,16 @@ export type Person = {
 
 export const FIELD_MAX = 90;
 
-/** Size of one slice in CSS pixels. */
+/** Size of one slice in the pixels it ships at. Taken as the gap between its
+    scaled edges rather than by scaling the width, so neighbouring slices always
+    meet exactly. */
 export function sliceSize(slice: Slice) {
   const def = sliceDef(slice);
   if (!def) throw new Error(`unknown slice: ${slice}`);
-  return { width: def.w, height: def.h };
+  return {
+    width: px(def.x + def.w) - px(def.x),
+    height: px(def.y + def.h) - px(def.y),
+  };
 }
 
 /* ---- payload codec -------------------------------------------------------
