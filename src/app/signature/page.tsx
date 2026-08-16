@@ -1,22 +1,10 @@
-import type { Metadata } from "next";
-
-import SignatureBuilder from "@/app/signature/SignatureBuilder";
-
-/* The Emotion-only entry point, kept because it has already been handed out.
-   It skips the company picker; /signature is the one that asks. */
-
-export const metadata: Metadata = {
-  title: "Email signature builder — Emotion Group",
-  description:
-    "Build your Emotion Group email signature: fill in your name, title, phone and email, then copy the card straight into Gmail or Outlook.",
-  robots: { index: false, follow: false },
-};
+import SignatureBuilder from "./SignatureBuilder";
 
 const INK = "#04323A";
 const TEAL = "#004D5A";
 const MUTED = "#71717A";
 
-export default function EmotionSignaturePage() {
+export default function SignaturePage() {
   return (
     <main style={{ background: "#fff", minHeight: "100vh" }}>
       <div className="container" style={{ paddingTop: 72, paddingBottom: 96 }}>
@@ -25,8 +13,10 @@ export default function EmotionSignaturePage() {
             className="inline-block text-[11px] font-bold px-3 py-1.5 rounded-full mb-5"
             style={{ background: "#CFF7EE", color: INK, border: `1.5px solid ${TEAL}` }}
           >
-            Emotion Group
+            Emotion Group · Vertex Integra
           </span>
+          {/* The measure sits on the paragraph, not the heading — the heading needs
+              the full width to hold one line, and only holds it once there is room. */}
           <h1
             className="heading text-3xl md:text-[42px] lg:text-5xl mb-4 md:whitespace-nowrap"
             style={{ color: INK, lineHeight: 1.15 }}
@@ -40,7 +30,7 @@ export default function EmotionSignaturePage() {
           </p>
         </div>
 
-        <SignatureBuilder initialBrand="emotion" />
+        <SignatureBuilder />
       </div>
     </main>
   );

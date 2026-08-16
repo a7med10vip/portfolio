@@ -2,7 +2,18 @@
    signature renderer uses. */
 
 declare module "opentype.js" {
+  export type PathCommand = {
+    type: "M" | "L" | "Q" | "C" | "Z";
+    x?: number;
+    y?: number;
+    x1?: number;
+    y1?: number;
+    x2?: number;
+    y2?: number;
+  };
+
   export interface Path {
+    commands: PathCommand[];
     toPathData(decimals?: number): string;
   }
 
@@ -15,6 +26,13 @@ declare module "opentype.js" {
       fontSize: number,
       options?: { kerning?: boolean }
     ): Path;
+    getPaths(
+      text: string,
+      x: number,
+      y: number,
+      fontSize: number,
+      options?: { kerning?: boolean }
+    ): Path[];
     getAdvanceWidth(
       text: string,
       fontSize: number,

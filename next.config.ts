@@ -8,6 +8,12 @@ const nextConfig: NextConfig = {
   outputFileTracingIncludes: {
     "/api/signature/img": ["./src/lib/signature/assets/**"],
   },
+  async redirects() {
+    return [
+      // The builder used to live under /emotion; it asks which company now.
+      { source: "/signature/index.html", destination: "/signature", permanent: false },
+    ];
+  },
   async headers() {
     return [
       {

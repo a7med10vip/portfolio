@@ -1,18 +1,19 @@
 #!/usr/bin/env python3
-"""Build the shared background plate for Emotion Group email signatures.
+"""Build the shared background plate for a signature card.
 
-Run once (or whenever the source artwork changes). It takes the Illustrator PDF,
-strips the per-person text out of its content stream, renders what is left at 4x,
-then paints the city line back on — that line is the same for everyone, so baking
-it in keeps the request-time renderer free of any Helvetica dependency.
+Run once per brand (or whenever the source artwork changes). It takes the
+Illustrator PDF, strips the per-card text out of its content stream, and renders
+what is left at 4x. Emotion's city line is painted back on afterwards: it reads
+the same on every card, so baking it in keeps the request-time renderer free of
+any Helvetica dependency.
 
-What survives in the plate: the wave art, the emotion Group logo, the divider,
-the three contact icons, and "Let Your Brand Talk". Everything else is drawn per
-card by src/lib/signature/render.ts.
+What survives in a plate: the artwork, the logo, the divider and the contact
+icons. Every line of text is drawn per card by src/lib/signature/render.ts.
 
-    python3 scripts/signature/build-plate.py
+    python3 scripts/signature/build-plate.py            # every brand
+    python3 scripts/signature/build-plate.py vertex     # just one
 
-Needs: pdftoppm (brew install poppler), Pillow, and macOS Helvetica.
+Needs: pdftoppm (brew install poppler), Pillow, and macOS Helvetica for Emotion.
 """
 
 import re
@@ -26,45 +27,63 @@ from PIL import Image, ImageDraw, ImageFont
 
 HERE = Path(__file__).parent
 ROOT = HERE.parent.parent
-SOURCE_PDF = Path.home() / "Downloads" / "E.Signature.Templates.Emotion.pdf"
-# The renderer reads it straight from here — one copy, no syncing.
-PLATE = ROOT / "src" / "lib" / "signature" / "assets" / "plate.png"
+ASSETS = ROOT / "src" / "lib" / "signature" / "assets"
+DOWNLOADS = Path.home() / "Downloads"
 
-SCALE = 4  # plate is rendered at 4x the 600x200pt artwork
+SCALE = 4  # plates are rendered at 4x the 600x200pt artwork
 DPI = 72 * SCALE
 
-# Text drawn per card — stripped here, redrawn by src/lib/signature/render.ts.
-STRIP = [
-    b"(AHMED ALI)Tj",
-    b"(Head of Digital Product & Growth)Tj",
-    b"(+20 10 11648156)Tj",
-    b"(ahmed.ali@emotiongrp.com)Tj",
-    b"(Jeddah.Beirut.Riyadh)Tj",  # redrawn below, with Egypt appended
-    # The website line is the same for everyone, but it comes out too: the
-    # artwork spaces its contact lines 16.04pt apart while the icons beside them
-    # sit 15.19pt apart, so the text drifts lower on each row. Redrawing all
-    # three lets each one be centred on its own icon.
-    b"(emotiongrp.com)Tj",
-]
-
-# The city line, lifted from the source: Helvetica 10pt, 0.471 grey, baseline at
-# y=153.85, centred on the midpoint the original line used.
-CITIES = "Jeddah.Beirut.Riyadh.Egypt"
-CITIES_SIZE = 10
-CITIES_BASELINE = 153.85
-CITIES_CENTRE = (61.374 + 156.974) / 2
-CITIES_RGB = (120, 120, 120)
 HELVETICA = "/System/Library/Fonts/Helvetica.ttc"
-# Helvetica AFM advances (/1000), enough for the city line.
+# Helvetica AFM advances (/1000), enough for Emotion's city line.
 HELV_W = {
     ".": 278, "B": 667, "E": 667, "J": 500, "R": 722, "a": 556, "d": 556,
     "e": 556, "g": 556, "h": 556, "i": 222, "p": 556, "r": 333, "t": 278,
     "u": 556, "y": 500,
 }
 
+BRANDS = {
+    "emotion": {
+        "pdf": DOWNLOADS / "E.Signature.Templates.Emotion.pdf",
+        "plate": ASSETS / "emotion-plate.png",
+        # Drawn per card, so stripped here. The website line goes too: the
+        # artwork spaces its contact lines 16.04pt apart while the icons beside
+        # them sit 15.19pt apart, so the text drifts lower on each row, and
+        # fixing that means redrawing all three.
+        "strip": [
+            b"(AHMED ALI)Tj",
+            b"(Head of Digital Product & Growth)Tj",
+            b"(+20 10 11648156)Tj",
+            b"(ahmed.ali@emotiongrp.com)Tj",
+            b"(emotiongrp.com)Tj",
+            b"(Jeddah.Beirut.Riyadh)Tj",  # repainted below, with Egypt appended
+        ],
+        # Lifted from the source: Helvetica 10pt, 0.471 grey, baseline y=153.85,
+        # centred on the midpoint the original line used.
+        "cities": {
+            "text": "Jeddah.Beirut.Riyadh.Egypt",
+            "size": 10,
+            "baseline": 153.85,
+            "centre": (61.374 + 156.974) / 2,
+            "rgb": (120, 120, 120),
+        },
+    },
+    "vertex": {
+        "pdf": DOWNLOADS / "Email Signature Templates – vertex.pdf",
+        "plate": ASSETS / "vertex-plate.png",
+        "strip": [
+            b"(Chadi Assi)Tj",
+            b"(Business development Manager)Tj",
+            b"(00966 540230404)Tj",
+            b"(chadi.a@vertex-integra.com)Tj",
+            b"(www.vertex-integra.com)Tj",
+        ],
+        "cities": None,
+    },
+}
 
-def strip_text(pdf_bytes):
-    """Blank out the per-person strings inside the PDF's content streams.
+
+def strip_text(pdf_bytes, strip):
+    """Blank out the per-card strings inside the PDF's content streams.
 
     Edits are collected against the original bytes and applied back-to-front, so
     that rewriting one stream never invalidates the offsets of another.
@@ -87,10 +106,10 @@ def strip_text(pdf_bytes):
             body = zlib.decompress(pdf_bytes[start:end])
         except zlib.error:
             continue
-        if not any(op in body for op in STRIP):
+        if not any(op in body for op in strip):
             continue
 
-        for op in STRIP:
+        for op in strip:
             if op in body:
                 # Keep the operator, empty the string: nothing else shifts,
                 # because the following lines position with Td off the line
@@ -112,35 +131,38 @@ def strip_text(pdf_bytes):
     return out, removed
 
 
-def draw_cities(img):
-    """Paint the city line on, glyph by glyph, at the source's exact advances."""
+def draw_cities(img, spec):
+    """Paint Emotion's city line on, glyph by glyph, at the source's advances."""
     supersample = 4
-    font = ImageFont.truetype(HELVETICA, CITIES_SIZE * SCALE * supersample, index=0)
-    width = sum(HELV_W[c] for c in CITIES) / 1000.0 * CITIES_SIZE
-    pen = CITIES_CENTRE - width / 2
+    font = ImageFont.truetype(HELVETICA, spec["size"] * SCALE * supersample, index=0)
+    width = sum(HELV_W[c] for c in spec["text"]) / 1000.0 * spec["size"]
+    pen = spec["centre"] - width / 2
 
     mask = Image.new("L", (img.width * supersample, img.height * supersample), 0)
     draw = ImageDraw.Draw(mask)
-    for ch in CITIES:
+    for ch in spec["text"]:
         draw.text(
-            (pen * SCALE * supersample, CITIES_BASELINE * SCALE * supersample),
+            (pen * SCALE * supersample, spec["baseline"] * SCALE * supersample),
             ch, font=font, fill=255, anchor="ls",
         )
-        pen += HELV_W[ch] / 1000.0 * CITIES_SIZE
+        pen += HELV_W[ch] / 1000.0 * spec["size"]
     img.paste(
-        Image.new("RGB", img.size, CITIES_RGB),
+        Image.new("RGB", img.size, spec["rgb"]),
         (0, 0),
         mask.resize(img.size, Image.LANCZOS),
     )
     return img
 
 
-def main():
-    if not SOURCE_PDF.exists():
-        sys.exit(f"source artwork not found: {SOURCE_PDF}")
+def build(key, brand):
+    if not brand["pdf"].exists():
+        sys.exit(f"{key}: source artwork not found: {brand['pdf']}")
 
-    patched, removed = strip_text(SOURCE_PDF.read_bytes())
-    print("stripped:", ", ".join(removed))
+    patched, removed = strip_text(brand["pdf"].read_bytes(), brand["strip"])
+    missing = [op.decode("latin-1") for op in brand["strip"] if op.decode("latin-1") not in removed]
+    if missing:
+        sys.exit(f"{key}: these never matched the artwork, so they'd still be baked in: {missing}")
+    print(f"{key}: stripped {len(removed)} text runs")
 
     with tempfile.TemporaryDirectory() as tmp:
         pdf = Path(tmp) / "plate.pdf"
@@ -149,14 +171,23 @@ def main():
             ["pdftoppm", "-png", "-r", str(DPI), str(pdf), str(Path(tmp) / "out")],
             check=True, capture_output=True,
         )
-        rendered = next(Path(tmp).glob("out*.png"))
-        img = Image.open(rendered).convert("RGB")
+        img = Image.open(next(Path(tmp).glob("out*.png"))).convert("RGB")
 
     if img.size != (600 * SCALE, 200 * SCALE):
-        sys.exit(f"unexpected render size {img.size}")
+        sys.exit(f"{key}: unexpected render size {img.size}")
 
-    draw_cities(img).save(PLATE)
-    print(f"wrote {PLATE} ({img.size[0]}x{img.size[1]})")
+    if brand["cities"]:
+        draw_cities(img, brand["cities"])
+    img.save(brand["plate"])
+    print(f"{key}: wrote {brand['plate'].name} ({img.size[0]}x{img.size[1]})")
+
+
+def main():
+    wanted = sys.argv[1:] or list(BRANDS)
+    for key in wanted:
+        if key not in BRANDS:
+            sys.exit(f"unknown brand: {key} (have {', '.join(BRANDS)})")
+        build(key, BRANDS[key])
 
 
 if __name__ == "__main__":
