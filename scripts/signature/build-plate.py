@@ -36,9 +36,9 @@ DPI = 72 * SCALE
 HELVETICA = "/System/Library/Fonts/Helvetica.ttc"
 # Helvetica AFM advances (/1000), enough for Emotion's city line.
 HELV_W = {
-    ".": 278, "B": 667, "E": 667, "J": 500, "R": 722, "a": 556, "d": 556,
-    "e": 556, "g": 556, "h": 556, "i": 222, "p": 556, "r": 333, "t": 278,
-    "u": 556, "y": 500,
+    ".": 278, "B": 667, "C": 722, "D": 722, "J": 500, "R": 722, "a": 556,
+    "b": 556, "d": 556, "e": 556, "h": 556, "i": 222, "o": 556, "r": 333,
+    "t": 278, "u": 556, "y": 500,
 }
 
 BRANDS = {
@@ -55,12 +55,12 @@ BRANDS = {
             b"(+20 10 11648156)Tj",
             b"(ahmed.ali@emotiongrp.com)Tj",
             b"(emotiongrp.com)Tj",
-            b"(Jeddah.Beirut.Riyadh)Tj",  # repainted below, with Egypt appended
+            b"(Jeddah.Beirut.Riyadh)Tj",  # repainted below, with Cairo and Dubai
         ],
         # Lifted from the source: Helvetica 10pt, 0.471 grey, baseline y=153.85,
         # centred on the midpoint the original line used.
         "cities": {
-            "text": "Jeddah.Beirut.Riyadh.Egypt",
+            "text": "Jeddah.Beirut.Riyadh.Cairo.Dubai",
             "size": 10,
             "baseline": 153.85,
             "centre": (61.374 + 156.974) / 2,

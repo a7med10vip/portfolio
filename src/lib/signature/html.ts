@@ -6,7 +6,7 @@
    clickable. Which cell links where comes from the brand's layout. */
 
 import { type Brand, type CardCell, type CellLink } from "./brands";
-import { CARD, type Person, encodePerson, px, sliceSize } from "./card";
+import { ART_VERSION, CARD, type Person, encodePerson, px, sliceSize } from "./card";
 
 function esc(text: string) {
   return text
@@ -19,7 +19,7 @@ function esc(text: string) {
 /** Path form, not a query string: nothing here for a mail client's HTML
     sanitiser to re-encode. See the route for the full story. */
 export function sliceUrl(origin: string, token: string, slice: string) {
-  return `${origin}/api/signature/img/${slice}/${token}.png`;
+  return `${origin}/api/signature/img/${ART_VERSION}/${slice}/${token}.png`;
 }
 
 function resolve(link: CellLink | undefined, brand: Brand, person: Person) {

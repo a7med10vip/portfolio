@@ -1,6 +1,6 @@
 /* One slice of a signature card, addressed entirely by path:
 
-     /api/signature/img/<slice>/<token>.png
+     /api/signature/img/<version>/<slice>/<token>.png
 
    Deliberately no query string. Pasted into a mail client, a `src` containing
    "&amp;" gets re-encoded by the sanitiser — the parameter arrives as "amp;d",
@@ -16,12 +16,17 @@ import { renderSlice, unsupportedCharacters } from "@/lib/signature/render";
 export const runtime = "nodejs";
 
 export async function GET(_req: NextRequest, ctx: { params: Promise<{ parts: string[] }> }) {
+  /* The leading segment is the artwork version. It is not looked up — a card is
+     always drawn from the current plate — it only keeps the URL changing when
+     the artwork does, so nobody is served a cached copy of the old one. Paths
+     without it still work, for signatures pasted before it existed. */
   const { parts } = await ctx.params;
-  if (parts.length !== 2) {
-    return new Response("expected /api/signature/img/<slice>/<token>.png", { status: 400 });
+  const [slice, file] = parts.length === 3 ? parts.slice(1) : parts;
+  if (!slice || !file) {
+    return new Response("expected /api/signature/img/<version>/<slice>/<token>.png", {
+      status: 400,
+    });
   }
-
-  const [slice, file] = parts;
   const token = file.replace(/\.png$/, "");
 
   const decoded = decodePerson(token);

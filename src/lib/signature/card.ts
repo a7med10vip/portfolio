@@ -12,6 +12,12 @@ export const CARD = { width: 600, height: 200, radius: 14, retina: 2 } as const;
 
 export const DISPLAY = 7 / 8;
 
+/* Bumped whenever the artwork changes. The image URL is built from the person's
+   details, so without this a card's URL would stay identical while the plate
+   underneath it changed — and the CDN, told the image is immutable, would keep
+   serving the old artwork to someone who had just copied a fresh signature. */
+export const ART_VERSION = "v2";
+
 /** A card measurement in the pixels the signature actually ships at. */
 export function px(value: number) {
   return Math.round(value * DISPLAY);
