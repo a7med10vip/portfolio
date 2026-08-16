@@ -41,6 +41,12 @@ export function articleText(article: Article) {
           return b.items.join(" ");
         case "stats":
           return b.items.map((i) => `${i.value} ${i.label}`).join(" ");
+        case "features":
+          return b.items.map((i) => `${i.title}. ${i.text}`).join(" ");
+        case "stack":
+          return b.items.map((i) => `${i.name}. ${i.note}`).join(" ");
+        case "image":
+          return b.alt;
         default:
           return b.text;
       }

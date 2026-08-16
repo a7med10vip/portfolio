@@ -1,7 +1,7 @@
 import type { Article } from "./types";
 
-/* Everything stated here is already published on ahmedali.online or verifiable
-   on the App Store listing. No numbers are claimed that cannot be checked. */
+/* Every claim here is either published on ahmedali.online or checkable on the
+   store listings linked below. */
 
 export const maasobAppEn: Article = {
   slug: "restaurant-app-shipped-in-under-a-month",
@@ -9,70 +9,113 @@ export const maasobAppEn: Article = {
   counterpart: "restaurant-app-shipped-in-under-a-month",
   kind: "case-study",
   client: "Maasob Al-Sultan",
-  title: "Shipping a restaurant app to both stores in under a month",
+  clientNote: "Restaurant chain · Jeddah, Saudi Arabia",
+  cover: "/projects/maasob.webp",
+  logo: "/ext/masoub.png",
+  links: {
+    appStore:
+      "https://apps.apple.com/ca/app/%D9%85%D8%B9%D8%B5%D9%88%D8%A8-%D8%A7%D9%84%D8%B3%D9%84%D8%B7%D8%A7%D9%86/id6757263587",
+    playStore: "https://play.google.com/store/apps/details?id=com.masoubalsultan.app",
+  },
+  title: "Maasob Al-Sultan: a five-branch restaurant app, on both stores in under a month",
   summary:
-    "Maasob Al-Sultan went from nothing to a Flutter app live on the App Store and Google Play in under a month, with five branches connected to it. The schedule held because the scope was cut to what a first version genuinely needs, and because the same person made the product, engineering and launch decisions.",
+    "A Jeddah restaurant chain got its own ordering app — five branches, AI support chat, a loyalty programme, live payments and management dashboards — designed, built and published to the App Store and Google Play in under one month, on Flutter, Firebase, Paymob and Gemini.",
   description:
-    "How the Maasob Al-Sultan app shipped to iOS and Android in under a month with five branches connected — what was cut, what was kept, and why one person owning product, build and launch is what made the deadline survivable.",
+    "How Maasob Al-Sultan's Flutter app shipped to iOS and Android in under a month: five branches on one order system, an AI support chatbot on Gemini, a loyalty programme, Paymob payments and real-time dashboards for management.",
   keywords: [
-    "restaurant app development Saudi Arabia",
+    "restaurant app Saudi Arabia",
     "Flutter app case study",
-    "ship mobile app fast",
-    "MVP scope",
+    "multi branch ordering app",
+    "Paymob integration",
+    "Gemini AI chatbot app",
     "Maasob Al-Sultan app",
     "mobile app development Jeddah",
+    "food delivery app development",
   ],
   published: "2026-08-17",
-  readingMinutes: 6,
+  readingMinutes: 7,
   blocks: [
     {
       kind: "p",
-      text: "Most app projects do not fail at the build. They fail in the four months before it, while the scope is argued over — and again in the two months after, while the launch waits on somebody else's queue. Maasob Al-Sultan shipped to both stores in under a month, with five branches connected. Here is what that actually took.",
+      text: "Maasob Al-Sultan is a restaurant chain in Jeddah with five branches. Like most restaurant groups in the Gulf, it was selling through the aggregators — which means paying a commission on every order, and never learning who the customer is. The brief was to own the channel: their app, their customers, their data.",
+    },
+    {
+      kind: "p",
+      text: "It went live on the App Store and Google Play in under a month, with all five branches on it from day one.",
     },
     {
       kind: "stats",
       items: [
-        { value: "< 1 month", label: "from start to live on both stores" },
-        { value: "5", label: "branches connected at launch" },
-        { value: "iOS + Android", label: "shipped together, not one then the other" },
+        { value: "< 1 month", label: "brief to both stores, live" },
+        { value: "5", label: "branches on one order system" },
+        { value: "iOS + Android", label: "one Flutter codebase" },
       ],
     },
-    { kind: "h2", id: "brief", text: "The brief" },
+    { kind: "h2", id: "built", text: "What is actually in it" },
     {
       kind: "p",
-      text: "A restaurant group with five branches needed its own app — ordering that belonged to the business rather than to an aggregator taking a cut of every order and owning the customer relationship at the end of it. The commercial logic was not in question. The timeline was: there was a season to hit, and an app that arrives after it is an app that arrives next year.",
-    },
-    { kind: "h2", id: "scope", text: "What got cut" },
-    {
-      kind: "p",
-      text: "A month is not a compressed version of six months. It is a different scope. The decision that made the date was deciding what a first version does not do:",
+      text: "This is the part most \"we shipped fast\" stories quietly skip. It was not a menu in a WebView.",
     },
     {
-      kind: "list",
+      kind: "features",
       items: [
-        "No loyalty programme in v1. It is the most requested feature in every restaurant brief and the least useful before there are users to be loyal.",
-        "No in-app wallet or stored balance — a payments and reconciliation problem wearing a feature's clothes.",
-        "No bespoke design system. A clean, conventional ordering flow that customers already know how to use beats an original one they have to learn.",
-        "No admin panel built from scratch for things the existing systems already did.",
+        {
+          icon: "store",
+          title: "Five branches, one order flow",
+          text: "The customer picks a branch and orders; the order lands at that branch's screen. Getting this wrong is how restaurant apps die — a correct order in the app and a confusing one in the kitchen is a failed order.",
+        },
+        {
+          icon: "bot",
+          title: "AI support chat",
+          text: "A chatbot on Gemini answers the questions that otherwise ring a phone at the branch: where is my order, what is in this dish, do you deliver to me.",
+        },
+        {
+          icon: "gift",
+          title: "Loyalty programme",
+          text: "Points and rewards built in, so repeat custom belongs to the restaurant rather than to whichever aggregator ran the deepest discount that week.",
+        },
+        {
+          icon: "card",
+          title: "Payments, properly integrated",
+          text: "Paymob, so cards and local payment methods work the way a Saudi customer expects, and the money reconciles against the order rather than beside it.",
+        },
+        {
+          icon: "chart",
+          title: "Live dashboards for management",
+          text: "Real-time performance by branch. The owner opens a screen and sees what is happening now, not a report about last month.",
+        },
       ],
     },
+    { kind: "h2", id: "stack", text: "The stack, and why each piece" },
     {
-      kind: "p",
-      text: "What stayed was the spine: browse the menu, choose a branch, order, pay, and have the branch receive it reliably. Everything that was cut can be added to a live app with real users. Nothing that was kept could have been.",
+      kind: "stack",
+      items: [
+        {
+          name: "Flutter",
+          logo: "https://cdn.simpleicons.org/flutter/02569B",
+          note: "One codebase, and more to the point one release queue. Two native builds means two review cycles to align, and on a one-month schedule the aligning is what kills you — not the code.",
+        },
+        {
+          name: "Firebase",
+          logo: "https://cdn.simpleicons.org/firebase/FFCA28",
+          note: "Realtime database. Orders have to appear at a branch the moment they are placed; polling an API on a timer is how you get a cold kitchen and an angry customer.",
+        },
+        {
+          name: "Paymob",
+          logo: "/paymob.png",
+          note: "Payments built for this region rather than retro-fitted to it. Local cards and wallets work on the first try, which is most of the checkout battle.",
+        },
+        {
+          name: "Gemini",
+          logo: "https://cdn.simpleicons.org/googlegemini/8E75B2",
+          note: "Support that answers instantly at 1am without a support team behind it — the sort of thing that used to be out of reach for a five-branch business.",
+        },
+      ],
     },
-    { kind: "h2", id: "build", text: "The build" },
+    { kind: "h2", id: "month", text: "How a month was enough" },
     {
       kind: "p",
-      text: "Flutter, for the reason people usually choose it and rarely say out loud: it is not that one codebase is elegant, it is that one codebase means one queue. Two native builds means two review cycles, two sets of bugs and two release calendars to align — and on a one-month schedule, the alignment is the thing that kills you, not the code.",
-    },
-    {
-      kind: "p",
-      text: "Five branches connected means five real kitchens with real staff, which is where a project like this is usually actually decided. An order that arrives correctly in the app and confusingly on the branch side is a failed order, and no amount of polish on the customer screen fixes it.",
-    },
-    { kind: "h2", id: "why-fast", text: "Why the date held" },
-    {
-      kind: "p",
-      text: "Not heroics, and not a bigger team — the opposite. On a normal build, the product decision, the engineering decision and the launch decision sit with three parties, and every question between them costs a round trip: a day to ask, two days to answer, a week if somebody is travelling. Ten such questions is the month.",
+      text: "Not by working faster. On a normal build, the product decision, the engineering decision and the launch decision sit with three different parties, and every question between them costs a round trip — a day to ask, two to answer, a week if somebody is travelling. Ten of those questions is the month, spent entirely on waiting.",
     },
     {
       kind: "quote",
@@ -80,30 +123,38 @@ export const maasobAppEn: Article = {
     },
     {
       kind: "p",
-      text: "Holding product, build and launch in one place removes that latency entirely. It is not the right shape for every project — at real scale you want specialists, and the coordination cost is worth paying. But for a first version on a deadline, it is the difference between shipping and explaining.",
+      text: "Here, design, build and launch sat in one place, so the queue disappeared. The store submissions were prepared alongside the build rather than after it — screenshots, listings, privacy declarations and the review itself are a week of calendar time that most projects discover at the end, when the code is done and the launch is not.",
     },
-    { kind: "h2", id: "result", text: "Where it landed" },
+    { kind: "h2", id: "live", text: "It is public — go and check" },
     {
       kind: "p",
-      text: "Live on the App Store and Google Play, with five branches taking orders through it, inside the month. The app is public and can be checked — which is the only kind of case study worth writing.",
+      text: "The app is on both stores under the restaurant's own name, with the five branches taking orders through it. That is the only kind of case study worth reading: one you can open and verify in about thirty seconds.",
     },
     {
       kind: "note",
-      text: "Working to a date that looks impossible? The question is almost never how to build faster. It is which half of the brief is not needed yet.",
+      text: "Running a chain that is paying commission on every order? The build is rarely the hard part. The hard part is deciding to own the customer relationship, and then having someone hold product, engineering and launch tightly enough to actually get there.",
     },
   ],
   faq: [
     {
-      q: "How long did the Maasob Al-Sultan app take to build?",
-      a: "Under one month, from start to live on both the App Store and Google Play, with five branches connected at launch.",
+      q: "How long did the Maasob Al-Sultan app take?",
+      a: "Under one month, from brief to live on both the App Store and Google Play, with all five branches connected at launch.",
     },
     {
-      q: "What was it built with?",
-      a: "Flutter, shipping iOS and Android from a single codebase — chosen mainly because one codebase means one release queue, which is what a short deadline can survive.",
+      q: "What was the app built with?",
+      a: "Flutter for iOS and Android from one codebase, Firebase for realtime order data, Paymob for payments, and Gemini behind the AI support chat.",
+    },
+    {
+      q: "What features does it have?",
+      a: "Multi-branch ordering across five locations, an AI support chatbot, a customer loyalty programme, integrated payment gateways, and real-time performance dashboards for management.",
+    },
+    {
+      q: "Why would a restaurant build its own app instead of using delivery aggregators?",
+      a: "Commission on every order, and no relationship with the customer afterwards. An owned app keeps the margin and the data, which is what makes loyalty and repeat custom possible at all.",
     },
     {
       q: "How do you ship a mobile app in a month?",
-      a: "By cutting scope rather than compressing schedule. Loyalty, wallets and bespoke design systems come out; browse, choose a branch, order, pay and reliable receipt at the branch stay in. It also helps enormously if product, engineering and launch decisions sit with one person, because most of a short schedule is spent waiting for answers to travel.",
+      a: "Keep product, engineering and launch decisions in one place so nothing waits on a round trip, prepare the store submissions in parallel with the build rather than after it, and choose a stack whose parts already solve the regional problems — payments especially.",
     },
   ],
 };

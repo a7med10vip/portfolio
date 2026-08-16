@@ -44,9 +44,14 @@ export default function ArticlesIndex() {
               <Link
                 key={a.slug}
                 href={articlePath(a)}
-                className="rounded-[20px] p-6 block transition-all duration-200 hover:-translate-y-0.5"
+                className="rounded-[20px] block overflow-hidden transition-all duration-200 hover:-translate-y-0.5"
                 style={{ border: `2px solid ${TEAL}`, background: "#fff" }}
               >
+                {a.cover && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={a.cover} alt={a.title} className="block w-full h-auto" />
+                )}
+                <span className="block p-6">
                 <span
                   className="inline-block text-[11px] font-bold px-3 py-1.5 rounded-full mb-4"
                   style={{ background: MINT, color: INK, border: `1.5px solid ${TEAL}` }}
@@ -62,6 +67,7 @@ export default function ArticlesIndex() {
                 </p>
                 <span className="text-xs font-bold" style={{ color: TEAL }}>
                   {a.readingMinutes} min read →
+                </span>
                 </span>
               </Link>
             ))}
