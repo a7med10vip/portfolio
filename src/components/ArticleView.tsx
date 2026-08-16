@@ -313,6 +313,24 @@ export default function ArticleView({ article }: { article: Article }) {
                     ))}
                   </div>
                 );
+              case "screens":
+                return (
+                  <div key={i} className="grid grid-cols-2 lg:grid-cols-4 gap-4 my-9">
+                    {block.items.map((shot) => (
+                      <figure key={shot.src}>
+                        <img
+                          src={shot.src}
+                          alt={shot.caption}
+                          className="w-full h-auto rounded-[18px]"
+                          style={{ border: `2px solid ${TEAL}` }}
+                        />
+                        <figcaption className="text-xs mt-2.5" style={{ color: MUTED, lineHeight: 1.6 }}>
+                          {shot.caption}
+                        </figcaption>
+                      </figure>
+                    ))}
+                  </div>
+                );
               case "image":
                 return (
                   <figure key={i} className="my-9">

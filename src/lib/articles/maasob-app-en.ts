@@ -1,7 +1,8 @@
 import type { Article } from "./types";
 
-/* Every claim here is either published on ahmedali.online or checkable on the
-   store listings linked below. */
+/* Every detail here comes from the published app or its store listing. */
+
+const SCREENS = "/articles/maasob";
 
 export const maasobAppEn: Article = {
   slug: "restaurant-app-shipped-in-under-a-month",
@@ -17,72 +18,99 @@ export const maasobAppEn: Article = {
       "https://apps.apple.com/ca/app/%D9%85%D8%B9%D8%B5%D9%88%D8%A8-%D8%A7%D9%84%D8%B3%D9%84%D8%B7%D8%A7%D9%86/id6757263587",
     playStore: "https://play.google.com/store/apps/details?id=com.masoubalsultan.app",
   },
-  title: "Maasob Al-Sultan: a five-branch restaurant app, on both stores in under a month",
+  title: "Maasob Al-Sultan: a restaurant app built for how the Saudi market actually works",
   summary:
-    "A Jeddah restaurant chain got its own ordering app — five branches, AI support chat, a loyalty programme, live payments and management dashboards — designed, built and published to the App Store and Google Play in under one month, on Flutter, Firebase, Paymob and Gemini.",
+    "An ordering app for a Hijazi breakfast chain in Jeddah: five branches, an AI assistant with a name — Sultan AI — calorie counts on every item, loyalty that pays out at 100 points, and a bill that separates VAT from delivery. Shipped January 2026 and still being updated.",
   description:
-    "How Maasob Al-Sultan's Flutter app shipped to iOS and Android in under a month: five branches on one order system, an AI support chatbot on Gemini, a loyalty programme, Paymob payments and real-time dashboards for management.",
+    "Case study of the Maasob Al-Sultan app: five branches on one order system, the Sultan AI assistant, calorie counts per item, loyalty points and branch opening-hours handling — built on Flutter, Firebase, Paymob and Gemini.",
   keywords: [
     "restaurant app Saudi Arabia",
     "Flutter app case study",
     "multi branch ordering app",
     "Paymob integration",
-    "Gemini AI chatbot app",
+    "AI assistant restaurant app",
     "Maasob Al-Sultan app",
     "mobile app development Jeddah",
-    "food delivery app development",
+    "calorie display app Saudi",
   ],
   published: "2026-08-17",
-  readingMinutes: 7,
+  readingMinutes: 6,
   blocks: [
     {
       kind: "p",
-      text: "Maasob Al-Sultan is a restaurant chain in Jeddah with five branches. Like most restaurant groups in the Gulf, it was selling through the aggregators — which means paying a commission on every order, and never learning who the customer is. The brief was to own the channel: their app, their customers, their data.",
+      text: "Maasob Al-Sultan is a restaurant chain in Jeddah serving Hijazi breakfast — maasob with cream, honey, banana or cheese, alongside mutabbaq and other dishes. Like most restaurants in the Gulf, it was selling through the aggregators: a commission on every order, and a customer you stop knowing anything about the moment they leave an app you do not own.",
     },
     {
       kind: "p",
-      text: "It went live on the App Store and Google Play in under a month, with all five branches on it from day one.",
+      text: "The chain's own app went live on the App Store and Google Play in January 2026, with all five branches on it from launch, after under a month of work.",
     },
     {
       kind: "stats",
       items: [
-        { value: "< 1 month", label: "brief to both stores, live" },
+        { value: "< 1 month", label: "start of work to live on both stores" },
         { value: "5", label: "branches on one order system" },
-        { value: "iOS + Android", label: "one Flutter codebase" },
+        { value: "1.1.6", label: "current version — still shipping updates" },
       ],
     },
-    { kind: "h2", id: "built", text: "What is actually in it" },
+    { kind: "h2", id: "screens", text: "What the customer sees" },
+    {
+      kind: "screens",
+      items: [
+        {
+          src: `${SCREENS}/screen-1.png`,
+          caption: "Home: branch picker at the top, menu categories, price and calories on every item.",
+        },
+        {
+          src: `${SCREENS}/screen-2.png`,
+          caption: "Item page: price, calorie count, and customer ratings inside the app itself.",
+        },
+        {
+          src: `${SCREENS}/screen-3.png`,
+          caption: "Account: addresses, orders, favourites — with the account deletion the stores require.",
+        },
+        {
+          src: `${SCREENS}/screen-4.png`,
+          caption: "Cart: loyalty progress, VAT and delivery itemised separately, and a notice when the branch is closed.",
+        },
+      ],
+    },
+    { kind: "h2", id: "details", text: "The details that decide it" },
     {
       kind: "p",
-      text: "This is the part most \"we shipped fast\" stories quietly skip. It was not a menu in a WebView.",
+      text: "The headline features appear in every pitch deck. What separates an app people use from one they install and forget is the small stuff that deals with how the market really works:",
     },
     {
       kind: "features",
       items: [
         {
-          icon: "store",
-          title: "Five branches, one order flow",
-          text: "The customer picks a branch and orders; the order lands at that branch's screen. Getting this wrong is how restaurant apps die — a correct order in the app and a confusing one in the kitchen is a failed order.",
-        },
-        {
           icon: "bot",
-          title: "AI support chat",
-          text: "A chatbot on Gemini answers the questions that otherwise ring a phone at the branch: where is my order, what is in this dish, do you deliver to me.",
-        },
-        {
-          icon: "gift",
-          title: "Loyalty programme",
-          text: "Points and rewards built in, so repeat custom belongs to the restaurant rather than to whichever aggregator ran the deepest discount that week.",
-        },
-        {
-          icon: "card",
-          title: "Payments, properly integrated",
-          text: "Paymob, so cards and local payment methods work the way a Saudi customer expects, and the money reconciles against the order rather than beside it.",
+          title: "Sultan AI — an assistant with a name",
+          text: "It appears in the interface as \"ask the chef\", not an anonymous chat bubble in the corner. Running on Gemini, it answers what used to tie up the branch phone: what is in this dish, where is my order, what suits a group of six.",
         },
         {
           icon: "chart",
-          title: "Live dashboards for management",
-          text: "Real-time performance by branch. The owner opens a screen and sees what is happening now, not a report about last month.",
+          title: "Calories on every item",
+          text: "326 for the cheese mutabbaq, 427 for the tuna. Calorie display is a regulatory requirement for food outlets in Saudi Arabia, and building it into the menu structure from the start is far cheaper than retrofitting it across a finished catalogue.",
+        },
+        {
+          icon: "gift",
+          title: "Loyalty with a visible line",
+          text: "100 points for a free meal, with the counter sitting in the cart the whole time. Clarity matters more than generosity here — the customer knows exactly how far away the reward is.",
+        },
+        {
+          icon: "clock",
+          title: "Branch opening hours",
+          text: "Outside working hours you can still browse and fill a cart, with a clear notice that it will be fulfilled when the branch opens. The alternative — an app that looks broken for half the day — loses a customer exactly once.",
+        },
+        {
+          icon: "card",
+          title: "An honest bill",
+          text: "Subtotal, VAT and delivery each on their own line. A number that surprises someone at checkout is among the most common reasons a cart is abandoned.",
+        },
+        {
+          icon: "store",
+          title: "Five branches, one flow",
+          text: "The customer picks a branch and the order lands on that branch's screen. A correct order in the app that arrives confused in the kitchen is a failed order, however good the interface was.",
         },
       ],
     },
@@ -98,63 +126,46 @@ export const maasobAppEn: Article = {
         {
           name: "Firebase",
           logo: "https://cdn.simpleicons.org/firebase/FFCA28",
-          note: "Realtime database. Orders have to appear at a branch the moment they are placed; polling an API on a timer is how you get a cold kitchen and an angry customer.",
+          note: "Realtime data, so an order appears at the branch the moment it is placed and an item that runs out disappears from the menu while it matters.",
         },
         {
           name: "Paymob",
           logo: "/paymob.png",
-          note: "Payments built for this region rather than retro-fitted to it. Local cards and wallets work on the first try, which is most of the checkout battle.",
+          note: "A payment gateway built for this region rather than adapted to it. Local cards and wallets work first time, which is most of the checkout battle.",
         },
         {
           name: "Gemini",
           logo: "https://cdn.simpleicons.org/googlegemini/8E75B2",
-          note: "Support that answers instantly at 1am without a support team behind it — the sort of thing that used to be out of reach for a five-branch business.",
+          note: "The model behind Sultan AI, answering customers at 1am without a support desk waiting behind the screen.",
         },
       ],
     },
-    { kind: "h2", id: "month", text: "How a month was enough" },
+    { kind: "h2", id: "after", text: "After launch" },
     {
       kind: "p",
-      text: "Not by working faster. On a normal build, the product decision, the engineering decision and the launch decision sit with three different parties, and every question between them costs a round trip — a day to ask, two to answer, a week if somebody is travelling. Ten of those questions is the month, spent entirely on waiting.",
-    },
-    {
-      kind: "quote",
-      text: "The scarce resource on a short deadline is not hours. It is decisions that do not have to travel.",
-    },
-    {
-      kind: "p",
-      text: "Here, design, build and launch sat in one place, so the queue disappeared. The store submissions were prepared alongside the build rather than after it — screenshots, listings, privacy declarations and the review itself are a week of calendar time that most projects discover at the end, when the code is done and the launch is not.",
-    },
-    { kind: "h2", id: "live", text: "It is public — go and check" },
-    {
-      kind: "p",
-      text: "The app is on both stores under the restaurant's own name, with the five branches taking orders through it. That is the only kind of case study worth reading: one you can open and verify in about thirty seconds.",
-    },
-    {
-      kind: "note",
-      text: "Running a chain that is paying commission on every order? The build is rarely the hard part. The hard part is deciding to own the customer relationship, and then having someone hold product, engineering and launch tightly enough to actually get there.",
+      text: "Shipping fast counts for nothing if the app stops there. Version one went out in January 2026; the app now sits at 1.1.6 — updates kept coming for months after launch, which is the difference between a product in service and a project that was delivered and closed.",
     },
   ],
   faq: [
     {
       q: "How long did the Maasob Al-Sultan app take?",
-      a: "Under one month, from brief to live on both the App Store and Google Play, with all five branches connected at launch.",
+      a: "Under a month from the start of work to launch on the App Store and Google Play in January 2026, with all five branches connected from day one.",
     },
     {
-      q: "What was the app built with?",
-      a: "Flutter for iOS and Android from one codebase, Firebase for realtime order data, Paymob for payments, and Gemini behind the AI support chat.",
+      q: "What was it built with?",
+      a: "Flutter for iOS and Android from one codebase, Firebase for realtime order data, Paymob for payments, and Gemini behind the Sultan AI assistant.",
     },
     {
-      q: "What features does it have?",
-      a: "Multi-branch ordering across five locations, an AI support chatbot, a customer loyalty programme, integrated payment gateways, and real-time performance dashboards for management.",
+      q: "What does the app do?",
+      a: "Ordering across five branches on one system, an in-app AI assistant, calorie counts on every item, a 100-point loyalty programme, in-app ratings, a bill that itemises VAT and delivery separately, and per-branch opening hours.",
     },
     {
       q: "Why would a restaurant build its own app instead of using delivery aggregators?",
-      a: "Commission on every order, and no relationship with the customer afterwards. An owned app keeps the margin and the data, which is what makes loyalty and repeat custom possible at all.",
+      a: "The commission on every order, and the fact that the customer relationship and the data stay with the aggregator. Owning the app keeps the margin and the data, which is what makes loyalty or repeat custom possible at all.",
     },
     {
-      q: "How do you ship a mobile app in a month?",
-      a: "Keep product, engineering and launch decisions in one place so nothing waits on a round trip, prepare the store submissions in parallel with the build rather than after it, and choose a stack whose parts already solve the regional problems — payments especially.",
+      q: "Does the app show calorie counts?",
+      a: "Yes, on every menu item — a regulatory requirement for food outlets in Saudi Arabia, handled inside the menu structure from the beginning.",
     },
   ],
 };

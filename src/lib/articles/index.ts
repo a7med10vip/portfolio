@@ -47,6 +47,8 @@ export function articleText(article: Article) {
           return b.items.map((i) => `${i.name}. ${i.note}`).join(" ");
         case "image":
           return b.alt;
+        case "screens":
+          return b.items.map((i) => i.caption).join(" ");
         default:
           return b.text;
       }

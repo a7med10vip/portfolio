@@ -17,6 +17,8 @@ export type Block =
   /** the tools, with the mark each is known by */
   | { kind: "stack"; items: Array<{ name: string; logo: string; note: string }> }
   | { kind: "image"; src: string; alt: string; caption?: string }
+  /** phone screens in a row — the product, not a description of it */
+  | { kind: "screens"; items: Array<{ src: string; caption: string }> }
   | { kind: "note"; text: string };
 
 /** Named so the renderer picks the lucide icon; keeps content free of imports. */
