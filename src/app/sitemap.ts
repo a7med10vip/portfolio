@@ -1,5 +1,7 @@
 import type { MetadataRoute } from 'next'
 
+import { ARTICLES, articleUrl } from '@/lib/articles'
+
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
@@ -32,6 +34,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.9,
     },
+    {
+      url: 'https://ahmedali.online/articles',
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    {
+      url: 'https://ahmedali.online/ar/articles',
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    /* Every piece in the registry, both languages, without a second list to
+       keep in step. */
+    ...ARTICLES.map((article) => ({
+      url: articleUrl(article),
+      lastModified: new Date(article.updated ?? article.published),
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    })),
     {
       url: 'https://ahmedali.online/ar/blog/salla-vs-shopify-vs-zid',
       lastModified: new Date(),
