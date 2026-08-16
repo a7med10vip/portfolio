@@ -16,8 +16,10 @@ function esc(text: string) {
     .replace(/"/g, "&quot;");
 }
 
+/** Path form, not a query string: nothing here for a mail client's HTML
+    sanitiser to re-encode. See the route for the full story. */
 export function sliceUrl(origin: string, token: string, slice: string) {
-  return `${origin}/api/signature/img?s=${slice}&d=${token}`;
+  return `${origin}/api/signature/img/${slice}/${token}.png`;
 }
 
 function resolve(link: CellLink | undefined, brand: Brand, person: Person) {

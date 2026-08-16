@@ -1,9 +1,12 @@
-/* One slice of a signature card, rendered on demand.
+/* One slice of a signature card, addressed entirely by path:
 
-   The person and their brand are encoded in the query string, so the same
-   details always address the same image. That keeps the response immutable and
-   CDN-cacheable, and means a card needs no storage behind it — the URL is the
-   card. */
+     /api/signature/img/<slice>/<token>.png
+
+   Deliberately no query string. Pasted into a mail client, a `src` containing
+   "&amp;" gets re-encoded by the sanitiser — the parameter arrives as "amp;d",
+   the card details go missing, and every image in the signature breaks. A path
+   has nothing for an HTML sanitiser to mangle, and ending in .png keeps it
+   looking like an ordinary image to anything that inspects the URL. */
 
 import { NextRequest } from "next/server";
 
@@ -12,14 +15,14 @@ import { renderSlice, unsupportedCharacters } from "@/lib/signature/render";
 
 export const runtime = "nodejs";
 
-export async function GET(req: NextRequest) {
-  /* The old query form, kept alive for signatures already pasted into people's
-     mail settings. "amp;d" is read too: a sanitiser that re-encodes the &amp;
-     in a pasted src turns "d" into "amp;d", which is what broke those images
-     in the first place. New signatures use the path form instead. */
-  const params = req.nextUrl.searchParams;
-  const token = params.get("d") ?? params.get("amp;d");
-  const slice = params.get("s") ?? params.get("amp;s");
+export async function GET(_req: NextRequest, ctx: { params: Promise<{ parts: string[] }> }) {
+  const { parts } = await ctx.params;
+  if (parts.length !== 2) {
+    return new Response("expected /api/signature/img/<slice>/<token>.png", { status: 400 });
+  }
+
+  const [slice, file] = parts;
+  const token = file.replace(/\.png$/, "");
 
   const decoded = decodePerson(token);
   if (!decoded) {
@@ -27,7 +30,7 @@ export async function GET(req: NextRequest) {
   }
   const { person, brand } = decoded;
 
-  if (!slice || !brand.slices.some((s) => s.key === slice)) {
+  if (!brand.slices.some((s) => s.key === slice)) {
     return new Response("unknown slice", { status: 400 });
   }
 
@@ -39,10 +42,11 @@ export async function GET(req: NextRequest) {
       });
     }
 
-    const png = await renderSlice(token!, brand, person, slice);
+    const png = await renderSlice(token, brand, person, slice);
     return new Response(new Uint8Array(png), {
       headers: {
         "Content-Type": "image/png",
+        "Content-Length": String(png.length),
         "Cache-Control": "public, max-age=31536000, immutable",
       },
     });
