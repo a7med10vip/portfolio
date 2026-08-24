@@ -1,0 +1,175 @@
+{
+  "capturedAt": "2026-08-24T10:08:45.937Z",
+  "shots": [
+    {
+      "name": "site-ar-home-desktop",
+      "host": "site",
+      "url": "https://motionmotors.me/ar",
+      "vp": "desktop",
+      "status": 200,
+      "w": 1500,
+      "h": 938,
+      "bytes": 62740
+    },
+    {
+      "name": "site-ar-home-mobile",
+      "host": "site",
+      "url": "https://motionmotors.me/ar",
+      "vp": "mobile",
+      "status": 200,
+      "w": 760,
+      "h": 1645,
+      "bytes": 44382
+    },
+    {
+      "name": "site-en-home-desktop",
+      "host": "site",
+      "url": "https://motionmotors.me/en",
+      "vp": "desktop",
+      "status": 200,
+      "w": 1500,
+      "h": 938,
+      "bytes": 68546
+    },
+    {
+      "name": "site-en-models-desktop",
+      "host": "site",
+      "url": "https://motionmotors.me/en/models",
+      "vp": "desktop",
+      "status": 200,
+      "w": 1500,
+      "h": 938,
+      "bytes": 48934
+    },
+    {
+      "name": "site-en-store-desktop",
+      "host": "site",
+      "url": "https://motionmotors.me/en/store",
+      "vp": "desktop",
+      "status": 200,
+      "w": 1500,
+      "h": 938,
+      "bytes": 63488
+    },
+    {
+      "name": "site-en-compare-desktop",
+      "host": "site",
+      "url": "https://motionmotors.me/en/store/compare",
+      "vp": "desktop",
+      "status": 200,
+      "w": 1500,
+      "h": 938,
+      "bytes": 39644
+    },
+    {
+      "name": "site-en-prices-desktop",
+      "host": "site",
+      "url": "https://motionmotors.me/en/prices",
+      "vp": "desktop",
+      "status": 200,
+      "w": 1500,
+      "h": 938,
+      "bytes": 50302
+    },
+    {
+      "name": "site-en-testdrive-desktop",
+      "host": "site",
+      "url": "https://motionmotors.me/en/test-drive",
+      "vp": "desktop",
+      "status": 200,
+      "w": 1500,
+      "h": 938,
+      "bytes": 48998
+    },
+    {
+      "name": "site-en-showrooms-desktop",
+      "host": "site",
+      "url": "https://motionmotors.me/en/showrooms",
+      "vp": "desktop",
+      "status": 200,
+      "w": 1500,
+      "h": 938,
+      "bytes": 88724
+    },
+    {
+      "name": "site-en-store-mobile",
+      "host": "site",
+      "url": "https://motionmotors.me/en/store",
+      "vp": "mobile",
+      "status": 200,
+      "w": 760,
+      "h": 1645,
+      "bytes": 50618
+    },
+    {
+      "name": "site-ar-park-mobile",
+      "host": "site",
+      "url": "https://motionmotors.me/ar/park",
+      "vp": "mobile",
+      "status": 200,
+      "w": 760,
+      "h": 1645,
+      "bytes": 13594
+    },
+    {
+      "name": "showroom-en-sales-desktop",
+      "host": "showroom",
+      "url": "https://showroom.motionmotors.me/en/sales",
+      "vp": "desktop",
+      "status": 200,
+      "w": 1500,
+      "h": 938,
+      "bytes": 34384
+    },
+    {
+      "name": "showroom-en-showcase-desktop",
+      "host": "showroom",
+      "url": "https://showroom.motionmotors.me/en/sales/showcase",
+      "vp": "desktop",
+      "status": 200,
+      "w": 1500,
+      "h": 938,
+      "bytes": 21184
+    },
+    {
+      "name": "ops-ar-landing-desktop",
+      "host": "ops",
+      "url": "https://motion-motors.vercel.app/ar",
+      "vp": "desktop",
+      "status": 200,
+      "w": 1500,
+      "h": 938,
+      "bytes": 29928
+    },
+    {
+      "name": "ops-ar-lead-mobile",
+      "host": "ops",
+      "url": "https://motion-motors.vercel.app/ar/lead",
+      "vp": "mobile",
+      "status": 200,
+      "w": 760,
+      "h": 1645,
+      "bytes": 27118
+    },
+    {
+      "name": "ops-ar-queue-desktop",
+      "host": "ops",
+      "url": "https://motion-motors.vercel.app/ar/queue",
+      "vp": "desktop",
+      "status": 200,
+      "w": 1500,
+      "h": 938,
+      "bytes": 23854
+    },
+    {
+      "name": "admin-login-desktop",
+      "host": "admin",
+      "url": "https://live.motionmotors.me/login",
+      "vp": "desktop",
+      "status": 200,
+      "w": 1500,
+      "h": 938,
+      "bytes": 9424
+    }
+  ]
+}
