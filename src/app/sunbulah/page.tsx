@@ -8,7 +8,7 @@ import {
 } from "@/components/sunbulah/icons";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import {
-  AUDIT, COMPARE, DIRECTION, ESTATE, FINDINGS, OPPORTUNITIES, SEVERITY_LABEL, STATUS_LABEL, STRENGTHS,
+  AUDIT, COMPARE, ESTATE, FINDINGS, INSIGHT, PROVE, SEVERITY_LABEL, STATUS_LABEL, STRENGTHS, TODAY,
 } from "./data";
 import { S, S_SOFT, MINT, TINT, D, LINE, RULE, SEV, ZEBRA, HEAD } from "@/components/sunbulah/theme";
 import ArabicTailProcessor from "@/components/ArabicTailProcessor";
@@ -75,63 +75,49 @@ export default function Page() {
             style={{ width: 880, height: 340, background: `radial-gradient(ellipse, ${S}1A 0%, transparent 70%)` }} />
 
           <div className="relative z-10 w-full max-w-5xl mx-auto px-6 flex flex-col items-center" style={{ paddingTop: 76, paddingBottom: 48 }}>
-            <div className="sb-hero opacity-0 mb-7">
+            <div className="sb-hero opacity-0 mb-8">
               <img src="/sunbulah/brand/group.webp" alt="مجموعة السنبلة" style={{ width: 200, height: "auto" }} />
             </div>
 
-            <div className="sb-hero opacity-0 mb-7">
-              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-[11.5px] ar-body"
-                style={{ background: TINT, color: S, border: `1px solid ${S}33` }}>
-                وثيقة مستقلة · غير مطلوبة · {AUDIT.date}
-              </span>
-            </div>
-
-            <h1 className="sb-hero opacity-0 ar-heading text-center mb-7"
+            <h1 className="sb-hero opacity-0 ar-heading text-center mb-8"
               style={{ fontSize: "clamp(32px, 7vw, 74px)", lineHeight: 1.34, color: D }}>
-              موقع لا يشبه <span style={{ color: S }}>حجم المجموعة</span>
+              الشركة اليوم أكبر من <span style={{ color: S }}>الموقع الذي يمثلها</span>
             </h1>
 
-            <p className="sb-hero opacity-0 ar-body text-center text-[16px] leading-loose mb-3" style={{ color: D, opacity: .78, maxWidth: 660 }}>
-              مجموعة السنبلة تصنّع الغذاء منذ 1980 وتعمل في 35 دولة وتملك أربع علامات.
-              وموقعها المؤسسي اليوم اثنتان وعشرون صفحة على نظام إدارة محتوى انتهى دعمه ويعتمد
-              على قالب افتراضي غير مخصص لهوية المجموعة.
-            </p>
-            <p className="sb-hero opacity-0 ar-heading text-[17px] mb-10" style={{ color: S }}>
-              <span className="ltr">sunbulahgroup.com</span>
-            </p>
-
-            <div className="sb-hero opacity-0 grid grid-cols-1 md:grid-cols-2 gap-4 mb-10 w-full max-w-2xl">
-              <div className="rounded-[16px] p-5" style={{ border: `1px solid ${LINE}` }}>
-                <p className="text-[11px] mb-2.5 ar-body" style={{ color: S }}>إعداد</p>
-                <p className="ar-heading text-[15px] mb-1">أحمد علي</p>
-                <p className="text-[12px] ar-body" style={{ color: D, opacity: .58 }}>استراتيجي رقمي · مطوّر منتجات</p>
-                <p className="text-[11px] ltr mt-1" style={{ color: D, opacity: .42 }}>hello@ahmedali.online</p>
-              </div>
-              <div className="rounded-[16px] p-5" style={{ border: `2px solid ${S}` }}>
-                <p className="text-[11px] mb-2.5 ar-body" style={{ color: S }}>الجهة</p>
-                <p className="ar-heading text-[15px] mb-1">مجموعة السنبلة للأغذية</p>
-                <p className="text-[12px] ar-body" style={{ color: D, opacity: .58 }}>جدة · المملكة العربية السعودية</p>
-                <p className="text-[11px] mt-1 ar-body" style={{ color: D, opacity: .42 }}>تأسست 1980 · أربع علامات · 35 دولة</p>
-              </div>
-            </div>
-
-            <div className="sb-hero opacity-0 w-full max-w-3xl mb-9">
-              <div className="flex items-stretch justify-center" style={{ border: `1px solid ${LINE}`, borderRadius: 16, overflow: "hidden" }}>
+            {/* ثلاث حقائق فقط، قبل أي تفصيل */}
+            <div className="sb-hero opacity-0 w-full max-w-2xl mb-8">
+              <div className="grid grid-cols-3 rounded-[18px] overflow-hidden" style={{ border: `1px solid ${LINE}` }}>
                 {[
-                  { n: FINDINGS.length, l: "ملاحظة", c: D },
-                  { n: critical, l: "حرجة", c: "#B4231E" },
-                  { n: high, l: "مرتفعة", c: "#C2410C" },
-                  { n: STRENGTHS.length, l: "أساس قائم", c: "#0F7A70" },
-                  { n: 8, l: "عنوان رقمي", c: S },
+                  { n: "35", l: "دولة" },
+                  { n: "4", l: "علامات" },
+                  { n: "+1,000", l: "موظف" },
                 ].map((x, i) => (
-                  <div key={x.l} className="flex-1 flex flex-col items-center justify-center py-5 px-2 relative"
-                    style={{ borderLeft: i < 4 ? `1px solid ${RULE}` : "none" }}>
-                    <span className="ar-heading tabular-nums sb-count ltr" data-to={x.n} style={{ fontSize: 25, lineHeight: 1, color: x.c }}>0</span>
-                    <span className="text-[11px] mt-2 textext-center ar-body" style={{ color: D, opacity: .55 }}>{x.l}</span>
-                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 rounded-t-full" style={{ height: 3, width: 32, background: x.c }} />
+                  <div key={x.l} className="flex flex-col items-center justify-center py-7 px-3"
+                    style={{ borderLeft: i < 2 ? `1px solid ${RULE}` : "none" }}>
+                    <span className="ar-heading ltr" style={{ fontSize: 34, lineHeight: 1, color: S }}>{x.n}</span>
+                    <span className="ar-body text-[12.5px] mt-2.5" style={{ color: D, opacity: .65 }}>{x.l}</span>
                   </div>
                 ))}
               </div>
+            </div>
+
+            <p className="sb-hero opacity-0 ar-body text-center text-[16.5px] leading-loose mb-3"
+              style={{ color: D, opacity: .85, maxWidth: 640 }}>
+              مجموعة السنبلة تصنّع الغذاء منذ 1980، وتعمل عبر خمس وثلاثين دولة، وتملك أربع علامات.
+              لكن التجربة الرقمية الحالية لا تروي هذه القصة.
+            </p>
+            <p className="sb-hero opacity-0 ar-heading text-[16px] mb-10" style={{ color: S }}>
+              <span className="ltr">sunbulahgroup.com</span>
+            </p>
+
+            <div className="sb-hero opacity-0 mb-10 text-center">
+              <p className="ar-body text-[12.5px] mb-1.5" style={{ color: D, opacity: .5 }}>إعداد</p>
+              <p className="ar-heading text-[17px] mb-1">أحمد علي</p>
+              <a href="https://ahmedali.online" target="_blank" rel="noopener noreferrer"
+                className="ltr text-[12.5px]" style={{ color: S }}>ahmedali.online</a>
+              <p className="ar-body text-[11.5px] mt-4" style={{ color: D, opacity: .45 }}>
+                وثيقة مستقلة، غير مطلوبة، {AUDIT.date}
+              </p>
             </div>
 
             {/* العلامات التي تقوم عليها المجموعة، بشعاراتها كما هي على خادمهم */}
@@ -164,26 +150,14 @@ export default function Page() {
           <style>{`@keyframes sbScroll{0%{transform:translateY(0);opacity:1}75%{transform:translateY(9px);opacity:0}76%{transform:translateY(0);opacity:0}100%{opacity:1}}`}</style>
         </section>
 
-        {/* ══ 01 · المنهج ══════════════════════════════════════════════════ */}
-        <Section id="s01" n="01" eyebrow="القسم الأول" title="كيف قيس" accent="هذا"
-          sub="هذه الوثيقة ليست تقييمًا انطباعيًا. كل ملاحظة فيها مبنية على قياس أو تحقق مباشر يمكن تكراره.">
-          <p className="ar-body text-[16px] leading-loose text-center max-w-3xl mx-auto mb-12" style={{ color: D, opacity: .82 }}>
-            {AUDIT.method}
-          </p>
-          <Table
-            head={["المبدأ", "ما يعنيه عمليًا"]}
-            rows={[
-              ["من الخارج فقط", "كل ما هنا مرئي لأي زائر. لا وصول ولا صلاحيات ولا بيانات داخلية."],
-              ["قابل للتكرار", "كل رقم صدر عن أمر أو تشغيل متصفح يمكن إعادته على الموقع اليوم."],
-              ["ما لم يُتحقق منه حُذف", "حيث تعذّر التأكد، أُسقط الادعاء بدل تقديره أو تقريبه."],
-              ["بلا تسعير", "لا أسعار ولا نطاق عمل. الغرض أن تُقرأ الوثيقة لا أن تُشترى."],
-            ]}
-            widths={["30%", "70%"]}
-          />
-        </Section>
+        {/* ══ 01 · الحقيقة الأكبر ═══════════════════════════════════════════ */}
+        <Insight />
 
-        {/* ══ 02 · الحضور الرقمي ═══════════════════════════════════════════ */}
-        <Section id="s02" n="02" eyebrow="القسم الثاني" title="الحضور" accent="الرقمي"
+        {/* ══ 02 · السنبلة اليوم ════════════════════════════════════════════ */}
+        <Today />
+
+        {/* ══ 03 · الحضور الرقمي ═══════════════════════════════════════════ */}
+        <Section id="s03" n="03" eyebrow="القسم الثالث" title="الحضور" accent="الرقمي"
           sub="ثمانية عناوين تحمل اسم المجموعة أو إحدى علاماتها. ثلاثة لا تعمل واثنان يؤديان الوظيفة نفسها بمسارين.">
           <div className="max-w-5xl mx-auto overflow-x-auto rounded-[18px]" style={{ border: `1px solid ${LINE}`, background: "#fff" }}>
             <table className="w-full" style={{ borderCollapse: "collapse", minWidth: 720 }}>
@@ -219,14 +193,14 @@ export default function Page() {
           </div>
         </Section>
 
-        {/* ══ 03 · خريطة الموقع ════════════════════════════════════════════ */}
-        <Section id="s03" n="03" eyebrow="القسم الثالث" title="خريطة" accent="الموقع"
+        {/* ══ 04 · خريطة الموقع ════════════════════════════════════════════ */}
+        <Section id="s04" n="04" eyebrow="القسم الرابع" title="خريطة" accent="الموقع"
           sub="عدد الصفحات وحده لا يقول أين الفراغ. المجموعات تقوله: شريط المنتجات أخضر بالكامل، وشريط العلامات ليس فيه أخضر واحد. اضغط أي حالة لترى صفحاتها وحدها.">
           <SiteMap />
         </Section>
 
-        {/* ══ 04 · ما يعمل جيدًا ═══════════════════════════════════════════ */}
-        <Section id="s04" n="04" eyebrow="القسم الرابع" title="ما يعمل" accent="جيدًا"
+        {/* ══ 05 · ما يعمل جيدًا ═══════════════════════════════════════════ */}
+        <Section id="s05" n="05" eyebrow="القسم الخامس" title="ما يعمل" accent="جيدًا"
           sub="تدقيق لا يذكر إلا العيوب يُقرأ هجومًا لا تقييمًا. هذه قياسات موجبة، أُخذت بالطريقة نفسها.">
           <div className="max-w-5xl mx-auto overflow-x-auto rounded-[18px]" style={{ border: `1px solid ${S_SOFT}44`, background: "#fff" }}>
             <table className="w-full" style={{ borderCollapse: "collapse", minWidth: 680 }}>
@@ -259,8 +233,26 @@ export default function Page() {
           </div>
         </Section>
 
-        {/* ══ 05 · ما وُجد ═════════════════════════════════════════════════ */}
-        <Section id="s05" n="05" eyebrow="القسم الخامس" title="ما" accent="وُجد"
+        {/* ══ 06 · المنهج ══════════════════════════════════════════════════ */}
+        <Section id="s06" n="06" eyebrow="القسم السادس" title="كيف قيس" accent="هذا"
+          sub="هذه الوثيقة ليست تقييمًا انطباعيًا. كل ملاحظة فيها مبنية على قياس أو تحقق مباشر يمكن تكراره.">
+          <p className="ar-body text-[16px] leading-loose text-center max-w-3xl mx-auto mb-12" style={{ color: D, opacity: .82 }}>
+            {AUDIT.method}
+          </p>
+          <Table
+            head={["المبدأ", "ما يعنيه عمليًا"]}
+            rows={[
+              ["من الخارج فقط", "كل ما هنا مرئي لأي زائر. لا وصول ولا صلاحيات ولا بيانات داخلية."],
+              ["قابل للتكرار", "كل رقم صدر عن أمر أو تشغيل متصفح يمكن إعادته على الموقع اليوم."],
+              ["ما لم يُتحقق منه حُذف", "حيث تعذّر التأكد، أُسقط الادعاء بدل تقديره أو تقريبه."],
+              ["بلا تسعير", "لا أسعار ولا نطاق عمل. الغرض أن تُقرأ الوثيقة لا أن تُشترى."],
+            ]}
+            widths={["30%", "70%"]}
+          />
+        </Section>
+
+        {/* ══ 07 · ما وُجد ═════════════════════════════════════════════════ */}
+        <Section id="s07" n="07" eyebrow="القسم السابع" title="ما" accent="وُجد"
           sub="ثلاث عشرة ملاحظة. الفهرس أولًا للمسح السريع، ثم التفصيل بقياسه الحرفي.">
           {/* الفهرس */}
           <div className="max-w-5xl mx-auto overflow-x-auto rounded-[18px] mb-14" style={{ border: `1px solid ${LINE}` }}>
@@ -378,8 +370,8 @@ export default function Page() {
           </div>
         </Section>
 
-        {/* ══ 06 · أمام النظير ═════════════════════════════════════════════ */}
-        <Section id="s06" n="06" eyebrow="القسم السادس" title="أمام" accent="النظير"
+        {/* ══ 08 · أمام النظير ═════════════════════════════════════════════ */}
+        <Section id="s08" n="08" eyebrow="القسم الثامن" title="أمام" accent="النظير"
           sub="المراعي شركة أغذية سعودية بحجم مقارن. الأرقام قيست على الموقعين في اليوم نفسه، بالأداة نفسها وبالمقاس نفسه.">
           <div className="max-w-5xl mx-auto">
             <div className="mb-8"><PerfChart /></div>
@@ -419,8 +411,8 @@ export default function Page() {
           </div>
         </Section>
 
-        {/* ══ 07 · عصران ═══════════════════════════════════════════════════ */}
-        <Section id="s07" n="07" eyebrow="القسم السابع" title="عصران وشركة" accent="واحدة"
+        {/* ══ 09 · عصران ═══════════════════════════════════════════════════ */}
+        <Section id="s09" n="09" eyebrow="القسم التاسع" title="عصران وشركة" accent="واحدة"
           sub="الفارق بين الموقع المؤسسي وموقع المستهلك يظهر بوضوح عند وضع التجربتين جنبًا إلى جنب.">
           <div className="sb-stagger grid gap-8 lg:grid-cols-2 max-w-5xl mx-auto">
             {[
@@ -450,8 +442,8 @@ export default function Page() {
           </div>
         </Section>
 
-        {/* ══ 08 · من أين يُبدأ ════════════════════════════════════════════ */}
-        <Section id="s08" n="08" eyebrow="القسم الثامن" title="من أين" accent="يُبدأ"
+        {/* ══ 10 · من أين يُبدأ ════════════════════════════════════════════ */}
+        <Section id="s10" n="10" eyebrow="القسم العاشر" title="من أين" accent="يُبدأ"
           sub="ليست كل ملاحظة تحتاج إعادة بناء. أربع منها تُغلق في يوم واحد وأثرها فوري.">
           <div className="max-w-4xl mx-auto overflow-x-auto rounded-[18px]" style={{ border: `1px solid ${LINE}`, background: "#fff" }}>
             <table className="w-full" style={{ borderCollapse: "collapse", minWidth: 620 }}>
@@ -495,36 +487,8 @@ export default function Page() {
           </div>
         </Section>
 
-        {/* ══ 09 · ما يمكن عمله ════════════════════════════════════════════ */}
-        <Section id="s09" n="09" eyebrow="القسم التاسع" title="ما يمكن" accent="عمله"
-          sub="ست فرص ولكل واحدة أثر يمكن ملاحظته. لا أسعار هنا ولا نطاق عمل.">
-          <div className="max-w-5xl mx-auto mb-12">
-            <Placeholder label="صورة رئيسية للمجموعة" ratio="3.1" size="3000 × 970"
-              hint="صورة واحدة قوية تتصدر الموقع الجديد: المصنع، أو المنتجات، أو الفريق. هذه هي أول ما يراه الزائر" />
-          </div>
-
-          <div className="sb-stagger grid gap-4 md:grid-cols-2 max-w-5xl mx-auto">
-            {OPPORTUNITIES.map((o) => (
-              <div key={o.n} className="sb-item rounded-[18px] p-7 flex flex-col" style={{ border: `1px solid ${LINE}` }}>
-                <span className="flex items-center gap-3 mb-5">
-                  <span className="grid place-items-center rounded-xl" style={{ width: 38, height: 38, background: TINT, color: S }}>
-                    {(() => { const I = OPPORTUNITY_ICON[Number(o.n) - 1]; return <I size={16} />; })()}
-                  </span>
-                  <span className="ar-heading text-[13px] ltr" style={{ color: S }}>{o.n}</span>
-                </span>
-                <p className="ar-heading text-[19px] mb-3">{o.t}</p>
-                <p className="text-[13px] leading-loose mb-5 ar-body" style={{ color: D, opacity: .75 }}>{o.d}</p>
-                <p className="text-[12.5px] leading-loose mt-auto pt-4 flex gap-2.5 ar-body" style={{ borderTop: `1px solid ${RULE}`, color: S }}>
-                  <FaArrowLeftLong size={13} className="shrink-0 mt-1" />
-                  {o.outcome}
-                </p>
-              </div>
-            ))}
-          </div>
-        </Section>
-
-        {/* ══ 10 · اتجاه مستقبلي ═══════════════════════════════════════════ */}
-        <Direction />
+        {/* ══ 11 · لو بُني اليوم ════════════════════════════════════════════ */}
+        <Prove />
 
         {/* ══ مواضع الصور المطلوبة ═════════════════════════════════════════ */}
         <section style={{ padding: "0 24px 92px", background: "#fff" }}>
@@ -568,128 +532,103 @@ export default function Page() {
   );
 }
 
-function Direction() {
-  const { home, brands, map, principle, principleLabel, mapLabel, intro } = DIRECTION;
+function Insight() {
   return (
-    <Section id="s10" n="10" eyebrow="القسم العاشر" title="اتجاه" accent="مستقبلي" sub={intro}>
-      <div className="max-w-4xl mx-auto space-y-5">
-
-        {/* 01، الصفحة الرئيسية */}
-        <div className="sb-item rounded-[20px] overflow-hidden" style={{ border: `1px solid ${LINE}` }}>
-          <div className="flex items-center gap-3 px-6 py-4" style={{ background: RULE }}>
-            <span className="ar-heading text-[13px] ltr" style={{ color: S }}>{home.n}</span>
-            <span style={{ width: 18, height: 1, background: `${S}55` }} />
-            <span className="ar-heading text-[16px]">{home.t}</span>
+    <Section id="s01" n="01" eyebrow="القسم الأول" title="المسألة ليست أن" accent="الموقع قديم" sub={INSIGHT.body}>
+      <div className="sb-stagger grid gap-4 md:grid-cols-3 max-w-5xl mx-auto mb-10">
+        {INSIGHT.directions.map((x) => (
+          <div key={x.n} className="sb-item rounded-[18px] overflow-hidden flex flex-col" style={{ border: `1px solid ${LINE}` }}>
+            <div className="px-6 pt-7 pb-6 flex-1">
+              <p className="ar-heading text-[13px] mb-4 ltr" style={{ color: S }}>{x.n}</p>
+              <p className="ar-heading text-[21px] mb-3">{x.t}</p>
+              <p className="ar-body text-[13.5px] leading-loose" style={{ color: D, opacity: .8 }}>{x.d}</p>
+            </div>
+            <div className="px-6 py-5" style={{ background: "#FCF3F2", borderTop: "1px solid #B4231E1F" }}>
+              <p className="ar-body text-[13px] leading-loose" style={{ color: "#8E1C18" }}>{x.gap}</p>
+            </div>
           </div>
-          <div className="px-6 py-7 md:px-8 space-y-7">
-            <Block label="الهدف"><p className="ar-body text-[14px] leading-loose" style={{ color: D, opacity: .85 }}>{home.goal}</p></Block>
-
-            <Block label={home.messageLabel}>
-              <div className="rounded-[14px] px-6 py-6 text-center" style={{ border: `1px solid ${S}33`, background: `${TINT}55` }}>
-                {home.message.map((m: string, i: number) => (
-                  <p key={m} className="ltr" style={{
-                    fontFamily: "var(--font-bricolage), system-ui, sans-serif",
-                    fontSize: i === 0 ? 22 : 14, lineHeight: 1.5, color: i === 0 ? D : S,
-                    marginTop: i ? 10 : 0, fontWeight: i === 0 ? 600 : 400,
-                  }}>{m}</p>
-                ))}
-              </div>
-            </Block>
-
-            <Block label={home.firstScreenLabel}>
-              <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-2.5">
-                {home.firstScreen.map((x: string) => (
-                  <li key={x} className="flex gap-3 ar-body text-[13.5px] leading-loose" style={{ color: D, opacity: .85 }}>
-                    <span style={{ marginTop: 9, width: 11, height: 2, background: S, flexShrink: 0 }} />{x}
-                  </li>
-                ))}
-              </ul>
-            </Block>
-
-            <Block label={home.visualLabel}><p className="ar-body text-[14px] leading-loose" style={{ color: D, opacity: .85 }}>{home.visual}</p></Block>
-          </div>
-        </div>
-
-        {/* 02، العلامات والتصنيع */}
-        <div className="sb-item rounded-[20px] overflow-hidden" style={{ border: `1px solid ${LINE}` }}>
-          <div className="flex items-center gap-3 px-6 py-4" style={{ background: RULE }}>
-            <span className="ar-heading text-[13px] ltr" style={{ color: S }}>{brands.n}</span>
-            <span style={{ width: 18, height: 1, background: `${S}55` }} />
-            <span className="ar-heading text-[16px]">{brands.t}</span>
-          </div>
-          <div className="px-6 py-7 md:px-8 space-y-7">
-            <Block label="الهدف"><p className="ar-body text-[14px] leading-loose" style={{ color: D, opacity: .85 }}>{brands.goal}</p></Block>
-
-            <Block label={brands.houseLabel}>
-              <div className="grid sm:grid-cols-2 gap-3">
-                {brands.house.map((b: { k: string; latin: string; d: string }) => (
-                  <div key={b.k} className="rounded-[14px] p-5" style={{ border: `1px solid ${LINE}` }}>
-                    <div className="flex items-center gap-3 mb-3">
-                      <img src={`/sunbulah/brand/${b.k}.webp`} alt={b.latin} loading="lazy"
-                        style={{ height: 28, width: "auto", maxWidth: 88, objectFit: "contain", mixBlendMode: "multiply" }} />
-                      <span className="ltr text-[12px]" style={{ color: S, letterSpacing: "0.06em" }}>{b.latin}</span>
-                    </div>
-                    <p className="ar-body text-[13px] leading-loose" style={{ color: D, opacity: .78 }}>{b.d}</p>
-                  </div>
-                ))}
-              </div>
-            </Block>
-
-            <Block label={brands.makeLabel}>
-              <p className="ltr mb-3" style={{ fontFamily: "var(--font-bricolage), system-ui, sans-serif", fontSize: 19, color: D, fontWeight: 600 }}>
-                {brands.makeLine}
-              </p>
-              <p className="ar-body text-[14px] leading-loose" style={{ color: D, opacity: .85 }}>{brands.makeBody}</p>
-            </Block>
-
-            <Block label={brands.outcomeLabel}>
-              <p className="ar-body text-[13.5px] leading-loose mb-4" style={{ color: D, opacity: .85 }}>{brands.outcomeIntro}</p>
-              <div className="flex flex-wrap gap-2">
-                {brands.outcome.map((o: string) => (
-                  <span key={o} className="ar-body text-[12.5px] px-3.5 py-2 rounded-full" style={{ background: `${TINT}88`, color: S }}>{o}</span>
-                ))}
-              </div>
-            </Block>
-          </div>
-        </div>
-
-        {/* شكل الصفحة الجديدة */}
-        <div className="sb-item rounded-[20px] overflow-hidden" style={{ border: `1px solid ${LINE}` }}>
-          <div className="px-6 py-4" style={{ background: RULE }}>
-            <span className="ar-heading text-[16px]">{mapLabel}</span>
-          </div>
-          <ol className="px-6 py-6 md:px-8">
-            {map.map((m: { en: string; ar: string }, i: number) => (
-              <li key={m.en} className="flex items-baseline gap-4 py-2.5"
-                style={{ borderTop: i ? `1px solid ${RULE}` : "none", background: i % 2 ? ZEBRA : "#fff" }}>
-                <span className="ltr text-[11.5px] tabular-nums shrink-0" style={{ color: S, width: 22 }}>
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <span className="ltr text-[14px] shrink-0" style={{ fontFamily: "var(--font-bricolage), system-ui, sans-serif", color: D, fontWeight: 500 }}>
-                  {m.en}
-                </span>
-                <span className="ar-body text-[13px]" style={{ color: D, opacity: .7 }}>{m.ar}</span>
-              </li>
-            ))}
-          </ol>
-        </div>
-
-        {/* المبدأ */}
-        <div className="sb-item rounded-[20px] p-8 text-center" style={{ border: `2px solid ${S}` }}>
-          <p className="ar-body text-[11.5px] mb-4" style={{ color: S }}>{principleLabel}</p>
-          <p className="ar-body text-[15px] leading-loose" style={{ color: D, opacity: .9 }}>{principle}</p>
-        </div>
+        ))}
+      </div>
+      <div className="max-w-2xl mx-auto rounded-[18px] p-8 text-center" style={{ border: `2px solid ${S}` }}>
+        <p className="ar-body text-[15px] leading-loose" style={{ color: D, opacity: .9 }}>{INSIGHT.close}</p>
       </div>
     </Section>
   );
 }
 
-function Block({ label, children }: { label: string; children: React.ReactNode }) {
+function Today() {
   return (
-    <div>
-      <p className="ar-body text-[11.5px] mb-3" style={{ color: S }}>{label}</p>
-      {children}
-    </div>
+    <Section id="s02" n="02" eyebrow="القسم الثاني" title="السنبلة اليوم، وما يقوله" accent="موقعها عنها"
+      sub="العمودان أدناه يقرآن معًا: كل سطر على اليمين له ما يقابله على اليسار.">
+      <div className="sb-stagger grid grid-cols-2 sm:grid-cols-4 gap-px max-w-4xl mx-auto mb-10"
+        style={{ background: LINE, border: `1px solid ${LINE}`, borderRadius: 18, overflow: "hidden" }}>
+        {TODAY.facts.map((f) => (
+          <div key={f.l} className="sb-item flex flex-col items-center justify-center text-center px-4 py-9" style={{ background: "#fff" }}>
+            <span className="ar-heading ltr" style={{ fontSize: 32, lineHeight: 1, color: S }}>{f.n}</span>
+            <span className="ar-heading text-[14px] mt-3">{f.l}</span>
+            <span className="ar-body text-[11.5px] mt-2 leading-loose" style={{ color: D, opacity: .58 }}>{f.s}</span>
+          </div>
+        ))}
+      </div>
+
+      <div className="max-w-4xl mx-auto overflow-x-auto rounded-[18px]" style={{ border: `1px solid ${LINE}` }}>
+        <table className="w-full" style={{ borderCollapse: "collapse", minWidth: 560 }}>
+          <thead>
+            <tr style={{ background: HEAD }}>
+              <th className="text-right text-[11.5px] px-5 py-3.5 ar-body" style={{ color: S, fontWeight: 500 }}>{TODAY.factsLabel}</th>
+              <th className="text-right text-[11.5px] px-5 py-3.5 ar-body" style={{ color: "#B4231E", fontWeight: 500 }}>{TODAY.contrastLabel}</th>
+            </tr>
+          </thead>
+          <tbody className="sb-stagger">
+            {TODAY.contrast.map((r, i) => (
+              <tr key={r.real} className="sb-item"
+                style={{ borderTop: i ? `1px solid ${RULE}` : "none", background: i % 2 ? ZEBRA : "#fff" }}>
+                <td className="px-5 py-4 ar-body text-[13.5px] leading-loose align-top"
+                  style={{ color: D, borderRight: `3px solid ${S_SOFT}` }}>{r.real}</td>
+                <td className="px-5 py-4 ar-body text-[13.5px] leading-loose align-top" style={{ color: D, opacity: .82 }}>{r.said}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p className="ar-body text-[14px] leading-loose text-center max-w-2xl mx-auto mt-9" style={{ color: D, opacity: .78 }}>
+        {TODAY.verdict}
+      </p>
+    </Section>
+  );
+}
+
+function Prove() {
+  return (
+    <Section id="s11" n="11" eyebrow="القسم الحادي عشر" title="لو بُني" accent="اليوم" sub={PROVE.intro}>
+      <div className="sb-stagger max-w-4xl mx-auto space-y-4">
+        {PROVE.items.map((x, i) => {
+          const I = OPPORTUNITY_ICON[i];
+          return (
+            <div key={x.n} className="sb-item rounded-[18px] overflow-hidden grid sm:grid-cols-[1fr_auto]"
+              style={{ border: `1px solid ${LINE}` }}>
+              <div className="px-7 py-7">
+                <div className="flex items-center gap-3.5 mb-4">
+                  <span className="grid place-items-center rounded-xl shrink-0" style={{ width: 40, height: 40, background: TINT, color: S }}>
+                    <I size={16} />
+                  </span>
+                  <span className="ar-heading text-[13px] ltr" style={{ color: S }}>{x.n}</span>
+                  <span className="ar-heading text-[21px]">{x.t}</span>
+                </div>
+                <p className="ar-body text-[14.5px] leading-loose" style={{ color: D, opacity: .85 }}>{x.d}</p>
+              </div>
+              <div className="px-7 py-5 sm:py-7 sm:w-64 flex items-center"
+                style={{ background: "#FCF3F2", borderTop: `1px solid #B4231E1F` }}>
+                <p className="ar-body text-[12.5px] leading-loose" style={{ color: "#8E1C18" }}>{x.today}</p>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+      <div className="max-w-2xl mx-auto mt-10 rounded-[18px] p-8 text-center" style={{ border: `2px solid ${S}` }}>
+        <p className="ar-body text-[15px] leading-loose" style={{ color: D, opacity: .9 }}>{PROVE.close}</p>
+      </div>
+    </Section>
   );
 }
 
