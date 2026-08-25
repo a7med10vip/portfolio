@@ -3,7 +3,7 @@ const b = await chromium.launch();
 const p = await (await b.newContext(devices["iPhone 13"])).newPage();
 const errs = [];
 p.on("pageerror", e => errs.push(e.message.slice(0, 70)));
-await p.goto("http://localhost:3000/sunbulah", { waitUntil: "networkidle", timeout: 150000 });
+await p.goto("https://www.ahmedali.online/sunbulah", { waitUntil: "networkidle", timeout: 150000 });
 await p.waitForTimeout(2200);
 const bar = await p.evaluate(() => {
   const b = document.querySelector(".lg\\:hidden button");

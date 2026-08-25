@@ -324,10 +324,19 @@ export default function Page() {
 
                     {f.id === "missing-sections" && (
                       <div className="grid gap-3 sm:grid-cols-2 mb-7">
-                        <Placeholder label="صورة المصنع من الخارج" ratio="1.6" size="2400 × 1500"
-                          hint="لقطة واسعة للمبنى أو خط الإنتاج، تُستخدم في صفحة التصنيع" />
-                        <Placeholder label="داخل خط الإنتاج" ratio="1.6" size="2400 × 1500"
-                          hint="التعبئة أو الفحص أو المستودع، ما يثبت القدرة الصناعية" />
+                        <figure className="m-0">
+                          <div className="rounded-[16px] overflow-hidden" style={{ border: `1px solid ${LINE}`, aspectRatio: "1.5" }}>
+                            <img src="/sunbulah/reference/production-line.webp" alt="خط إنتاج صناعي"
+                              loading="lazy" decoding="async"
+                              style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+                          </div>
+                          <figcaption className="ar-body text-[11px] mt-2.5 leading-loose" style={{ color: D, opacity: .5 }}>
+                            صورة مرجعية لخط إنتاج صناعي، وليست من مصانع المجموعة. الغرض توضيح نوع
+                            الصور التي تحتاجها صفحة التصنيع.
+                          </figcaption>
+                        </figure>
+                        <Placeholder label="صورة من مصانع المجموعة" ratio="1.5" size="2400 × 1600"
+                          hint="لقطة حقيقية من داخل المصنع أو خارجه. هذه وحدها ما يثبت القدرة الصناعية فعلًا" />
                       </div>
                     )}
 
@@ -484,23 +493,6 @@ export default function Page() {
 
         {/* ══ 11 · لو بُني اليوم ════════════════════════════════════════════ */}
         <Prove />
-
-        {/* ══ مواضع الصور المطلوبة ═════════════════════════════════════════ */}
-        <section style={{ padding: "0 24px 92px", background: "#fff" }}>
-          <div className="sb-slide opacity-0 max-w-5xl mx-auto">
-            <p className="ar-body text-[12.5px] text-center mb-6" style={{ color: D, opacity: .55 }}>
-              مواضع أخرى تنتظر صورها. المقاسات محجوزة، فلا يتحرك التخطيط حين تصل الصور.
-            </p>
-            <div className="grid gap-3 sm:grid-cols-3">
-              <Placeholder label="فريق العمل" ratio="1.35" size="1800 × 1330"
-                hint="صور حقيقية لا صور مخزون، لصفحة التوظيف" />
-              <Placeholder label="المقر الرئيسي" ratio="1.35" size="1800 × 1330"
-                hint="واجهة المبنى في جدة" />
-              <Placeholder label="العلامات على الرف" ratio="1.35" size="1800 × 1330"
-                hint="المنتجات في نقطة البيع، لصفحة العلامات" />
-            </div>
-          </div>
-        </section>
 
         {/* ══ الخاتمة ══════════════════════════════════════════════════════ */}
         <section style={{ padding: "80px 24px 100px", borderTop: `1px solid ${RULE}` }}>
