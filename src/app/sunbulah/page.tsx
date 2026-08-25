@@ -71,8 +71,6 @@ export default function Page() {
         <section className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden">
           <div className="absolute inset-0 pointer-events-none"
             style={{ backgroundImage: "radial-gradient(circle, rgba(10,10,10,0.045) 1px, transparent 1px)", backgroundSize: "28px 28px" }} />
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 pointer-events-none"
-            style={{ width: 880, height: 340, background: `radial-gradient(ellipse, ${S}1A 0%, transparent 70%)` }} />
 
           <div className="relative z-10 w-full max-w-5xl mx-auto px-6 flex flex-col items-center" style={{ paddingTop: 76, paddingBottom: 48 }}>
             <div className="sb-hero opacity-0 mb-8">
@@ -106,10 +104,6 @@ export default function Page() {
               مجموعة السنبلة تصنّع الغذاء منذ 1980، وتعمل عبر خمس وثلاثين دولة، وتملك أربع علامات.
               لكن التجربة الرقمية الحالية لا تروي هذه القصة.
             </p>
-            <p className="sb-hero opacity-0 ar-heading text-[16px] mb-10" style={{ color: S }}>
-              <span className="ltr">sunbulahgroup.com</span>
-            </p>
-
             <div className="sb-hero opacity-0 mb-10 text-center">
               <p className="ar-body text-[12.5px] mb-1.5" style={{ color: D, opacity: .5 }}>إعداد</p>
               <p className="ar-heading text-[17px] mb-1">أحمد علي</p>
@@ -129,7 +123,7 @@ export default function Page() {
                 {[
                   { k: "sunbulah", n: "السنبلة", h: 34 },
                   { k: "alshifa", n: "الشفاء", h: 56 },
-                  { k: "sary", n: "ساري", h: 30 },
+                  { k: "sary", n: "ساري", h: 40 },
                   { k: "walima", n: "وليمة", h: 48 },
                 ].map((b) => (
                   <div key={b.k} className="rounded-[14px] px-4 grid place-items-center gap-3"
@@ -434,8 +428,9 @@ export default function Page() {
               </figure>
             ))}
           </div>
-          <div className="max-w-2xl mx-auto mt-14 rounded-[18px] p-8 text-center" style={{ border: `2px solid ${S}` }}>
-            <p className="ar-body text-[15.5px] leading-loose">
+          <div className="max-w-3xl mx-auto mt-14 rounded-[20px] px-8 py-10 text-center" style={{ background: S }}>
+            <p className="ar-body text-[16px] leading-loose"
+              style={{ color: "#fff", textWrap: "balance" } as React.CSSProperties}>
               المجموعة نفسها تملك تجربة استهلاكية حديثة ومحدثة، بينما لم يخضع الموقع
               المؤسسي لإعادة بناء مماثلة منذ سنوات.
             </p>
@@ -549,8 +544,11 @@ function Insight() {
           </div>
         ))}
       </div>
-      <div className="max-w-2xl mx-auto rounded-[18px] p-8 text-center" style={{ border: `2px solid ${S}` }}>
-        <p className="ar-body text-[15px] leading-loose" style={{ color: D, opacity: .9 }}>{INSIGHT.close}</p>
+      <div className="max-w-3xl mx-auto rounded-[20px] px-8 py-10 text-center" style={{ background: S }}>
+        <p className="ar-body text-[16px] leading-loose"
+          style={{ color: "#fff", textWrap: "balance" } as React.CSSProperties}>
+          {INSIGHT.close}
+        </p>
       </div>
     </Section>
   );
@@ -625,8 +623,11 @@ function Prove() {
           );
         })}
       </div>
-      <div className="max-w-2xl mx-auto mt-10 rounded-[18px] p-8 text-center" style={{ border: `2px solid ${S}` }}>
-        <p className="ar-body text-[15px] leading-loose" style={{ color: D, opacity: .9 }}>{PROVE.close}</p>
+      <div className="max-w-3xl mx-auto mt-10 rounded-[20px] px-8 py-10 text-center" style={{ background: S }}>
+        <p className="ar-body text-[16px] leading-loose"
+          style={{ color: "#fff", textWrap: "balance" } as React.CSSProperties}>
+          {PROVE.close}
+        </p>
       </div>
     </Section>
   );

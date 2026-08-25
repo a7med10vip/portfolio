@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { SECTIONS } from "@/app/sunbulah/data";
 import { S, D, LINE } from "./theme";
+import { FaWheatAwn, FaBars, FaXmark } from "react-icons/fa6";
 
 const NAV_W = 246;
 
@@ -110,8 +111,8 @@ export default function SunbulahNav() {
           className="flex items-center gap-2.5 px-4 py-3"
           style={{ cursor: "grab", borderBottom: `1px solid ${LINE}` }}
         >
-          <span className="grid place-items-center rounded-lg shrink-0" style={{ width: 26, height: 26, background: `${S}18` }}>
-            <span style={{ width: 11, height: 11, borderRadius: 3, background: S }} />
+          <span className="grid place-items-center rounded-lg shrink-0" style={{ width: 28, height: 28, background: `${S}14` }}>
+            <FaWheatAwn size={14} color={S} />
           </span>
           <span className="flex-1 min-w-0">
             <span className="heading block text-[12.5px] truncate" style={{ color: D }}>أقسام الوثيقة</span>
@@ -163,8 +164,15 @@ function Row({ s, active, onClick }: { s: (typeof SECTIONS)[number]; active: str
   );
 }
 
+/**
+ * الجوال: شريط علوي يعرض القسم الحالي وتقدّم القراءة، ويفتح قائمة كاملة عند
+ * لمسه. القائمة العائمة على اليمين لا وجود لها هنا؛ فأر لا يوجد وإصبع لا
+ * يسحب لوحة أثناء القراءة.
+ */
 function MobileBar({ active }: { active: string }) {
   const [p, setP] = useState(0);
+  const [open, setOpen] = useState(false);
+
   useEffect(() => {
     const f = () => {
       const h = document.documentElement.scrollHeight - window.innerHeight;
@@ -174,17 +182,69 @@ function MobileBar({ active }: { active: string }) {
     window.addEventListener("scroll", f, { passive: true });
     return () => window.removeEventListener("scroll", f);
   }, []);
+
+  /* القائمة المفتوحة تمنع تمرير الصفحة تحتها. */
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [open]);
+
   const cur = SECTIONS.find((s) => s.id === active) ?? SECTIONS[0];
+  const colour = COLORS[cur.id] ?? S;
+
+  const go = (id: string) => {
+    setOpen(false);
+    window.setTimeout(() => document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" }), 60);
+  };
+
   return (
-    <div dir="rtl" className="fixed top-0 left-0 right-0 z-[92] lg:hidden"
-      style={{ background: "rgba(255,255,255,.94)", backdropFilter: "blur(18px)", borderBottom: `1px solid ${LINE}` }}>
-      <div className="flex items-center gap-2.5 px-4" style={{ height: 44 }}>
-        <span className="text-[11px] tabular-nums" style={{ color: COLORS[cur.id] ?? S, direction: "ltr" }}>{cur.n}</span>
-        <span className="text-[12.5px] truncate" style={{ color: D }}>{cur.label}</span>
+    <>
+      <div dir="rtl" className="fixed top-0 left-0 right-0 z-[94] lg:hidden"
+        style={{ background: "rgba(255,255,255,.96)", backdropFilter: "blur(18px)", borderBottom: `1px solid ${LINE}` }}>
+        <button onClick={() => setOpen((o) => !o)}
+          className="w-full flex items-center gap-3 px-4 text-right" style={{ height: 52 }}>
+          <span className="grid place-items-center rounded-lg shrink-0" style={{ width: 30, height: 30, background: `${colour}14` }}>
+            <FaWheatAwn size={13} color={colour} />
+          </span>
+          <span className="flex-1 min-w-0">
+            <span className="ar-body block text-[10.5px]" style={{ color: colour }}>
+              القسم <span className="ltr">{cur.n}</span> من <span className="ltr">{SECTIONS.length}</span>
+            </span>
+            <span className="ar-heading block text-[13.5px] truncate" style={{ color: D }}>{cur.label}</span>
+          </span>
+          <span className="grid place-items-center rounded-full shrink-0"
+            style={{ width: 34, height: 34, background: open ? colour : `${colour}12`, color: open ? "#fff" : colour }}>
+            {open ? <FaXmark size={14} /> : <FaBars size={14} />}
+          </span>
+        </button>
+        <div style={{ height: 2, background: `${S}1F` }}>
+          <div style={{ height: 2, width: `${p * 100}%`, background: colour, transition: "width .1s linear" }} />
+        </div>
       </div>
-      <div style={{ height: 2, background: `${S}22` }}>
-        <div style={{ height: 2, width: `${p * 100}%`, background: COLORS[cur.id] ?? S, transition: "width .1s linear" }} />
-      </div>
-    </div>
+
+      {open && (
+        <div dir="rtl" className="fixed inset-0 z-[93] lg:hidden overflow-y-auto"
+          style={{ background: "#fff", paddingTop: 54 }}>
+          <nav className="px-4 py-5">
+            <p className="ar-body text-[11.5px] px-2 pb-3" style={{ color: D, opacity: .45 }}>أقسام الوثيقة</p>
+            {SECTIONS.map((sec) => {
+              const on = sec.id === active;
+              const c = COLORS[sec.id] ?? S;
+              return (
+                <button key={sec.id} onClick={() => go(sec.id)}
+                  className="w-full flex items-start gap-3.5 px-3 rounded-[14px] text-right mb-1.5"
+                  style={{ minHeight: 62, background: on ? `${c}0F` : "transparent", border: `1px solid ${on ? `${c}33` : "transparent"}` }}>
+                  <span className="ar-body text-[11.5px] ltr shrink-0 pt-4" style={{ color: c, width: 22, fontWeight: 600 }}>{sec.n}</span>
+                  <span className="min-w-0 flex-1 py-3.5">
+                    <span className="ar-heading block text-[14.5px]" style={{ color: on ? c : D }}>{sec.label}</span>
+                    <span className="ar-body block text-[11.5px] mt-1 leading-loose" style={{ color: D, opacity: .55 }}>{sec.desc}</span>
+                  </span>
+                </button>
+              );
+            })}
+          </nav>
+        </div>
+      )}
+    </>
   );
 }
