@@ -299,83 +299,6 @@ export const ESTATE: Property[] = [
   },
 ];
 
-/* ═══════════════════════════ التصور ═════════════════════════════════════ */
-
-export const CONCEPT = {
-  hero: {
-    eyebrow: "مجموعة السنبلة",
-    line1: "من السعودية",
-    line2: "إلى موائد العالم.",
-    sub: "نُمكّن صناعة الغذاء منذ 1980.",
-  },
-  scale: [
-    { n: "1980", l: "سنة التأسيس", s: "جدة، المملكة العربية السعودية" },
-    { n: "35", l: "دولة", s: "عبر أربع قارات" },
-    { n: "+700", l: "موظف", s: "تصنيع وتوزيع وخدمات غذائية" },
-    { n: "4", l: "علامات", s: "السنبلة · الشفاء · ساري · وليمة" },
-  ],
-  brands: [
-    {
-      key: "sunbulah",
-      name: "السنبلة",
-      latin: "Sunbulah",
-      since: "1980",
-      line: "معجنات وخضروات ودواجن وأجبان مجمدة.",
-      note: "علامة البيت، وأكثرها حضورًا في المطبخ السعودي بالاسم.",
-      tone: "#A8842C",
-    },
-    {
-      key: "alshifa",
-      name: "الشفاء",
-      latin: "Alshifa",
-      since: "1983",
-      line: "عسل طبيعي، حاصل على المواصفة السعودية، من مصادر عالمية.",
-      note: "أكاسيا وسِدر وغابة سوداء ومانوكا، تُجمع من أمريكا الجنوبية وأستراليا وشمال أوروبا.",
-      tone: "#B87333",
-    },
-    {
-      key: "sary",
-      name: "ساري",
-      latin: "Sary",
-      since: "—",
-      line: "عسل من أفضل مناحل العالم، بسعر يومي.",
-      note: "يستوفي المواصفة السعودية نفسها التي تستوفيها الشفاء، لكنه موضوع لتسوّق الأسبوع لا للهدية.",
-      tone: "#8C7A3F",
-    },
-    {
-      key: "walima",
-      name: "وليمة",
-      latin: "Walima",
-      since: "—",
-      line: "للمائدة التي تُعدّ للضيوف.",
-      note: "علامة المناسبة، وأقلها نصيبًا مما كُتب عنها في أي مكان.",
-      tone: "#7A5C3E",
-    },
-  ],
-  categories: [
-    { key: "pastry", ar: "المعجنات المجمدة", en: "Frozen pastry" },
-    { key: "cheese", ar: "الأجبان", en: "Cheese" },
-    { key: "vegetables", ar: "الخضروات المجمدة", en: "Frozen vegetables" },
-    { key: "meat", ar: "اللحوم والدجاج", en: "Meat and poultry" },
-    { key: "seafood", ar: "المأكولات البحرية", en: "Seafood" },
-    { key: "fruits", ar: "الفواكه المجمدة", en: "Frozen fruits" },
-    { key: "readymeals", ar: "الوجبات الجاهزة", en: "Ready meals" },
-    { key: "chilled", ar: "غير المجمدة", en: "Chilled" },
-  ],
-  ecosystem: [
-    { n: "01", t: "التصنيع", d: "من المكوّن إلى المنتج النهائي، داخل المملكة." },
-    { n: "02", t: "التوزيع", d: "شبكة تصل المملكة و35 سوقًا خارجها." },
-    { n: "03", t: "الخدمات الغذائية", d: "تزويد الفنادق ومتعهدي الضيافة والمطابخ المهنية." },
-  ],
-  history: [
-    { y: "1980", t: "البداية", d: "التأسيس في جدة." },
-    { y: "1983", t: "الشفاء", d: "انطلاق نشاط العسل، ليصبح علامة قائمة بذاتها." },
-    { y: "التسعينات", t: "التصنيع", d: "بناء القدرة الإنتاجية عبر الفئات." },
-    { y: "الألفينات", t: "خارج المملكة", d: "التوسع الإقليمي، وأول أسواق التصدير." },
-    { y: "اليوم", t: "35 دولة", d: "أربع علامات، ومجموعة تعمل عبر أربع قارات." },
-  ],
-};
-
 /* ═══════════════════════════ الأقسام ════════════════════════════════════ */
 
 export interface SectionDef {
@@ -389,19 +312,15 @@ export interface SectionDef {
 export const SECTIONS: SectionDef[] = [
   { id: "s01", n: "01", label: "كيف قيس هذا", desc: "المنهج والتاريخ وما لم يُستخدم", part: "audit" },
   { id: "s02", n: "02", label: "الحضور الرقمي", desc: "ثمانية عناوين، ثلاثة منها معطّلة", part: "audit" },
-  { id: "s03", n: "03", label: "ما يعمل جيدًا", desc: "ستة أسس قائمة يُبنى عليها", part: "audit" },
-  { id: "s04", n: "04", label: "ما وُجد", desc: "ثلاث عشرة ملاحظة، الأسوأ أولًا", part: "audit" },
-  { id: "s05", n: "05", label: "أمام النظير", desc: "الأرقام نفسها، مقيسة على المراعي", part: "audit" },
-  { id: "s06", n: "06", label: "عصران وشركة واحدة", desc: "موقع المستهلك إلى جوار المؤسسي", part: "audit" },
-  { id: "s07", n: "07", label: "من أين يُبدأ", desc: "ما يُصلَح، وبأي ترتيب", part: "audit" },
-  { id: "s08", n: "08", label: "ما يمكن عمله", desc: "ست فرص، وأثر كل واحدة", part: "audit" },
-  { id: "s09", n: "09", label: "التصور", desc: "صفحة رئيسية مبنية على ما هي عليه المجموعة", part: "concept" },
-  { id: "s10", n: "10", label: "الحجم", desc: "الأرقام، تُقال مرة واحدة وبوضوح", part: "concept" },
-  { id: "s11", n: "11", label: "العلامات", desc: "أربع علامات، لكل منها شاشة", part: "concept" },
-  { id: "s12", n: "12", label: "التصنيع والفئات", desc: "الجزء الذي لا يعرضه أحد", part: "concept" },
-  { id: "s13", n: "13", label: "الانتشار العالمي", desc: "من جدة إلى 35 دولة", part: "concept" },
-  { id: "s14", n: "14", label: "منذ 1980", desc: "أربعة عقود كقصة، لا كقائمة", part: "concept" },
+  { id: "s03", n: "03", label: "خريطة الموقع", desc: "الشجرة كاملة، بفروعها المفقودة", part: "audit" },
+  { id: "s04", n: "04", label: "ما يعمل جيدًا", desc: "ستة أسس قائمة يُبنى عليها", part: "audit" },
+  { id: "s05", n: "05", label: "ما وُجد", desc: "ثلاث عشرة ملاحظة، الأسوأ أولًا", part: "audit" },
+  { id: "s06", n: "06", label: "أمام النظير", desc: "الأرقام نفسها، مقيسة على المراعي", part: "audit" },
+  { id: "s07", n: "07", label: "عصران وشركة واحدة", desc: "موقع المستهلك إلى جوار المؤسسي", part: "audit" },
+  { id: "s08", n: "08", label: "من أين يُبدأ", desc: "ما يُصلَح، وبأي ترتيب", part: "audit" },
+  { id: "s09", n: "09", label: "ما يمكن عمله", desc: "ست فرص، وأثر كل واحدة", part: "audit" },
 ];
+
 /* ═══════════════════════════ ما يعمل جيدًا ══════════════════════════════ */
 
 /**
@@ -512,4 +431,112 @@ export const OPPORTUNITIES: Opportunity[] = [
     d: "أكبر صورة اليوم 990 بكسل. المجموعة تملك أصلًا تصويرًا أعلى دقة على موقع المستهلك.",
     outcome: "منتج غذائي يُعرض بشهية تليق به على أي شاشة.",
   },
+];
+
+/* ═══════════════════════════ شجرة الموقع ═══════════════════════════════ */
+
+/**
+ * الاثنتان والعشرون صفحة كما هي على الخادم، ومعها ما ليس موجودًا.
+ * الفروع المفقودة مرسومة لأن غيابها هو الملاحظة نفسها.
+ */
+export type NodeState = "ok" | "thin" | "orphan" | "missing" | "broken";
+
+export const NODE_LABEL: Record<NodeState, string> = {
+  ok: "قائمة",
+  thin: "شبه فارغة",
+  orphan: "غير مرتبطة",
+  missing: "غير موجودة",
+  broken: "معطّلة",
+};
+
+export const NODE_COLOR: Record<NodeState, string> = {
+  ok: "#00A99B",
+  thin: "#C2410C",
+  orphan: "#8B5CF6",
+  missing: "#B4231E",
+  broken: "#B4231E",
+};
+
+export interface TreeNode {
+  label: string;
+  path: string;
+  state: NodeState;
+  note?: string;
+  children?: TreeNode[];
+}
+
+export const SITE_TREE: TreeNode[] = [
+  {
+    label: "الرئيسية", path: "/", state: "thin",
+    note: "عنوانها الحرفي هو الكلمة Home",
+    children: [
+      {
+        label: "من نحن", path: "/aboutus.html", state: "ok",
+        children: [
+          { label: "نظرة عامة", path: "/aboutus/overview.html", state: "thin", note: "أقل من 300 كلمة" },
+          { label: "كلمة المؤسس", path: "/aboutus/founder-message.html", state: "ok" },
+          { label: "التاريخ والمحطات", path: "/aboutus/history-milestone.html", state: "ok" },
+        ],
+      },
+      { label: "الرسالة والقيم", path: "/mission-values.html", state: "ok" },
+      {
+        label: "المنتجات", path: "/products.html", state: "ok",
+        note: "اثنتا عشرة فئة، وهي أعمق ما في الموقع",
+        children: [
+          { label: "معجنات مجمدة", path: "/frozen-pastry.html", state: "ok" },
+          { label: "خضروات مجمدة", path: "/frozen-vegetables.html", state: "ok" },
+          { label: "لحوم", path: "/frozen-beef-lamb.html", state: "ok" },
+          { label: "دواجن", path: "/frozen-chicken.html", state: "ok" },
+          { label: "مأكولات بحرية", path: "/frozen-sea-food.html", state: "ok" },
+          { label: "فواكه مجمدة", path: "/frozen-fruits.html", state: "ok" },
+          { label: "خبز", path: "/frozen-bread.html", state: "ok" },
+          { label: "كيك", path: "/frozen-cake.html", state: "ok" },
+          { label: "بطاطس", path: "/frozen-potato.html", state: "ok" },
+          { label: "وجبات جاهزة", path: "/frozen-convenience.html", state: "ok" },
+          { label: "أجبان", path: "/frozen-chilled-cheese.html", state: "ok" },
+          { label: "عسل ومربى", path: "/honey-jam.html", state: "ok" },
+        ],
+      },
+      {
+        label: "العلامات", path: "/brands.html", state: "missing",
+        note: "لا توجد صفحة جامعة للعلامات الأربع",
+        children: [
+          { label: "وليمة", path: "/walima.html", state: "thin", note: "عشر كلمات" },
+          { label: "الشفاء", path: "/alshifa.html", state: "orphan", note: "ثلاث عشرة كلمة، وغير مرتبطة من الرئيسية" },
+          { label: "ساري", path: "/sary.html", state: "orphan", note: "أربع عشرة كلمة، وغير مرتبطة من الرئيسية" },
+          { label: "السنبلة", path: "sunbulah.com", state: "broken", note: "الرابط من الرئيسية يعيد 404" },
+        ],
+      },
+      {
+        label: "التوظيف", path: "/careers.html", state: "ok",
+        children: [
+          { label: "المزايا", path: "/benefits.html", state: "ok" },
+          { label: "التطوير المهني", path: "/career-development.html", state: "ok" },
+          { label: "التنوع", path: "/diversity.html", state: "ok" },
+          { label: "الاختيار والتعيين", path: "/recruitment-selection.html", state: "ok" },
+          { label: "بوابة التقديم", path: "career.sunbulahgroup.com", state: "broken", note: "يحجبها المتصفح بخطأ شهادة" },
+        ],
+      },
+      { label: "شبكة الموزّعين", path: "/distributors-network.html", state: "ok" },
+      { label: "اتصل بنا", path: "/contactus.html", state: "ok" },
+      { label: "خريطة الموقع", path: "/site-map.html", state: "ok" },
+      { label: "النسخة العربية", path: "/arabic/", state: "thin", note: "تعلن lang=\"en-gb\" بلا dir=\"rtl\"" },
+      { label: "التصنيع", path: "/manufacturing", state: "missing", note: "قاعدة صناعية بلا صفحة" },
+      { label: "الانتشار العالمي", path: "/global", state: "missing", note: "35 دولة بلا صفحة" },
+      { label: "القيادة", path: "/leadership", state: "missing" },
+      { label: "غرفة الأخبار", path: "/news", state: "missing" },
+      { label: "الاستدامة", path: "/sustainability", state: "missing" },
+    ],
+  },
+];
+
+/** أرقام الأداء كما تُرسم في المخطط. */
+export const PERF_CHART = [
+  { metric: "زمن أول بايت", sunbulah: 865, almarai: 455, unit: "مللي ثانية" },
+  { metric: "زمن التحميل", sunbulah: 3700, almarai: 2700, unit: "مللي ثانية" },
+];
+
+export const LAZY_CHART = [
+  { name: "السنبلة", loaded: 0, total: 23 },
+  { name: "المراعي", loaded: 46, total: 54 },
 ];

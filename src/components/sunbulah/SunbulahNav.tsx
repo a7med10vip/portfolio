@@ -8,10 +8,9 @@ const NAV_W = 246;
 
 /** لون لكل قسم، يتتبعه المؤشر أثناء القراءة. */
 const COLORS: Record<string, string> = {
-  s01: "#A8842C", s02: "#B4231E", s03: "#2E7D32", s04: "#C2410C",
-  s05: "#1F6F6B", s06: "#14130F", s07: "#7C6A3E", s08: "#8B5CF6",
-  s09: "#A8842C", s10: "#B87333", s11: "#8C7A3F", s12: "#1F6F6B",
-  s13: "#3B82F6", s14: "#7A5C3E",
+  s01: "#004D5A", s02: "#B4231E", s03: "#8B5CF6", s04: "#00A99B",
+  s05: "#C2410C", s06: "#0A0A0A", s07: "#004D5A", s08: "#00A99B",
+  s09: "#8B5CF6",
 };
 
 /**
@@ -91,8 +90,6 @@ export default function SunbulahNav() {
   const jump = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
 
   if (!pos) return null;
-  const audit = SECTIONS.filter((s) => s.part === "audit");
-  const concept = SECTIONS.filter((s) => s.part === "concept");
 
   return (
     <>
@@ -132,10 +129,7 @@ export default function SunbulahNav() {
 
         {!collapsed && (
           <nav className="py-2 max-h-[58vh] overflow-y-auto">
-            <p className="text-[11px] px-4 pt-2 pb-1.5" style={{ color: D, opacity: .35 }}>التدقيق</p>
-            {audit.map((s) => <Row key={s.id} s={s} active={active} onClick={jump} />)}
-            <p className="text-[11px] px-4 pt-3 pb-1.5" style={{ color: D, opacity: .35 }}>التصور</p>
-            {concept.map((s) => <Row key={s.id} s={s} active={active} onClick={jump} />)}
+            {SECTIONS.map((s) => <Row key={s.id} s={s} active={active} onClick={jump} />)}
           </nav>
         )}
       </aside>

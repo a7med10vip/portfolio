@@ -24,16 +24,16 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <style>{`
           * { letter-spacing: 0 !important; }
           html { scroll-behavior: auto; }
-          body { background: #fff; margin: 0; color: #14130F;
+          body { background: #fff; margin: 0; color: #0A0A0A;
                  font-family: 'Ahmed Sans', system-ui, sans-serif; }
           /* خط ثمانية: العريض للعناوين، والسانس لكل ما عداه. */
           .heading { font-family: 'Ahmed Serif Display', Georgia, serif !important; font-weight: 500; color: inherit; }
           .body-serif { font-family: 'Ahmed Serif Text', Georgia, serif; }
-          ::selection { background: #A8842C33; color: #14130F; }
+          ::selection { background: #004D5A22; color: #0A0A0A; }
           ::-webkit-scrollbar { width: 10px; height: 10px; }
           ::-webkit-scrollbar-track { background: #fff; }
-          ::-webkit-scrollbar-thumb { background: #A8842C40; border-radius: 99px; }
-          ::-webkit-scrollbar-thumb:hover { background: #A8842C; }
+          ::-webkit-scrollbar-thumb { background: #004D5A40; border-radius: 99px; }
+          ::-webkit-scrollbar-thumb:hover { background: #004D5A; }
           /* الأرقام والمسارات اللاتينية داخل نص عربي تحتاج اتجاهها الخاص. */
           .ltr { direction: ltr; unicode-bidi: isolate; display: inline-block; }
         `}</style>

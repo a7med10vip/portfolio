@@ -1,8 +1,8 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { MessageCircle, X, Send, Sparkles } from "lucide-react";
-import { S, D, LINE } from "./theme";
+import { MessageCircle, X, Send } from "lucide-react";
+import { S, S_SOFT, MINT, D, LINE } from "./theme";
 
 type Message = { role: "user" | "assistant"; content: string };
 
@@ -119,10 +119,8 @@ export default function SunbulahChat() {
             style={{ width: 58, height: 58, background: S, boxShadow: `4px 4px 0 0 ${D}` }}
           >
             <MessageCircle size={24} color="#fff" />
-            <span className="absolute grid place-items-center rounded-full"
-              style={{ top: -3, right: -3, width: 20, height: 20, background: D, border: "2px solid #fff" }}>
-              <Sparkles size={9} color="#fff" />
-            </span>
+            <span className="absolute rounded-full"
+              style={{ top: -2, right: -2, width: 14, height: 14, background: MINT, border: "2px solid #fff" }} />
           </button>
 
           {nudge && (
@@ -145,8 +143,9 @@ export default function SunbulahChat() {
           <header className="flex items-center justify-between px-4 shrink-0"
             style={{ height: 62, background: D }}>
             <div className="flex items-center gap-3 min-w-0">
-              <span className="grid place-items-center rounded-full shrink-0" style={{ width: 34, height: 34, background: S }}>
-                <Sparkles size={15} color="#fff" />
+              <span className="grid place-items-center rounded-lg shrink-0"
+                style={{ width: 34, height: 34, background: S_SOFT }}>
+                <span className="heading text-[13px]" style={{ color: "#fff" }}>س</span>
               </span>
               <div className="min-w-0">
                 <p className="heading text-[14px] truncate" style={{ color: "#fff" }}>مرشد الوثيقة</p>
