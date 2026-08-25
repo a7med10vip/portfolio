@@ -1,35 +1,12 @@
 "use client";
 
-import { S, D, TINT } from "./theme";
-
-/**
- * موضع صورة محجوز.
- *
- * الوثيقة تحتاج صورًا لا تملكها بعد. الموضع محجوز هنا بمقاسه الصحيح ومكتوب
- * عليه ما يوضع فيه، فيبقى التخطيط نهائيًا ولا يتحرك شيء حين تصل الصور.
- */
-export default function Placeholder({
-  label, hint, ratio = "1.7", size,
-}: { label: string; hint?: string; ratio?: string; size?: string }) {
-  return (
-    <div className="w-full grid place-items-center text-center rounded-[16px] px-6"
-      style={{ aspectRatio: ratio, border: `1.5px dashed ${S}44`, background: TINT + "55" }}>
-      <div>
-        <p className="ar-heading text-[15px] mb-2" style={{ color: S }}>{label}</p>
-        {hint && <p className="ar-body text-[12px] leading-loose mb-2" style={{ color: D, opacity: .6 }}>{hint}</p>}
-        {size && <p className="ar-body text-[11px]" style={{ color: S, opacity: .7 }}>المقاس المقترح: {size}</p>}
-      </div>
-    </div>
-  );
-}
-
 /**
  * رسم توضيحي لما يراه الزائر حين يضغط زر التقديم على الوظائف.
  *
  * ليست لقطة شاشة: المتصفح بلا واجهة يوقف الصفحة قبل أن يرسم التحذير أصلًا
  * فلا يمكن تصويرها آليًا. هذه إعادة رسم لها ومكتوب عليها أنها كذلك.
  */
-export function WarningIllustration() {
+export default function WarningIllustration() {
   return (
     <figure className="m-0">
       <div className="rounded-[14px] overflow-hidden" style={{ border: `1px solid #E8E8E8` }}>

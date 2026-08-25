@@ -14,7 +14,7 @@ import { S, S_SOFT, MINT, TINT, D, LINE, RULE, SEV, ZEBRA, HEAD } from "@/compon
 import ArabicTailProcessor from "@/components/ArabicTailProcessor";
 import SunbulahNav from "@/components/sunbulah/SunbulahNav";
 import SunbulahChat from "@/components/sunbulah/SunbulahChat";
-import Placeholder, { WarningIllustration } from "@/components/sunbulah/Placeholder";
+import WarningIllustration from "@/components/sunbulah/WarningIllustration";
 import SiteMap from "@/components/sunbulah/SiteTree";
 import PerfChart from "@/components/sunbulah/PerfChart";
 
@@ -321,31 +321,6 @@ export default function Page() {
                     <p className="ar-body text-[14.5px] leading-loose mb-5" style={{ color: D, opacity: .85 }}>{f.evidence}</p>
 
                     {f.id === "careers-cert" && <div className="mb-7"><WarningIllustration /></div>}
-
-                    {f.id === "missing-sections" && (
-                      <div className="grid gap-3 sm:grid-cols-2 mb-7">
-                        <figure className="m-0">
-                          <div className="rounded-[16px] overflow-hidden" style={{ border: `1px solid ${LINE}`, aspectRatio: "1.5" }}>
-                            <img src="/sunbulah/reference/production-line.webp" alt="خط إنتاج صناعي"
-                              loading="lazy" decoding="async"
-                              style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
-                          </div>
-                          <figcaption className="ar-body text-[11px] mt-2.5 leading-loose" style={{ color: D, opacity: .5 }}>
-                            صورة مرجعية لخط إنتاج صناعي، وليست من مصانع المجموعة. الغرض توضيح نوع
-                            الصور التي تحتاجها صفحة التصنيع.
-                          </figcaption>
-                        </figure>
-                        <Placeholder label="صورة من مصانع المجموعة" ratio="1.5" size="2400 × 1600"
-                          hint="لقطة حقيقية من داخل المصنع أو خارجه. هذه وحدها ما يثبت القدرة الصناعية فعلًا" />
-                      </div>
-                    )}
-
-                    {f.id === "images" && (
-                      <div className="mb-7">
-                        <Placeholder label="صور المنتجات بدقة مضاعفة" ratio="2.6" size="عرض 2400 على الأقل"
-                          hint="الصور الحالية على الموقع عرضها 990 نقطة فقط. هذه الصور موجودة أصلًا لدى فريق التسويق" />
-                      </div>
-                    )}
 
                     {f.proof && (
                       <p className="ar-body text-[13px] leading-loose px-5 py-4 rounded-xl mb-6"
