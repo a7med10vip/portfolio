@@ -1,107 +1,146 @@
 "use client";
 
-import { useState } from "react";
-import { NODE_COLOR, NODE_LABEL, SITE_TREE, type TreeNode } from "@/app/sunbulah/data";
-import { S, D, LINE } from "./theme";
+import { useMemo, useState } from "react";
+import {
+  NODE_COLOR, NODE_LABEL, PAGE_GROUPS, type NodeState, type PageNode,
+} from "@/app/sunbulah/data";
+import { S, D, LINE, RULE, ZEBRA } from "./theme";
+import { TREE_ICON } from "./icons";
 
 /**
- * الموقع كشجرة، بفروعه الموجودة والمفقودة معًا.
+ * صفحات الموقع مجموعةً بالوظيفة، لا كشجرة متشعّبة.
  *
- * قائمة الصفحات تقول اثنتين وعشرين صفحة ولا تقول أين الفراغ. الشجرة تقوله:
- * فرع المنتجات ثقيل باثنتي عشرة ورقة، وفرع العلامات — وهو ما قامت عليه
- * المجموعة — بلا جذع أصلًا.
+ * الشجرة السابقة كانت تعرض البنية وتخفي المعنى، وتطول حتى تُملّ. المجموعات
+ * تعرض المعنى في نظرة: شريط المنتجات أخضر بالكامل، وشريط العلامات ليس فيه
+ * أخضر واحد. والفلتر يجعل السؤال «أرني المعطّل فقط» ضغطة واحدة.
  */
-export default function SiteTree() {
-  const [open, setOpen] = useState<Set<string>>(new Set(["/", "/products.html", "/brands.html", "/careers.html"]));
-  const toggle = (p: string) =>
-    setOpen((s) => {
-      const n = new Set(s);
-      n.has(p) ? n.delete(p) : n.add(p);
-      return n;
-    });
+const STATES: NodeState[] = ["ok", "thin", "orphan", "missing", "broken"];
 
-  const counts = countStates(SITE_TREE);
+export default function SiteMap() {
+  const [filter, setFilter] = useState<NodeState | "all">("all");
+
+  const counts = useMemo(() => {
+    const c: Record<string, number> = {};
+    PAGE_GROUPS.forEach((g) => g.pages.forEach((p) => { c[p.state] = (c[p.state] ?? 0) + 1; }));
+    return c;
+  }, []);
+  const total = Object.values(counts).reduce((a, b) => a + b, 0);
+
+  const shown = PAGE_GROUPS.map((g) => ({
+    ...g,
+    pages: filter === "all" ? g.pages : g.pages.filter((p) => p.state === filter),
+  }));
+  const visible = shown.reduce((a, g) => a + g.pages.length, 0);
 
   return (
-    <div className="max-w-4xl mx-auto">
-      {/* المفتاح */}
-      <div className="flex flex-wrap items-center justify-center gap-2 mb-9">
-        {(Object.keys(NODE_LABEL) as (keyof typeof NODE_LABEL)[]).map((k) => (
-          <span key={k} className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11.5px]"
-            style={{ border: `1px solid ${NODE_COLOR[k]}44`, color: D }}>
-            <span style={{ width: 8, height: 8, borderRadius: 2, background: NODE_COLOR[k] }} />
-            {NODE_LABEL[k]}
-            <span className="ltr" style={{ color: NODE_COLOR[k] }}>{counts[k] ?? 0}</span>
-          </span>
+    <div className="max-w-5xl mx-auto">
+      {/* الفلتر */}
+      <div className="flex flex-wrap items-center justify-center gap-2 mb-4">
+        <Pill active={filter === "all"} onClick={() => setFilter("all")} colour={S} label="الكل" count={total} />
+        {STATES.map((k) => (
+          <Pill key={k} active={filter === k} onClick={() => setFilter(k)}
+            colour={NODE_COLOR[k]} label={NODE_LABEL[k]} count={counts[k] ?? 0} state={k} />
         ))}
       </div>
+      <p className="ar-body text-[12px] text-center mb-10" style={{ color: D, opacity: .55 }}>
+        {filter === "all"
+          ? `${total} صفحة، منها ${counts.missing ?? 0} غير موجودة أصلًا`
+          : `${visible} من ${total} صفحة`}
+      </p>
 
-      <div className="rounded-[20px] px-5 py-6 md:px-8 md:py-8" style={{ border: `1px solid ${LINE}`, background: "#fff" }}>
-        {SITE_TREE.map((n) => (
-          <Branch key={n.path} node={n} depth={0} open={open} toggle={toggle} last />
-        ))}
+      {/* المجموعات */}
+      <div className="grid gap-4 lg:grid-cols-2">
+        {shown.map((g) => {
+          if (!g.pages.length) return null;
+          const all = PAGE_GROUPS.find((x) => x.key === g.key)!.pages;
+          return (
+            <section key={g.key} className="sb-item rounded-[18px] overflow-hidden"
+              style={{ border: `1px solid ${LINE}`, background: "#fff" }}>
+              <header className="px-5 py-4" style={{ background: ZEBRA, borderBottom: `1px solid ${RULE}` }}>
+                <div className="flex items-baseline justify-between gap-3 mb-3">
+                  <h4 className="ar-heading text-[16px]" style={{ color: D }}>{g.label}</h4>
+                  <span className="ar-body text-[12px] ltr" style={{ color: S }}>{all.length}</span>
+                </div>
+                {/* شريط يلخّص مزيج الحالات في المجموعة قبل قراءة أي اسم */}
+                <div className="flex rounded-full overflow-hidden mb-3" style={{ height: 5 }}>
+                  {STATES.map((k) => {
+                    const n = all.filter((p) => p.state === k).length;
+                    if (!n) return null;
+                    return <span key={k} style={{ width: `${(n / all.length) * 100}%`, background: NODE_COLOR[k] }} />;
+                  })}
+                </div>
+                <p className="ar-body text-[12px] leading-loose" style={{ color: D, opacity: .68 }}>{g.verdict}</p>
+              </header>
+
+              <div className="px-5 py-4 flex flex-wrap gap-2">
+                {g.pages.map((p) => <Chip key={p.path} page={p} />)}
+              </div>
+            </section>
+          );
+        })}
       </div>
     </div>
   );
 }
 
-function Branch({ node, depth, open, toggle, last }: {
-  node: TreeNode; depth: number; open: Set<string>; toggle: (p: string) => void; last: boolean;
+function Pill({ active, onClick, colour, label, count, state }: {
+  active: boolean; onClick: () => void; colour: string; label: string; count: number; state?: NodeState;
 }) {
-  const kids = node.children ?? [];
-  const isOpen = open.has(node.path);
-  const c = NODE_COLOR[node.state];
-
+  const Icon = state ? TREE_ICON[state] : null;
   return (
-    <div style={{ position: "relative" }}>
-      <div className="flex items-start gap-2.5 py-1.5" style={{ paddingRight: depth ? 22 : 0 }}>
-        {/* وصلة الفرع */}
-        {depth > 0 && (
-          <>
-            <span aria-hidden style={{
-              position: "absolute", right: 8, top: 0,
-              height: last ? 17 : "100%", width: 1, background: LINE }} />
-            <span aria-hidden style={{
-              position: "absolute", right: 8, top: 17, width: 13, height: 1, background: LINE }} />
-          </>
-        )}
-
-        <button
-          onClick={() => kids.length && toggle(node.path)}
-          className="flex items-start gap-2.5 text-right flex-1 min-w-0"
-          style={{ cursor: kids.length ? "pointer" : "default" }}
-        >
-          <span className="shrink-0 mt-[7px] rounded-sm" style={{ width: 9, height: 9, background: c }} />
-          <span className="min-w-0 flex-1">
-            <span className="flex items-baseline gap-2 flex-wrap">
-              <span className="text-[13.5px]" style={{ color: D, textDecoration: node.state === "missing" ? "line-through" : "none", opacity: node.state === "missing" ? .55 : 1 }}>
-                {node.label}
-              </span>
-              <span className="text-[11px] ltr" style={{ color: D, opacity: .38 }}>{node.path}</span>
-              {kids.length > 0 && (
-                <span className="text-[10.5px] px-1.5 rounded ltr" style={{ background: `${S}12`, color: S }}>
-                  {isOpen ? "−" : "+"}{kids.length}
-                </span>
-              )}
-            </span>
-            {node.note && (
-              <span className="block text-[11.5px] mt-1 leading-loose" style={{ color: c }}>{node.note}</span>
-            )}
-          </span>
-        </button>
-      </div>
-
-      {isOpen && kids.map((k, i) => (
-        <Branch key={k.path} node={k} depth={depth + 1} open={open} toggle={toggle} last={i === kids.length - 1} />
-      ))}
-    </div>
+    <button onClick={onClick}
+      className="inline-flex items-center gap-2 px-4 rounded-full ar-body text-[12px] transition-colors"
+      style={{
+        minHeight: 44,
+        background: active ? colour : "#fff",
+        color: active ? "#fff" : D,
+        border: `1px solid ${active ? colour : LINE}`,
+      }}>
+      {Icon && <Icon size={12} color={active ? "#fff" : colour} />}
+      {label}
+      <span className="ltr" style={{ opacity: active ? .85 : .5, fontWeight: 600 }}>{count}</span>
+    </button>
   );
 }
 
-function countStates(nodes: TreeNode[], acc: Record<string, number> = {}) {
-  for (const n of nodes) {
-    acc[n.state] = (acc[n.state] ?? 0) + 1;
-    if (n.children) countStates(n.children, acc);
-  }
-  return acc;
+function Chip({ page }: { page: PageNode }) {
+  const [open, setOpen] = useState(false);
+  const c = NODE_COLOR[page.state];
+  const Icon = TREE_ICON[page.state];
+  const gone = page.state === "missing";
+  return (
+    <span className="relative inline-block">
+      <button
+        onMouseEnter={() => setOpen(true)}
+        onMouseLeave={() => setOpen(false)}
+        onClick={() => setOpen((o) => !o)}
+        className="inline-flex items-center gap-2 px-3.5 rounded-lg ar-body text-[12.5px] text-right"
+        style={{
+          minHeight: 44,
+          background: `${c}0F`,
+          color: D,
+          border: `1px solid ${c}33`,
+          textDecoration: gone ? "line-through" : "none",
+          opacity: gone ? .75 : 1,
+        }}>
+        <Icon size={11} color={c} />
+        {page.label}
+      </button>
+      {open && (
+        <span className="absolute z-40 block text-right ar-body"
+          style={{
+            bottom: "calc(100% + 8px)", right: 0, width: 250, background: "#fff",
+            border: `1px solid ${LINE}`, borderRadius: 12, padding: "12px 14px",
+          }}>
+          <span className="block text-[11px] ltr mb-1.5" style={{ color: D, opacity: .5, direction: "ltr", textAlign: "left" }}>
+            {page.path}
+          </span>
+          <span className="block text-[11.5px] mb-1" style={{ color: c }}>{NODE_LABEL[page.state]}</span>
+          {page.note && (
+            <span className="block text-[12px] leading-loose" style={{ color: D, opacity: .75 }}>{page.note}</span>
+          )}
+        </span>
+      )}
+    </span>
+  );
 }

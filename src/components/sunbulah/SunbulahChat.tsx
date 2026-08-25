@@ -1,7 +1,10 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { MessageCircle, X, Send } from "lucide-react";
+import {
+  FaComments, FaXmark, FaPaperPlane, FaCircleCheck, FaListCheck,
+  FaChartColumn, FaLightbulb, FaSitemap, FaArrowLeftLong,
+} from "react-icons/fa6";
 import { S, S_SOFT, MINT, D, LINE } from "./theme";
 
 type Message = { role: "user" | "assistant"; content: string };
@@ -22,13 +25,13 @@ const NUDGES = [
 ];
 
 const OPENING =
-  "أهلًا. أنا مرشد وثيقة تدقيق الحضور الرقمي لمجموعة السنبلة. اسألني عن أي ملاحظة أو رقم فيها، وهقولك اتقاس إزاي.";
+  "أهلًا. أنا مرشد وثيقة تدقيق الحضور الرقمي لمجموعة السنبلة. اسألني عن أي ملاحظة أو رقم فيها وهقولك اتقاس إزاي.";
 
 function format(text: string) {
   return text
     .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
     .replace(/`([^`]+)`/g, '<code style="font-size:.94em;direction:ltr;display:inline-block">$1</code>')
-    .replace(/(ahmed\.ali@emotiongrp\.com)/g,
+    .replace(/(hello@ahmedali\.online)/g,
       '<a href="mailto:$1" style="color:#A8842C;font-weight:700;text-decoration:underline">$1</a>')
     .replace(/\n/g, "<br>")
     .replace(/(<br>)+$/g, "")
@@ -56,8 +59,18 @@ function ping() {
   } catch { /* الصوت رفاهية، لا يعطّل شيئًا */ }
 }
 
+/** ما يستطيع المرشد الحديث فيه، معروضًا قبل أن يبدأ أحد الكتابة. */
+const TOPICS = [
+  { i: FaListCheck, t: "الملاحظات الثلاث عشرة", d: "كل واحدة، وكيف قيست، وكم تكلّف" },
+  { i: FaSitemap, t: "خريطة الموقع", d: "الصفحات القائمة، والفروع المفقودة" },
+  { i: FaChartColumn, t: "المقارنة بالنظير", d: "الأرقام أمام المراعي، وأين تتقدّم السنبلة" },
+  { i: FaCircleCheck, t: "ما يعمل جيدًا", d: "ستة أسس قائمة يُبنى عليها" },
+  { i: FaLightbulb, t: "الخطة والتطوير", d: "ما يُصلَح في يوم، وما يحتاج إعادة بناء" },
+];
+
 export default function SunbulahChat() {
   const [open, setOpen] = useState(false);
+  const [started, setStarted] = useState(false);
   const [msgs, setMsgs] = useState<Message[]>([{ role: "assistant", content: OPENING }]);
   const [input, setInput] = useState("");
   const [busy, setBusy] = useState(false);
@@ -117,7 +130,7 @@ export default function SunbulahChat() {
             className="relative grid place-items-center rounded-full transition-transform hover:scale-105 active:scale-95"
             style={{ width: 58, height: 58, background: S }}
           >
-            <MessageCircle size={24} color="#fff" />
+            <FaComments size={22} color="#fff" />
             <span className="absolute rounded-full"
               style={{ top: -2, right: -2, width: 14, height: 14, background: MINT, border: "2px solid #fff" }} />
           </button>
@@ -140,24 +153,68 @@ export default function SunbulahChat() {
           <header className="flex items-center justify-between px-4 shrink-0"
             style={{ height: 62, background: D }}>
             <div className="flex items-center gap-3 min-w-0">
-              <span className="grid place-items-center rounded-lg shrink-0"
-                style={{ width: 34, height: 34, background: S_SOFT }}>
-                <span className="heading text-[13px]" style={{ color: "#fff" }}>س</span>
-              </span>
+              <img src="/ahmed.jpeg" alt="أحمد علي" width={36} height={36}
+                style={{ width: 36, height: 36, borderRadius: 12, objectFit: "cover", flexShrink: 0 }} />
               <div className="min-w-0">
-                <p className="heading text-[14px] truncate" style={{ color: "#fff" }}>مرشد الوثيقة</p>
-                <p className="text-[10.5px] truncate" style={{ color: "#fff", opacity: .55 }}>
-                  يجيب من التدقيق فقط
+                <p className="ar-heading text-[14px] truncate" style={{ color: "#fff" }}>أحمد علي</p>
+                <p className="ar-body text-[10.5px] truncate" style={{ color: "#fff", opacity: .6 }}>
+                  مرشد وثيقة التدقيق، يجيب منها فقط
                 </p>
               </div>
             </div>
             <button onClick={() => setOpen(false)} aria-label="إغلاق"
               className="grid place-items-center rounded-full transition-colors"
               style={{ width: 32, height: 32, background: "rgba(255,255,255,.1)" }}>
-              <X size={16} color="#fff" />
+              <FaXmark size={15} color="#fff" />
             </button>
           </header>
 
+          {!started ? (
+            <div className="flex-1 overflow-y-auto px-6 py-7" style={{ background: "#fff" }}>
+              <div className="flex items-center justify-center gap-4 mb-6">
+                <img src="/ahmed.jpeg" alt="أحمد علي"
+                  style={{ width: 62, height: 62, borderRadius: 20, objectFit: "cover" }} />
+                <span style={{ width: 1, height: 34, background: LINE }} />
+                <img src="/sunbulah/brand/group.webp" alt="مجموعة السنبلة"
+                  style={{ width: 92, height: "auto" }} />
+              </div>
+
+              <p className="ar-heading text-[19px] text-center mb-3" style={{ color: D, lineHeight: 1.5 }}>
+                أهلًا، أنا أحمد
+              </p>
+              <p className="ar-body text-[13px] leading-loose text-center mb-7" style={{ color: D, opacity: .75 }}>
+                أعددت هذه الوثيقة عن موقع مجموعة السنبلة من الخارج، دون تكليف ودون وصول إلى أي
+                نظام. هذا المرشد يجيب من داخلها فقط، ويقول لك عن كل رقم كيف قيس.
+              </p>
+
+              <p className="ar-body text-[11.5px] mb-3" style={{ color: S }}>ما يمكن أن نتحدث فيه</p>
+              <div className="space-y-2 mb-7">
+                {TOPICS.map((t) => (
+                  <div key={t.t} className="flex items-start gap-3 px-4 py-3 rounded-[13px]"
+                    style={{ border: `1px solid ${LINE}` }}>
+                    <span className="grid place-items-center rounded-lg shrink-0 mt-0.5"
+                      style={{ width: 30, height: 30, background: `${S}12`, color: S }}>
+                      <t.i size={13} />
+                    </span>
+                    <span className="min-w-0">
+                      <span className="ar-heading block text-[13.5px]" style={{ color: D }}>{t.t}</span>
+                      <span className="ar-body block text-[11.5px] mt-0.5" style={{ color: D, opacity: .6 }}>{t.d}</span>
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+              <button onClick={() => setStarted(true)}
+                className="w-full flex items-center justify-center gap-2.5 py-3.5 rounded-full ar-body text-[13.5px]"
+                style={{ background: S, color: "#fff" }}>
+                ابدأ المحادثة
+                <FaArrowLeftLong size={12} />
+              </button>
+              <p className="ar-body text-[11px] text-center mt-4" style={{ color: D, opacity: .45 }}>
+                لا يذكر أسعارًا ولا نطاق عمل. الوثيقة بلا تسعير عمدًا.
+              </p>
+            </div>
+          ) : (
           <div ref={bodyRef} className="flex-1 overflow-y-auto px-4 py-5 space-y-3.5" style={{ background: "#FDFCFA" }}>
             {msgs.map((m, i) => (
               <div key={i} className={`flex ${m.role === "user" ? "justify-start" : "justify-end"}`}>
@@ -184,7 +241,9 @@ export default function SunbulahChat() {
             )}
           </div>
 
-          {msgs.length <= 2 && (
+          )}
+
+          {started && msgs.length <= 2 && (
             <div className="px-4 pb-2 flex flex-wrap gap-1.5 shrink-0" style={{ background: "#FDFCFA" }}>
               {QUICK.map((q) => (
                 <button key={q} onClick={() => send(q)}
@@ -196,6 +255,7 @@ export default function SunbulahChat() {
             </div>
           )}
 
+          {started && (
           <form onSubmit={(e) => { e.preventDefault(); send(input); }}
             className="flex items-center gap-2 px-4 shrink-0"
             style={{ height: 66, borderTop: `1px solid ${LINE}`, background: "#fff" }}>
@@ -206,9 +266,10 @@ export default function SunbulahChat() {
             <button type="submit" disabled={busy || !input.trim()} aria-label="إرسال"
               className="grid place-items-center rounded-full shrink-0 transition-opacity"
               style={{ width: 40, height: 40, background: S, opacity: busy || !input.trim() ? .4 : 1 }}>
-              <Send size={16} color="#fff" style={{ transform: "scaleX(-1)" }} />
+              <FaPaperPlane size={14} color="#fff" style={{ transform: "scaleX(-1)" }} />
             </button>
           </form>
+          )}
 
           <style>{`
             @keyframes sbDot { 0%,80%,100% { transform: translateY(0); opacity:.4 } 40% { transform: translateY(-5px); opacity:1 } }

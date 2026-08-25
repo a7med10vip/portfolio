@@ -3,21 +3,25 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ArrowLeft } from "lucide-react";
 import {
-  AUDIT, COMPARE, ESTATE, FINDINGS, OPPORTUNITIES, SEVERITY_LABEL, STATUS_LABEL, STRENGTHS } from "./data";
-import { S, S_SOFT, MINT, TINT, D, LINE, RULE, SEV } from "@/components/sunbulah/theme";
+  AREA_ICON, FINDING_ICON, OPPORTUNITY_ICON, SECTION_ICON, STATUS_ICON, STRENGTH_ICON,
+} from "@/components/sunbulah/icons";
+import { FaArrowLeftLong } from "react-icons/fa6";
+import {
+  AUDIT, COMPARE, DIRECTION, ESTATE, FINDINGS, OPPORTUNITIES, SEVERITY_LABEL, STATUS_LABEL, STRENGTHS,
+} from "./data";
+import { S, S_SOFT, MINT, TINT, D, LINE, RULE, SEV, ZEBRA, HEAD } from "@/components/sunbulah/theme";
 import ArabicTailProcessor from "@/components/ArabicTailProcessor";
 import SunbulahNav from "@/components/sunbulah/SunbulahNav";
 import SunbulahChat from "@/components/sunbulah/SunbulahChat";
 import Placeholder, { WarningIllustration } from "@/components/sunbulah/Placeholder";
-import SiteTree from "@/components/sunbulah/SiteTree";
+import SiteMap from "@/components/sunbulah/SiteTree";
 import PerfChart from "@/components/sunbulah/PerfChart";
 
 gsap.registerPlugin(ScrollTrigger);
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   مجموعة السنبلة — تدقيق الحضور الرقمي.
+   مجموعة السنبلة، تدقيق الحضور الرقمي.
    كل رقم هنا قيس على الموقع المنشور بتاريخ 24 أغسطس 2026.
    ═══════════════════════════════════════════════════════════════════════════ */
 
@@ -88,9 +92,9 @@ export default function Page() {
             </h1>
 
             <p className="sb-hero opacity-0 ar-body text-center text-[16px] leading-loose mb-3" style={{ color: D, opacity: .78, maxWidth: 660 }}>
-              مجموعة السنبلة تصنّع الغذاء منذ 1980، وتعمل في 35 دولة، وتملك أربع علامات.
-              وموقعها المؤسسي اليوم اثنتان وعشرون صفحة على نظام إدارة محتوى انتهى دعمه، بقالبه
-              التجريبي كما يأتي من المصنع.
+              مجموعة السنبلة تصنّع الغذاء منذ 1980 وتعمل في 35 دولة وتملك أربع علامات.
+              وموقعها المؤسسي اليوم اثنتان وعشرون صفحة على نظام إدارة محتوى انتهى دعمه ويعتمد
+              على قالب افتراضي غير مخصص لهوية المجموعة.
             </p>
             <p className="sb-hero opacity-0 ar-heading text-[17px] mb-10" style={{ color: S }}>
               <span className="ltr">sunbulahgroup.com</span>
@@ -100,8 +104,8 @@ export default function Page() {
               <div className="rounded-[16px] p-5" style={{ border: `1px solid ${LINE}` }}>
                 <p className="text-[11px] mb-2.5 ar-body" style={{ color: S }}>إعداد</p>
                 <p className="ar-heading text-[15px] mb-1">أحمد علي</p>
-                <p className="text-[12px] ar-body" style={{ color: D, opacity: .58 }}>رئيس المنتجات الرقمية والنمو · مجموعة إيموشن</p>
-                <p className="text-[11px] ltr mt-1" style={{ color: D, opacity: .42 }}>ahmed.ali@emotiongrp.com</p>
+                <p className="text-[12px] ar-body" style={{ color: D, opacity: .58 }}>استراتيجي رقمي · مطوّر منتجات</p>
+                <p className="text-[11px] ltr mt-1" style={{ color: D, opacity: .42 }}>hello@ahmedali.online</p>
               </div>
               <div className="rounded-[16px] p-5" style={{ border: `2px solid ${S}` }}>
                 <p className="text-[11px] mb-2.5 ar-body" style={{ color: S }}>الجهة</p>
@@ -114,17 +118,17 @@ export default function Page() {
             <div className="sb-hero opacity-0 w-full max-w-3xl mb-9">
               <div className="flex items-stretch justify-center" style={{ border: `1px solid ${LINE}`, borderRadius: 16, overflow: "hidden" }}>
                 {[
-                  { n: FINDINGS.length, l: "ملاحظة" },
-                  { n: critical, l: "حرجة" },
-                  { n: high, l: "مرتفعة" },
-                  { n: STRENGTHS.length, l: "أساس قائم" },
-                  { n: 8, l: "عنوان رقمي" },
+                  { n: FINDINGS.length, l: "ملاحظة", c: D },
+                  { n: critical, l: "حرجة", c: "#B4231E" },
+                  { n: high, l: "مرتفعة", c: "#C2410C" },
+                  { n: STRENGTHS.length, l: "أساس قائم", c: "#0F7A70" },
+                  { n: 8, l: "عنوان رقمي", c: S },
                 ].map((x, i) => (
                   <div key={x.l} className="flex-1 flex flex-col items-center justify-center py-5 px-2 relative"
                     style={{ borderLeft: i < 4 ? `1px solid ${RULE}` : "none" }}>
-                    <span className="ar-heading tabular-nums sb-count ltr" data-to={x.n} style={{ fontSize: 25, lineHeight: 1, color: D }}>0</span>
-                    <span className="text-[11px] mt-2 text-center ar-body" style={{ color: D, opacity: .5 }}>{x.l}</span>
-                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 rounded-t-full" style={{ height: 3, width: 32, background: S }} />
+                    <span className="ar-heading tabular-nums sb-count ltr" data-to={x.n} style={{ fontSize: 25, lineHeight: 1, color: x.c }}>0</span>
+                    <span className="text-[11px] mt-2 textext-center ar-body" style={{ color: D, opacity: .55 }}>{x.l}</span>
+                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 rounded-t-full" style={{ height: 3, width: 32, background: x.c }} />
                   </div>
                 ))}
               </div>
@@ -137,15 +141,16 @@ export default function Page() {
               </p>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 {[
-                  { k: "sunbulah", n: "السنبلة" },
-                  { k: "alshifa", n: "الشفاء" },
-                  { k: "sary", n: "ساري" },
-                  { k: "walima", n: "وليمة" },
+                  { k: "sunbulah", n: "السنبلة", h: 34 },
+                  { k: "alshifa", n: "الشفاء", h: 56 },
+                  { k: "sary", n: "ساري", h: 30 },
+                  { k: "walima", n: "وليمة", h: 48 },
                 ].map((b) => (
-                  <div key={b.k} className="rounded-[14px] px-4 py-5 grid place-items-center gap-3"
-                    style={{ border: `1px solid ${LINE}` }}>
+                  <div key={b.k} className="rounded-[14px] px-4 grid place-items-center gap-3"
+                    /* ارتفاع ثابت للبطاقة، فتبقى الصفوف مستوية مهما اختلفت نسب الشعارات */
+                    style={{ border: `1px solid ${LINE}`, minHeight: 128, paddingTop: 18, paddingBottom: 18 }}>
                     <img src={`/sunbulah/brand/${b.k}.webp`} alt={b.n} loading="lazy"
-                      style={{ height: 40, width: "auto", maxWidth: "100%", objectFit: "contain", mixBlendMode: "multiply" }} />
+                      style={{ height: b.h, width: "auto", maxWidth: "100%", objectFit: "contain", mixBlendMode: "multiply" }} />
                     <span className="ar-body text-[12px]" style={{ color: D, opacity: .7 }}>{b.n}</span>
                   </div>
                 ))}
@@ -161,14 +166,14 @@ export default function Page() {
 
         {/* ══ 01 · المنهج ══════════════════════════════════════════════════ */}
         <Section id="s01" n="01" eyebrow="القسم الأول" title="كيف قيس" accent="هذا"
-          sub="لا رأي في هذه الوثيقة. كل جملة فيها مسبوقة بقياس.">
+          sub="هذه الوثيقة ليست تقييمًا انطباعيًا. كل ملاحظة فيها مبنية على قياس أو تحقق مباشر يمكن تكراره.">
           <p className="ar-body text-[16px] leading-loose text-center max-w-3xl mx-auto mb-12" style={{ color: D, opacity: .82 }}>
             {AUDIT.method}
           </p>
           <Table
             head={["المبدأ", "ما يعنيه عمليًا"]}
             rows={[
-              ["من الخارج فقط", "كل ما هنا مرئي لأي زائر. لا وصول، ولا صلاحيات، ولا بيانات داخلية."],
+              ["من الخارج فقط", "كل ما هنا مرئي لأي زائر. لا وصول ولا صلاحيات ولا بيانات داخلية."],
               ["قابل للتكرار", "كل رقم صدر عن أمر أو تشغيل متصفح يمكن إعادته على الموقع اليوم."],
               ["ما لم يُتحقق منه حُذف", "حيث تعذّر التأكد، أُسقط الادعاء بدل تقديره أو تقريبه."],
               ["بلا تسعير", "لا أسعار ولا نطاق عمل. الغرض أن تُقرأ الوثيقة لا أن تُشترى."],
@@ -179,13 +184,13 @@ export default function Page() {
 
         {/* ══ 02 · الحضور الرقمي ═══════════════════════════════════════════ */}
         <Section id="s02" n="02" eyebrow="القسم الثاني" title="الحضور" accent="الرقمي"
-          sub="ثمانية عناوين تحمل اسم المجموعة أو إحدى علاماتها. ثلاثة لا تعمل، واثنان يؤديان الوظيفة نفسها بمسارين.">
+          sub="ثمانية عناوين تحمل اسم المجموعة أو إحدى علاماتها. ثلاثة لا تعمل واثنان يؤديان الوظيفة نفسها بمسارين.">
           <div className="max-w-5xl mx-auto overflow-x-auto rounded-[18px]" style={{ border: `1px solid ${LINE}`, background: "#fff" }}>
             <table className="w-full" style={{ borderCollapse: "collapse", minWidth: 720 }}>
               <thead>
-                <tr style={{ background: RULE }}>
+                <tr style={{ background: HEAD }}>
                   {["العنوان", "الجهة", "الدور", "الحالة", "الملاحظة"].map((h) => (
-                    <th key={h} className="text-right text-[11.5px] px-5 py-3.5 ar-body" style={{ color: D, opacity: .55, fontWeight: 400 }}>{h}</th>
+                    <th key={h} className="text-right text-[11.5px] px-5 py-3.5 ar-body" style={{ color: S, fontWeight: 500 }}>{h}</th>
                   ))}
                 </tr>
               </thead>
@@ -193,13 +198,15 @@ export default function Page() {
                 {ESTATE.map((p, i) => {
                   const c = p.status === "broken" ? "#B4231E" : p.status === "weak" ? "#C2410C" : S_SOFT;
                   return (
-                    <tr key={p.url + p.name} className="sb-item" style={{ borderTop: i ? `1px solid ${RULE}` : "none" }}>
-                      <td className="px-5 py-4 text-[11.5px] ltr align-top" style={{ color: D, opacity: .62 }}>{p.url}</td>
+                    <tr key={p.url + p.name} className="sb-item" style={{ borderTop: i ? `1px solid ${RULE}` : "none", background: i % 2 ? ZEBRA : "#fff" }}>
+                      <td className="px-5 py-4 text-[11.5px] ltr align-top"
+                        style={{ color: D, opacity: .7, borderRight: `3px solid ${c}` }}>{p.url}</td>
                       <td className="px-5 py-4 text-[13px] ar-heading align-top whitespace-nowrap">{p.name}</td>
                       <td className="px-5 py-4 text-[12.5px] ar-body align-top whitespace-nowrap" style={{ color: D, opacity: .7 }}>{p.what}</td>
                       <td className="px-5 py-4 align-top">
-                        <span className="text-[11.5px] px-2.5 py-1 rounded-full whitespace-nowrap ar-body"
+                        <span className="inline-flex items-center gap-1.5 text-[11.5px] px-2.5 py-1 rounded-full whitespace-nowrap ar-body"
                           style={{ background: p.status === "broken" ? c : `${c}18`, color: p.status === "broken" ? "#fff" : c }}>
+                          {(() => { const I = STATUS_ICON[p.status]; return <I size={11} />; })()}
                           {STATUS_LABEL[p.status]}
                         </span>
                       </td>
@@ -214,8 +221,8 @@ export default function Page() {
 
         {/* ══ 03 · خريطة الموقع ════════════════════════════════════════════ */}
         <Section id="s03" n="03" eyebrow="القسم الثالث" title="خريطة" accent="الموقع"
-          sub="قائمة الصفحات تقول اثنتين وعشرين صفحة ولا تقول أين الفراغ. الشجرة تقوله: فرع المنتجات ثقيل باثنتي عشرة ورقة، وفرع العلامات بلا جذع أصلًا.">
-          <SiteTree />
+          sub="عدد الصفحات وحده لا يقول أين الفراغ. المجموعات تقوله: شريط المنتجات أخضر بالكامل، وشريط العلامات ليس فيه أخضر واحد. اضغط أي حالة لترى صفحاتها وحدها.">
+          <SiteMap />
         </Section>
 
         {/* ══ 04 · ما يعمل جيدًا ═══════════════════════════════════════════ */}
@@ -231,13 +238,22 @@ export default function Page() {
                 </tr>
               </thead>
               <tbody className="sb-stagger">
-                {STRENGTHS.map((x, i) => (
-                  <tr key={x.t} className="sb-item" style={{ borderTop: i ? `1px solid ${RULE}` : "none" }}>
-                    <td className="px-5 py-4 ar-heading text-[14px] align-top whitespace-nowrap">{x.t}</td>
+                {STRENGTHS.map((x, i) => { const I = STRENGTH_ICON[i]; return (
+                  <tr key={x.t} className="sb-item" style={{ borderTop: i ? `1px solid ${RULE}` : "none", background: i % 2 ? ZEBRA : "#fff" }}>
+                    <td className="px-5 py-4 ar-heading text-[14px] align-top whitespace-nowrap"
+                      style={{ borderRight: `3px solid ${S_SOFT}` }}>
+                      <span className="inline-flex items-center gap-2.5">
+                        <I size={14} color="#0F7A70" />
+                        {x.t}
+                      </span>
+                    </td>
                     <td className="px-5 py-4 text-[12.5px] leading-loose ar-body align-top" style={{ color: D, opacity: .78 }}>{x.d}</td>
-                    <td className="px-5 py-4 text-[11.5px] ltr align-top whitespace-nowrap" style={{ color: S_SOFT }}>{x.proof}</td>
+                    <td className="px-5 py-4 align-top">
+                      <span className="inline-block text-[11.5px] ltr px-3 py-1.5 rounded-lg whitespace-nowrap"
+                        style={{ background: `${S_SOFT}18`, color: "#0F7A70" }}>{x.proof}</span>
+                    </td>
                   </tr>
-                ))}
+                ); })}
               </tbody>
             </table>
           </div>
@@ -250,9 +266,9 @@ export default function Page() {
           <div className="max-w-5xl mx-auto overflow-x-auto rounded-[18px] mb-14" style={{ border: `1px solid ${LINE}` }}>
             <table className="w-full" style={{ borderCollapse: "collapse", minWidth: 660 }}>
               <thead>
-                <tr style={{ background: RULE }}>
+                <tr style={{ background: HEAD }}>
                   {["#", "الملاحظة", "المجال", "الخطورة", "الجهد"].map((h) => (
-                    <th key={h} className="text-right text-[11.5px] px-5 py-3.5 ar-body" style={{ color: D, opacity: .55, fontWeight: 400 }}>{h}</th>
+                    <th key={h} className="text-right text-[11.5px] px-5 py-3.5 ar-body" style={{ color: S, fontWeight: 500 }}>{h}</th>
                   ))}
                 </tr>
               </thead>
@@ -260,12 +276,18 @@ export default function Page() {
                 {FINDINGS.map((f, i) => {
                   const sev = SEV[f.severity];
                   return (
-                    <tr key={f.id} className="sb-item" style={{ borderTop: i ? `1px solid ${RULE}` : "none" }}>
-                      <td className="px-5 py-3.5 text-[12px] ltr" style={{ color: D, opacity: .4 }}>{f.n}</td>
+                    <tr key={f.id} className="sb-item" style={{ borderTop: i ? `1px solid ${RULE}` : "none", background: i % 2 ? ZEBRA : "#fff" }}>
+                      <td className="px-5 py-3.5 text-[12px] ltr"
+                        style={{ color: sev.bg, borderRight: `3px solid ${sev.bg}`, fontWeight: 600 }}>{f.n}</td>
                       <td className="px-5 py-3.5">
-                        <a href={`#${f.id}`} className="text-[13px] ar-body hover:underline" style={{ color: D }}>{f.title}</a>
+                        <a href={`#${f.id}`} className="block text-[13px] ar-body hover:underline py-2.5" style={{ color: D }}>{f.title}</a>
                       </td>
-                      <td className="px-5 py-3.5 text-[12px] ar-body whitespace-nowrap" style={{ color: D, opacity: .62 }}>{f.area}</td>
+                      <td className="px-5 py-3.5 text-[12px] ar-body whitespace-nowrap" style={{ color: D, opacity: .72 }}>
+                        <span className="inline-flex items-center gap-2">
+                          {AREA_ICON[f.area] && (() => { const I = AREA_ICON[f.area]; return <I size={12} color={S} />; })()}
+                          {f.area}
+                        </span>
+                      </td>
                       <td className="px-5 py-3.5">
                         <span className="text-[11px] px-2.5 py-1 rounded-full whitespace-nowrap ar-body" style={{ background: sev.bg, color: sev.fg }}>
                           {SEVERITY_LABEL[f.severity]}
@@ -284,14 +306,26 @@ export default function Page() {
             {FINDINGS.map((f) => {
               const sev = SEV[f.severity];
               const crit = f.severity === "critical";
+              const FindIcon = FINDING_ICON[f.id];
+              const AreaIcon = AREA_ICON[f.area];
               return (
                 <article key={f.id} id={f.id} className="sb-slide opacity-0 rounded-[20px] overflow-hidden"
-                  style={{ border: `1px solid ${crit ? "#B4231E33" : LINE}`, scrollMarginTop: 70 }}>
+                  style={{
+                    border: `1px solid ${crit ? "#B4231E33" : LINE}`,
+                    borderRight: `4px solid ${sev.bg}`,
+                    scrollMarginTop: 70,
+                  }}>
                   <div className="flex items-center justify-between gap-3 px-6 py-4" style={{ background: crit ? "#B4231E0A" : RULE }}>
                     <div className="flex items-center gap-3 min-w-0">
+                      <span className="grid place-items-center rounded-lg shrink-0"
+                        style={{ width: 30, height: 30, background: `${sev.bg}18`, color: sev.bg }}>
+                        {FindIcon && <FindIcon size={14} />}
+                      </span>
                       <span className="ar-heading text-[13px] ltr" style={{ color: crit ? "#B4231E" : S }}>{f.n}</span>
-                      <span style={{ width: 18, height: 1, background: `${crit ? "#B4231E" : S}55` }} />
-                      <span className="text-[12px] ar-body" style={{ color: D, opacity: .7 }}>{f.area}</span>
+                      <span className="flex items-center gap-1.5 text-[12px] ar-body" style={{ color: D, opacity: .7 }}>
+                        {AreaIcon && <AreaIcon size={11} />}
+                        {f.area}
+                      </span>
                     </div>
                     <span className="text-[11.5px] px-3 py-1 rounded-full shrink-0 ar-body" style={{ background: sev.bg, color: sev.fg }}>{sev.label}</span>
                   </div>
@@ -325,15 +359,16 @@ export default function Page() {
                       </p>
                     )}
 
-                    <div className="grid gap-6 sm:grid-cols-2 pt-5" style={{ borderTop: `1px solid ${RULE}` }}>
-                      <div>
-                        <p className="text-[11.5px] mb-2.5 ar-body" style={{ color: "#B4231E" }}>الكلفة</p>
-                        <p className="text-[13px] leading-loose ar-body" style={{ color: D, opacity: .82 }}>{f.impact}</p>
+                    <div className="grid gap-4 sm:grid-cols-2 pt-1">
+                      <div className="rounded-[14px] p-5" style={{ background: "#FCF3F2", border: "1px solid #B4231E1F" }}>
+                        <p className="text-[11.5px] mb-3 ar-body" style={{ color: "#B4231E" }}>الكلفة على العمل</p>
+                        <p className="text-[13px] leading-loose ar-body" style={{ color: D, opacity: .85 }}>{f.impact}</p>
                       </div>
-                      <div>
-                        <p className="text-[11.5px] mb-2.5 ar-body" style={{ color: S }}>المعالجة</p>
-                        <p className="text-[13px] leading-loose ar-body" style={{ color: D, opacity: .82 }}>{f.fix}</p>
-                        <span className="inline-block text-[11.5px] mt-3 px-3 py-1.5 rounded-full ar-body" style={{ background: TINT, color: S }}>{f.effort}</span>
+                      <div className="rounded-[14px] p-5" style={{ background: `${TINT}66`, border: `1px solid ${S}22` }}>
+                        <p className="text-[11.5px] mb-3 ar-body" style={{ color: S }}>المعالجة</p>
+                        <p className="text-[13px] leading-loose ar-body" style={{ color: D, opacity: .85 }}>{f.fix}</p>
+                        <span className="inline-block text-[11.5px] mt-4 px-3 py-1.5 rounded-full ar-body"
+                          style={{ background: S, color: "#fff" }}>{f.effort}</span>
                       </div>
                     </div>
                   </div>
@@ -345,28 +380,33 @@ export default function Page() {
 
         {/* ══ 06 · أمام النظير ═════════════════════════════════════════════ */}
         <Section id="s06" n="06" eyebrow="القسم السادس" title="أمام" accent="النظير"
-          sub="المراعي شركة أغذية سعودية بحجم مقارن. الأرقام قيست على الموقعين في اليوم نفسه، بالأداة نفسها، وبالمقاس نفسه.">
+          sub="المراعي شركة أغذية سعودية بحجم مقارن. الأرقام قيست على الموقعين في اليوم نفسه، بالأداة نفسها وبالمقاس نفسه.">
           <div className="max-w-5xl mx-auto">
             <div className="mb-8"><PerfChart /></div>
             <div className="overflow-x-auto rounded-[18px]" style={{ border: `1px solid ${LINE}`, background: "#fff" }}>
               <table className="w-full" style={{ borderCollapse: "collapse", minWidth: 560 }}>
                 <thead>
-                  <tr style={{ background: RULE }}>
-                    <th className="text-right text-[11.5px] px-5 py-3.5 ar-body" style={{ color: D, opacity: .55, fontWeight: 400 }}>المقياس</th>
+                  <tr style={{ background: HEAD }}>
+                    <th className="text-right text-[11.5px] px-5 py-3.5 ar-body" style={{ color: S, fontWeight: 500 }}>المقياس</th>
                     <th className="text-center text-[11.5px] px-5 py-3.5 ar-body" style={{ color: S, fontWeight: 400 }}>السنبلة</th>
-                    <th className="text-center text-[11.5px] px-5 py-3.5 ar-body" style={{ color: D, opacity: .55, fontWeight: 400 }}>المراعي</th>
-                    <th className="text-center text-[11.5px] px-5 py-3.5 ar-body" style={{ color: D, opacity: .55, fontWeight: 400 }}>الأفضل</th>
+                    <th className="text-center text-[11.5px] px-5 py-3.5 ar-body" style={{ color: S, fontWeight: 500 }}>المراعي</th>
+                    <th className="text-center text-[11.5px] px-5 py-3.5 ar-body" style={{ color: S, fontWeight: 500 }}>الأفضل</th>
                   </tr>
                 </thead>
                 <tbody className="sb-stagger">
                   {COMPARE.map((r, i) => (
-                    <tr key={r.metric} className="sb-item" style={{ borderTop: i ? `1px solid ${RULE}` : "none" }}>
+                    <tr key={r.metric} className="sb-item" style={{ borderTop: i ? `1px solid ${RULE}` : "none", background: i % 2 ? ZEBRA : "#fff" }}>
                       <td className="px-5 py-4 text-[13px] ar-body">{r.metric}</td>
                       <td className="px-5 py-4 text-[12.5px] text-center ltr" style={{ color: r.win === "them" ? S_SOFT : r.win === "peer" ? "#B4231E" : D }}>{r.them}</td>
                       <td className="px-5 py-4 text-[12.5px] text-center ltr" style={{ color: D, opacity: .6 }}>{r.peer}</td>
-                      <td className="px-5 py-4 text-[12px] text-center ar-body whitespace-nowrap"
-                        style={{ color: r.win === "them" ? S_SOFT : r.win === "peer" ? "#B4231E" : D, opacity: r.win === "tie" ? .5 : 1 }}>
-                        {r.win === "them" ? "السنبلة" : r.win === "peer" ? "المراعي" : "متعادل"}
+                      <td className="px-5 py-4 text-center">
+                        <span className="inline-block text-[12px] px-3 py-1.5 rounded-full ar-body whitespace-nowrap"
+                          style={{
+                            background: r.win === "them" ? `${S_SOFT}22` : r.win === "peer" ? "#B4231E14" : RULE,
+                            color: r.win === "them" ? "#0F7A70" : r.win === "peer" ? "#B4231E" : D,
+                          }}>
+                          {r.win === "them" ? "السنبلة" : r.win === "peer" ? "المراعي" : "متعادل"}
+                        </span>
                       </td>
                     </tr>
                   ))}
@@ -374,14 +414,14 @@ export default function Page() {
               </table>
             </div>
             <p className="text-[12.5px] text-center mt-5 ar-body" style={{ color: D, opacity: .6 }}>
-              السنبلة تتقدّم في اثنين من سبعة. لا يتقدّم النظير في كل شيء، وتدقيق يخسر فيه العميل كل صف لا يُصدَّق.
+              السنبلة تتقدّم في اثنين من سبعة. لا يتقدّم النظير في كل شيء وتدقيق يخسر فيه العميل كل صف لا يُصدَّق.
             </p>
           </div>
         </Section>
 
         {/* ══ 07 · عصران ═══════════════════════════════════════════════════ */}
         <Section id="s07" n="07" eyebrow="القسم السابع" title="عصران وشركة" accent="واحدة"
-          sub="لا حاجة إلى الجدال بأن الموقع المؤسسي قديم. يكفي وضعه إلى جوار موقع المستهلك الذي تملكه المجموعة نفسها.">
+          sub="الفارق بين الموقع المؤسسي وموقع المستهلك يظهر بوضوح عند وضع التجربتين جنبًا إلى جنب.">
           <div className="sb-stagger grid gap-8 lg:grid-cols-2 max-w-5xl mx-auto">
             {[
               { shot: "group-home-desktop", t: "الموقع المؤسسي", u: "sunbulahgroup.com", n: "Joomla 3 · قالب protostar الافتراضي · 22 صفحة", bad: true },
@@ -404,21 +444,21 @@ export default function Page() {
           </div>
           <div className="max-w-2xl mx-auto mt-14 rounded-[18px] p-8 text-center" style={{ border: `2px solid ${S}` }}>
             <p className="ar-body text-[15.5px] leading-loose">
-              الشركة نفسها، والميزانية نفسها، وفريق واحد. الفارق أن أحد الموقعين أُعيد بناؤه
-              والآخر لم يُفتح منذ عشر سنوات.
+              المجموعة نفسها تملك تجربة استهلاكية حديثة ومحدثة، بينما لم يخضع الموقع
+              المؤسسي لإعادة بناء مماثلة منذ سنوات.
             </p>
           </div>
         </Section>
 
         {/* ══ 08 · من أين يُبدأ ════════════════════════════════════════════ */}
         <Section id="s08" n="08" eyebrow="القسم الثامن" title="من أين" accent="يُبدأ"
-          sub="ليست كل ملاحظة تحتاج إعادة بناء. أربع منها تُغلق في يوم واحد، وأثرها فوري.">
+          sub="ليست كل ملاحظة تحتاج إعادة بناء. أربع منها تُغلق في يوم واحد وأثرها فوري.">
           <div className="max-w-4xl mx-auto overflow-x-auto rounded-[18px]" style={{ border: `1px solid ${LINE}`, background: "#fff" }}>
             <table className="w-full" style={{ borderCollapse: "collapse", minWidth: 620 }}>
               <thead>
-                <tr style={{ background: RULE }}>
+                <tr style={{ background: HEAD }}>
                   {["المرحلة", "المدى", "ما يُنفَّذ فيها"].map((h) => (
-                    <th key={h} className="text-right text-[11.5px] px-5 py-3.5 ar-body" style={{ color: D, opacity: .55, fontWeight: 400 }}>{h}</th>
+                    <th key={h} className="text-right text-[11.5px] px-5 py-3.5 ar-body" style={{ color: S, fontWeight: 500 }}>{h}</th>
                   ))}
                 </tr>
               </thead>
@@ -427,12 +467,12 @@ export default function Page() {
                   { n: "أولًا", t: "خلال يوم", c: S,
                     items: ["إصلاح شهادة بوابة التوظيف، أو تحويل الرابط إلى البوابة العاملة", "عنوان ووصف لكل صفحة من الاثنتين والعشرين", "تصحيح lang وdir على النسخة العربية", "إصلاح الرابط المعطّل إلى موقع المستهلك"] },
                   { n: "ثانيًا", t: "خلال أسبوع", c: S_SOFT,
-                    items: ["وسوم المشاركة وبيانات Organization المنظمة", "خريطة موقع، وترويسات تخزين مؤقت", "تحميل مؤجل للصور، وأهداف لمس بالمقاس الصحيح"] },
+                    items: ["وسوم المشاركة وبيانات Organization المنظمة", "خريطة موقع وترويسات تخزين مؤقت", "تحميل مؤجل للصور وأهداف لمس بالمقاس الصحيح"] },
                   { n: "ثالثًا", t: "إعادة البناء", c: "#8B5CF6",
-                    items: ["منصة مدعومة، وأفضلها ما يعمل عليه موقع المستهلك أصلًا", "صفحة حقيقية لكل علامة، وصفحة جامعة لها", "أقسام التصنيع والانتشار والقيادة وغرفة الأخبار", "تصوير بضعف دقة الشاشة"] },
+                    items: ["منصة مدعومة وأفضلها ما يعمل عليه موقع المستهلك أصلًا", "صفحة حقيقية لكل علامة وصفحة جامعة لها", "أقسام التصنيع والانتشار والقيادة وغرفة الأخبار", "تصوير بضعف دقة الشاشة"] },
                 ].map((p, i) => (
-                  <tr key={p.n} className="sb-item" style={{ borderTop: i ? `1px solid ${RULE}` : "none" }}>
-                    <td className="px-5 py-5 align-top whitespace-nowrap">
+                  <tr key={p.n} className="sb-item" style={{ borderTop: i ? `1px solid ${RULE}` : "none", background: i % 2 ? ZEBRA : "#fff" }}>
+                    <td className="px-5 py-5 align-top whitespace-nowrap" style={{ borderRight: `3px solid ${p.c}` }}>
                       <span className="ar-heading text-[15px]" style={{ color: p.c }}>{p.n}</span>
                     </td>
                     <td className="px-5 py-5 align-top whitespace-nowrap">
@@ -457,7 +497,7 @@ export default function Page() {
 
         {/* ══ 09 · ما يمكن عمله ════════════════════════════════════════════ */}
         <Section id="s09" n="09" eyebrow="القسم التاسع" title="ما يمكن" accent="عمله"
-          sub="ست فرص، ولكل واحدة أثر يمكن ملاحظته. لا أسعار هنا ولا نطاق عمل.">
+          sub="ست فرص ولكل واحدة أثر يمكن ملاحظته. لا أسعار هنا ولا نطاق عمل.">
           <div className="max-w-5xl mx-auto mb-12">
             <Placeholder label="صورة رئيسية للمجموعة" ratio="3.1" size="3000 × 970"
               hint="صورة واحدة قوية تتصدر الموقع الجديد: المصنع، أو المنتجات، أو الفريق. هذه هي أول ما يراه الزائر" />
@@ -466,17 +506,25 @@ export default function Page() {
           <div className="sb-stagger grid gap-4 md:grid-cols-2 max-w-5xl mx-auto">
             {OPPORTUNITIES.map((o) => (
               <div key={o.n} className="sb-item rounded-[18px] p-7 flex flex-col" style={{ border: `1px solid ${LINE}` }}>
-                <p className="ar-heading text-[13px] mb-4 ltr" style={{ color: S }}>{o.n}</p>
+                <span className="flex items-center gap-3 mb-5">
+                  <span className="grid place-items-center rounded-xl" style={{ width: 38, height: 38, background: TINT, color: S }}>
+                    {(() => { const I = OPPORTUNITY_ICON[Number(o.n) - 1]; return <I size={16} />; })()}
+                  </span>
+                  <span className="ar-heading text-[13px] ltr" style={{ color: S }}>{o.n}</span>
+                </span>
                 <p className="ar-heading text-[19px] mb-3">{o.t}</p>
                 <p className="text-[13px] leading-loose mb-5 ar-body" style={{ color: D, opacity: .75 }}>{o.d}</p>
                 <p className="text-[12.5px] leading-loose mt-auto pt-4 flex gap-2.5 ar-body" style={{ borderTop: `1px solid ${RULE}`, color: S }}>
-                  <ArrowLeft size={14} className="shrink-0 mt-0.5" />
+                  <FaArrowLeftLong size={13} className="shrink-0 mt-1" />
                   {o.outcome}
                 </p>
               </div>
             ))}
           </div>
         </Section>
+
+        {/* ══ 10 · اتجاه مستقبلي ═══════════════════════════════════════════ */}
+        <Direction />
 
         {/* ══ مواضع الصور المطلوبة ═════════════════════════════════════════ */}
         <section style={{ padding: "0 24px 92px", background: "#fff" }}>
@@ -506,17 +554,142 @@ export default function Page() {
               على الموقع اليوم. ولا تتضمن أسعارًا ولا نطاق عمل، لأن غرضها أن تُقرأ لا أن تُشترى.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-3 mb-10">
-              <a href="mailto:ahmed.ali@emotiongrp.com" className="inline-flex items-center gap-2 px-5 py-3 rounded-full text-[13px] ltr"
-                style={{ background: S, color: "#fff" }}>ahmed.ali@emotiongrp.com</a>
+              <a href="mailto:hello@ahmedali.online" className="inline-flex items-center gap-2 px-5 py-3 rounded-full text-[13px] ltr"
+                style={{ background: S, color: "#fff" }}>hello@ahmedali.online</a>
               <a href="https://www.linkedin.com/in/ahmed-alli" target="_blank" rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-5 py-3 rounded-full text-[13px] ar-body" style={{ border: `1.5px solid ${S}`, color: D }}>LinkedIn</a>
             </div>
             <p className="ar-heading text-[17px] mb-1.5">أحمد علي</p>
-            <p className="text-[12.5px] ar-body" style={{ color: D, opacity: .6 }}>رئيس المنتجات الرقمية والنمو · مجموعة إيموشن</p>
+            <p className="text-[12.5px] ar-body" style={{ color: D, opacity: .6 }}>استراتيجي رقمي · مطوّر منتجات</p>
           </div>
         </section>
       </div>
     </ArabicTailProcessor>
+  );
+}
+
+function Direction() {
+  const { home, brands, map, principle, principleLabel, mapLabel, intro } = DIRECTION;
+  return (
+    <Section id="s10" n="10" eyebrow="القسم العاشر" title="اتجاه" accent="مستقبلي" sub={intro}>
+      <div className="max-w-4xl mx-auto space-y-5">
+
+        {/* 01، الصفحة الرئيسية */}
+        <div className="sb-item rounded-[20px] overflow-hidden" style={{ border: `1px solid ${LINE}` }}>
+          <div className="flex items-center gap-3 px-6 py-4" style={{ background: RULE }}>
+            <span className="ar-heading text-[13px] ltr" style={{ color: S }}>{home.n}</span>
+            <span style={{ width: 18, height: 1, background: `${S}55` }} />
+            <span className="ar-heading text-[16px]">{home.t}</span>
+          </div>
+          <div className="px-6 py-7 md:px-8 space-y-7">
+            <Block label="الهدف"><p className="ar-body text-[14px] leading-loose" style={{ color: D, opacity: .85 }}>{home.goal}</p></Block>
+
+            <Block label={home.messageLabel}>
+              <div className="rounded-[14px] px-6 py-6 text-center" style={{ border: `1px solid ${S}33`, background: `${TINT}55` }}>
+                {home.message.map((m: string, i: number) => (
+                  <p key={m} className="ltr" style={{
+                    fontFamily: "var(--font-bricolage), system-ui, sans-serif",
+                    fontSize: i === 0 ? 22 : 14, lineHeight: 1.5, color: i === 0 ? D : S,
+                    marginTop: i ? 10 : 0, fontWeight: i === 0 ? 600 : 400,
+                  }}>{m}</p>
+                ))}
+              </div>
+            </Block>
+
+            <Block label={home.firstScreenLabel}>
+              <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-2.5">
+                {home.firstScreen.map((x: string) => (
+                  <li key={x} className="flex gap-3 ar-body text-[13.5px] leading-loose" style={{ color: D, opacity: .85 }}>
+                    <span style={{ marginTop: 9, width: 11, height: 2, background: S, flexShrink: 0 }} />{x}
+                  </li>
+                ))}
+              </ul>
+            </Block>
+
+            <Block label={home.visualLabel}><p className="ar-body text-[14px] leading-loose" style={{ color: D, opacity: .85 }}>{home.visual}</p></Block>
+          </div>
+        </div>
+
+        {/* 02، العلامات والتصنيع */}
+        <div className="sb-item rounded-[20px] overflow-hidden" style={{ border: `1px solid ${LINE}` }}>
+          <div className="flex items-center gap-3 px-6 py-4" style={{ background: RULE }}>
+            <span className="ar-heading text-[13px] ltr" style={{ color: S }}>{brands.n}</span>
+            <span style={{ width: 18, height: 1, background: `${S}55` }} />
+            <span className="ar-heading text-[16px]">{brands.t}</span>
+          </div>
+          <div className="px-6 py-7 md:px-8 space-y-7">
+            <Block label="الهدف"><p className="ar-body text-[14px] leading-loose" style={{ color: D, opacity: .85 }}>{brands.goal}</p></Block>
+
+            <Block label={brands.houseLabel}>
+              <div className="grid sm:grid-cols-2 gap-3">
+                {brands.house.map((b: { k: string; latin: string; d: string }) => (
+                  <div key={b.k} className="rounded-[14px] p-5" style={{ border: `1px solid ${LINE}` }}>
+                    <div className="flex items-center gap-3 mb-3">
+                      <img src={`/sunbulah/brand/${b.k}.webp`} alt={b.latin} loading="lazy"
+                        style={{ height: 28, width: "auto", maxWidth: 88, objectFit: "contain", mixBlendMode: "multiply" }} />
+                      <span className="ltr text-[12px]" style={{ color: S, letterSpacing: "0.06em" }}>{b.latin}</span>
+                    </div>
+                    <p className="ar-body text-[13px] leading-loose" style={{ color: D, opacity: .78 }}>{b.d}</p>
+                  </div>
+                ))}
+              </div>
+            </Block>
+
+            <Block label={brands.makeLabel}>
+              <p className="ltr mb-3" style={{ fontFamily: "var(--font-bricolage), system-ui, sans-serif", fontSize: 19, color: D, fontWeight: 600 }}>
+                {brands.makeLine}
+              </p>
+              <p className="ar-body text-[14px] leading-loose" style={{ color: D, opacity: .85 }}>{brands.makeBody}</p>
+            </Block>
+
+            <Block label={brands.outcomeLabel}>
+              <p className="ar-body text-[13.5px] leading-loose mb-4" style={{ color: D, opacity: .85 }}>{brands.outcomeIntro}</p>
+              <div className="flex flex-wrap gap-2">
+                {brands.outcome.map((o: string) => (
+                  <span key={o} className="ar-body text-[12.5px] px-3.5 py-2 rounded-full" style={{ background: `${TINT}88`, color: S }}>{o}</span>
+                ))}
+              </div>
+            </Block>
+          </div>
+        </div>
+
+        {/* شكل الصفحة الجديدة */}
+        <div className="sb-item rounded-[20px] overflow-hidden" style={{ border: `1px solid ${LINE}` }}>
+          <div className="px-6 py-4" style={{ background: RULE }}>
+            <span className="ar-heading text-[16px]">{mapLabel}</span>
+          </div>
+          <ol className="px-6 py-6 md:px-8">
+            {map.map((m: { en: string; ar: string }, i: number) => (
+              <li key={m.en} className="flex items-baseline gap-4 py-2.5"
+                style={{ borderTop: i ? `1px solid ${RULE}` : "none", background: i % 2 ? ZEBRA : "#fff" }}>
+                <span className="ltr text-[11.5px] tabular-nums shrink-0" style={{ color: S, width: 22 }}>
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span className="ltr text-[14px] shrink-0" style={{ fontFamily: "var(--font-bricolage), system-ui, sans-serif", color: D, fontWeight: 500 }}>
+                  {m.en}
+                </span>
+                <span className="ar-body text-[13px]" style={{ color: D, opacity: .7 }}>{m.ar}</span>
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        {/* المبدأ */}
+        <div className="sb-item rounded-[20px] p-8 text-center" style={{ border: `2px solid ${S}` }}>
+          <p className="ar-body text-[11.5px] mb-4" style={{ color: S }}>{principleLabel}</p>
+          <p className="ar-body text-[15px] leading-loose" style={{ color: D, opacity: .9 }}>{principle}</p>
+        </div>
+      </div>
+    </Section>
+  );
+}
+
+function Block({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div>
+      <p className="ar-body text-[11.5px] mb-3" style={{ color: S }}>{label}</p>
+      {children}
+    </div>
   );
 }
 
@@ -527,16 +700,16 @@ function Table({ head, rows, widths }: { head: string[]; rows: string[][]; width
     <div className="max-w-4xl mx-auto overflow-x-auto rounded-[18px]" style={{ border: `1px solid ${LINE}`, background: "#fff" }}>
       <table className="w-full" style={{ borderCollapse: "collapse", minWidth: 520 }}>
         <thead>
-          <tr style={{ background: RULE }}>
+          <tr style={{ background: HEAD }}>
             {head.map((h, i) => (
               <th key={h} className="text-right text-[11.5px] px-5 py-3.5 ar-body"
-                style={{ color: D, opacity: .55, fontWeight: 400, width: widths?.[i] }}>{h}</th>
+                style={{ color: S, fontWeight: 500, width: widths?.[i] }}>{h}</th>
             ))}
           </tr>
         </thead>
         <tbody className="sb-stagger">
           {rows.map((r, i) => (
-            <tr key={r[0]} className="sb-item" style={{ borderTop: i ? `1px solid ${RULE}` : "none" }}>
+            <tr key={r[0]} className="sb-item" style={{ borderTop: i ? `1px solid ${RULE}` : "none", background: i % 2 ? ZEBRA : "#fff" }}>
               {r.map((cell, j) => (
                 <td key={j} className={`px-5 py-4 text-[13px] leading-loose align-top ${j === 0 ? "ar-heading whitespace-nowrap" : "ar-body"}`}
                   style={{ color: D, opacity: j === 0 ? 1 : .8 }}>{cell}</td>
@@ -553,12 +726,17 @@ function Section({ id, n, eyebrow, title, accent, sub, children }: {
   id: string; n: string; eyebrow: string; title: string; accent: string;
   sub?: string; children: React.ReactNode;
 }) {
+  const Icon = SECTION_ICON[id];
   return (
     <section id={id} className="sb-slide opacity-0"
       style={{ padding: "92px 24px", background: "#fff", borderTop: `1px solid ${RULE}` }}>
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
-          <p className="text-[11.5px] mb-4 ar-body" style={{ color: S }}>{eyebrow}</p>
+          <span className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full mb-5 ar-body text-[11.5px]"
+            style={{ background: TINT, color: S }}>
+            {Icon && <Icon size={13} />}
+            {eyebrow}
+          </span>
           <h2 className="ar-heading mb-5" style={{ fontSize: "clamp(26px, 4.6vw, 48px)", lineHeight: 1.4, color: D }}>
             {title} <span style={{ color: S }}>{accent}</span>
           </h2>

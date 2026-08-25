@@ -13,7 +13,9 @@ const r = await p.evaluate(() => ({
   tables: document.querySelectorAll("table").length,
   tableRows: document.querySelectorAll("tbody tr").length,
   svgCharts: document.querySelectorAll(".recharts-surface").length,
-  treeNodes: document.querySelectorAll("[id='s03'] button").length,
+  mapFilters: document.querySelectorAll("[id='s03'] button").length,
+  mapGroups: document.querySelectorAll("[id='s03'] section").length,
+  faIcons: document.querySelectorAll("svg[stroke='currentColor'],svg[fill='currentColor']").length,
   arTails: document.querySelectorAll(".ar-word-wrap").length,
   arHeadings: document.querySelectorAll(".ar-heading").length,
   accentUsed: getComputedStyle(document.querySelector("h1 span")).color,
@@ -23,6 +25,11 @@ const r = await p.evaluate(() => ({
   shadows: [...document.querySelectorAll("*")].filter(e => { const b = getComputedStyle(e).boxShadow; return b && b !== "none"; }).length,
   nonWhiteSections: [...document.querySelectorAll("section")].filter(x => { const b = getComputedStyle(x).backgroundColor; return b !== "rgba(0, 0, 0, 0)" && b !== "rgb(255, 255, 255)"; }).length,
   totalIcons: document.querySelectorAll("svg.lucide").length,
+  colouredCells: [...document.querySelectorAll("td,th,span")].filter(e => {
+    const b = getComputedStyle(e).backgroundColor;
+    return b && b !== "rgba(0, 0, 0, 0)" && b !== "rgb(255, 255, 255)";
+  }).length,
+  zebraRows: [...document.querySelectorAll("tbody tr")].filter(r => getComputedStyle(r).backgroundColor === "rgb(246, 251, 251)").length,
   overflow: document.documentElement.scrollWidth > window.innerWidth + 2 ? "YES" : "none",
   height: document.body.scrollHeight,
 }));

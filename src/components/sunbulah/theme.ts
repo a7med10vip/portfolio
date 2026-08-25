@@ -6,6 +6,11 @@ export const TINT = "#CFF7EE";
 export const D = "#0A0A0A";
 export const LINE = "#E8E8E8";
 export const RULE = "#F0F0F0";
+/** صف مظلّل خفيف داخل الجداول، ليتتبع النظر السطر دون خطوط فاصلة كثيرة. */
+export const ZEBRA = "#F6FBFB";
+/** رأس الجدول: لمسة من لون الهوية بدل الرمادي. */
+export const HEAD = "#EAF6F6";
+
 export const MONO = "ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace";
 
 export const SEV: Record<string, { bg: string; fg: string; label: string }> = {
