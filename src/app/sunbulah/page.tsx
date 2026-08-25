@@ -101,7 +101,7 @@ export default function Page() {
 
             <p className="sb-hero opacity-0 ar-body text-center text-[16.5px] leading-loose mb-3"
               style={{ color: D, opacity: .85, maxWidth: 640 }}>
-              مجموعة السنبلة تصنّع الغذاء منذ 1980، وتعمل عبر خمس وثلاثين دولة، وتملك أربع علامات.
+              مجموعة السنبلة تصنع الغذاء منذ 1980، وتعمل عبر خمس وثلاثين دولة، وتملك أربع علامات.
               لكن التجربة الرقمية الحالية لا تروي هذه القصة.
             </p>
             <div className="sb-hero opacity-0 mb-10 text-center">
@@ -189,13 +189,13 @@ export default function Page() {
 
         {/* ══ 04 · خريطة الموقع ════════════════════════════════════════════ */}
         <Section id="s04" n="04" eyebrow="القسم الرابع" title="خريطة" accent="الموقع"
-          sub="عدد الصفحات وحده لا يقول أين الفراغ. المجموعات تقوله: شريط المنتجات أخضر بالكامل، وشريط العلامات ليس فيه أخضر واحد. اضغط أي حالة لترى صفحاتها وحدها.">
+          sub="عدد الصفحات وحده لا يوضح أين النقص. المجموعات توضحه: شريط المنتجات أخضر بالكامل، وشريط العلامات ليس فيه أخضر واحد. اضغط أي حالة لترى صفحاتها.">
           <SiteMap />
         </Section>
 
-        {/* ══ 05 · ما يعمل جيدًا ═══════════════════════════════════════════ */}
-        <Section id="s05" n="05" eyebrow="القسم الخامس" title="ما يعمل" accent="جيدًا"
-          sub="تدقيق لا يذكر إلا العيوب يُقرأ هجومًا لا تقييمًا. هذه قياسات موجبة، أُخذت بالطريقة نفسها.">
+        {/* ══ 05 · ما يعمل جيدا ═══════════════════════════════════════════ */}
+        <Section id="s05" n="05" eyebrow="القسم الخامس" title="ما يعمل" accent="جيدا"
+          sub="تقرير لا يذكر إلا العيوب يبدو هجوما لا تقييما. هذه نقاط قوة حقيقية، قيست بالطريقة نفسها.">
           <div className="max-w-5xl mx-auto overflow-x-auto rounded-[18px]" style={{ border: `1px solid ${S_SOFT}44`, background: "#fff" }}>
             <table className="w-full" style={{ borderCollapse: "collapse", minWidth: 680 }}>
               <thead>
@@ -228,26 +228,26 @@ export default function Page() {
         </Section>
 
         {/* ══ 06 · المنهج ══════════════════════════════════════════════════ */}
-        <Section id="s06" n="06" eyebrow="القسم السادس" title="كيف قيس" accent="هذا"
-          sub="هذه الوثيقة ليست تقييمًا انطباعيًا. كل ملاحظة فيها مبنية على قياس أو تحقق مباشر يمكن تكراره.">
+        <Section id="s06" n="06" eyebrow="القسم السادس" title="كيف قسنا" accent="هذا"
+          sub="لا آراء هنا. كل ملاحظة مبنية على قياس مباشر يمكن لأي شخص إعادته.">
           <p className="ar-body text-[16px] leading-loose text-center max-w-3xl mx-auto mb-12" style={{ color: D, opacity: .82 }}>
             {AUDIT.method}
           </p>
           <Table
-            head={["المبدأ", "ما يعنيه عمليًا"]}
+            head={["المبدأ", "ما يعنيه عمليا"]}
             rows={[
               ["من الخارج فقط", "كل ما هنا مرئي لأي زائر. لا وصول ولا صلاحيات ولا بيانات داخلية."],
               ["قابل للتكرار", "كل رقم صدر عن أمر أو تشغيل متصفح يمكن إعادته على الموقع اليوم."],
-              ["ما لم يُتحقق منه حُذف", "حيث تعذّر التأكد، أُسقط الادعاء بدل تقديره أو تقريبه."],
-              ["بلا تسعير", "لا أسعار ولا نطاق عمل. الغرض أن تُقرأ الوثيقة لا أن تُشترى."],
+              ["ما لم يتحقق منه حذف", "حيث تعذر التأكد، أسقط الادعاء بدل تقديره أو تقريبه."],
+              ["بلا تسعير", "لا أسعار ولا نطاق عمل. الغرض أن تقرأ الوثيقة لا أن تشترى."],
             ]}
             widths={["30%", "70%"]}
           />
         </Section>
 
-        {/* ══ 07 · ما وُجد ═════════════════════════════════════════════════ */}
-        <Section id="s07" n="07" eyebrow="القسم السابع" title="ما" accent="وُجد"
-          sub="ثلاث عشرة ملاحظة. الفهرس أولًا للمسح السريع، ثم التفصيل بقياسه الحرفي.">
+        {/* ══ 07 · ما وجد ═════════════════════════════════════════════════ */}
+        <Section id="s07" n="07" eyebrow="القسم السابع" title="ما" accent="وجدناه"
+          sub="ثلاث عشرة ملاحظة. الجدول أولا لنظرة سريعة، ثم التفاصيل.">
           {/* الفهرس */}
           <div className="max-w-5xl mx-auto overflow-x-auto rounded-[18px] mb-14" style={{ border: `1px solid ${LINE}` }}>
             <table className="w-full" style={{ borderCollapse: "collapse", minWidth: 660 }}>
@@ -384,18 +384,18 @@ export default function Page() {
               </table>
             </div>
             <p className="text-[12.5px] text-center mt-5 ar-body" style={{ color: D, opacity: .6 }}>
-              السنبلة تتقدّم في اثنين من سبعة. لا يتقدّم النظير في كل شيء وتدقيق يخسر فيه العميل كل صف لا يُصدَّق.
+              السنبلة تتقدم في اثنين من سبعة. لا يتقدم النظير في كل شيء وتدقيق يخسر فيه العميل كل صف لا يصدق.
             </p>
           </div>
         </Section>
 
         {/* ══ 09 · عصران ═══════════════════════════════════════════════════ */}
         <Section id="s09" n="09" eyebrow="القسم التاسع" title="عصران وشركة" accent="واحدة"
-          sub="الفارق بين الموقع المؤسسي وموقع المستهلك يظهر بوضوح عند وضع التجربتين جنبًا إلى جنب.">
+          sub="الفارق بين الموقع المؤسسي وموقع المستهلك يتضح عند وضعهما جنبا إلى جنب.">
           <div className="sb-stagger grid gap-8 lg:grid-cols-2 max-w-5xl mx-auto">
             {[
               { shot: "group-home-desktop", t: "الموقع المؤسسي", u: "sunbulahgroup.com", n: "Joomla 3 · قالب protostar الافتراضي · 22 صفحة", bad: true },
-              { shot: "consumer-home-desktop", t: "موقع المستهلك", u: "sunbulah.com", n: "Next.js · ثنائي اللغة · تصوير حديث · يُحدَّث فعليًا", bad: false },
+              { shot: "consumer-home-desktop", t: "موقع المستهلك", u: "sunbulah.com", n: "Next.js · ثنائي اللغة · تصوير حديث · يحدث فعليا", bad: false },
             ].map((c) => (
               <figure key={c.shot} className="sb-item m-0">
                 <div className="overflow-hidden" style={{ borderRadius: 14, border: `1px solid ${c.bad ? "#B4231E33" : LINE}` }}>
@@ -421,26 +421,26 @@ export default function Page() {
           </div>
         </Section>
 
-        {/* ══ 10 · من أين يُبدأ ════════════════════════════════════════════ */}
-        <Section id="s10" n="10" eyebrow="القسم العاشر" title="من أين" accent="يُبدأ"
-          sub="ليست كل ملاحظة تحتاج إعادة بناء. أربع منها تُغلق في يوم واحد وأثرها فوري.">
+        {/* ══ 10 · من أين يبدأ ════════════════════════════════════════════ */}
+        <Section id="s10" n="10" eyebrow="القسم العاشر" title="من أين" accent="نبدأ"
+          sub="ليست كل ملاحظة تحتاج إعادة بناء. أربع منها تغلق في يوم واحد وأثرها فوري.">
           <div className="max-w-4xl mx-auto overflow-x-auto rounded-[18px]" style={{ border: `1px solid ${LINE}`, background: "#fff" }}>
             <table className="w-full" style={{ borderCollapse: "collapse", minWidth: 620 }}>
               <thead>
                 <tr style={{ background: HEAD }}>
-                  {["المرحلة", "المدى", "ما يُنفَّذ فيها"].map((h) => (
+                  {["المرحلة", "المدى", "ما ننفذه فيها"].map((h) => (
                     <th key={h} className="text-right text-[11.5px] px-5 py-3.5 ar-body" style={{ color: S, fontWeight: 500 }}>{h}</th>
                   ))}
                 </tr>
               </thead>
               <tbody className="sb-stagger">
                 {[
-                  { n: "أولًا", t: "خلال يوم", c: S,
-                    items: ["إصلاح شهادة بوابة التوظيف، أو تحويل الرابط إلى البوابة العاملة", "عنوان ووصف لكل صفحة من الاثنتين والعشرين", "تصحيح lang وdir على النسخة العربية", "إصلاح الرابط المعطّل إلى موقع المستهلك"] },
-                  { n: "ثانيًا", t: "خلال أسبوع", c: S_SOFT,
+                  { n: "أولا", t: "خلال يوم", c: S,
+                    items: ["إصلاح شهادة بوابة التوظيف، أو تحويل الرابط إلى البوابة العاملة", "عنوان ووصف لكل صفحة من الاثنتين والعشرين", "تصحيح lang وdir على النسخة العربية", "إصلاح الرابط المعطل إلى موقع المستهلك"] },
+                  { n: "ثانيا", t: "خلال أسبوع", c: S_SOFT,
                     items: ["وسوم المشاركة وبيانات Organization المنظمة", "خريطة موقع وترويسات تخزين مؤقت", "تحميل مؤجل للصور وأهداف لمس بالمقاس الصحيح"] },
-                  { n: "ثالثًا", t: "إعادة البناء", c: "#8B5CF6",
-                    items: ["منصة مدعومة وأفضلها ما يعمل عليه موقع المستهلك أصلًا", "صفحة حقيقية لكل علامة وصفحة جامعة لها", "أقسام التصنيع والانتشار والقيادة وغرفة الأخبار", "تصوير بضعف دقة الشاشة"] },
+                  { n: "ثالثا", t: "إعادة البناء", c: "#8B5CF6",
+                    items: ["منصة مدعومة وأفضلها ما يعمل عليه موقع المستهلك أصلا", "صفحة حقيقية لكل علامة وصفحة جامعة لها", "أقسام التصنيع والانتشار والقيادة وغرفة الأخبار", "تصوير بضعف دقة الشاشة"] },
                 ].map((p, i) => (
                   <tr key={p.n} className="sb-item" style={{ borderTop: i ? `1px solid ${RULE}` : "none", background: i % 2 ? ZEBRA : "#fff" }}>
                     <td className="px-5 py-5 align-top whitespace-nowrap" style={{ borderRight: `3px solid ${p.c}` }}>
@@ -466,7 +466,7 @@ export default function Page() {
           </div>
         </Section>
 
-        {/* ══ 11 · لو بُني اليوم ════════════════════════════════════════════ */}
+        {/* ══ 11 · لو بني اليوم ════════════════════════════════════════════ */}
         <Prove />
 
         {/* ══ الخاتمة ══════════════════════════════════════════════════════ */}
@@ -476,8 +476,8 @@ export default function Page() {
             <img src="/sunbulah/brand/group.webp" alt="مجموعة السنبلة" style={{ width: 164, height: "auto", margin: "0 auto 28px" }} />
             <p className="text-[11.5px] mb-5 ar-body" style={{ color: S }}>عن هذه الوثيقة</p>
             <p className="ar-body text-[15.5px] leading-loose mb-9" style={{ color: D, opacity: .85 }}>
-              أُعدّت من الخارج، دون تكليف ودون وصول إلى أي نظام. كل قياس فيها قابل لإعادة التشغيل
-              على الموقع اليوم. ولا تتضمن أسعارًا ولا نطاق عمل، لأن غرضها أن تُقرأ لا أن تُشترى.
+              أعددتها من الخارج، دون تكليف ودون وصول إلى أي نظام. كل قياس فيها قابل لإعادة التشغيل
+              على الموقع اليوم. ولا تتضمن أسعارا ولا نطاق عمل، لأن غرضها أن تقرأ لا أن تشترى.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-3 mb-10">
               <a href="mailto:hello@ahmedali.online" className="inline-flex items-center gap-2 px-5 py-3 rounded-full text-[13px] ltr"
@@ -486,7 +486,7 @@ export default function Page() {
                 className="inline-flex items-center gap-2 px-5 py-3 rounded-full text-[13px] ar-body" style={{ border: `1.5px solid ${S}`, color: D }}>LinkedIn</a>
             </div>
             <p className="ar-heading text-[17px] mb-1.5">أحمد علي</p>
-            <p className="text-[12.5px] ar-body" style={{ color: D, opacity: .6 }}>استراتيجي رقمي · مطوّر منتجات</p>
+            <p className="text-[12.5px] ar-body" style={{ color: D, opacity: .6 }}>استراتيجي رقمي · مطور منتجات</p>
           </div>
         </section>
       </div>
@@ -524,7 +524,7 @@ function Insight() {
 function Today() {
   return (
     <Section id="s02" n="02" eyebrow="القسم الثاني" title="السنبلة اليوم، وما يقوله" accent="موقعها عنها"
-      sub="العمودان أدناه يقرآن معًا: كل سطر على اليمين له ما يقابله على اليسار.">
+      sub="اقرأ العمودين معا: كل سطر على اليمين يقابله سطر على اليسار.">
       <div className="sb-stagger grid grid-cols-2 sm:grid-cols-4 gap-px max-w-4xl mx-auto mb-10"
         style={{ background: LINE, border: `1px solid ${LINE}`, borderRadius: 18, overflow: "hidden" }}>
         {TODAY.facts.map((f) => (
@@ -565,7 +565,7 @@ function Today() {
 
 function Prove() {
   return (
-    <Section id="s11" n="11" eyebrow="القسم الحادي عشر" title="لو بُني" accent="اليوم" sub={PROVE.intro}>
+    <Section id="s11" n="11" eyebrow="القسم الحادي عشر" title="لو بني" accent="اليوم" sub={PROVE.intro}>
       <div className="sb-stagger max-w-4xl mx-auto space-y-4">
         {PROVE.items.map((x, i) => {
           const I = OPPORTUNITY_ICON[i];

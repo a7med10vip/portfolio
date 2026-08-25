@@ -8,11 +8,11 @@ import { S, D, LINE, RULE, ZEBRA } from "./theme";
 import { TREE_ICON } from "./icons";
 
 /**
- * صفحات الموقع مجموعةً بالوظيفة، لا كشجرة متشعّبة.
+ * صفحات الموقع مجموعة بالوظيفة، لا كشجرة متشعبة.
  *
- * الشجرة السابقة كانت تعرض البنية وتخفي المعنى، وتطول حتى تُملّ. المجموعات
+ * الشجرة السابقة كانت تعرض البنية وتخفي المعنى، وتطول حتى تمل. المجموعات
  * تعرض المعنى في نظرة: شريط المنتجات أخضر بالكامل، وشريط العلامات ليس فيه
- * أخضر واحد. والفلتر يجعل السؤال «أرني المعطّل فقط» ضغطة واحدة.
+ * أخضر واحد. والفلتر يجعل السؤال «أرني المعطل فقط» ضغطة واحدة.
  */
 const STATES: NodeState[] = ["ok", "thin", "orphan", "missing", "broken"];
 
@@ -44,7 +44,7 @@ export default function SiteMap() {
       </div>
       <p className="ar-body text-[12px] text-center mb-10" style={{ color: D, opacity: .55 }}>
         {filter === "all"
-          ? `${total} صفحة، منها ${counts.missing ?? 0} غير موجودة أصلًا`
+          ? `${total} صفحة، منها ${counts.missing ?? 0} غير موجودة أصلا`
           : `${visible} من ${total} صفحة`}
       </p>
 
@@ -61,7 +61,7 @@ export default function SiteMap() {
                   <h4 className="ar-heading text-[16px]" style={{ color: D }}>{g.label}</h4>
                   <span className="ar-body text-[12px] ltr" style={{ color: S }}>{all.length}</span>
                 </div>
-                {/* شريط يلخّص مزيج الحالات في المجموعة قبل قراءة أي اسم */}
+                {/* شريط يلخص مزيج الحالات في المجموعة قبل قراءة أي اسم */}
                 <div className="flex rounded-full overflow-hidden mb-3" style={{ height: 5 }}>
                   {STATES.map((k) => {
                     const n = all.filter((p) => p.state === k).length;

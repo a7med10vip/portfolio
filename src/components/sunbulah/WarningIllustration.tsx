@@ -3,8 +3,8 @@
 /**
  * رسم توضيحي لما يراه الزائر حين يضغط زر التقديم على الوظائف.
  *
- * ليست لقطة شاشة: المتصفح بلا واجهة يوقف الصفحة قبل أن يرسم التحذير أصلًا
- * فلا يمكن تصويرها آليًا. هذه إعادة رسم لها ومكتوب عليها أنها كذلك.
+ * ليست لقطة شاشة: المتصفح بلا واجهة يوقف الصفحة قبل أن يرسم التحذير أصلا
+ * فلا يمكن تصويرها آليا. هذه إعادة رسم لها ومكتوب عليها أنها كذلك.
  */
 export default function WarningIllustration() {
   return (
@@ -23,10 +23,10 @@ export default function WarningIllustration() {
             <div className="mx-auto mb-6 grid place-items-center rounded-full" style={{ width: 58, height: 58, background: "#FBEAEA" }}>
               <span className="ar-heading" style={{ fontSize: 30, color: "#B4231E", lineHeight: 1 }}>!</span>
             </div>
-            <p className="ar-heading text-[20px] mb-3" style={{ color: "#0A0A0A" }}>اتصالك ليس خاصًا</p>
+            <p className="ar-heading text-[20px] mb-3" style={{ color: "#0A0A0A" }}>اتصالك ليس خاصا</p>
             <p className="ar-body text-[13px] leading-loose mb-6" style={{ color: "#0A0A0A", opacity: .65 }}>
               قد يحاول المهاجمون سرقة معلوماتك من هذا الموقع. لم يتمكن المتصفح من التحقق
-              من أن هذا العنوان يعود فعلًا إلى مجموعة السنبلة.
+              من أن هذا العنوان يعود فعلا إلى مجموعة السنبلة.
             </p>
             <span className="inline-block px-5 py-2.5 rounded-lg ar-body text-[12.5px]" style={{ background: "#B4231E", color: "#fff" }}>
               العودة إلى بر الأمان
@@ -35,7 +35,7 @@ export default function WarningIllustration() {
         </div>
       </div>
       <figcaption className="ar-body text-[11.5px] mt-3 text-center" style={{ color: "#0A0A0A", opacity: .5 }}>
-        رسم توضيحي لما يظهر فعليًا، لا لقطة شاشة. المتصفح يوقف الصفحة قبل رسمها فيتعذّر تصويرها آليًا.
+        رسم توضيحي لما يظهر فعليا، لا لقطة شاشة. المتصفح يوقف الصفحة قبل رسمها فيتعذر تصويرها آليا.
       </figcaption>
     </figure>
   );

@@ -10,22 +10,22 @@ import { S, S_SOFT, MINT, D, LINE } from "./theme";
 type Message = { role: "user" | "assistant"; content: string };
 
 const QUICK = [
-  "إيه أخطر ملاحظة في التدقيق؟",
-  "ليه بوابة التوظيف مش شغالة؟",
-  "الموقع ماشي على إيه؟",
-  "إيه اللي شغال كويس عندهم؟",
-  "أبدأ منين لو عندي يوم واحد؟",
-  "إيه وضع العلامات الأربع؟",
+  "ما أخطر ملاحظة في التقرير؟",
+  "لماذا لا تفتح بوابة التوظيف؟",
+  "ما المنصة التي يعمل عليها الموقع؟",
+  "ما الذي يعمل جيدا في الموقع؟",
+  "من أين أبدأ لو كان لدي يوم واحد؟",
+  "ما وضع العلامات الأربع؟",
 ];
 
 const NUDGES = [
-  "عندك سؤال عن التدقيق؟ أنا هنا.",
-  "تحب أشرحلك أي ملاحظة بالتفصيل؟",
-  "اسألني عن أي رقم في الوثيقة ومن فين جه.",
+  "لديك سؤال عن التقرير؟ أنا هنا.",
+  "هل تريد شرح أي ملاحظة بالتفصيل؟",
+  "اسألني عن أي رقم في الوثيقة ومن أين جاء.",
 ];
 
 const OPENING =
-  "أهلًا. أنا مرشد وثيقة تدقيق الحضور الرقمي لمجموعة السنبلة. اسألني عن أي ملاحظة أو رقم فيها وهقولك اتقاس إزاي.";
+  "أهلا. أنا مرشد تقرير الحضور الرقمي لمجموعة السنبلة. اسألني عن أي ملاحظة أو رقم فيه، وسأخبرك كيف قيس.";
 
 function format(text: string) {
   return text
@@ -38,7 +38,7 @@ function format(text: string) {
     .trim();
 }
 
-/** نغمة قصيرة عند وصول ردّ، بلا ملف صوت. */
+/** نغمة قصيرة عند وصول رد، بلا ملف صوت. */
 function ping() {
   try {
     const Ctx = window.AudioContext || (window as unknown as Record<string, typeof AudioContext>).webkitAudioContext;
@@ -56,16 +56,16 @@ function ping() {
     g.gain.exponentialRampToValueAtTime(0.0001, t + 0.42);
     o1.start(t); o2.start(t + 0.09);
     o1.stop(t + 0.45); o2.stop(t + 0.45);
-  } catch { /* الصوت رفاهية، لا يعطّل شيئًا */ }
+  } catch { /* الصوت رفاهية، لا يعطل شيئا */ }
 }
 
-/** ما يستطيع المرشد الحديث فيه، معروضًا قبل أن يبدأ أحد الكتابة. */
+/** ما يستطيع المرشد الحديث فيه، معروضا قبل أن يبدأ أحد الكتابة. */
 const TOPICS = [
-  { i: FaListCheck, t: "الملاحظات الثلاث عشرة", d: "كل واحدة، وكيف قيست، وكم تكلّف" },
+  { i: FaListCheck, t: "الملاحظات الثلاث عشرة", d: "كل واحدة، وكيف قيست، وكم تكلف" },
   { i: FaSitemap, t: "خريطة الموقع", d: "الصفحات القائمة، والفروع المفقودة" },
-  { i: FaChartColumn, t: "المقارنة بالنظير", d: "الأرقام أمام المراعي، وأين تتقدّم السنبلة" },
-  { i: FaCircleCheck, t: "ما يعمل جيدًا", d: "ستة أسس قائمة يُبنى عليها" },
-  { i: FaLightbulb, t: "الخطة والتطوير", d: "ما يُصلَح في يوم، وما يحتاج إعادة بناء" },
+  { i: FaChartColumn, t: "المقارنة بالنظير", d: "الأرقام أمام المراعي، وأين تتقدم السنبلة" },
+  { i: FaCircleCheck, t: "ما يعمل جيدا", d: "ستة أسس قائمة يبنى عليها" },
+  { i: FaLightbulb, t: "الخطة والتطوير", d: "ما يصلح في يوم، وما يحتاج إعادة بناء" },
 ];
 
 export default function SunbulahChat() {
@@ -82,7 +82,7 @@ export default function SunbulahChat() {
     bodyRef.current?.scrollTo({ top: bodyRef.current.scrollHeight, behavior: "smooth" });
   }, [msgs, busy]);
 
-  /* لمسة واحدة بعد أن يكون الزائر قد قرأ شيئًا، ثم تصمت. */
+  /* لمسة واحدة بعد أن يكون الزائر قد قرأ شيئا، ثم تصمت. */
   useEffect(() => {
     if (everOpened) return;
     let i = 0;
@@ -110,10 +110,10 @@ export default function SunbulahChat() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ messages: next.slice(-20) }) });
       const data = await res.json();
-      setMsgs([...next, { role: "assistant", content: data.reply ?? "معلش، جرّب تاني." }]);
+      setMsgs([...next, { role: "assistant", content: data.reply ?? "عذرا، حاول مرة أخرى." }]);
       ping();
     } catch {
-      setMsgs([...next, { role: "assistant", content: "الاتصال وقع. جرّب تاني بعد لحظة." }]);
+      setMsgs([...next, { role: "assistant", content: "انقطع الاتصال. حاول بعد لحظة." }]);
     } finally {
       setBusy(false);
     }
@@ -180,7 +180,7 @@ export default function SunbulahChat() {
               </div>
 
               <p className="ar-heading text-[19px] text-center mb-3" style={{ color: D, lineHeight: 1.5 }}>
-                أهلًا، أنا أحمد
+                أهلا، أنا أحمد
               </p>
               <p className="ar-body text-[13px] leading-loose text-center mb-7" style={{ color: D, opacity: .75 }}>
                 أعددت هذه الوثيقة عن موقع مجموعة السنبلة من الخارج، دون تكليف ودون وصول إلى أي
@@ -211,7 +211,7 @@ export default function SunbulahChat() {
                 <FaArrowLeftLong size={12} />
               </button>
               <p className="ar-body text-[11px] text-center mt-4" style={{ color: D, opacity: .45 }}>
-                لا يذكر أسعارًا ولا نطاق عمل. الوثيقة بلا تسعير عمدًا.
+                لا يذكر أسعارا ولا نطاق عمل. الوثيقة بلا تسعير عمدا.
               </p>
             </div>
           ) : (

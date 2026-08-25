@@ -7,7 +7,7 @@ import { S, S_SOFT, D, LINE } from "./theme";
 
 const FONT = "'Ahmed Sans', sans-serif";
 
-/** الأرقام نفسها التي في الجدول، مرسومة، لأن الفارق يُرى أسرع مما يُقرأ. */
+/** الأرقام نفسها التي في الجدول، مرسومة، لأن الفارق يرى أسرع مما يقرأ. */
 const SPEED = [
   { metric: "حتى يبدأ الرد", السنبلة: 0.87, المراعي: 0.46 },
   { metric: "حتى تكتمل الصفحة", السنبلة: 3.7, المراعي: 2.7 },
@@ -15,7 +15,7 @@ const SPEED = [
 
 const IMAGES = [
   { metric: "إجمالي صور الصفحة", السنبلة: 23, المراعي: 54 },
-  { metric: "ما يُؤجَّل تحميله", السنبلة: 0, المراعي: 46 },
+  { metric: "ما يؤجل تحميله", السنبلة: 0, المراعي: 46 },
 ];
 
 export default function PerfChart() {
@@ -24,7 +24,7 @@ export default function PerfChart() {
       <Panel title="سرعة الموقع" note="بالثواني · الأقل أفضل">
         <Columns data={SPEED} max={4.4} suffix=" ث" />
       </Panel>
-      <Panel title="تحميل الصور" note="عدد الصور · الأكثر تأجيلًا أفضل">
+      <Panel title="تحميل الصور" note="عدد الصور · الأكثر تأجيلا أفضل">
         <Columns data={IMAGES} max={64} />
       </Panel>
     </div>
