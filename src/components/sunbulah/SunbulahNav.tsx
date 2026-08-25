@@ -10,8 +10,7 @@ const NAV_W = 246;
 const COLORS: Record<string, string> = {
   s01: "#004D5A", s02: "#B4231E", s03: "#8B5CF6", s04: "#00A99B",
   s05: "#C2410C", s06: "#0A0A0A", s07: "#004D5A", s08: "#00A99B",
-  s09: "#8B5CF6",
-};
+  s09: "#8B5CF6" };
 
 /**
  * قائمة عائمة تُسحب إلى أي مكان في الشاشة، وتتذكر موضعها.
@@ -71,8 +70,7 @@ export default function SunbulahNav() {
       const h = navRef.current?.offsetHeight ?? 480;
       setPos({
         x: Math.max(8, Math.min(window.innerWidth - NAV_W - 8, e.clientX - offset.current.x)),
-        y: Math.max(60, Math.min(window.innerHeight - h - 8, e.clientY - offset.current.y)),
-      });
+        y: Math.max(60, Math.min(window.innerHeight - h - 8, e.clientY - offset.current.y)) });
     };
     const up = () => {
       setDragging(false);
@@ -99,9 +97,7 @@ export default function SunbulahNav() {
         className="fixed z-[92] hidden lg:block select-none"
         style={{
           top: pos.y, left: pos.x, width: NAV_W,
-          background: "#fff", border: `1px solid ${LINE}`, borderRadius: 18,
-          boxShadow: `4px 4px 0 0 ${D}`, cursor: dragging ? "grabbing" : "default",
-        }}
+          background: "#fff", border: `1px solid ${LINE}`, borderRadius: 18, cursor: dragging ? "grabbing" : "default" }}
       >
         <header
           onPointerDown={(e) => {
@@ -138,8 +134,7 @@ export default function SunbulahNav() {
         <div dir="rtl" className="fixed z-[93] hidden lg:block rounded-2xl px-4 py-3"
           style={{
             top: pos.y + 8, left: pos.x - 268, width: 250,
-            background: D, color: "#fff", borderRadius: 16, boxShadow: `4px 4px 0 0 ${S}`,
-          }}>
+            background: D, color: "#fff", borderRadius: 16 }}>
           <p className="heading text-[12.5px] mb-1.5">القائمة تتحرك معك</p>
           <p className="text-[11.5px] leading-loose" style={{ opacity: .75 }}>
             اسحب رأس القائمة وضعها في المكان الذي يناسبك أثناء القراءة. ستتذكر موضعها.

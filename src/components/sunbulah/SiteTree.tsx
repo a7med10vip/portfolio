@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { NODE_COLOR, NODE_LABEL, SITE_TREE, type TreeNode } from "@/app/sunbulah/data";
-import { S, D, LINE, MONO } from "./theme";
+import { S, D, LINE } from "./theme";
 
 /**
  * الموقع كشجرة، بفروعه الموجودة والمفقودة معًا.
@@ -60,11 +60,9 @@ function Branch({ node, depth, open, toggle, last }: {
           <>
             <span aria-hidden style={{
               position: "absolute", right: 8, top: 0,
-              height: last ? 17 : "100%", width: 1, background: LINE,
-            }} />
+              height: last ? 17 : "100%", width: 1, background: LINE }} />
             <span aria-hidden style={{
-              position: "absolute", right: 8, top: 17, width: 13, height: 1, background: LINE,
-            }} />
+              position: "absolute", right: 8, top: 17, width: 13, height: 1, background: LINE }} />
           </>
         )}
 
@@ -79,7 +77,7 @@ function Branch({ node, depth, open, toggle, last }: {
               <span className="text-[13.5px]" style={{ color: D, textDecoration: node.state === "missing" ? "line-through" : "none", opacity: node.state === "missing" ? .55 : 1 }}>
                 {node.label}
               </span>
-              <span className="text-[11px] ltr" style={{ color: D, opacity: .38, fontFamily: MONO }}>{node.path}</span>
+              <span className="text-[11px] ltr" style={{ color: D, opacity: .38 }}>{node.path}</span>
               {kids.length > 0 && (
                 <span className="text-[10.5px] px-1.5 rounded ltr" style={{ background: `${S}12`, color: S }}>
                   {isOpen ? "−" : "+"}{kids.length}

@@ -27,7 +27,7 @@ const OPENING =
 function format(text: string) {
   return text
     .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-    .replace(/`([^`]+)`/g, '<code style="font-family:ui-monospace,Menlo,monospace;font-size:.92em;direction:ltr;display:inline-block">$1</code>')
+    .replace(/`([^`]+)`/g, '<code style="font-size:.94em;direction:ltr;display:inline-block">$1</code>')
     .replace(/(ahmed\.ali@emotiongrp\.com)/g,
       '<a href="mailto:$1" style="color:#A8842C;font-weight:700;text-decoration:underline">$1</a>')
     .replace(/\n/g, "<br>")
@@ -95,8 +95,7 @@ export default function SunbulahChat() {
       const res = await fetch("/api/chat/sunbulah", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: next.slice(-20) }),
-      });
+        body: JSON.stringify({ messages: next.slice(-20) }) });
       const data = await res.json();
       setMsgs([...next, { role: "assistant", content: data.reply ?? "معلش، جرّب تاني." }]);
       ping();
@@ -116,7 +115,7 @@ export default function SunbulahChat() {
             onClick={() => { setOpen(true); setEverOpened(true); setNudge(null); }}
             aria-label="افتح مرشد الوثيقة"
             className="relative grid place-items-center rounded-full transition-transform hover:scale-105 active:scale-95"
-            style={{ width: 58, height: 58, background: S, boxShadow: `4px 4px 0 0 ${D}` }}
+            style={{ width: 58, height: 58, background: S }}
           >
             <MessageCircle size={24} color="#fff" />
             <span className="absolute rounded-full"
@@ -125,7 +124,7 @@ export default function SunbulahChat() {
 
           {nudge && (
             <div className="max-w-[240px] rounded-2xl px-4 py-3 text-[12.5px] leading-loose"
-              style={{ background: "#fff", border: `1px solid ${LINE}`, color: D, boxShadow: `3px 3px 0 0 ${S}33` }}>
+              style={{ background: "#fff", border: `1px solid ${LINE}`, color: D }}>
               {nudge}
             </div>
           )}
@@ -137,9 +136,7 @@ export default function SunbulahChat() {
         <div className="fixed bottom-6 left-6 z-[97] flex flex-col sb-chat" dir="rtl"
           style={{
             width: "min(392px, calc(100vw - 32px))", height: "min(586px, calc(100vh - 96px))",
-            background: "#fff", border: `1px solid ${LINE}`, borderRadius: 22, overflow: "hidden",
-            boxShadow: `6px 6px 0 0 ${D}`,
-          }}>
+            background: "#fff", border: `1px solid ${LINE}`, borderRadius: 22, overflow: "hidden" }}>
           <header className="flex items-center justify-between px-4 shrink-0"
             style={{ height: 62, background: D }}>
             <div className="flex items-center gap-3 min-w-0">
@@ -169,8 +166,7 @@ export default function SunbulahChat() {
                     background: m.role === "user" ? D : "#fff",
                     color: m.role === "user" ? "#fff" : D,
                     border: m.role === "user" ? "none" : `1px solid ${LINE}`,
-                    borderRadius: m.role === "user" ? "18px 18px 18px 6px" : "18px 18px 6px 18px",
-                  }}
+                    borderRadius: m.role === "user" ? "18px 18px 18px 6px" : "18px 18px 6px 18px" }}
                   dangerouslySetInnerHTML={{ __html: format(m.content) }} />
               </div>
             ))}

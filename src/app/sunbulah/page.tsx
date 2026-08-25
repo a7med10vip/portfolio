@@ -5,12 +5,12 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowLeft } from "lucide-react";
 import {
-  AUDIT, COMPARE, ESTATE, FINDINGS, OPPORTUNITIES, SEVERITY_LABEL, STATUS_LABEL, STRENGTHS,
-} from "./data";
-import { S, S_SOFT, MINT, TINT, D, LINE, RULE, MONO, SEV } from "@/components/sunbulah/theme";
+  AUDIT, COMPARE, ESTATE, FINDINGS, OPPORTUNITIES, SEVERITY_LABEL, STATUS_LABEL, STRENGTHS } from "./data";
+import { S, S_SOFT, MINT, TINT, D, LINE, RULE, SEV } from "@/components/sunbulah/theme";
 import ArabicTailProcessor from "@/components/ArabicTailProcessor";
 import SunbulahNav from "@/components/sunbulah/SunbulahNav";
 import SunbulahChat from "@/components/sunbulah/SunbulahChat";
+import Placeholder, { WarningIllustration } from "@/components/sunbulah/Placeholder";
 import SiteTree from "@/components/sunbulah/SiteTree";
 import PerfChart from "@/components/sunbulah/PerfChart";
 
@@ -103,7 +103,7 @@ export default function Page() {
                 <p className="text-[12px] ar-body" style={{ color: D, opacity: .58 }}>رئيس المنتجات الرقمية والنمو · مجموعة إيموشن</p>
                 <p className="text-[11px] ltr mt-1" style={{ color: D, opacity: .42 }}>ahmed.ali@emotiongrp.com</p>
               </div>
-              <div className="rounded-[16px] p-5" style={{ border: `2px solid ${S}`, boxShadow: `3px 3px 0px 0px ${D}` }}>
+              <div className="rounded-[16px] p-5" style={{ border: `2px solid ${S}` }}>
                 <p className="text-[11px] mb-2.5 ar-body" style={{ color: S }}>الجهة</p>
                 <p className="ar-heading text-[15px] mb-1">مجموعة السنبلة للأغذية</p>
                 <p className="text-[12px] ar-body" style={{ color: D, opacity: .58 }}>جدة · المملكة العربية السعودية</p>
@@ -125,6 +125,28 @@ export default function Page() {
                     <span className="ar-heading tabular-nums sb-count ltr" data-to={x.n} style={{ fontSize: 25, lineHeight: 1, color: D }}>0</span>
                     <span className="text-[11px] mt-2 text-center ar-body" style={{ color: D, opacity: .5 }}>{x.l}</span>
                     <div className="absolute bottom-0 left-1/2 -translate-x-1/2 rounded-t-full" style={{ height: 3, width: 32, background: S }} />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* العلامات التي تقوم عليها المجموعة، بشعاراتها كما هي على خادمهم */}
+            <div className="sb-hero opacity-0 w-full max-w-3xl mb-9">
+              <p className="ar-body text-[11.5px] text-center mb-5" style={{ color: D, opacity: .5 }}>
+                العلامات الأربع التي تقوم عليها المجموعة
+              </p>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                {[
+                  { k: "sunbulah", n: "السنبلة" },
+                  { k: "alshifa", n: "الشفاء" },
+                  { k: "sary", n: "ساري" },
+                  { k: "walima", n: "وليمة" },
+                ].map((b) => (
+                  <div key={b.k} className="rounded-[14px] px-4 py-5 grid place-items-center gap-3"
+                    style={{ border: `1px solid ${LINE}` }}>
+                    <img src={`/sunbulah/brand/${b.k}.webp`} alt={b.n} loading="lazy"
+                      style={{ height: 40, width: "auto", maxWidth: "100%", objectFit: "contain", mixBlendMode: "multiply" }} />
+                    <span className="ar-body text-[12px]" style={{ color: D, opacity: .7 }}>{b.n}</span>
                   </div>
                 ))}
               </div>
@@ -156,7 +178,7 @@ export default function Page() {
         </Section>
 
         {/* ══ 02 · الحضور الرقمي ═══════════════════════════════════════════ */}
-        <Section id="s02" n="02" eyebrow="القسم الثاني" title="الحضور" accent="الرقمي" tinted
+        <Section id="s02" n="02" eyebrow="القسم الثاني" title="الحضور" accent="الرقمي"
           sub="ثمانية عناوين تحمل اسم المجموعة أو إحدى علاماتها. ثلاثة لا تعمل، واثنان يؤديان الوظيفة نفسها بمسارين.">
           <div className="max-w-5xl mx-auto overflow-x-auto rounded-[18px]" style={{ border: `1px solid ${LINE}`, background: "#fff" }}>
             <table className="w-full" style={{ borderCollapse: "collapse", minWidth: 720 }}>
@@ -172,7 +194,7 @@ export default function Page() {
                   const c = p.status === "broken" ? "#B4231E" : p.status === "weak" ? "#C2410C" : S_SOFT;
                   return (
                     <tr key={p.url + p.name} className="sb-item" style={{ borderTop: i ? `1px solid ${RULE}` : "none" }}>
-                      <td className="px-5 py-4 text-[11.5px] ltr align-top" style={{ color: D, opacity: .62, fontFamily: MONO }}>{p.url}</td>
+                      <td className="px-5 py-4 text-[11.5px] ltr align-top" style={{ color: D, opacity: .62 }}>{p.url}</td>
                       <td className="px-5 py-4 text-[13px] ar-heading align-top whitespace-nowrap">{p.name}</td>
                       <td className="px-5 py-4 text-[12.5px] ar-body align-top whitespace-nowrap" style={{ color: D, opacity: .7 }}>{p.what}</td>
                       <td className="px-5 py-4 align-top">
@@ -197,7 +219,7 @@ export default function Page() {
         </Section>
 
         {/* ══ 04 · ما يعمل جيدًا ═══════════════════════════════════════════ */}
-        <Section id="s04" n="04" eyebrow="القسم الرابع" title="ما يعمل" accent="جيدًا" tinted
+        <Section id="s04" n="04" eyebrow="القسم الرابع" title="ما يعمل" accent="جيدًا"
           sub="تدقيق لا يذكر إلا العيوب يُقرأ هجومًا لا تقييمًا. هذه قياسات موجبة، أُخذت بالطريقة نفسها.">
           <div className="max-w-5xl mx-auto overflow-x-auto rounded-[18px]" style={{ border: `1px solid ${S_SOFT}44`, background: "#fff" }}>
             <table className="w-full" style={{ borderCollapse: "collapse", minWidth: 680 }}>
@@ -213,7 +235,7 @@ export default function Page() {
                   <tr key={x.t} className="sb-item" style={{ borderTop: i ? `1px solid ${RULE}` : "none" }}>
                     <td className="px-5 py-4 ar-heading text-[14px] align-top whitespace-nowrap">{x.t}</td>
                     <td className="px-5 py-4 text-[12.5px] leading-loose ar-body align-top" style={{ color: D, opacity: .78 }}>{x.d}</td>
-                    <td className="px-5 py-4 text-[11.5px] ltr align-top whitespace-nowrap" style={{ color: S_SOFT, fontFamily: MONO }}>{x.proof}</td>
+                    <td className="px-5 py-4 text-[11.5px] ltr align-top whitespace-nowrap" style={{ color: S_SOFT }}>{x.proof}</td>
                   </tr>
                 ))}
               </tbody>
@@ -239,7 +261,7 @@ export default function Page() {
                   const sev = SEV[f.severity];
                   return (
                     <tr key={f.id} className="sb-item" style={{ borderTop: i ? `1px solid ${RULE}` : "none" }}>
-                      <td className="px-5 py-3.5 text-[12px] ltr" style={{ color: D, opacity: .4, fontFamily: MONO }}>{f.n}</td>
+                      <td className="px-5 py-3.5 text-[12px] ltr" style={{ color: D, opacity: .4 }}>{f.n}</td>
                       <td className="px-5 py-3.5">
                         <a href={`#${f.id}`} className="text-[13px] ar-body hover:underline" style={{ color: D }}>{f.title}</a>
                       </td>
@@ -278,12 +300,29 @@ export default function Page() {
                     <h3 className="ar-heading mb-5" style={{ fontSize: 22, lineHeight: 1.5 }}>{f.title}</h3>
                     <p className="ar-body text-[14.5px] leading-loose mb-5" style={{ color: D, opacity: .85 }}>{f.evidence}</p>
 
+                    {f.id === "careers-cert" && <div className="mb-7"><WarningIllustration /></div>}
+
+                    {f.id === "missing-sections" && (
+                      <div className="grid gap-3 sm:grid-cols-2 mb-7">
+                        <Placeholder label="صورة المصنع من الخارج" ratio="1.6" size="2400 × 1500"
+                          hint="لقطة واسعة للمبنى أو خط الإنتاج، تُستخدم في صفحة التصنيع" />
+                        <Placeholder label="داخل خط الإنتاج" ratio="1.6" size="2400 × 1500"
+                          hint="التعبئة أو الفحص أو المستودع، ما يثبت القدرة الصناعية" />
+                      </div>
+                    )}
+
+                    {f.id === "images" && (
+                      <div className="mb-7">
+                        <Placeholder label="صور المنتجات بدقة مضاعفة" ratio="2.6" size="عرض 2400 على الأقل"
+                          hint="الصور الحالية على الموقع عرضها 990 نقطة فقط. هذه الصور موجودة أصلًا لدى فريق التسويق" />
+                      </div>
+                    )}
+
                     {f.proof && (
-                      <pre className="text-[11.5px] px-4 py-3 rounded-xl mb-6"
-                        style={{ background: "#FAFAFA", border: `1px solid ${LINE}`, color: D, fontFamily: MONO,
-                          direction: "ltr", textAlign: "left", overflowX: "auto", maxWidth: "100%" }}>
+                      <p className="ar-body text-[13px] leading-loose px-5 py-4 rounded-xl mb-6"
+                        style={{ background: `${TINT}66`, border: `1px solid ${S}22`, color: S }}>
                         {f.proof}
-                      </pre>
+                      </p>
                     )}
 
                     <div className="grid gap-6 sm:grid-cols-2 pt-5" style={{ borderTop: `1px solid ${RULE}` }}>
@@ -305,7 +344,7 @@ export default function Page() {
         </Section>
 
         {/* ══ 06 · أمام النظير ═════════════════════════════════════════════ */}
-        <Section id="s06" n="06" eyebrow="القسم السادس" title="أمام" accent="النظير" tinted
+        <Section id="s06" n="06" eyebrow="القسم السادس" title="أمام" accent="النظير"
           sub="المراعي شركة أغذية سعودية بحجم مقارن. الأرقام قيست على الموقعين في اليوم نفسه، بالأداة نفسها، وبالمقاس نفسه.">
           <div className="max-w-5xl mx-auto">
             <div className="mb-8"><PerfChart /></div>
@@ -323,8 +362,8 @@ export default function Page() {
                   {COMPARE.map((r, i) => (
                     <tr key={r.metric} className="sb-item" style={{ borderTop: i ? `1px solid ${RULE}` : "none" }}>
                       <td className="px-5 py-4 text-[13px] ar-body">{r.metric}</td>
-                      <td className="px-5 py-4 text-[12.5px] text-center ltr" style={{ fontFamily: MONO, color: r.win === "them" ? S_SOFT : r.win === "peer" ? "#B4231E" : D }}>{r.them}</td>
-                      <td className="px-5 py-4 text-[12.5px] text-center ltr" style={{ fontFamily: MONO, color: D, opacity: .6 }}>{r.peer}</td>
+                      <td className="px-5 py-4 text-[12.5px] text-center ltr" style={{ color: r.win === "them" ? S_SOFT : r.win === "peer" ? "#B4231E" : D }}>{r.them}</td>
+                      <td className="px-5 py-4 text-[12.5px] text-center ltr" style={{ color: D, opacity: .6 }}>{r.peer}</td>
                       <td className="px-5 py-4 text-[12px] text-center ar-body whitespace-nowrap"
                         style={{ color: r.win === "them" ? S_SOFT : r.win === "peer" ? "#B4231E" : D, opacity: r.win === "tie" ? .5 : 1 }}>
                         {r.win === "them" ? "السنبلة" : r.win === "peer" ? "المراعي" : "متعادل"}
@@ -352,18 +391,18 @@ export default function Page() {
                 <div className="overflow-hidden" style={{ borderRadius: 14, border: `1px solid ${c.bad ? "#B4231E33" : LINE}` }}>
                   <div className="flex items-center gap-1.5 px-3.5" style={{ height: 30, borderBottom: `1px solid ${RULE}` }}>
                     {["#E8E8E8", "#EFEFEF", "#F4F4F4"].map((x) => <span key={x} style={{ width: 7, height: 7, borderRadius: 99, background: x }} />)}
-                    <span className="mr-2.5 text-[10.5px] ltr" style={{ color: D, opacity: .45, fontFamily: MONO }}>{c.u}</span>
+                    <span className="mr-2.5 text-[10.5px] ltr" style={{ color: D, opacity: .45 }}>{c.u}</span>
                   </div>
                   <img src={`/sunbulah/audit/${c.shot}.webp`} alt={c.t} loading="lazy" decoding="async" style={{ display: "block", width: "100%" }} />
                 </div>
                 <figcaption className="mt-4">
                   <p className="ar-heading text-[17px] mb-1.5" style={{ color: c.bad ? D : S }}>{c.t}</p>
-                  <p className="text-[12px] ltr" style={{ color: D, opacity: .55, fontFamily: MONO }}>{c.n}</p>
+                  <p className="text-[12px] ltr" style={{ color: D, opacity: .55 }}>{c.n}</p>
                 </figcaption>
               </figure>
             ))}
           </div>
-          <div className="max-w-2xl mx-auto mt-14 rounded-[18px] p-8 text-center" style={{ border: `2px solid ${S}`, boxShadow: `3px 3px 0 0 ${D}` }}>
+          <div className="max-w-2xl mx-auto mt-14 rounded-[18px] p-8 text-center" style={{ border: `2px solid ${S}` }}>
             <p className="ar-body text-[15.5px] leading-loose">
               الشركة نفسها، والميزانية نفسها، وفريق واحد. الفارق أن أحد الموقعين أُعيد بناؤه
               والآخر لم يُفتح منذ عشر سنوات.
@@ -372,7 +411,7 @@ export default function Page() {
         </Section>
 
         {/* ══ 08 · من أين يُبدأ ════════════════════════════════════════════ */}
-        <Section id="s08" n="08" eyebrow="القسم الثامن" title="من أين" accent="يُبدأ" tinted
+        <Section id="s08" n="08" eyebrow="القسم الثامن" title="من أين" accent="يُبدأ"
           sub="ليست كل ملاحظة تحتاج إعادة بناء. أربع منها تُغلق في يوم واحد، وأثرها فوري.">
           <div className="max-w-4xl mx-auto overflow-x-auto rounded-[18px]" style={{ border: `1px solid ${LINE}`, background: "#fff" }}>
             <table className="w-full" style={{ borderCollapse: "collapse", minWidth: 620 }}>
@@ -419,6 +458,11 @@ export default function Page() {
         {/* ══ 09 · ما يمكن عمله ════════════════════════════════════════════ */}
         <Section id="s09" n="09" eyebrow="القسم التاسع" title="ما يمكن" accent="عمله"
           sub="ست فرص، ولكل واحدة أثر يمكن ملاحظته. لا أسعار هنا ولا نطاق عمل.">
+          <div className="max-w-5xl mx-auto mb-12">
+            <Placeholder label="صورة رئيسية للمجموعة" ratio="3.1" size="3000 × 970"
+              hint="صورة واحدة قوية تتصدر الموقع الجديد: المصنع، أو المنتجات، أو الفريق. هذه هي أول ما يراه الزائر" />
+          </div>
+
           <div className="sb-stagger grid gap-4 md:grid-cols-2 max-w-5xl mx-auto">
             {OPPORTUNITIES.map((o) => (
               <div key={o.n} className="sb-item rounded-[18px] p-7 flex flex-col" style={{ border: `1px solid ${LINE}` }}>
@@ -434,10 +478,27 @@ export default function Page() {
           </div>
         </Section>
 
+        {/* ══ مواضع الصور المطلوبة ═════════════════════════════════════════ */}
+        <section style={{ padding: "0 24px 92px", background: "#fff" }}>
+          <div className="sb-slide opacity-0 max-w-5xl mx-auto">
+            <p className="ar-body text-[12.5px] text-center mb-6" style={{ color: D, opacity: .55 }}>
+              مواضع أخرى تنتظر صورها. المقاسات محجوزة، فلا يتحرك التخطيط حين تصل الصور.
+            </p>
+            <div className="grid gap-3 sm:grid-cols-3">
+              <Placeholder label="فريق العمل" ratio="1.35" size="1800 × 1330"
+                hint="صور حقيقية لا صور مخزون، لصفحة التوظيف" />
+              <Placeholder label="المقر الرئيسي" ratio="1.35" size="1800 × 1330"
+                hint="واجهة المبنى في جدة" />
+              <Placeholder label="العلامات على الرف" ratio="1.35" size="1800 × 1330"
+                hint="المنتجات في نقطة البيع، لصفحة العلامات" />
+            </div>
+          </div>
+        </section>
+
         {/* ══ الخاتمة ══════════════════════════════════════════════════════ */}
         <section style={{ padding: "80px 24px 100px", borderTop: `1px solid ${RULE}` }}>
           <div className="sb-slide opacity-0 max-w-3xl mx-auto rounded-[24px] p-9 md:p-14 text-center"
-            style={{ border: `2px solid ${S}`, boxShadow: `4px 4px 0 0 ${D}` }}>
+            style={{ border: `2px solid ${S}` }}>
             <img src="/sunbulah/brand/group.webp" alt="مجموعة السنبلة" style={{ width: 164, height: "auto", margin: "0 auto 28px" }} />
             <p className="text-[11.5px] mb-5 ar-body" style={{ color: S }}>عن هذه الوثيقة</p>
             <p className="ar-body text-[15.5px] leading-loose mb-9" style={{ color: D, opacity: .85 }}>
@@ -488,13 +549,13 @@ function Table({ head, rows, widths }: { head: string[]; rows: string[][]; width
   );
 }
 
-function Section({ id, n, eyebrow, title, accent, sub, tinted, children }: {
+function Section({ id, n, eyebrow, title, accent, sub, children }: {
   id: string; n: string; eyebrow: string; title: string; accent: string;
-  sub?: string; tinted?: boolean; children: React.ReactNode;
+  sub?: string; children: React.ReactNode;
 }) {
   return (
     <section id={id} className="sb-slide opacity-0"
-      style={{ padding: "92px 24px", background: tinted ? "#FAFAFA" : "#fff", borderTop: `1px solid ${RULE}` }}>
+      style={{ padding: "92px 24px", background: "#fff", borderTop: `1px solid ${RULE}` }}>
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <p className="text-[11.5px] mb-4 ar-body" style={{ color: S }}>{eyebrow}</p>
